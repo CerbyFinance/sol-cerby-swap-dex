@@ -418,7 +418,7 @@ contract CerbySwapV1 is CerbySwapLP1155V1 {
             token, 
             pools[poolId].balanceToken, 
             pools[poolId].balanceCerUsd,
-            pools[poolId].creditCerUsd // creditCerUsd updated
+            pools[poolId].creditCerUsd
         );
     }
 
