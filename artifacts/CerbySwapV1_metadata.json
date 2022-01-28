@@ -1813,26 +1813,26 @@
 			"bytecodeHash": "ipfs"
 		},
 		"optimizer": {
-			"enabled": false,
+			"enabled": true,
 			"runs": 200
 		},
 		"remappings": []
 	},
 	"sources": {
 		"sol-cerby-swap-v1/CerbyCronJobsExecution.sol": {
-			"keccak256": "0x96b806c9da954e76606cd06a3b81f93ce414f6050ae10658e1b309f8d5b39340",
+			"keccak256": "0x0c16f44372f531fc8aca7e8334e6e32d2b642d3a6108855aa1cd6bb514031f07",
 			"license": "BUSL-1.1",
 			"urls": [
-				"bzz-raw://88284cf06ae32dca6d38171fd2d54e7ad2dc622800144301a7920b16e6648ecb",
-				"dweb:/ipfs/Qmbn3FQ14JLPq3e1qRqmVHzw3XniTaXJ9QZwrMJc6kZ1zZ"
+				"bzz-raw://1dd2d13f1abcee6f8a21ac39ca03a56aca89e7ac781afb8322a37687e703a4da",
+				"dweb:/ipfs/QmQt2nTREmJ7xn9ur68VTYysfmKcUfaFRp367nYqm99g7H"
 			]
 		},
 		"sol-cerby-swap-v1/CerbySwapLP1155V1.sol": {
-			"keccak256": "0x682bfb3060d5ba563f0cc83d1dea29b45cae5b589a76cd4d2cea5fead24e4c4c",
+			"keccak256": "0x9757a0d8b3b94941f9e345a4ee1b147fa3997a7e801cbf2e3b221dcd939384f4",
 			"license": "BUSL-1.1",
 			"urls": [
-				"bzz-raw://602ad6f22ecca1ccd53c3905c9d3869c720068767fa30d642f57fe5cd8fb7a80",
-				"dweb:/ipfs/QmQrqWgDrSRVqtkM7WcAEqzMEsoUGYLCHWCpEoTmS9h7LQ"
+				"bzz-raw://3ac2cabb583fa357d355b7b1cfc3676bcc1738ba218d503d7501b457ec72c6f1",
+				"dweb:/ipfs/QmUZ74AjfMR5GYneMYvg4o6mmt8hirRnpZGj3NiibLXaEe"
 			]
 		},
 		"sol-cerby-swap-v1/CerbySwapV1.sol": {

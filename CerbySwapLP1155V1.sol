@@ -98,27 +98,6 @@ abstract contract CerbySwapLP1155V1 is ERC1155Supply, CerbyCronJobsExecution, Ac
         _symbol = newSymbol;
     }
 
-    function checkTransactionForBots(address token, address from, address to)
-        internal
-    {
-        // before sending the token to user even if it is internal transfer of cerUSD
-        // we are making sure that sender is not bot by calling checkTransaction
-        ICerbyBotDetection iCerbyBotDetection = ICerbyBotDetection(
-            ICerbyToken(CERBY_TOKEN_CONTRACT_ADDRESS).getUtilsContractAtPos(CERBY_BOT_DETECTION_CONTRACT_ID)
-        );
-        if (
-            !iCerbyBotDetection.checkTransaction(token, from)
-        ) {
-            revert CerbySwapLP1155V1_TransactionsAreTemporarilyDisabled();
-        }
-
-        // if it is external transfer to user
-        // we register this transaction as successful
-        if (to != address(this)) {
-            iCerbyBotDetection.registerTransaction(token, to);
-        }
-    }
-
     function setApprovalForAll(address operator, bool approved) 
         public 
         virtual 
