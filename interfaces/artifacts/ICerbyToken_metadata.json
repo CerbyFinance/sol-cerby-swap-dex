@@ -311,7 +311,7 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"sol-defifactory-token/interfaces/ICerbyToken.sol": "ICerbyToken"
+			"sol-cerby-swap-v1/interfaces/ICerbyToken.sol": "ICerbyToken"
 		},
 		"evmVersion": "london",
 		"libraries": {},
@@ -319,13 +319,13 @@
 			"bytecodeHash": "ipfs"
 		},
 		"optimizer": {
-			"enabled": true,
+			"enabled": false,
 			"runs": 200
 		},
 		"remappings": []
 	},
 	"sources": {
-		"sol-defifactory-token/interfaces/ICerbyToken.sol": {
+		"sol-cerby-swap-v1/interfaces/ICerbyToken.sol": {
 			"keccak256": "0x1cf233391c970f48f8e1a2db9a3e81c4ebb8c2ff423c6d1c553df632f04abf2d",
 			"license": "MIT",
 			"urls": [

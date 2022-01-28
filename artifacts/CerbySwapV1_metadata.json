@@ -1836,11 +1836,11 @@
 			]
 		},
 		"sol-cerby-swap-v1/CerbySwapV1.sol": {
-			"keccak256": "0x9f142534028650f023dfec97657f161f9a129b4343a5d379f6bef1e11d2607e1",
+			"keccak256": "0xc6eb80311b1143a3c16ccb59c4843ff97f56b1e48aa4f363a771385035c72af1",
 			"license": "BSD-2-Clause",
 			"urls": [
-				"bzz-raw://6ef6b38c74508fb61c36e4b7f054faf9deaf039e6c502ea9be089ef277cf9754",
-				"dweb:/ipfs/QmbuTnYArQsYJS2VfDZWxt5cfmayiNzcU54uony4wYCjDC"
+				"bzz-raw://bd7fb66ba66802983fae33a92bad44ce48c1a886d8ffd190e4bf5da3301754de",
+				"dweb:/ipfs/QmUnLmvtyfGdj8Eegu4HYMcE1L4L5DvDSdstM6XRz15zzi"
 			]
 		},
 		"sol-cerby-swap-v1/interfaces/ICerbyBotDetection.sol": {
@@ -1849,14 +1849,6 @@
 			"urls": [
 				"bzz-raw://9e13b92a1ddbd96344b9035c2bf91ada49bfad04ee4181929c36791ba224cbe9",
 				"dweb:/ipfs/QmaVVRj9B3F32WpVuYzH6BZZE5751BrAcjWn81rVciAoRa"
-			]
-		},
-		"sol-cerby-swap-v1/interfaces/ICerbySwapLP1155V1.sol": {
-			"keccak256": "0x4fd58e5a6f2e95452a89ea11a1f9d4e32a5be87667cfc625b5ad9a6aa123f6bf",
-			"license": "BUSL-1.1",
-			"urls": [
-				"bzz-raw://b08d4a0e18f994857d69c2e702a6a6034e44c86fe1883e15e01fb8f2d2fd9899",
-				"dweb:/ipfs/QmZW5qjbyLzkg1MELNsDpGWf2xJbX9P5huC2iq1QFaDzQT"
 			]
 		},
 		"sol-cerby-swap-v1/interfaces/ICerbyToken.sol": {

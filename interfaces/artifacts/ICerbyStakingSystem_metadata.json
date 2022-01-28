@@ -164,7 +164,7 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"sol-defifactory-token/interfaces/ICerbyStakingSystem.sol": "ICerbyStakingSystem"
+			"sol-cerby-swap-v1/interfaces/ICerbyStakingSystem.sol": "ICerbyStakingSystem"
 		},
 		"evmVersion": "london",
 		"libraries": {},
@@ -172,13 +172,13 @@
 			"bytecodeHash": "ipfs"
 		},
 		"optimizer": {
-			"enabled": true,
+			"enabled": false,
 			"runs": 200
 		},
 		"remappings": []
 	},
 	"sources": {
-		"sol-defifactory-token/interfaces/ICerbyStakingSystem.sol": {
+		"sol-cerby-swap-v1/interfaces/ICerbyStakingSystem.sol": {
 			"keccak256": "0xc5c6044cdf597c1e7aa9f14e0404854eed60082165cdbc2656881c209cfedccf",
 			"license": "BUSL-1.1",
 			"urls": [
