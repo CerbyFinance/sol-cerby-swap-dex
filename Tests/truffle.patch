@@ -1,0 +1,53 @@
++++ node_modules/truffle/build/459.bundled.js	2022-01-12 15:49:03.249902624 +0300
+@@ -20107,6 +20107,51 @@
+   const format = this.numberFormat;
+ 
+   abiSegment.forEach((output, i) => {
++    if (output.type.includes("tuple[]")) {
++      result = result
++        .map((result) => {
++          return output.components.map((item) => {
++            if (item.type.includes("[")) {
++              return [item.name, result[item.name]];
++            }
++    
++            if (item.type.includes("uint")) {
++              return [item.name, web3Utils.toBN(result[item.name])];
++            }
++    
++            return [item.name, result[item.name]];
++          });
++        })
++        .map((item) =>
++          item.reduce((accum, [k, v]) => {
++            accum[k] = v;
++            return accum;
++          }, {})
++        );
++    
++      return;
++    }
++    
++    if (output.type.includes("tuple")) {
++      result = output.components
++        .map((item) => {
++          // console.log('item ', result[item.name], ' ', item.name)
++          if (item.type.includes("[")) {
++            return [item.name, result[item.name]];
++          }
++    
++          if (item.type.includes("uint")) {
++            return [item.name, web3Utils.toBN(result[item.name])];
++          }
++    
++          return [item.name, result[item.name]];
++        })
++        .reduce((accum, [k, v]) => {
++          accum[k] = v;
++          return accum;
++        }, {});
++      return;
++    }
+     // output is a number type (uint || int);
+     if (output.type.includes("int")) {
+       // output is an array type

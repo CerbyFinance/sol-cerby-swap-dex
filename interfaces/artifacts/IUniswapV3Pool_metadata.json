@@ -1,0 +1,89 @@
+{
+	"compiler": {
+		"version": "0.8.10+commit.fc410830"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"inputs": [],
+				"name": "slot0",
+				"outputs": [
+					{
+						"internalType": "uint160",
+						"name": "sqrtPriceX96",
+						"type": "uint160"
+					},
+					{
+						"internalType": "int24",
+						"name": "tick",
+						"type": "int24"
+					},
+					{
+						"internalType": "uint16",
+						"name": "observationIndex",
+						"type": "uint16"
+					},
+					{
+						"internalType": "uint16",
+						"name": "observationCardinality",
+						"type": "uint16"
+					},
+					{
+						"internalType": "uint16",
+						"name": "observationCardinalityNext",
+						"type": "uint16"
+					},
+					{
+						"internalType": "uint8",
+						"name": "feeProtocol",
+						"type": "uint8"
+					},
+					{
+						"internalType": "bool",
+						"name": "unlocked",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			}
+		],
+		"devdoc": {
+			"kind": "dev",
+			"methods": {},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"sol-defifactory-token/interfaces/IUniswapV3Pool.sol": "IUniswapV3Pool"
+		},
+		"evmVersion": "london",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": true,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"sol-defifactory-token/interfaces/IUniswapV3Pool.sol": {
+			"keccak256": "0xa0128b8cbac6ecd681df041e73f3f66faf6ada327ebdf0bd0b4e84888fb461d1",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://11b861ca0bf2f2ff7f63d402bbcff23de312fbade253c89924172503c0b38512",
+				"dweb:/ipfs/QmU99fyeQmQVrY4t1c4u5cA1AhuPz4Z12HDL7Q8qA3jJEf"
+			]
+		}
+	},
+	"version": 1
+}

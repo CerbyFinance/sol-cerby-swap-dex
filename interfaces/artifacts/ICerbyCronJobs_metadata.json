@@ -1,0 +1,53 @@
+{
+	"compiler": {
+		"version": "0.8.11+commit.d7f03943"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"inputs": [],
+				"name": "executeCronJobs",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			}
+		],
+		"devdoc": {
+			"kind": "dev",
+			"methods": {},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"sol-defifactory-token/interfaces/ICerbyStakingSystem.sol": "ICerbyCronJobs"
+		},
+		"evmVersion": "london",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": true,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"sol-defifactory-token/interfaces/ICerbyStakingSystem.sol": {
+			"keccak256": "0x9548d0f358b80d5721839abb25aa5e42bdd6b7c436bf222dedddb66223305d88",
+			"license": "BUSL-1.1",
+			"urls": [
+				"bzz-raw://7b58f862c79af6250975b7c558cec4e930e9a0a807cfc5ecc256ee566fa7defb",
+				"dweb:/ipfs/QmVW391ejnmEQVeUCpcAnkp9VpzjJhiqqkvyuSh3sEyaNQ"
+			]
+		}
+	},
+	"version": 1
+}

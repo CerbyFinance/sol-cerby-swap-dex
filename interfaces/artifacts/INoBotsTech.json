@@ -1,0 +1,349 @@
+{
+	"deploy": {
+		"VM:-": {
+			"linkReferences": {},
+			"autoDeployLib": true
+		},
+		"main:1": {
+			"linkReferences": {},
+			"autoDeployLib": true
+		},
+		"ropsten:3": {
+			"linkReferences": {},
+			"autoDeployLib": true
+		},
+		"rinkeby:4": {
+			"linkReferences": {},
+			"autoDeployLib": true
+		},
+		"kovan:42": {
+			"linkReferences": {},
+			"autoDeployLib": true
+		},
+		"görli:5": {
+			"linkReferences": {},
+			"autoDeployLib": true
+		},
+		"Custom": {
+			"linkReferences": {},
+			"autoDeployLib": true
+		}
+	},
+	"data": {
+		"bytecode": {
+			"functionDebugData": {},
+			"generatedSources": [],
+			"linkReferences": {},
+			"object": "",
+			"opcodes": "",
+			"sourceMap": ""
+		},
+		"deployedBytecode": {
+			"functionDebugData": {},
+			"generatedSources": [],
+			"immutableReferences": {},
+			"linkReferences": {},
+			"object": "",
+			"opcodes": "",
+			"sourceMap": ""
+		},
+		"gasEstimates": null,
+		"methodIdentifiers": {
+			"botTaxPercent()": "1857b512",
+			"chargeCustomTax(uint256,uint256)": "36098758",
+			"chargeCustomTaxTeamVestingContract(uint256,uint256)": "a202bd52",
+			"getBalance(address,uint256)": "2b04e840",
+			"getRealBalance(address,uint256)": "5cdba003",
+			"getRealBalanceTeamVestingContract(uint256)": "cb123637",
+			"getTotalSupply()": "c4e41b22",
+			"grantRole(bytes32,address)": "2f2ff15d",
+			"prepareHumanAddressMintOrBurnRewardsAmounts(bool,address,uint256)": "42e58a63",
+			"prepareTaxAmounts((address,address,uint256,uint256,uint256))": "815a61e0",
+			"publicForcedUpdateCacheMultiplier()": "e8ac6e4e",
+			"updateSupply(uint256,uint256)": "9e2dcbfd"
+		}
+	},
+	"abi": [
+		{
+			"inputs": [],
+			"name": "botTaxPercent",
+			"outputs": [
+				{
+					"internalType": "uint256",
+					"name": "",
+					"type": "uint256"
+				}
+			],
+			"stateMutability": "nonpayable",
+			"type": "function"
+		},
+		{
+			"inputs": [
+				{
+					"internalType": "uint256",
+					"name": "taxAmount",
+					"type": "uint256"
+				},
+				{
+					"internalType": "uint256",
+					"name": "accountBalance",
+					"type": "uint256"
+				}
+			],
+			"name": "chargeCustomTax",
+			"outputs": [
+				{
+					"internalType": "uint256",
+					"name": "",
+					"type": "uint256"
+				}
+			],
+			"stateMutability": "nonpayable",
+			"type": "function"
+		},
+		{
+			"inputs": [
+				{
+					"internalType": "uint256",
+					"name": "taxAmount",
+					"type": "uint256"
+				},
+				{
+					"internalType": "uint256",
+					"name": "accountBalance",
+					"type": "uint256"
+				}
+			],
+			"name": "chargeCustomTaxTeamVestingContract",
+			"outputs": [
+				{
+					"internalType": "uint256",
+					"name": "",
+					"type": "uint256"
+				}
+			],
+			"stateMutability": "nonpayable",
+			"type": "function"
+		},
+		{
+			"inputs": [
+				{
+					"internalType": "address",
+					"name": "account",
+					"type": "address"
+				},
+				{
+					"internalType": "uint256",
+					"name": "accountBalance",
+					"type": "uint256"
+				}
+			],
+			"name": "getBalance",
+			"outputs": [
+				{
+					"internalType": "uint256",
+					"name": "",
+					"type": "uint256"
+				}
+			],
+			"stateMutability": "view",
+			"type": "function"
+		},
+		{
+			"inputs": [
+				{
+					"internalType": "address",
+					"name": "account",
+					"type": "address"
+				},
+				{
+					"internalType": "uint256",
+					"name": "accountBalance",
+					"type": "uint256"
+				}
+			],
+			"name": "getRealBalance",
+			"outputs": [
+				{
+					"internalType": "uint256",
+					"name": "",
+					"type": "uint256"
+				}
+			],
+			"stateMutability": "view",
+			"type": "function"
+		},
+		{
+			"inputs": [
+				{
+					"internalType": "uint256",
+					"name": "accountBalance",
+					"type": "uint256"
+				}
+			],
+			"name": "getRealBalanceTeamVestingContract",
+			"outputs": [
+				{
+					"internalType": "uint256",
+					"name": "",
+					"type": "uint256"
+				}
+			],
+			"stateMutability": "view",
+			"type": "function"
+		},
+		{
+			"inputs": [],
+			"name": "getTotalSupply",
+			"outputs": [
+				{
+					"internalType": "uint256",
+					"name": "",
+					"type": "uint256"
+				}
+			],
+			"stateMutability": "view",
+			"type": "function"
+		},
+		{
+			"inputs": [
+				{
+					"internalType": "bytes32",
+					"name": "role",
+					"type": "bytes32"
+				},
+				{
+					"internalType": "address",
+					"name": "account",
+					"type": "address"
+				}
+			],
+			"name": "grantRole",
+			"outputs": [],
+			"stateMutability": "nonpayable",
+			"type": "function"
+		},
+		{
+			"inputs": [
+				{
+					"internalType": "bool",
+					"name": "isMint",
+					"type": "bool"
+				},
+				{
+					"internalType": "address",
+					"name": "account",
+					"type": "address"
+				},
+				{
+					"internalType": "uint256",
+					"name": "desiredAmountToMintOrBurn",
+					"type": "uint256"
+				}
+			],
+			"name": "prepareHumanAddressMintOrBurnRewardsAmounts",
+			"outputs": [
+				{
+					"internalType": "uint256",
+					"name": "realAmountToMintOrBurn",
+					"type": "uint256"
+				}
+			],
+			"stateMutability": "nonpayable",
+			"type": "function"
+		},
+		{
+			"inputs": [
+				{
+					"components": [
+						{
+							"internalType": "address",
+							"name": "sender",
+							"type": "address"
+						},
+						{
+							"internalType": "address",
+							"name": "recipient",
+							"type": "address"
+						},
+						{
+							"internalType": "uint256",
+							"name": "transferAmount",
+							"type": "uint256"
+						},
+						{
+							"internalType": "uint256",
+							"name": "senderRealBalance",
+							"type": "uint256"
+						},
+						{
+							"internalType": "uint256",
+							"name": "recipientRealBalance",
+							"type": "uint256"
+						}
+					],
+					"internalType": "struct TaxAmountsInput",
+					"name": "taxAmountsInput",
+					"type": "tuple"
+				}
+			],
+			"name": "prepareTaxAmounts",
+			"outputs": [
+				{
+					"components": [
+						{
+							"internalType": "uint256",
+							"name": "senderRealBalance",
+							"type": "uint256"
+						},
+						{
+							"internalType": "uint256",
+							"name": "recipientRealBalance",
+							"type": "uint256"
+						},
+						{
+							"internalType": "uint256",
+							"name": "burnAndRewardAmount",
+							"type": "uint256"
+						},
+						{
+							"internalType": "uint256",
+							"name": "recipientGetsAmount",
+							"type": "uint256"
+						}
+					],
+					"internalType": "struct TaxAmountsOutput",
+					"name": "taxAmountsOutput",
+					"type": "tuple"
+				}
+			],
+			"stateMutability": "nonpayable",
+			"type": "function"
+		},
+		{
+			"inputs": [],
+			"name": "publicForcedUpdateCacheMultiplier",
+			"outputs": [],
+			"stateMutability": "nonpayable",
+			"type": "function"
+		},
+		{
+			"inputs": [
+				{
+					"internalType": "uint256",
+					"name": "_realTotalSupply",
+					"type": "uint256"
+				},
+				{
+					"internalType": "uint256",
+					"name": "_rewardsBalance",
+					"type": "uint256"
+				}
+			],
+			"name": "updateSupply",
+			"outputs": [],
+			"stateMutability": "nonpayable",
+			"type": "function"
+		}
+	]
+}

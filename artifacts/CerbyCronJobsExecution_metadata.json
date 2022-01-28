@@ -1,0 +1,86 @@
+{
+	"compiler": {
+		"version": "0.8.11+commit.d7f03943"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"inputs": [],
+				"name": "CerbyCronJobsExecution_TransactionsAreTemporarilyDisabled",
+				"type": "error"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "pos",
+						"type": "uint256"
+					}
+				],
+				"name": "getUtilsContractAtPos",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			}
+		],
+		"devdoc": {
+			"kind": "dev",
+			"methods": {},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"sol-cerby-swap-v1/CerbyCronJobsExecution.sol": "CerbyCronJobsExecution"
+		},
+		"evmVersion": "london",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": false,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"sol-cerby-swap-v1/CerbyCronJobsExecution.sol": {
+			"keccak256": "0x96b806c9da954e76606cd06a3b81f93ce414f6050ae10658e1b309f8d5b39340",
+			"license": "BUSL-1.1",
+			"urls": [
+				"bzz-raw://88284cf06ae32dca6d38171fd2d54e7ad2dc622800144301a7920b16e6648ecb",
+				"dweb:/ipfs/Qmbn3FQ14JLPq3e1qRqmVHzw3XniTaXJ9QZwrMJc6kZ1zZ"
+			]
+		},
+		"sol-cerby-swap-v1/interfaces/ICerbyBotDetection.sol": {
+			"keccak256": "0x88ae2b0a36185fd4906dbc9e7bd41a682d05edf05478c27ca5ce9ff0bc5cdef2",
+			"license": "BUSL-1.1",
+			"urls": [
+				"bzz-raw://9e13b92a1ddbd96344b9035c2bf91ada49bfad04ee4181929c36791ba224cbe9",
+				"dweb:/ipfs/QmaVVRj9B3F32WpVuYzH6BZZE5751BrAcjWn81rVciAoRa"
+			]
+		},
+		"sol-cerby-swap-v1/interfaces/ICerbyToken.sol": {
+			"keccak256": "0x1cf233391c970f48f8e1a2db9a3e81c4ebb8c2ff423c6d1c553df632f04abf2d",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://845a3faee636b03fa2b2e09a4d43df33ce2f1ac5f031c9f4d9f7a5f2a1d5ee7e",
+				"dweb:/ipfs/QmV6PFf9HzucpBj4y6zvW7BbuMRGhQAEa7MRWKCCREgB7V"
+			]
+		}
+	},
+	"version": 1
+}

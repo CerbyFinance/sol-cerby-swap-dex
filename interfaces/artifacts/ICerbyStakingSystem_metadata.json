@@ -1,0 +1,191 @@
+{
+	"compiler": {
+		"version": "0.8.11+commit.d7f03943"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "pos",
+						"type": "uint256"
+					}
+				],
+				"name": "cachedInterestPerShare",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "pos",
+						"type": "uint256"
+					}
+				],
+				"name": "dailySnapshots",
+				"outputs": [
+					{
+						"components": [
+							{
+								"internalType": "uint256",
+								"name": "inflationAmount",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "totalShares",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "sharePrice",
+								"type": "uint256"
+							}
+						],
+						"internalType": "struct DailySnapshot",
+						"name": "",
+						"type": "tuple"
+					}
+				],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "getCachedInterestPerShareLength",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "getDailySnapshotsLength",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "getStakesLength",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "pos",
+						"type": "uint256"
+					}
+				],
+				"name": "stakes",
+				"outputs": [
+					{
+						"components": [
+							{
+								"internalType": "address",
+								"name": "owner",
+								"type": "address"
+							},
+							{
+								"internalType": "uint256",
+								"name": "stakedAmount",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "startDay",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "lockedForXDays",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "endDay",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "maxSharesCountOnStartStake",
+								"type": "uint256"
+							}
+						],
+						"internalType": "struct Stake",
+						"name": "",
+						"type": "tuple"
+					}
+				],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			}
+		],
+		"devdoc": {
+			"kind": "dev",
+			"methods": {},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"sol-defifactory-token/interfaces/ICerbyStakingSystem.sol": "ICerbyStakingSystem"
+		},
+		"evmVersion": "london",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": true,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"sol-defifactory-token/interfaces/ICerbyStakingSystem.sol": {
+			"keccak256": "0xc5c6044cdf597c1e7aa9f14e0404854eed60082165cdbc2656881c209cfedccf",
+			"license": "BUSL-1.1",
+			"urls": [
+				"bzz-raw://5ffa56ca7418b6c6228aa3eecfa40229507618c8752272c81fd56c7fb819fd29",
+				"dweb:/ipfs/QmZE3kg1gpbyKgUcnUwKX5xXToraJmCuqjkPdPhk9wLGhv"
+			]
+		}
+	},
+	"version": 1
+}
