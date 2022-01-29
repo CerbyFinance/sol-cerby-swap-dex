@@ -2,16 +2,15 @@
 pragma solidity ^0.8.11;
 
 
-import "./openzeppelin/access/AccessControlEnumerable.sol";
 import "./openzeppelin/token/ERC1155/extensions/ERC1155Supply.sol";
 import "./CerbyCronJobsExecution.sol";
 
 
-abstract contract CerbySwapV1_ERC1155 is ERC1155Supply, CerbyCronJobsExecution, AccessControlEnumerable {
+abstract contract CerbySwapV1_ERC1155 is ERC1155Supply, CerbyCronJobsExecution {
 
-    string _name = "Cerby Swap V1";
-    string _symbol = "CERBY_SWAP_V1";
-    string _urlPrefix = "https://data.cerby.fi/CerbySwap/v1/";
+    string internal _name = "Cerby Swap V1";
+    string internal _symbol = "CERBY_SWAP_V1";
+    string internal _urlPrefix = "https://data.cerby.fi/CerbySwap/v1/";
 
     error CerbySwapLP1155V1_TransactionsAreTemporarilyDisabled();
     error CerbySwapLP1155V1_CallerIsNotOwnerNorApproved();
@@ -19,19 +18,6 @@ abstract contract CerbySwapV1_ERC1155 is ERC1155Supply, CerbyCronJobsExecution, 
     constructor()
         ERC1155(string(abi.encodePacked(_urlPrefix, "{id}.json")))
     {
-    }
-
-    function supportsInterface(bytes4 interfaceId) 
-        public 
-        view 
-        virtual 
-        override(ERC165, AccessControlEnumerable) 
-        returns (bool) 
-    {
-        return
-            interfaceId == type(IERC1155).interfaceId ||
-            interfaceId == type(IERC1155MetadataURI).interfaceId ||
-            super.supportsInterface(interfaceId);
     }
 
     function name()
@@ -79,23 +65,6 @@ abstract contract CerbySwapV1_ERC1155 is ERC1155Supply, CerbyCronJobsExecution, 
         returns(string memory)
     {
         return string(abi.encodePacked(_urlPrefix, id, ".json"));
-    }
-
-    function adminSetURI(string memory newUrlPrefix)
-        public
-        onlyRole(ROLE_ADMIN)
-    {
-        _setURI(string(abi.encodePacked(newUrlPrefix, "{id}.json")));
-
-        _urlPrefix = newUrlPrefix;
-    }
-
-    function adminUpdateNameAndSymbol(string memory newName, string memory newSymbol)
-        public
-        onlyRole(ROLE_ADMIN)
-    {
-        _name = newName;
-        _symbol = newSymbol;
     }
 
     function setApprovalForAll(address operator, bool approved) 

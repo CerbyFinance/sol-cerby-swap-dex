@@ -2,10 +2,10 @@
 
 pragma solidity ^0.8.11;
 
-import "./openzeppelin/access/AccessControlEnumerable.sol";
+import "./openzeppelin/access/Ownable.sol";
 import "./CerbySwapV1_LiquidityFunctions.sol";
 
-abstract contract CerbySwapV1_AdminFunctions is CerbySwapV1_LiquidityFunctions {
+abstract contract CerbySwapV1_AdminFunctions is CerbySwapV1_LiquidityFunctions, Ownable {
 
 
 
@@ -46,7 +46,7 @@ abstract contract CerbySwapV1_AdminFunctions is CerbySwapV1_LiquidityFunctions {
     function adminInitialize() 
         public
         payable
-        onlyRole(ROLE_ADMIN) // TODO: enable on production
+        onlyOwner() // TODO: enable on production
     {        
 
         // TODO: remove on production
@@ -59,11 +59,28 @@ abstract contract CerbySwapV1_AdminFunctions is CerbySwapV1_LiquidityFunctions {
     }
 
 
+    function adminSetURI(string memory newUrlPrefix)
+        public
+        onlyOwner()
+    {
+        _setURI(string(abi.encodePacked(newUrlPrefix, "{id}.json")));
+
+        _urlPrefix = newUrlPrefix;
+    }
+
+    function adminUpdateNameAndSymbol(string memory newName, string memory newSymbol)
+        public
+        onlyOwner()
+    {
+        _name = newName;
+        _symbol = newSymbol;
+    }
+
     function adminUpdateFeesAndTvlMultipliers(
         Settings calldata _settings
     )
         public
-        onlyRole(ROLE_ADMIN)
+        onlyOwner()
     {
         if(
             0 == _settings.feeMinimum ||
@@ -99,7 +116,7 @@ abstract contract CerbySwapV1_AdminFunctions is CerbySwapV1_LiquidityFunctions {
     )
         public
         payable
-        onlyRole(ROLE_ADMIN)
+        onlyOwner()
     {
         _createPool(
             token, 
@@ -121,7 +138,7 @@ abstract contract CerbySwapV1_AdminFunctions is CerbySwapV1_LiquidityFunctions {
         uint amountCerUsdCredit
     )
         public
-        onlyRole(ROLE_ADMIN)
+        onlyOwner()
         tokenMustExistInPool(token)
     {
         uint poolId = tokenToPoolId[token];

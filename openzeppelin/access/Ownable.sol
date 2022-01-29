@@ -22,11 +22,13 @@ abstract contract Ownable is Context {
 
     event OwnershipTransferred(address indexed previousOwner, address indexed newOwner);
 
+    error Ownable_CallerIsNotOwner();
+    error Ownable_NewOwnerIsNotTheZeroAddress();
+
     /**
      * @dev Initializes the contract setting the deployer as the initial owner.
      */
     constructor() {
-        _transferOwnership(_msgSender());
     }
 
     /**
@@ -40,7 +42,9 @@ abstract contract Ownable is Context {
      * @dev Throws if called by any account other than the owner.
      */
     modifier onlyOwner() {
-        require(owner() == _msgSender(), "Ownable: caller is not the owner");
+        if (owner() != _msgSender()) {
+            revert Ownable_CallerIsNotOwner();
+        }
         _;
     }
 
@@ -60,7 +64,9 @@ abstract contract Ownable is Context {
      * Can only be called by the current owner.
      */
     function transferOwnership(address newOwner) public virtual onlyOwner {
-        require(newOwner != address(0), "Ownable: new owner is the zero address");
+        if (newOwner == address(0)) {
+            revert Ownable_NewOwnerIsNotTheZeroAddress();
+        }
         _transferOwnership(newOwner);
     }
 

@@ -11,27 +11,6 @@
 				"type": "constructor"
 			},
 			{
-				"inputs": [
-					{
-						"internalType": "address",
-						"name": "account",
-						"type": "address"
-					},
-					{
-						"internalType": "bytes32",
-						"name": "role",
-						"type": "bytes32"
-					}
-				],
-				"name": "AccountIsMissingRole",
-				"type": "error"
-			},
-			{
-				"inputs": [],
-				"name": "CanOnlyRenounceRoleForSelf",
-				"type": "error"
-			},
-			{
 				"inputs": [],
 				"name": "CerbyCronJobsExecution_TransactionsAreTemporarilyDisabled",
 				"type": "error"
@@ -217,6 +196,16 @@
 				"type": "error"
 			},
 			{
+				"inputs": [],
+				"name": "Ownable_CallerIsNotOwner",
+				"type": "error"
+			},
+			{
+				"inputs": [],
+				"name": "Ownable_NewOwnerIsNotTheZeroAddress",
+				"type": "error"
+			},
+			{
 				"anonymous": false,
 				"inputs": [
 					{
@@ -307,6 +296,25 @@
 				"anonymous": false,
 				"inputs": [
 					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "previousOwner",
+						"type": "address"
+					},
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "newOwner",
+						"type": "address"
+					}
+				],
+				"name": "OwnershipTransferred",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
 						"indexed": false,
 						"internalType": "address",
 						"name": "token",
@@ -320,81 +328,6 @@
 					}
 				],
 				"name": "PairCreated",
-				"type": "event"
-			},
-			{
-				"anonymous": false,
-				"inputs": [
-					{
-						"indexed": true,
-						"internalType": "bytes32",
-						"name": "role",
-						"type": "bytes32"
-					},
-					{
-						"indexed": true,
-						"internalType": "bytes32",
-						"name": "previousAdminRole",
-						"type": "bytes32"
-					},
-					{
-						"indexed": true,
-						"internalType": "bytes32",
-						"name": "newAdminRole",
-						"type": "bytes32"
-					}
-				],
-				"name": "RoleAdminChanged",
-				"type": "event"
-			},
-			{
-				"anonymous": false,
-				"inputs": [
-					{
-						"indexed": true,
-						"internalType": "bytes32",
-						"name": "role",
-						"type": "bytes32"
-					},
-					{
-						"indexed": true,
-						"internalType": "address",
-						"name": "account",
-						"type": "address"
-					},
-					{
-						"indexed": true,
-						"internalType": "address",
-						"name": "sender",
-						"type": "address"
-					}
-				],
-				"name": "RoleGranted",
-				"type": "event"
-			},
-			{
-				"anonymous": false,
-				"inputs": [
-					{
-						"indexed": true,
-						"internalType": "bytes32",
-						"name": "role",
-						"type": "bytes32"
-					},
-					{
-						"indexed": true,
-						"internalType": "address",
-						"name": "account",
-						"type": "address"
-					},
-					{
-						"indexed": true,
-						"internalType": "address",
-						"name": "sender",
-						"type": "address"
-					}
-				],
-				"name": "RoleRevoked",
 				"type": "event"
 			},
 			{
@@ -575,19 +508,6 @@
 				],
 				"name": "URI",
 				"type": "event"
-			},
-			{
-				"inputs": [],
-				"name": "ROLE_ADMIN",
-				"outputs": [
-					{
-						"internalType": "bytes32",
-						"name": "",
-						"type": "bytes32"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
 			},
 			{
 				"inputs": [
@@ -1053,68 +973,6 @@
 				"type": "function"
 			},
 			{
-				"inputs": [
-					{
-						"internalType": "bytes32",
-						"name": "role",
-						"type": "bytes32"
-					}
-				],
-				"name": "getRoleAdmin",
-				"outputs": [
-					{
-						"internalType": "bytes32",
-						"name": "",
-						"type": "bytes32"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "bytes32",
-						"name": "role",
-						"type": "bytes32"
-					},
-					{
-						"internalType": "uint256",
-						"name": "index",
-						"type": "uint256"
-					}
-				],
-				"name": "getRoleMember",
-				"outputs": [
-					{
-						"internalType": "address",
-						"name": "",
-						"type": "address"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "bytes32",
-						"name": "role",
-						"type": "bytes32"
-					}
-				],
-				"name": "getRoleMemberCount",
-				"outputs": [
-					{
-						"internalType": "uint256",
-						"name": "",
-						"type": "uint256"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
 				"inputs": [],
 				"name": "getSettings",
 				"outputs": [
@@ -1192,73 +1050,6 @@
 						"internalType": "address",
 						"name": "",
 						"type": "address"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "bytes32",
-						"name": "role",
-						"type": "bytes32"
-					},
-					{
-						"internalType": "address",
-						"name": "account",
-						"type": "address"
-					}
-				],
-				"name": "grantRole",
-				"outputs": [],
-				"stateMutability": "nonpayable",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"components": [
-							{
-								"internalType": "bytes32",
-								"name": "role",
-								"type": "bytes32"
-							},
-							{
-								"internalType": "address",
-								"name": "addr",
-								"type": "address"
-							}
-						],
-						"internalType": "struct RoleAccess[]",
-						"name": "roles",
-						"type": "tuple[]"
-					}
-				],
-				"name": "grantRolesBulk",
-				"outputs": [],
-				"stateMutability": "nonpayable",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "bytes32",
-						"name": "role",
-						"type": "bytes32"
-					},
-					{
-						"internalType": "address",
-						"name": "account",
-						"type": "address"
-					}
-				],
-				"name": "hasRole",
-				"outputs": [
-					{
-						"internalType": "bool",
-						"name": "",
-						"type": "bool"
 					}
 				],
 				"stateMutability": "view",
@@ -1348,6 +1139,19 @@
 				"type": "function"
 			},
 			{
+				"inputs": [],
+				"name": "owner",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
 				"inputs": [
 					{
 						"internalType": "address",
@@ -1382,37 +1186,8 @@
 				"type": "function"
 			},
 			{
-				"inputs": [
-					{
-						"internalType": "bytes32",
-						"name": "role",
-						"type": "bytes32"
-					},
-					{
-						"internalType": "address",
-						"name": "account",
-						"type": "address"
-					}
-				],
-				"name": "renounceRole",
-				"outputs": [],
-				"stateMutability": "nonpayable",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "bytes32",
-						"name": "role",
-						"type": "bytes32"
-					},
-					{
-						"internalType": "address",
-						"name": "account",
-						"type": "address"
-					}
-				],
-				"name": "revokeRole",
+				"inputs": [],
+				"name": "renounceOwnership",
 				"outputs": [],
 				"stateMutability": "nonpayable",
 				"type": "function"
@@ -1732,6 +1507,19 @@
 			{
 				"inputs": [
 					{
+						"internalType": "address",
+						"name": "newOwner",
+						"type": "address"
+					}
+				],
+				"name": "transferOwnership",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
 						"internalType": "uint256",
 						"name": "id",
 						"type": "uint256"
@@ -1765,29 +1553,14 @@
 				"exists(uint256)": {
 					"details": "Indicates whether any token exist with a given id, or not."
 				},
-				"getRoleAdmin(bytes32)": {
-					"details": "Returns the admin role that controls `role`. See {grantRole} and {revokeRole}. To change a role's admin, use {_setRoleAdmin}."
-				},
-				"getRoleMember(bytes32,uint256)": {
-					"details": "Returns one of the accounts that have `role`. `index` must be a value between 0 and {getRoleMemberCount}, non-inclusive. Role bearers are not sorted in any particular way, and their ordering may change at any point. WARNING: When using {getRoleMember} and {getRoleMemberCount}, make sure you perform all queries on the same block. See the following https://forum.openzeppelin.com/t/iterating-over-elements-on-enumerableset-in-openzeppelin-contracts/2296[forum post] for more information."
-				},
-				"getRoleMemberCount(bytes32)": {
-					"details": "Returns the number of accounts that have `role`. Can be used together with {getRoleMember} to enumerate all bearers of a role."
-				},
-				"grantRole(bytes32,address)": {
-					"details": "Grants `role` to `account`. If `account` had not been already granted `role`, emits a {RoleGranted} event. Requirements: - the caller must have ``role``'s admin role."
-				},
-				"hasRole(bytes32,address)": {
-					"details": "Returns `true` if `account` has been granted `role`."
-				},
 				"isApprovedForAll(address,address)": {
 					"details": "See {IERC1155-isApprovedForAll}."
 				},
-				"renounceRole(bytes32,address)": {
-					"details": "Revokes `role` from the calling account. Roles are often managed via {grantRole} and {revokeRole}: this function's purpose is to provide a mechanism for accounts to lose their privileges if they are compromised (such as when a trusted device is misplaced). If the calling account had been revoked `role`, emits a {RoleRevoked} event. Requirements: - the caller must be `account`."
+				"owner()": {
+					"details": "Returns the address of the current owner."
 				},
-				"revokeRole(bytes32,address)": {
-					"details": "Revokes `role` from `account`. If `account` had been granted `role`, emits a {RoleRevoked} event. Requirements: - the caller must have ``role``'s admin role."
+				"renounceOwnership()": {
+					"details": "Leaves the contract without owner. It will not be possible to call `onlyOwner` functions anymore. Can only be called by the current owner. NOTE: Renouncing ownership will leave the contract without an owner, thereby removing any functionality that is only available to the owner."
 				},
 				"safeBatchTransferFrom(address,address,uint256[],uint256[],bytes)": {
 					"details": "See {IERC1155-safeBatchTransferFrom}."
@@ -1798,8 +1571,14 @@
 				"setApprovalForAll(address,bool)": {
 					"details": "See {IERC1155-setApprovalForAll}."
 				},
+				"supportsInterface(bytes4)": {
+					"details": "See {IERC165-supportsInterface}."
+				},
 				"totalSupply(uint256)": {
 					"details": "Total amount of tokens in with a given id."
+				},
+				"transferOwnership(address)": {
+					"details": "Transfers ownership of the contract to a new account (`newOwner`). Can only be called by the current owner."
 				}
 			},
 			"version": 1
@@ -1820,7 +1599,7 @@
 			"bytecodeHash": "ipfs"
 		},
 		"optimizer": {
-			"enabled": true,
+			"enabled": false,
 			"runs": 200
 		},
 		"remappings": []
@@ -1835,19 +1614,19 @@
 			]
 		},
 		"sol-cerby-swap-v1/CerbySwapV1.sol": {
-			"keccak256": "0xc2a62f89e9fe65008d4089c5331fd9cb011e45882647f51d5d175398057fa2fb",
+			"keccak256": "0x7a6110cba4e03e4e746291e388c2be29cf50714b055ad461f36760ad82b837f7",
 			"license": "BUSL-1.1",
 			"urls": [
-				"bzz-raw://667542f19f4a346c8e3fadd6d429dcfd0886ddacc56fef92563a55a6b1fefb82",
-				"dweb:/ipfs/QmUqmD5mcdfc2tFQaboBsxz2yXjnzsSZPySk7rUikczyFe"
+				"bzz-raw://85e161fcffe8e482a6129c035c2b9d0f539eae267c967698fa9eabce08d452d0",
+				"dweb:/ipfs/QmPozL69J8obFNCmWaPsDnprVsVErAGztK3oBHsniFrrhW"
 			]
 		},
 		"sol-cerby-swap-v1/CerbySwapV1_AdminFunctions.sol": {
-			"keccak256": "0xfecc8cfed9bf49edc160142cea72969b73f0798bb129cc019abcc238936ea3bf",
+			"keccak256": "0xb2adf8b2f9357a3142828210f415c776cacc1aaa6e334798260bfa9329735a47",
 			"license": "BUSL-1.1",
 			"urls": [
-				"bzz-raw://8f716a6eaecb09d7f9ae347d53447c015409183221e9205398825dbf665e1989",
-				"dweb:/ipfs/QmR5vCkQNtfqyB7kqmkmRXQV2Wiaaf3QtHaec3o1uUfifP"
+				"bzz-raw://4c20d6b89412605817527f8c59f6b3ef9c592a125be98074f8f90bd3242cc48c",
+				"dweb:/ipfs/QmayfazA9fG11zouD4GSzw2GNGhyT4neJh1XK118kJXPQ6"
 			]
 		},
 		"sol-cerby-swap-v1/CerbySwapV1_Declarations.sol": {
@@ -1859,11 +1638,11 @@
 			]
 		},
 		"sol-cerby-swap-v1/CerbySwapV1_ERC1155.sol": {
-			"keccak256": "0xd30dc80747610ffd8e9a1c8f91fae303e74ead3179830963d2f056def9bff94d",
+			"keccak256": "0x68d148e4e789bba5ee11ab3147004e1fffea96737bc2d931b093a881bb1c788a",
 			"license": "BUSL-1.1",
 			"urls": [
-				"bzz-raw://a884974a7790d1dd373f10eb0b94e1f6b7446186fa67b95384611517993c651b",
-				"dweb:/ipfs/QmcJxA19pkmudUUopfew1gE6zGCZwPpBPFyzMNiEyvXc9a"
+				"bzz-raw://db9f8047f34e3b7de248d85241095a5b7e14f9359933380f5aeb31211f08bc3d",
+				"dweb:/ipfs/QmPef2Q2sqK6vg6fo73kQzZ5aboydjiDw8z16o8FCbL86m"
 			]
 		},
 		"sol-cerby-swap-v1/CerbySwapV1_EventsAndErrors.sol": {
@@ -1954,36 +1733,12 @@
 				"dweb:/ipfs/QmaHk8vnZY9ZaWAVWCufr8UN4Fw1Kr2MX44czPyxCGFPWh"
 			]
 		},
-		"sol-cerby-swap-v1/openzeppelin/access/AccessControl.sol": {
-			"keccak256": "0x3793fd2148a8ba3d983b8bfde834a061e27558b04383cc2fe44a5937965323a3",
+		"sol-cerby-swap-v1/openzeppelin/access/Ownable.sol": {
+			"keccak256": "0x4028d9bdb76167ce5e16eba4da1b2b242b1fc44a2864edd41414507f44a896a4",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://2d1ffef4a176abb59234ea8c6d98f165cfa9b3f9dd13cf74151a2b3aa7e63c65",
-				"dweb:/ipfs/QmZiM4bGZXC51JFqWPPAujyHTYKxUFccyQtyZkBahdnrDu"
-			]
-		},
-		"sol-cerby-swap-v1/openzeppelin/access/AccessControlEnumerable.sol": {
-			"keccak256": "0x93f84d056eaa14bd53e5dfa45f5eee2c5edd655b605db83b3cab4f210e45a8fa",
-			"license": "MIT",
-			"urls": [
-				"bzz-raw://36e86559fa39fbaba3f48eb8e7483e9607a60908d42c28538da7a37247500f86",
-				"dweb:/ipfs/QmSTgL2JxiQGUSkiQkaUMZ3LM5pJf3JRXHA8tHFjHF436r"
-			]
-		},
-		"sol-cerby-swap-v1/openzeppelin/access/IAccessControl.sol": {
-			"keccak256": "0x59ce320a585d7e1f163cd70390a0ef2ff9cec832e2aa544293a00692465a7a57",
-			"license": "MIT",
-			"urls": [
-				"bzz-raw://bb2c137c343ef0c4c7ce7b18c1d108afdc9d315a04e48307288d2d05adcbde3a",
-				"dweb:/ipfs/QmUxhrAQM3MM3FF5j7AtcXLXguWCJBHJ14BRdVtuoQc8Fh"
-			]
-		},
-		"sol-cerby-swap-v1/openzeppelin/access/IAccessControlEnumerable.sol": {
-			"keccak256": "0xba4459ab871dfa300f5212c6c30178b63898c03533a1ede28436f11546626676",
-			"license": "MIT",
-			"urls": [
-				"bzz-raw://3dcc7b09bfa6e18aab262ca372f4a9b1fc82e294b430706a4e1378cf58e6a276",
-				"dweb:/ipfs/QmT8oSAcesdctR15HMLhr2a1HRpXymxdjTfdtfTYJcj2N2"
+				"bzz-raw://5ad472a548d6c85ed344d7c9607ca3186d0b82ff4983252a56f97d9dd83df4c0",
+				"dweb:/ipfs/QmUmoiaoGDDASS6v6kp95sWZoUEweAYaXNSDr5K5DzqDpc"
 			]
 		},
 		"sol-cerby-swap-v1/openzeppelin/token/ERC1155/ERC1155.sol": {
@@ -2034,14 +1789,6 @@
 				"dweb:/ipfs/QmRK2Y5Yc6BK7tGKkgsgn3aJEQGi5aakeSPZvS65PV8Xp3"
 			]
 		},
-		"sol-cerby-swap-v1/openzeppelin/utils/Strings.sol": {
-			"keccak256": "0x32c202bd28995dd20c4347b7c6467a6d3241c74c8ad3edcbb610cd9205916c45",
-			"license": "MIT",
-			"urls": [
-				"bzz-raw://8179c356adb19e70d6b31a1eedc8c5c7f0c00e669e2540f4099e3844c6074d30",
-				"dweb:/ipfs/QmWFbivarEobbqhS1go64ootVuHfVohBseerYy9FTEd1W2"
-			]
-		},
 		"sol-cerby-swap-v1/openzeppelin/utils/introspection/ERC165.sol": {
 			"keccak256": "0xd10975de010d89fd1c78dc5e8a9a7e7f496198085c151648f20cba166b32582b",
 			"license": "MIT",
@@ -2056,14 +1803,6 @@
 			"urls": [
 				"bzz-raw://be161e54f24e5c6fae81a12db1a8ae87bc5ae1b0ddc805d82a1440a68455088f",
 				"dweb:/ipfs/QmP7C3CHdY9urF4dEMb9wmsp1wMxHF6nhA2yQE5SKiPAdy"
-			]
-		},
-		"sol-cerby-swap-v1/openzeppelin/utils/structs/EnumerableSet.sol": {
-			"keccak256": "0x9772845c886f87a3aab315f8d6b68aa599027c20f441b131cd4afaf65b588900",
-			"license": "MIT",
-			"urls": [
-				"bzz-raw://ad2f29a9c17a4f746416c9e254e17671f43c409dbfa6e4d7d76c3e4a83212d31",
-				"dweb:/ipfs/QmTqU65L6iu6yqmXKzcNLPioR8etzKPWycpDJCm17ifVdS"
 			]
 		}
 	},

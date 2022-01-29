@@ -9,9 +9,8 @@ import "./CerbySwapV1_SwapFunctions.sol";
 contract CerbySwapV1 is 
     CerbySwapV1_AdminFunctions, CerbySwapV1_SwapFunctions
 {
-    constructor() {
-        _setupRole(ROLE_ADMIN, msg.sender);
-        
+    constructor() {        
+        _transferOwnership(msg.sender);
 
         address mintFeeBeneficiary = 0xdEF78a28c78A461598d948bc0c689ce88f812AD8; // CerbyBridge fees wallet
         uint mintFeeMultiplier = (MINT_FEE_DENORM * 20) / 100; // means 20% of fees goes to buyback & burn Cerby
@@ -53,6 +52,7 @@ contract CerbySwapV1 is
 
         // testnet native token
         nativeToken = 0x14769F96e57B80c66837701DE0B43686Fb4632De; // TODO: update
+
     }
 
     receive() external payable {}

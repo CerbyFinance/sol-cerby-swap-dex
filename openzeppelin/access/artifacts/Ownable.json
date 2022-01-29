@@ -56,6 +56,16 @@
 	},
 	"abi": [
 		{
+			"inputs": [],
+			"name": "Ownable_CallerIsNotOwner",
+			"type": "error"
+		},
+		{
+			"inputs": [],
+			"name": "Ownable_NewOwnerIsNotTheZeroAddress",
+			"type": "error"
+		},
+		{
 			"anonymous": false,
 			"inputs": [
 				{
