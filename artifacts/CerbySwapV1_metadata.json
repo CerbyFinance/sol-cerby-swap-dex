@@ -1614,11 +1614,11 @@
 			]
 		},
 		"sol-cerby-swap-v1/CerbySwapV1.sol": {
-			"keccak256": "0x7a6110cba4e03e4e746291e388c2be29cf50714b055ad461f36760ad82b837f7",
+			"keccak256": "0x84810a1d95d4c3979e06b34ae5768b709272b7260ce0ebf3930b99b2ed8e5f1b",
 			"license": "BUSL-1.1",
 			"urls": [
-				"bzz-raw://85e161fcffe8e482a6129c035c2b9d0f539eae267c967698fa9eabce08d452d0",
-				"dweb:/ipfs/QmPozL69J8obFNCmWaPsDnprVsVErAGztK3oBHsniFrrhW"
+				"bzz-raw://50b5f1b794d4eac7b36a02c641db88e5bee273589f6d0ffc0e64988cc274e644",
+				"dweb:/ipfs/QmTRYthW9d8B9ZGtpUhPxQJcsjQcNxTDLFH36FhuLFL7Et"
 			]
 		},
 		"sol-cerby-swap-v1/CerbySwapV1_AdminFunctions.sol": {

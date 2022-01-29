@@ -51,18 +51,18 @@
 			"bytecodeHash": "ipfs"
 		},
 		"optimizer": {
-			"enabled": false,
+			"enabled": true,
 			"runs": 200
 		},
 		"remappings": []
 	},
 	"sources": {
 		"sol-cerby-swap-v1/CerbyCronJobsExecution.sol": {
-			"keccak256": "0x0c16f44372f531fc8aca7e8334e6e32d2b642d3a6108855aa1cd6bb514031f07",
+			"keccak256": "0xefa5b53f0157193788ee0ec5312bf567afc908263755e5ad917dd0738717cb12",
 			"license": "BUSL-1.1",
 			"urls": [
-				"bzz-raw://1dd2d13f1abcee6f8a21ac39ca03a56aca89e7ac781afb8322a37687e703a4da",
-				"dweb:/ipfs/QmQt2nTREmJ7xn9ur68VTYysfmKcUfaFRp367nYqm99g7H"
+				"bzz-raw://715127ba21afb540fe48c5e983db28d2ce29c67f03ce7a0ab876465336b9f36f",
+				"dweb:/ipfs/QmNceFtzHMgVrS4m1bNtjdBUZ2hs6v4KzDbTCeDxN9UpHw"
 			]
 		},
 		"sol-cerby-swap-v1/interfaces/ICerbyBotDetection.sol": {

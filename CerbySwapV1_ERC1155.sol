@@ -71,7 +71,7 @@ abstract contract CerbySwapV1_ERC1155 is ERC1155Supply, CerbyCronJobsExecution {
         public 
         virtual 
         override
-        checkTransactionAndExecuteCron(address(this), msg.sender)
+        executeCronJobs()
     {
         _setApprovalForAll(_msgSender(), operator, approved);
     }
@@ -86,6 +86,29 @@ abstract contract CerbySwapV1_ERC1155 is ERC1155Supply, CerbyCronJobsExecution {
         public 
         virtual 
         override
+        executeCronJobs()
+    {
+        if (
+            from != _msgSender() &&
+            !isApprovedForAll(from, _msgSender())
+        ) {
+            revert CerbySwapLP1155V1_CallerIsNotOwnerNorApproved();
+        }
+        
+        _safeTransferFrom(from, to, id, amount, data);
+    }
+
+    function safeBatchTransferFrom(
+        address from,
+        address to,
+        uint256[] memory ids,
+        uint256[] memory amounts,
+        bytes memory data
+    ) 
+        public 
+        virtual 
+        override 
+        executeCronJobs()
     {
         if (
             from != _msgSender() &&
@@ -94,27 +117,6 @@ abstract contract CerbySwapV1_ERC1155 is ERC1155Supply, CerbyCronJobsExecution {
             revert CerbySwapLP1155V1_CallerIsNotOwnerNorApproved();
         }
 
-        checkTransactionForBots(address(this), from, to);
-
-        
-        _safeTransferFrom(from, to, id, amount, data);
-    }
-
-    function burn(
-        address account,
-        uint id,
-        uint value
-    ) 
-        public 
-        virtual
-    {
-        if (
-            account != _msgSender() &&
-            !isApprovedForAll(account, _msgSender())
-        ) {
-            revert CerbySwapLP1155V1_CallerIsNotOwnerNorApproved();
-        }
-
-        _burn(account, id, value);
+        _safeBatchTransferFrom(from, to, ids, amounts, data);
     }
 }

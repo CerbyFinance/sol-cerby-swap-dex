@@ -26,7 +26,7 @@ abstract contract CerbyCronJobsExecution {
         _;
     }
 
-    modifier executeCronJobs(address addr)
+    modifier executeCronJobs()
     {
         ICerbyBotDetection iCerbyBotDetection = ICerbyBotDetection(
             getUtilsContractAtPos(CERBY_BOT_DETECTION_CONTRACT_ID)

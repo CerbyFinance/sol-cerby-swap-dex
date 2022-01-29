@@ -19,7 +19,7 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"sol-defifactory-token/openzeppelin/utils/Context.sol": "Context"
+			"sol-cerby-swap-v1/openzeppelin/utils/Context.sol": "Context"
 		},
 		"evmVersion": "london",
 		"libraries": {},
@@ -33,7 +33,7 @@
 		"remappings": []
 	},
 	"sources": {
-		"sol-defifactory-token/openzeppelin/utils/Context.sol": {
+		"sol-cerby-swap-v1/openzeppelin/utils/Context.sol": {
 			"keccak256": "0xe2e337e6dde9ef6b680e07338c493ebea1b5fd09b43424112868e9cc1706bca7",
 			"license": "MIT",
 			"urls": [
