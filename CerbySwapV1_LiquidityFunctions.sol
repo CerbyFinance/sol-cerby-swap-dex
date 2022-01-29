@@ -377,7 +377,7 @@ abstract contract CerbySwapV1_LiquidityFunctions is CerbySwapV1_SafeFunctions, C
         return amountTokensOut;
     }
 
-    function syncTokenBalanceInPool(address token)
+    function syncPool(address token)
         public
         tokenMustExistInPool(token)
         // checkForBotsAndExecuteCronJobs(msg.sender) // TODO: enable on production
