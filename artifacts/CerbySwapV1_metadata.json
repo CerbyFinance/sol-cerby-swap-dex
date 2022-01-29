@@ -1607,19 +1607,19 @@
 			]
 		},
 		"sol-cerby-swap-v1/CerbySwapV1_Declarations.sol": {
-			"keccak256": "0x1b63e0882f6eef65e9261f4c6930a735b66cac789fe8563f8b9f8653bb61d990",
+			"keccak256": "0xb20640c7221aa7220bc5f2f0bb2b05682a60ddf39d6afcf33644245897518fba",
 			"license": "BUSL-1.1",
 			"urls": [
-				"bzz-raw://6fdff88e52ae5fe41d44359e850ccdae76da8e864aee03b572ddd38a6d74917e",
-				"dweb:/ipfs/QmRPw9yYsdHF6XQTkfL6uLKj4G1Yx7mg3hQUZjXjXHqf71"
+				"bzz-raw://e0998e32a0cf4dfebe9faca4bd7bf8bb3e6186c0d620817c7a37d843a1534139",
+				"dweb:/ipfs/QmeNZWB4crTVFuBkmXwX5b4QiLbndXdBwsSkwzT3J13o5X"
 			]
 		},
 		"sol-cerby-swap-v1/CerbySwapV1_ERC1155.sol": {
-			"keccak256": "0x9adfb600579d4c73ae3443bad796e2fb2e95d83cb609fb944074fcb4039b1155",
+			"keccak256": "0x6d3a83fce71198a2e4c69bd788f245d8152e4a7ec40857f1848b1dd6419ecb41",
 			"license": "BUSL-1.1",
 			"urls": [
-				"bzz-raw://742bc7b086038e25aef4444dfd537b4540c86d90d9a2776235c1071c2d1ba95e",
-				"dweb:/ipfs/QmX4FoC493gRydgi8vQ817nZmF6TLDkMDnPcqAx59Qy9hq"
+				"bzz-raw://a79c0ce209e8049d367a80ec2a6f4d0a8fe7a77298c0c3d463e5fce07da0ade5",
+				"dweb:/ipfs/QmUXiFhH9HYMzhkA8TdMQHE14uNbBBTTPcqF1KgvZJ6rZD"
 			]
 		},
 		"sol-cerby-swap-v1/CerbySwapV1_EventsAndErrors.sol": {
@@ -1631,11 +1631,11 @@
 			]
 		},
 		"sol-cerby-swap-v1/CerbySwapV1_GetFunctions.sol": {
-			"keccak256": "0x4904d0963cfaae290733fb6e39c39ce084a558307f671481b286bce6e93a6b2b",
+			"keccak256": "0x825b4207880eb678e22131d62cc730c37380737fb882d9a90a78a0c674f3ba46",
 			"license": "BUSL-1.1",
 			"urls": [
-				"bzz-raw://b592d79c3b8d906634061bfa2442fd952b8018e6e72b02c43149c310ca8ea004",
-				"dweb:/ipfs/QmasHtgNqcVoAbhPsW5eqmi2ZCfuJDhBv9Z1T4DEa7MdF7"
+				"bzz-raw://4baa6c986b056c5d11147df718e25787467541d786bd72a27134ed036277338c",
+				"dweb:/ipfs/QmTZpfJqZtmJRT9eHRZQy9eX4T9vR7FqamHTgUgSna8LVK"
 			]
 		},
 		"sol-cerby-swap-v1/CerbySwapV1_LiquidityFunctions.sol": {
@@ -1671,11 +1671,11 @@
 			]
 		},
 		"sol-cerby-swap-v1/CerbySwapV1_SwapFunctions.sol": {
-			"keccak256": "0x6d541f3238ec6fd2db24664a34702ac28c6df2bf1fc3247319e771ac8b283537",
+			"keccak256": "0xa2d20b50223e519a768850d817a905d4b5c80eae6ac6cd58be0e3ac54efdc8c5",
 			"license": "BUSL-1.1",
 			"urls": [
-				"bzz-raw://d7bfc20d1cb52f7e0b5904339886d2932e029b1ccaca0e5db37af74d581b6327",
-				"dweb:/ipfs/QmeiwMSd8jZ2gT6941oyTZ8Dopvm9FJNr878CngxHomF56"
+				"bzz-raw://95c278cd497432f4a9847d9f303f97b76ff3da14e9745d8092f5dc5c840dfcb8",
+				"dweb:/ipfs/QmRopSmzT9bbYcvhUGMmHNYwLydnefyy4KA1PH9f5SxDKB"
 			]
 		},
 		"sol-cerby-swap-v1/interfaces/ICerbyBotDetection.sol": {

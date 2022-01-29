@@ -23,7 +23,7 @@ abstract contract CerbySwapV1_GetFunctions is CerbySwapV1_Modifiers {
         return settings;
     }
 
-    function getCurrentPeriod()
+    function _getCurrentPeriod()
         internal
         view
         returns (uint)
@@ -36,16 +36,19 @@ abstract contract CerbySwapV1_GetFunctions is CerbySwapV1_Modifiers {
         view
         returns (uint fee)
     {
-        return _getCurrentOneMinusFeeBasedOnTrades(tokenToPoolId[token]);
+        // getting pool storage link (saves gas compared to memory)
+        Pool storage pool = pools[tokenToPoolId[token]];
+
+        return _getCurrentOneMinusFeeBasedOnTrades(pool);
     }
 
-    function _getCurrentOneMinusFeeBasedOnTrades(uint poolId)
+    function _getCurrentOneMinusFeeBasedOnTrades(Pool storage pool)
         internal
         view
         returns (uint)
     {
         // getting last 24 hours trade volume in USD
-        uint currentPeriod = getCurrentPeriod();
+        uint currentPeriod = _getCurrentPeriod();
         uint nextPeriod = (currentPeriod + 1) % NUMBER_OF_TRADE_PERIODS;
         uint volume;
         for(uint i; i<NUMBER_OF_TRADE_PERIODS; i++)
@@ -54,7 +57,7 @@ abstract contract CerbySwapV1_GetFunctions is CerbySwapV1_Modifiers {
             // and are incorrect
             if (i == currentPeriod || i == nextPeriod) continue;
 
-            volume += pools[poolId].tradeVolumePerPeriodInCerUsd[i];
+            volume += pool.tradeVolumePerPeriodInCerUsd[i];
         }
 
         // multiplying it to make wei dimention
@@ -64,9 +67,9 @@ abstract contract CerbySwapV1_GetFunctions is CerbySwapV1_Modifiers {
         // TVL * min < trades < TVL * max   ---> fee is between feeMaximum and feeMinimum
         // trades >= TVL * max              ---> fee = feeMinimum
         uint tvlMin = 
-            (pools[poolId].balanceCerUsd * settings.tvlMultiplierMinimum) / TVL_MULTIPLIER_DENORM;
+            (pool.balanceCerUsd * settings.tvlMultiplierMinimum) / TVL_MULTIPLIER_DENORM;
         uint tvlMax = 
-            (pools[poolId].balanceCerUsd * settings.tvlMultiplierMaximum) / TVL_MULTIPLIER_DENORM;
+            (pool.balanceCerUsd * settings.tvlMultiplierMaximum) / TVL_MULTIPLIER_DENORM;
         uint fee;
         if (volume <= tvlMin) {
             fee = settings.feeMaximum; // 1.00%
@@ -95,17 +98,17 @@ abstract contract CerbySwapV1_GetFunctions is CerbySwapV1_Modifiers {
         if (tokenIn != cerUsdToken && tokenOut == cerUsdToken) {
 
             // getting amountTokensOut
-            amountTokensOut = getOutputExactTokensForCerUsd(tokenIn, amountTokensIn);
+            amountTokensOut = _getOutputExactTokensForCerUsd(tokenIn, amountTokensIn);
         } else if (tokenIn == cerUsdToken && tokenOut != cerUsdToken) {
 
             // getting amountTokensOut
-            amountTokensOut = getOutputExactCerUsdForTokens(tokenOut, amountTokensIn);
+            amountTokensOut = _getOutputExactCerUsdForTokens(tokenOut, amountTokensIn);
         } else if (tokenIn != cerUsdToken && tokenIn != cerUsdToken) {
 
             // getting amountTokensOut
-            uint amountCerUsdOut = getOutputExactTokensForCerUsd(tokenIn, amountTokensIn);
+            uint amountCerUsdOut = _getOutputExactTokensForCerUsd(tokenIn, amountTokensIn);
 
-            amountTokensOut = getOutputExactCerUsdForTokens(tokenOut, amountCerUsdOut);
+            amountTokensOut = _getOutputExactCerUsdForTokens(tokenOut, amountCerUsdOut);
         }
         return amountTokensOut;
     }
@@ -122,48 +125,52 @@ abstract contract CerbySwapV1_GetFunctions is CerbySwapV1_Modifiers {
         if (tokenIn != cerUsdToken && tokenOut == cerUsdToken) {
 
             // getting amountTokensOut
-            amountTokensIn = getInputTokensForExactCerUsd(tokenIn, amountTokensOut);
+            amountTokensIn = _getInputTokensForExactCerUsd(tokenIn, amountTokensOut);
         } else if (tokenIn == cerUsdToken && tokenOut != cerUsdToken) {
 
             // getting amountTokensOut
-            amountTokensIn = getInputCerUsdForExactTokens(tokenOut, amountTokensOut);
+            amountTokensIn = _getInputCerUsdForExactTokens(tokenOut, amountTokensOut);
         } else if (tokenIn != cerUsdToken && tokenOut != cerUsdToken) {
 
             // getting amountTokensOut
-            uint amountCerUsdOut = getInputCerUsdForExactTokens(tokenOut, amountTokensOut);
+            uint amountCerUsdOut = _getInputCerUsdForExactTokens(tokenOut, amountTokensOut);
 
-            amountTokensIn = getInputTokensForExactCerUsd(tokenIn, amountCerUsdOut);
+            amountTokensIn = _getInputTokensForExactCerUsd(tokenIn, amountCerUsdOut);
         }
         return amountTokensIn;
     }
 
-    function getOutputExactTokensForCerUsd(address token, uint amountTokensIn)
+    function _getOutputExactTokensForCerUsd(address token, uint amountTokensIn)
         internal
         view
         tokenMustExistInPool(token)
         returns (uint)
     {
-        uint poolId = tokenToPoolId[token];
+        // getting pool storage link (saves gas compared to memory)
+        Pool storage pool = pools[tokenToPoolId[token]];
+
         return _getOutput(
             amountTokensIn,
-            uint(pools[poolId].balanceToken),
-            uint(pools[poolId].balanceCerUsd),
-            _getCurrentOneMinusFeeBasedOnTrades(poolId)
+            uint(pool.balanceToken),
+            uint(pool.balanceCerUsd),
+            _getCurrentOneMinusFeeBasedOnTrades(pool)
         );
     }
 
-    function getOutputExactCerUsdForTokens(address token, uint amountCerUsdIn)
+    function _getOutputExactCerUsdForTokens(address token, uint amountCerUsdIn)
         internal
         view
         tokenMustExistInPool(token)
         returns (uint)
     {
-        uint poolId = tokenToPoolId[token];
+        // getting pool storage link (saves gas compared to memory)
+        Pool storage pool = pools[tokenToPoolId[token]];
+
         return _getOutput(
             amountCerUsdIn,
-            uint(pools[poolId].balanceCerUsd),
-            uint(pools[poolId].balanceToken),
-            //_getCurrentOneMinusFeeBasedOnTrades(poolId)
+            uint(pool.balanceCerUsd),
+            uint(pool.balanceToken),
+            //_getCurrentOneMinusFeeBasedOnTrades(pool)
             FEE_DENORM // fee is zero for swaps cerUsd --> Any (oneMinusFee = FEE_DENORM)
         );
     }
@@ -179,33 +186,37 @@ abstract contract CerbySwapV1_GetFunctions is CerbySwapV1_Modifiers {
         return amountOut;
     }
 
-    function getInputTokensForExactCerUsd(address token, uint amountCerUsdOut)
+    function _getInputTokensForExactCerUsd(address token, uint amountCerUsdOut)
         internal
         view
         tokenMustExistInPool(token)
         returns (uint)
     {
-        uint poolId = tokenToPoolId[token];
+        // getting pool storage link (saves gas compared to memory)
+        Pool storage pool = pools[tokenToPoolId[token]];
+
         return _getInput(
             amountCerUsdOut,
-            uint(pools[poolId].balanceToken),
-            uint(pools[poolId].balanceCerUsd),
-            _getCurrentOneMinusFeeBasedOnTrades(poolId)
+            uint(pool.balanceToken),
+            uint(pool.balanceCerUsd),
+            _getCurrentOneMinusFeeBasedOnTrades(pool)
         );
     }
 
-    function getInputCerUsdForExactTokens(address token, uint amountTokensOut)
+    function _getInputCerUsdForExactTokens(address token, uint amountTokensOut)
         internal
         view
         tokenMustExistInPool(token)
         returns (uint)
     {
-        uint poolId = tokenToPoolId[token];
+        // getting pool storage link (saves gas compared to memory)
+        Pool storage pool = pools[tokenToPoolId[token]];
+
         return _getInput(
             amountTokensOut,
-            uint(pools[poolId].balanceCerUsd),
-            uint(pools[poolId].balanceToken),
-            //_getCurrentOneMinusFeeBasedOnTrades(poolId)
+            uint(pool.balanceCerUsd),
+            uint(pool.balanceToken),
+            //_getCurrentOneMinusFeeBasedOnTrades(pool)
             FEE_DENORM // fee is zero for swaps cerUsd --> Any (oneMinusFee = FEE_DENORM)
         );
     }

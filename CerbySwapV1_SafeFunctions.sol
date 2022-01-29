@@ -8,21 +8,29 @@ import "./CerbySwapV1_EventsAndErrors.sol";
 
 abstract contract CerbySwapV1_SafeFunctions is CerbySwapV1_EventsAndErrors, CerbySwapV1_Declarations {
 
+    bytes4 constant TRANSFER_FUNCTION_SELECTOR = 
+        bytes4(keccak256(bytes("transfer(address,uint)")));
+        
+    bytes4 constant TRANSFER_FROM_FUNCTION_SELECTOR = 
+        bytes4(keccak256(bytes("transferFrom(address,address,uint)")));
+
     function _getTokenBalance(address token)
         internal
         view
         returns (uint balanceToken)
     {
         if (token == nativeToken) {
+            // getting native token balance
             balanceToken = address(this).balance;
         } else {
+            // getting contract token balance
             balanceToken = IERC20(token).balanceOf(address(this));
         }
 
         return balanceToken;
     }
 
-    function _safeTransferFromHelper(address token, address from, uint amountIn)
+    function _safeTransferFromHelper(address token, address from, uint amountTokensIn)
         internal
     {
         if (token != nativeToken) {
@@ -34,57 +42,90 @@ abstract contract CerbySwapV1_SafeFunctions is CerbySwapV1_EventsAndErrors, Cerb
                 revert CerbySwapV1_MsgValueProvidedMustBeZero();
             }
 
-            if (from != address(this)) {
-                _safeTransferFrom(token, from, address(this), amountIn);
-            }
+            // _safeCoreTransferFrom does not require return value 
+            _safeCoreTransferFrom(token, from, address(this), amountTokensIn);
         } else if (token == nativeToken)  {
             // caller must sent some native tokens
             if (
-                msg.value < amountIn
+                msg.value < amountTokensIn
             ) {
-                revert CerbySwapV1_MsgValueProvidedMustBeLargerThanAmountIn();
+                revert CerbySwapV1_MsgValueProvidedMustBeLargerThanAmountTokensIn();
             }
 
-            // refunding extra native tokens
-            // to make sure msg.value == amount
-            if (msg.value > amountIn) {
+            // refunding excess of native tokens
+            // to make sure msg.value == amountTokensIn
+            if (msg.value > amountTokensIn) {
                 _safeTransferHelper(
                     nativeToken, 
                     msg.sender,
-                    msg.value - amountIn,
+                    msg.value - amountTokensIn,
                     false
                 );
             }
         }
     }
 
-    function _safeTransferHelper(address token, address to, uint amount, bool needToCheck)
+    function _safeTransferHelper(
+        address token, 
+        address to, 
+        uint amountTokensOut, 
+        bool needToCheckForBots
+    )
         internal
     {
-        // some transfer such as refund excess of msg.value
+        // some transfer such as refund excess of native tokens
         // we don't check for bots
-        if (needToCheck) {
+        if (needToCheckForBots) {
             //checkTransactionForBots(token, msg.sender, to); // TODO: enable on production
         }
 
         if (to != address(this)) {
-            if (token == nativeToken) {
-                _safeTransferNative(to, amount);
-            } else {
-                _safeTransferToken(token, to, amount);
+            uint oldBalanceToken;
+            uint newBalanceToken;
+
+            // we trust cerUsdToken and nativeTokens
+            // thats why don't need to check whether it has fee-on-transfer
+            // these tokens are known to be without any fee-on-transfer
+            if (
+                token != cerUsdToken &&
+                token != nativeToken
+            ) {
+                oldBalanceToken = _getTokenBalance(token);
             }
 
+            // actually transferring the tokens
+            if (token == nativeToken) {
+                _safeCoreTransferNative(to, amountTokensOut);
+            } else {
+                _safeCoreTransferToken(token, to, amountTokensOut);
+            }
+
+            // we trust cerUsdToken and nativeTokens
+            // thats why don't need to check whether it has fee-on-transfer
+            // these tokens are known to be without any fee-on-transfer
+            if (
+                token != cerUsdToken &&
+                token != nativeToken
+            ) {
+                newBalanceToken = _getTokenBalance(token);
+                if (
+                    newBalanceToken + amountTokensOut != oldBalanceToken
+                ) {
+                    revert CerbySwapV1_FeeOnTransferTokensArentSupported();
+                }
+            }
         }
     }
     
-    function _safeTransferToken(
+    function _safeCoreTransferToken(
         address token,
         address to,
         uint value
     ) internal {
-        // 0xa9059cbb = bytes4(keccak256(bytes('transfer(address,uint)')));
         (bool success, bytes memory data) = 
-            token.call(abi.encodeWithSelector(0xa9059cbb, to, value));
+            token.call(abi.encodeWithSelector(TRANSFER_FUNCTION_SELECTOR, to, value));
+
+        // we allow successfull calls and with (true) or without return data
         if (
             ! (success && (data.length == 0 || abi.decode(data, (bool))))
         ) {
@@ -92,15 +133,16 @@ abstract contract CerbySwapV1_SafeFunctions is CerbySwapV1_EventsAndErrors, Cerb
         }
     }
 
-    function _safeTransferFrom(
+    function _safeCoreTransferFrom(
         address token,
         address from,
         address to,
         uint value
     ) internal {
-        // 0x23b872dd = bytes4(keccak256(bytes('transferFrom(address,address,uint)')));
         (bool success, bytes memory data) = 
-            token.call(abi.encodeWithSelector(0x23b872dd, from, to, value));
+            token.call(abi.encodeWithSelector(TRANSFER_FROM_FUNCTION_SELECTOR, from, to, value));
+
+        // we allow successfull calls and with (true) or without return data
         if (
             ! (success && (data.length == 0 || abi.decode(data, (bool))))
         ) {
@@ -108,8 +150,10 @@ abstract contract CerbySwapV1_SafeFunctions is CerbySwapV1_EventsAndErrors, Cerb
         }
     }
 
-    function _safeTransferNative(address to, uint value) internal {
+    function _safeCoreTransferNative(address to, uint value) internal {
         (bool success, ) = to.call{value: value}(new bytes(0));
+
+        // we allow only successfull calls
         if (
             !success
         ) {
