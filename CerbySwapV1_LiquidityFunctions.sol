@@ -410,35 +410,6 @@ abstract contract CerbySwapV1_LiquidityFunctions is CerbySwapV1_SafeFunctions, C
         );
     }
 
-    function skimPool(address token)
-        public
-        tokenMustExistInPool(token)
-        // checkForBotsAndExecuteCronJobs(msg.sender) // TODO: enable on production
-    {
-        // getting pool storage link (saves gas compared to memory)
-        Pool storage pool = pools[tokenToPoolId[token]];
-
-        // getting new balances of the contract
-        uint oldBalanceToken = _getTokenBalance(token);
-        uint oldBalanceCerUsd = _getTokenBalance(cerUsdToken);
-
-        // if someone accidently sent tokens to contract, those can be sent back
-        uint diffBalanceToken = oldBalanceToken - pool.balanceToken;
-        if (diffBalanceToken > 0) {
-            // safely transfering tokens
-            // and making sure exact amounts were actually transferred
-            _safeTransferHelper(token, msg.sender, diffBalanceToken, false);
-        }
-
-        // if someone accidently sent cerUSD to contract, those can be sent back
-        uint diffBalanceCerUsd = oldBalanceCerUsd - totalCerUsdBalance;
-        if (diffBalanceCerUsd > 0) {
-            // safely transfering tokens
-            // and making sure exact amounts were actually transferred
-            _safeTransferHelper(cerUsdToken, msg.sender, diffBalanceCerUsd, false);
-        }
-    }
-
     function _getMintFeeLiquidityAmount(uint lastSqrtKValue, uint newSqrtKValue, uint totalLPSupply)
         private
         view

@@ -4330,7 +4330,7 @@ contract("Cerby", accounts => {
   });
 
   // ---------------------------------------------------------- //
-  // skimPool, syncPool tests //
+  // syncPool tests //
   // ---------------------------------------------------------- //
 
   it("syncPool: transferring CERBY, transferring cerUSD; pool must be updated correctly", async () => {
@@ -4411,78 +4411,5 @@ contract("Cerby", accounts => {
     }
   });
 
-  it("skimPool: transferring CERBY, transferring cerUSD; wallet must be updated correctly", async () => {
-    await delay(DELAY_BETWEEN_TESTS); const accounts = await web3.eth.getAccounts();
-    const firstAccount = accounts[0];
-
-    const cerbySwap = await CerbySwapV1.deployed();
-    const cerbyToken = await TestCerbyToken.deployed();
-    const cerUsdToken = await TestCerUsdToken.deployed();
-    const CERBY_POOL_POS = await cerbySwap.getTokenToPoolId(TestCerbyToken.address);
-    
-    {
-      // transferring only CERBY tokens to contract
-      let beforeCerbyBalanceWallet = await cerbyToken.balanceOf(firstAccount);
-      let beforeCerUsdBalanceWallet = await cerUsdToken.balanceOf(firstAccount);
-
-      let amountTokensIn = new BN(123).mul(bn1e18);
-      await cerbyToken.transfer(cerbySwap.address, amountTokensIn);
-      await cerbySwap.skimPool(cerbyToken.address);
-
-      let afterCerbyBalanceWallet = await cerbyToken.balanceOf(firstAccount);
-      let afterCerUsdBalanceWallet = await cerUsdToken.balanceOf(firstAccount);
-
-      // check cerby balance remained the same
-      assert.deepEqual(
-        beforeCerbyBalanceWallet.toString(),
-        afterCerbyBalanceWallet.toString(),
-      );
-
-      
-      
-      // transferring only CERBY tokens to contract
-      beforeCerbyBalanceWallet = await cerbyToken.balanceOf(firstAccount);
-      beforeCerUsdBalanceWallet = await cerUsdToken.balanceOf(firstAccount);
-
-      amountTokensIn = new BN(123).mul(bn1e18);
-      await cerUsdToken.transfer(cerbySwap.address, amountTokensIn);
-      await cerbySwap.skimPool(cerbyToken.address);
-
-      afterCerbyBalanceWallet = await cerbyToken.balanceOf(firstAccount);
-      afterCerUsdBalanceWallet = await cerUsdToken.balanceOf(firstAccount);
-
-      // check cerUsd balance remained the same
-      assert.deepEqual(
-        beforeCerUsdBalanceWallet.toString(),
-        afterCerUsdBalanceWallet.toString(),
-      );
-
-      
-      
-      // transferring both CERBY and cerUSD tokens to contract
-      beforeCerbyBalanceWallet = await cerbyToken.balanceOf(firstAccount);
-      beforeCerUsdBalanceWallet = await cerUsdToken.balanceOf(firstAccount);
-
-      amountTokensIn = new BN(123).mul(bn1e18);
-      await cerbyToken.transfer(cerbySwap.address, amountTokensIn);
-      await cerUsdToken.transfer(cerbySwap.address, amountTokensIn);
-      await cerbySwap.skimPool(cerbyToken.address);
-
-      afterCerbyBalanceWallet = await cerbyToken.balanceOf(firstAccount);
-      afterCerUsdBalanceWallet = await cerUsdToken.balanceOf(firstAccount);
-
-      // check cerUsd balance remained the same
-      assert.deepEqual(
-        beforeCerUsdBalanceWallet.toString(),
-        afterCerUsdBalanceWallet.toString(),
-      );
-      
-      // check cerby balance remained the same
-      assert.deepEqual(
-        beforeCerbyBalanceWallet.toString(),
-        afterCerbyBalanceWallet.toString(),
-      );
-    }
-  });
 
 });
