@@ -756,7 +756,7 @@ export interface CerbySwapV1Instance extends Truffle.ContractInstance {
 
   symbol(txDetails?: Truffle.TransactionDetails): Promise<string>;
 
-  syncTokenBalanceInPool: {
+  syncPool: {
     (token: string, txDetails?: Truffle.TransactionDetails): Promise<
       Truffle.TransactionResponse<AllEvents>
     >;
@@ -1437,7 +1437,7 @@ export interface CerbySwapV1Instance extends Truffle.ContractInstance {
 
     symbol(txDetails?: Truffle.TransactionDetails): Promise<string>;
 
-    syncTokenBalanceInPool: {
+    syncPool: {
       (token: string, txDetails?: Truffle.TransactionDetails): Promise<
         Truffle.TransactionResponse<AllEvents>
       >;
