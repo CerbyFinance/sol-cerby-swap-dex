@@ -8,8 +8,8 @@ import "./CerbyCronJobsExecution.sol";
 
 abstract contract CerbySwapV1_ERC1155 is ERC1155Supply, CerbyCronJobsExecution {
 
-    string internal _name = "Cerby Swap V1";
-    string internal _symbol = "CERBY_SWAP_V1";
+    string internal _name = "CerbySwapV1";
+    string internal _symbol = "CS1";
     string internal _urlPrefix = "https://data.cerby.fi/CerbySwap/v1/";
 
     error CerbySwapLP1155V1_TransactionsAreTemporarilyDisabled();

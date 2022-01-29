@@ -48,5 +48,4 @@ abstract contract CerbySwapV1_Declarations is CerbySwapV1_EventsAndErrors {
         uint128 lastSqrtKValue;
         uint creditCerUsd;
     }
-
 }
