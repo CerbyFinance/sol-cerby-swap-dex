@@ -24,16 +24,13 @@ abstract contract CerbySwapV1_LiquidityFunctions is CerbySwapV1_SafeFunctions, C
         Pool storage pool = pools[tokenToPoolId[token]];
 
         // handling overflow just in case
-        if (pool.creditCerUsd > type(uint).max - amountCerUsdCredit) {
-            revert("X");
-            revert CerbySwapV1_CreditCerUsdIsOverflown();
-        }
+        if (pool.creditCerUsd < type(uint).max) {
+            // increasing credit for user-created pool
+            pool.creditCerUsd += amountCerUsdCredit;
 
-        // increasing credit for user-created pool
-        pool.creditCerUsd += amountCerUsdCredit;
-
-        // burning user's cerUsd tokens in order to increase the credit for given pool
-        ICerbyTokenMinterBurner(cerUsdToken).burnHumanAddress(msg.sender, amountCerUsdCredit);
+            // burning user's cerUsd tokens in order to increase the credit for given pool
+            ICerbyTokenMinterBurner(cerUsdToken).burnHumanAddress(msg.sender, amountCerUsdCredit);
+        }        
 
         // Sync event to update pool variables in the graph node
         emit Sync(
@@ -395,8 +392,11 @@ abstract contract CerbySwapV1_LiquidityFunctions is CerbySwapV1_SafeFunctions, C
             uint128(uint(pool.balanceCerUsd) + newTotalCerUsdBalance - totalCerUsdBalance);
         
         // updating current cerUSD credit in pool
-        pool.creditCerUsd = 
-            pool.creditCerUsd + newTotalCerUsdBalance - totalCerUsdBalance;
+        // only for user-created pools
+        if (pool.creditCerUsd < type(uint).max) {
+            pool.creditCerUsd = 
+                pool.creditCerUsd + newTotalCerUsdBalance - totalCerUsdBalance;
+        }
 
         // updating global cerUsd balance in contract
         totalCerUsdBalance = newTotalCerUsdBalance;

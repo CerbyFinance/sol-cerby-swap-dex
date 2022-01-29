@@ -1256,19 +1256,6 @@
 			{
 				"inputs": [
 					{
-						"internalType": "address",
-						"name": "token",
-						"type": "address"
-					}
-				],
-				"name": "skimPool",
-				"outputs": [],
-				"stateMutability": "nonpayable",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
 						"internalType": "bytes4",
 						"name": "interfaceId",
 						"type": "bytes4"
@@ -1404,7 +1391,7 @@
 						"type": "address"
 					}
 				],
-				"name": "syncTokenBalanceInPool",
+				"name": "syncPool",
 				"outputs": [],
 				"stateMutability": "nonpayable",
 				"type": "function"
@@ -1639,11 +1626,11 @@
 			]
 		},
 		"sol-cerby-swap-v1/CerbySwapV1_LiquidityFunctions.sol": {
-			"keccak256": "0x21a3737a1bb769a5672a8a515b024efe8d9c34842b2b4ff93d1cfd4aae5af1a9",
+			"keccak256": "0x3d9d91d0c899b5b6bb07b24cf8dab1d324b364bb23a2792080b66f8455bd827a",
 			"license": "BUSL-1.1",
 			"urls": [
-				"bzz-raw://d7436376fd43a52870f2d6c608152445fed1ce2168ae4a20262a091431306777",
-				"dweb:/ipfs/QmfVFcermKGxjJWSfaXL63eE6QHzMixt5LEngFv3zgFK5S"
+				"bzz-raw://f21e6c207dc1c2d1bfb7b448d06ce03f30c7659857c6696d004e64a41d36b034",
+				"dweb:/ipfs/QmWGjEJ2KZo2jjhxTxPu2DiU9KLNN1REbFoNbBDRARnQ6z"
 			]
 		},
 		"sol-cerby-swap-v1/CerbySwapV1_Math.sol": {
@@ -1663,11 +1650,11 @@
 			]
 		},
 		"sol-cerby-swap-v1/CerbySwapV1_SafeFunctions.sol": {
-			"keccak256": "0x80c501deb97250042374c3a4d8c01f9793114e09d09e5cff6512048a64449c24",
+			"keccak256": "0xa260a9070b77d2d9b453c93721e88de470cfe1ea646cc4eb8801d504b026ecf4",
 			"license": "BUSL-1.1",
 			"urls": [
-				"bzz-raw://084618cceb6efff279ad1818bcbcca79f3c46155140b9869552e5ea197426b4a",
-				"dweb:/ipfs/QmXQobHF1Q7jEwPp6trgSCZ8hgDSo9WdTtTfdmxEtMwydp"
+				"bzz-raw://4cf233261eaa44f0ea0b4202c9a94914a334926ab20944d17bd319aa84238edc",
+				"dweb:/ipfs/QmWMbQ3T1L8y6CriXKA7w1f1Q8govtbgLmMfWcN28wi7L9"
 			]
 		},
 		"sol-cerby-swap-v1/CerbySwapV1_SwapFunctions.sol": {
