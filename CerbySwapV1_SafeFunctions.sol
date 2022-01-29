@@ -8,12 +8,6 @@ import "./CerbySwapV1_EventsAndErrors.sol";
 
 abstract contract CerbySwapV1_SafeFunctions is CerbySwapV1_EventsAndErrors, CerbySwapV1_Declarations {
 
-    bytes4 constant TRANSFER_FUNCTION_SELECTOR = 
-        bytes4(keccak256(bytes("transfer(address,uint)")));
-        
-    bytes4 constant TRANSFER_FROM_FUNCTION_SELECTOR = 
-        bytes4(keccak256(bytes("transferFrom(address,address,uint)")));
-
     function _getTokenBalance(address token)
         internal
         view
@@ -34,7 +28,7 @@ abstract contract CerbySwapV1_SafeFunctions is CerbySwapV1_EventsAndErrors, Cerb
         internal
     {
         if (token != nativeToken) {
-            // caller must not send any native tokens
+            // sender must not send any native tokens
             if (
                 msg.value > 0
             ) {
@@ -45,7 +39,7 @@ abstract contract CerbySwapV1_SafeFunctions is CerbySwapV1_EventsAndErrors, Cerb
             // _safeCoreTransferFrom does not require return value 
             _safeCoreTransferFrom(token, from, address(this), amountTokensIn);
         } else if (token == nativeToken)  {
-            // caller must sent some native tokens
+            // sender must sent some native tokens
             if (
                 msg.value < amountTokensIn
             ) {
@@ -80,12 +74,11 @@ abstract contract CerbySwapV1_SafeFunctions is CerbySwapV1_EventsAndErrors, Cerb
         }
 
         if (to != address(this)) {
-            uint oldBalanceToken;
-            uint newBalanceToken;
 
             // we trust cerUsdToken and nativeTokens
             // thats why don't need to check whether it has fee-on-transfer
             // these tokens are known to be without any fee-on-transfer
+            uint oldBalanceToken;
             if (
                 token != cerUsdToken &&
                 token != nativeToken
@@ -107,7 +100,7 @@ abstract contract CerbySwapV1_SafeFunctions is CerbySwapV1_EventsAndErrors, Cerb
                 token != cerUsdToken &&
                 token != nativeToken
             ) {
-                newBalanceToken = _getTokenBalance(token);
+                uint newBalanceToken = _getTokenBalance(token);
                 if (
                     newBalanceToken + amountTokensOut != oldBalanceToken
                 ) {
@@ -122,8 +115,9 @@ abstract contract CerbySwapV1_SafeFunctions is CerbySwapV1_EventsAndErrors, Cerb
         address to,
         uint value
     ) internal {
+        // 0xa9059cbb = bytes4(keccak256(bytes('transfer(address,uint)')));
         (bool success, bytes memory data) = 
-            token.call(abi.encodeWithSelector(TRANSFER_FUNCTION_SELECTOR, to, value));
+            token.call(abi.encodeWithSelector(0xa9059cbb, to, value));
 
         // we allow successfull calls and with (true) or without return data
         if (
@@ -139,8 +133,9 @@ abstract contract CerbySwapV1_SafeFunctions is CerbySwapV1_EventsAndErrors, Cerb
         address to,
         uint value
     ) internal {
+        // 0x23b872dd = bytes4(keccak256(bytes('transferFrom(address,address,uint)')));
         (bool success, bytes memory data) = 
-            token.call(abi.encodeWithSelector(TRANSFER_FROM_FUNCTION_SELECTOR, from, to, value));
+            token.call(abi.encodeWithSelector(0x23b872dd, from, to, value));
 
         // we allow successfull calls and with (true) or without return data
         if (
