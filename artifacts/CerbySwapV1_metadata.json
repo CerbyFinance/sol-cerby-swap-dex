@@ -1599,7 +1599,7 @@
 			"bytecodeHash": "ipfs"
 		},
 		"optimizer": {
-			"enabled": false,
+			"enabled": true,
 			"runs": 200
 		},
 		"remappings": []
@@ -1662,11 +1662,11 @@
 			]
 		},
 		"sol-cerby-swap-v1/CerbySwapV1_LiquidityFunctions.sol": {
-			"keccak256": "0x92e93c3d61b66309a680fc61c82a7e937a08e2f5027c5a6b709b0581619ac06b",
+			"keccak256": "0xb79995bc627127d7722a83e44d22f4076a4b6bd2020b9ccf5132ffa23ede331b",
 			"license": "BUSL-1.1",
 			"urls": [
-				"bzz-raw://44c69fd9f2f5ac355e5a5cf04fd7fd37b2bfc6764324e4263c34127f506d06a6",
-				"dweb:/ipfs/QmQHn2UJeMg1hA7h2QbhD8JUaaPKkyvriTM9LuGrV3Lfdm"
+				"bzz-raw://12b5d2969f91eb429f96b746588de3ad257069ebf413f77a5a1a6e0fbd82f6a8",
+				"dweb:/ipfs/QmaBQmUyuWia2zV86RN8XaE9uetLkfqLKqp54w2L8a5sh1"
 			]
 		},
 		"sol-cerby-swap-v1/CerbySwapV1_Math.sol": {

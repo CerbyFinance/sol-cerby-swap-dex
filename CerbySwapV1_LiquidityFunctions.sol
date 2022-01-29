@@ -237,6 +237,13 @@ abstract contract CerbySwapV1_LiquidityFunctions is CerbySwapV1_SafeFunctions, C
                 amountCerUsdToMint, 
                 lpAmount
             );
+
+            emit Sync(
+                token, 
+                pools[poolId].balanceToken, 
+                pools[poolId].balanceCerUsd,
+                pools[poolId].creditCerUsd
+            );
         }
 
         return lpAmount;
@@ -342,6 +349,13 @@ abstract contract CerbySwapV1_LiquidityFunctions is CerbySwapV1_SafeFunctions, C
             amountTokensOut, 
             amountCerUsdToBurn, 
             amountLpTokensBalanceToBurn
+        );
+
+        emit Sync(
+            token, 
+            pools[poolId].balanceToken, 
+            pools[poolId].balanceCerUsd,
+            pools[poolId].creditCerUsd
         );
 
         return amountTokensOut;
