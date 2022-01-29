@@ -884,7 +884,7 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"sol-cerby-swap-v1/CerbySwapLP1155V1.sol": "CerbySwapLP1155V1"
+			"sol-cerby-swap-v1/CerbySwapV1_ERC1155.sol": "CerbySwapLP1155V1"
 		},
 		"evmVersion": "london",
 		"libraries": {},
@@ -906,7 +906,7 @@
 				"dweb:/ipfs/QmQt2nTREmJ7xn9ur68VTYysfmKcUfaFRp367nYqm99g7H"
 			]
 		},
-		"sol-cerby-swap-v1/CerbySwapLP1155V1.sol": {
+		"sol-cerby-swap-v1/CerbySwapV1_ERC1155.sol": {
 			"keccak256": "0x9757a0d8b3b94941f9e345a4ee1b147fa3997a7e801cbf2e3b221dcd939384f4",
 			"license": "BUSL-1.1",
 			"urls": [

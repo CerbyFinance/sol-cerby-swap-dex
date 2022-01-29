@@ -7,7 +7,7 @@ import "./openzeppelin/token/ERC1155/extensions/ERC1155Supply.sol";
 import "./CerbyCronJobsExecution.sol";
 
 
-abstract contract CerbySwapLP1155V1 is ERC1155Supply, CerbyCronJobsExecution, AccessControlEnumerable {
+abstract contract CerbySwapV1_ERC1155 is ERC1155Supply, CerbyCronJobsExecution, AccessControlEnumerable {
 
     string _name = "Cerby Swap V1";
     string _symbol = "CERBY_SWAP_V1";

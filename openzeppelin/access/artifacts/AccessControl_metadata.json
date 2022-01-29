@@ -289,7 +289,7 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"sol-defifactory-token/openzeppelin/access/AccessControl.sol": "AccessControl"
+			"sol-cerby-swap-v1/openzeppelin/access/AccessControl.sol": "AccessControl"
 		},
 		"evmVersion": "london",
 		"libraries": {},
@@ -298,12 +298,12 @@
 		},
 		"optimizer": {
 			"enabled": true,
-			"runs": 20
+			"runs": 200
 		},
 		"remappings": []
 	},
 	"sources": {
-		"sol-defifactory-token/openzeppelin/access/AccessControl.sol": {
+		"sol-cerby-swap-v1/openzeppelin/access/AccessControl.sol": {
 			"keccak256": "0x3793fd2148a8ba3d983b8bfde834a061e27558b04383cc2fe44a5937965323a3",
 			"license": "MIT",
 			"urls": [
@@ -311,7 +311,7 @@
 				"dweb:/ipfs/QmZiM4bGZXC51JFqWPPAujyHTYKxUFccyQtyZkBahdnrDu"
 			]
 		},
-		"sol-defifactory-token/openzeppelin/access/IAccessControl.sol": {
+		"sol-cerby-swap-v1/openzeppelin/access/IAccessControl.sol": {
 			"keccak256": "0x59ce320a585d7e1f163cd70390a0ef2ff9cec832e2aa544293a00692465a7a57",
 			"license": "MIT",
 			"urls": [
@@ -319,7 +319,7 @@
 				"dweb:/ipfs/QmUxhrAQM3MM3FF5j7AtcXLXguWCJBHJ14BRdVtuoQc8Fh"
 			]
 		},
-		"sol-defifactory-token/openzeppelin/utils/Context.sol": {
+		"sol-cerby-swap-v1/openzeppelin/utils/Context.sol": {
 			"keccak256": "0xe2e337e6dde9ef6b680e07338c493ebea1b5fd09b43424112868e9cc1706bca7",
 			"license": "MIT",
 			"urls": [
@@ -327,7 +327,7 @@
 				"dweb:/ipfs/QmRK2Y5Yc6BK7tGKkgsgn3aJEQGi5aakeSPZvS65PV8Xp3"
 			]
 		},
-		"sol-defifactory-token/openzeppelin/utils/Strings.sol": {
+		"sol-cerby-swap-v1/openzeppelin/utils/Strings.sol": {
 			"keccak256": "0x32c202bd28995dd20c4347b7c6467a6d3241c74c8ad3edcbb610cd9205916c45",
 			"license": "MIT",
 			"urls": [
@@ -335,7 +335,7 @@
 				"dweb:/ipfs/QmWFbivarEobbqhS1go64ootVuHfVohBseerYy9FTEd1W2"
 			]
 		},
-		"sol-defifactory-token/openzeppelin/utils/introspection/ERC165.sol": {
+		"sol-cerby-swap-v1/openzeppelin/utils/introspection/ERC165.sol": {
 			"keccak256": "0xd10975de010d89fd1c78dc5e8a9a7e7f496198085c151648f20cba166b32582b",
 			"license": "MIT",
 			"urls": [
@@ -343,7 +343,7 @@
 				"dweb:/ipfs/QmZptt1nmYoA5SgjwnSgWqgUSDgm4q52Yos3xhnMv3MV43"
 			]
 		},
-		"sol-defifactory-token/openzeppelin/utils/introspection/IERC165.sol": {
+		"sol-cerby-swap-v1/openzeppelin/utils/introspection/IERC165.sol": {
 			"keccak256": "0x447a5f3ddc18419d41ff92b3773fb86471b1db25773e07f877f548918a185bf1",
 			"license": "MIT",
 			"urls": [
