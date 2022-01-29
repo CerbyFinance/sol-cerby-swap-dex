@@ -724,29 +724,6 @@
 				"inputs": [
 					{
 						"internalType": "address",
-						"name": "account",
-						"type": "address"
-					},
-					{
-						"internalType": "uint256",
-						"name": "id",
-						"type": "uint256"
-					},
-					{
-						"internalType": "uint256",
-						"name": "value",
-						"type": "uint256"
-					}
-				],
-				"name": "burn",
-				"outputs": [],
-				"stateMutability": "nonpayable",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "address",
 						"name": "token",
 						"type": "address"
 					},
@@ -1606,11 +1583,11 @@
 	},
 	"sources": {
 		"sol-cerby-swap-v1/CerbyCronJobsExecution.sol": {
-			"keccak256": "0x0c16f44372f531fc8aca7e8334e6e32d2b642d3a6108855aa1cd6bb514031f07",
+			"keccak256": "0xefa5b53f0157193788ee0ec5312bf567afc908263755e5ad917dd0738717cb12",
 			"license": "BUSL-1.1",
 			"urls": [
-				"bzz-raw://1dd2d13f1abcee6f8a21ac39ca03a56aca89e7ac781afb8322a37687e703a4da",
-				"dweb:/ipfs/QmQt2nTREmJ7xn9ur68VTYysfmKcUfaFRp367nYqm99g7H"
+				"bzz-raw://715127ba21afb540fe48c5e983db28d2ce29c67f03ce7a0ab876465336b9f36f",
+				"dweb:/ipfs/QmNceFtzHMgVrS4m1bNtjdBUZ2hs6v4KzDbTCeDxN9UpHw"
 			]
 		},
 		"sol-cerby-swap-v1/CerbySwapV1.sol": {
@@ -1638,11 +1615,11 @@
 			]
 		},
 		"sol-cerby-swap-v1/CerbySwapV1_ERC1155.sol": {
-			"keccak256": "0x68d148e4e789bba5ee11ab3147004e1fffea96737bc2d931b093a881bb1c788a",
+			"keccak256": "0x9adfb600579d4c73ae3443bad796e2fb2e95d83cb609fb944074fcb4039b1155",
 			"license": "BUSL-1.1",
 			"urls": [
-				"bzz-raw://db9f8047f34e3b7de248d85241095a5b7e14f9359933380f5aeb31211f08bc3d",
-				"dweb:/ipfs/QmPef2Q2sqK6vg6fo73kQzZ5aboydjiDw8z16o8FCbL86m"
+				"bzz-raw://742bc7b086038e25aef4444dfd537b4540c86d90d9a2776235c1071c2d1ba95e",
+				"dweb:/ipfs/QmX4FoC493gRydgi8vQ817nZmF6TLDkMDnPcqAx59Qy9hq"
 			]
 		},
 		"sol-cerby-swap-v1/CerbySwapV1_EventsAndErrors.sol": {

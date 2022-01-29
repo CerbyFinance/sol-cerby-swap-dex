@@ -8,6 +8,15 @@ import { CerbyBotDetectionContract } from "./CerbyBotDetection";
 import { CerbyCronJobsExecutionContract } from "./CerbyCronJobsExecution";
 import { CerbySwapLP1155V1Contract } from "./CerbySwapLP1155V1";
 import { CerbySwapV1Contract } from "./CerbySwapV1";
+import { CerbySwapV1AdminFunctionsContract } from "./CerbySwapV1AdminFunctions";
+import { CerbySwapV1DeclarationsContract } from "./CerbySwapV1Declarations";
+import { CerbySwapV1ERC1155Contract } from "./CerbySwapV1ERC1155";
+import { CerbySwapV1EventsAndErrorsContract } from "./CerbySwapV1EventsAndErrors";
+import { CerbySwapV1GetFunctionsContract } from "./CerbySwapV1GetFunctions";
+import { CerbySwapV1LiquidityFunctionsContract } from "./CerbySwapV1LiquidityFunctions";
+import { CerbySwapV1ModifiersContract } from "./CerbySwapV1Modifiers";
+import { CerbySwapV1SafeFunctionsContract } from "./CerbySwapV1SafeFunctions";
+import { CerbySwapV1SwapFunctionsContract } from "./CerbySwapV1SwapFunctions";
 import { ERC1155Contract } from "./ERC1155";
 import { ERC1155HolderContract } from "./ERC1155Holder";
 import { ERC1155ReceiverContract } from "./ERC1155Receiver";
@@ -29,6 +38,7 @@ import { IERC20Contract } from "./IERC20";
 import { IERC20MetadataContract } from "./IERC20Metadata";
 import { IWethContract } from "./IWeth";
 import { MigrationsContract } from "./Migrations";
+import { OwnableContract } from "./Ownable";
 import { TestCerUsdTokenContract } from "./TestCerUsdToken";
 import { TestCerbyTokenContract } from "./TestCerbyToken";
 import { TestUsdcTokenContract } from "./TestUsdcToken";
@@ -43,6 +53,29 @@ declare global {
       require(name: "CerbyCronJobsExecution"): CerbyCronJobsExecutionContract;
       require(name: "CerbySwapLP1155V1"): CerbySwapLP1155V1Contract;
       require(name: "CerbySwapV1"): CerbySwapV1Contract;
+      require(
+        name: "CerbySwapV1_AdminFunctions"
+      ): CerbySwapV1AdminFunctionsContract;
+      require(
+        name: "CerbySwapV1_Declarations"
+      ): CerbySwapV1DeclarationsContract;
+      require(name: "CerbySwapV1_ERC1155"): CerbySwapV1ERC1155Contract;
+      require(
+        name: "CerbySwapV1_EventsAndErrors"
+      ): CerbySwapV1EventsAndErrorsContract;
+      require(
+        name: "CerbySwapV1_GetFunctions"
+      ): CerbySwapV1GetFunctionsContract;
+      require(
+        name: "CerbySwapV1_LiquidityFunctions"
+      ): CerbySwapV1LiquidityFunctionsContract;
+      require(name: "CerbySwapV1_Modifiers"): CerbySwapV1ModifiersContract;
+      require(
+        name: "CerbySwapV1_SafeFunctions"
+      ): CerbySwapV1SafeFunctionsContract;
+      require(
+        name: "CerbySwapV1_SwapFunctions"
+      ): CerbySwapV1SwapFunctionsContract;
       require(name: "ERC1155"): ERC1155Contract;
       require(name: "ERC1155Holder"): ERC1155HolderContract;
       require(name: "ERC1155Receiver"): ERC1155ReceiverContract;
@@ -66,6 +99,7 @@ declare global {
       require(name: "IERC20Metadata"): IERC20MetadataContract;
       require(name: "IWeth"): IWethContract;
       require(name: "Migrations"): MigrationsContract;
+      require(name: "Ownable"): OwnableContract;
       require(name: "TestCerUsdToken"): TestCerUsdTokenContract;
       require(name: "TestCerbyToken"): TestCerbyTokenContract;
       require(name: "TestUsdcToken"): TestUsdcTokenContract;
@@ -92,6 +126,42 @@ export {
   CerbySwapLP1155V1Instance,
 } from "./CerbySwapLP1155V1";
 export { CerbySwapV1Contract, CerbySwapV1Instance } from "./CerbySwapV1";
+export {
+  CerbySwapV1AdminFunctionsContract,
+  CerbySwapV1AdminFunctionsInstance,
+} from "./CerbySwapV1AdminFunctions";
+export {
+  CerbySwapV1DeclarationsContract,
+  CerbySwapV1DeclarationsInstance,
+} from "./CerbySwapV1Declarations";
+export {
+  CerbySwapV1ERC1155Contract,
+  CerbySwapV1ERC1155Instance,
+} from "./CerbySwapV1ERC1155";
+export {
+  CerbySwapV1EventsAndErrorsContract,
+  CerbySwapV1EventsAndErrorsInstance,
+} from "./CerbySwapV1EventsAndErrors";
+export {
+  CerbySwapV1GetFunctionsContract,
+  CerbySwapV1GetFunctionsInstance,
+} from "./CerbySwapV1GetFunctions";
+export {
+  CerbySwapV1LiquidityFunctionsContract,
+  CerbySwapV1LiquidityFunctionsInstance,
+} from "./CerbySwapV1LiquidityFunctions";
+export {
+  CerbySwapV1ModifiersContract,
+  CerbySwapV1ModifiersInstance,
+} from "./CerbySwapV1Modifiers";
+export {
+  CerbySwapV1SafeFunctionsContract,
+  CerbySwapV1SafeFunctionsInstance,
+} from "./CerbySwapV1SafeFunctions";
+export {
+  CerbySwapV1SwapFunctionsContract,
+  CerbySwapV1SwapFunctionsInstance,
+} from "./CerbySwapV1SwapFunctions";
 export { ERC1155Contract, ERC1155Instance } from "./ERC1155";
 export { ERC1155HolderContract, ERC1155HolderInstance } from "./ERC1155Holder";
 export {
@@ -143,6 +213,7 @@ export {
 } from "./IERC20Metadata";
 export { IWethContract, IWethInstance } from "./IWeth";
 export { MigrationsContract, MigrationsInstance } from "./Migrations";
+export { OwnableContract, OwnableInstance } from "./Ownable";
 export {
   TestCerUsdTokenContract,
   TestCerUsdTokenInstance,

@@ -5,9 +5,11 @@
 import BN from "bn.js";
 import { EventData, PastEventOptions } from "web3-eth-contract";
 
-export interface CerbySwapV1Contract
-  extends Truffle.Contract<CerbySwapV1Instance> {
-  "new"(meta?: Truffle.TransactionDetails): Promise<CerbySwapV1Instance>;
+export interface CerbySwapV1AdminFunctionsContract
+  extends Truffle.Contract<CerbySwapV1AdminFunctionsInstance> {
+  "new"(
+    meta?: Truffle.TransactionDetails
+  ): Promise<CerbySwapV1AdminFunctionsInstance>;
 }
 
 export interface ApprovalForAll {
@@ -160,7 +162,8 @@ type AllEvents =
   | TransferSingle
   | URI;
 
-export interface CerbySwapV1Instance extends Truffle.ContractInstance {
+export interface CerbySwapV1AdminFunctionsInstance
+  extends Truffle.ContractInstance {
   addTokenLiquidity: {
     (
       token: string,
@@ -393,67 +396,6 @@ export interface CerbySwapV1Instance extends Truffle.ContractInstance {
     txDetails?: Truffle.TransactionDetails
   ): Promise<boolean>;
 
-  getCurrentOneMinusFeeBasedOnTrades(
-    token: string,
-    txDetails?: Truffle.TransactionDetails
-  ): Promise<BN>;
-
-  getInputTokensForExactTokens(
-    tokenIn: string,
-    tokenOut: string,
-    amountTokensOut: number | BN | string,
-    txDetails?: Truffle.TransactionDetails
-  ): Promise<BN>;
-
-  getOutputExactTokensForTokens(
-    tokenIn: string,
-    tokenOut: string,
-    amountTokensIn: number | BN | string,
-    txDetails?: Truffle.TransactionDetails
-  ): Promise<BN>;
-
-  getPoolsByIds(
-    ids: (number | BN | string)[],
-    txDetails?: Truffle.TransactionDetails
-  ): Promise<
-    {
-      tradeVolumePerPeriodInCerUsd: BN[];
-      balanceToken: BN;
-      balanceCerUsd: BN;
-      lastSqrtKValue: BN;
-      creditCerUsd: BN;
-    }[]
-  >;
-
-  getPoolsByTokens(
-    tokens: string[],
-    txDetails?: Truffle.TransactionDetails
-  ): Promise<
-    {
-      tradeVolumePerPeriodInCerUsd: BN[];
-      balanceToken: BN;
-      balanceCerUsd: BN;
-      lastSqrtKValue: BN;
-      creditCerUsd: BN;
-    }[]
-  >;
-
-  getSettings(
-    txDetails?: Truffle.TransactionDetails
-  ): Promise<{
-    mintFeeBeneficiary: string;
-    mintFeeMultiplier: BN;
-    feeMinimum: BN;
-    feeMaximum: BN;
-    tvlMultiplierMinimum: BN;
-    tvlMultiplierMaximum: BN;
-  }>;
-
-  getTokenToPoolId(
-    token: string,
-    txDetails?: Truffle.TransactionDetails
-  ): Promise<BN>;
-
   getUtilsContractAtPos(
     pos: number | BN | string,
     txDetails?: Truffle.TransactionDetails
@@ -487,37 +429,6 @@ export interface CerbySwapV1Instance extends Truffle.ContractInstance {
     operator: string,
     txDetails?: Truffle.TransactionDetails
   ): Promise<boolean>;
-
-  lowLevelSwap: {
-    (
-      token: string,
-      amountTokensOut: number | BN | string,
-      amountCerUsdOut: number | BN | string,
-      transferTo: string,
-      txDetails?: Truffle.TransactionDetails
-    ): Promise<Truffle.TransactionResponse<AllEvents>>;
-    call(
-      token: string,
-      amountTokensOut: number | BN | string,
-      amountCerUsdOut: number | BN | string,
-      transferTo: string,
-      txDetails?: Truffle.TransactionDetails
-    ): Promise<void>;
-    sendTransaction(
-      token: string,
-      amountTokensOut: number | BN | string,
-      amountCerUsdOut: number | BN | string,
-      transferTo: string,
-      txDetails?: Truffle.TransactionDetails
-    ): Promise<string>;
-    estimateGas(
-      token: string,
-      amountTokensOut: number | BN | string,
-      amountCerUsdOut: number | BN | string,
-      transferTo: string,
-      txDetails?: Truffle.TransactionDetails
-    ): Promise<number>;
-  };
 
   name(txDetails?: Truffle.TransactionDetails): Promise<string>;
 
@@ -675,84 +586,6 @@ export interface CerbySwapV1Instance extends Truffle.ContractInstance {
     interfaceId: string,
     txDetails?: Truffle.TransactionDetails
   ): Promise<boolean>;
-
-  swapExactTokensForTokens: {
-    (
-      tokenIn: string,
-      tokenOut: string,
-      amountTokensIn: number | BN | string,
-      minAmountTokensOut: number | BN | string,
-      expireTimestamp: number | BN | string,
-      transferTo: string,
-      txDetails?: Truffle.TransactionDetails
-    ): Promise<Truffle.TransactionResponse<AllEvents>>;
-    call(
-      tokenIn: string,
-      tokenOut: string,
-      amountTokensIn: number | BN | string,
-      minAmountTokensOut: number | BN | string,
-      expireTimestamp: number | BN | string,
-      transferTo: string,
-      txDetails?: Truffle.TransactionDetails
-    ): Promise<{ 0: BN; 1: BN }>;
-    sendTransaction(
-      tokenIn: string,
-      tokenOut: string,
-      amountTokensIn: number | BN | string,
-      minAmountTokensOut: number | BN | string,
-      expireTimestamp: number | BN | string,
-      transferTo: string,
-      txDetails?: Truffle.TransactionDetails
-    ): Promise<string>;
-    estimateGas(
-      tokenIn: string,
-      tokenOut: string,
-      amountTokensIn: number | BN | string,
-      minAmountTokensOut: number | BN | string,
-      expireTimestamp: number | BN | string,
-      transferTo: string,
-      txDetails?: Truffle.TransactionDetails
-    ): Promise<number>;
-  };
-
-  swapTokensForExactTokens: {
-    (
-      tokenIn: string,
-      tokenOut: string,
-      amountTokensOut: number | BN | string,
-      maxAmountTokensIn: number | BN | string,
-      expireTimestamp: number | BN | string,
-      transferTo: string,
-      txDetails?: Truffle.TransactionDetails
-    ): Promise<Truffle.TransactionResponse<AllEvents>>;
-    call(
-      tokenIn: string,
-      tokenOut: string,
-      amountTokensOut: number | BN | string,
-      maxAmountTokensIn: number | BN | string,
-      expireTimestamp: number | BN | string,
-      transferTo: string,
-      txDetails?: Truffle.TransactionDetails
-    ): Promise<{ 0: BN; 1: BN }>;
-    sendTransaction(
-      tokenIn: string,
-      tokenOut: string,
-      amountTokensOut: number | BN | string,
-      maxAmountTokensIn: number | BN | string,
-      expireTimestamp: number | BN | string,
-      transferTo: string,
-      txDetails?: Truffle.TransactionDetails
-    ): Promise<string>;
-    estimateGas(
-      tokenIn: string,
-      tokenOut: string,
-      amountTokensOut: number | BN | string,
-      maxAmountTokensIn: number | BN | string,
-      expireTimestamp: number | BN | string,
-      transferTo: string,
-      txDetails?: Truffle.TransactionDetails
-    ): Promise<number>;
-  };
 
   symbol(txDetails?: Truffle.TransactionDetails): Promise<string>;
 
@@ -1071,67 +904,6 @@ export interface CerbySwapV1Instance extends Truffle.ContractInstance {
       txDetails?: Truffle.TransactionDetails
     ): Promise<boolean>;
 
-    getCurrentOneMinusFeeBasedOnTrades(
-      token: string,
-      txDetails?: Truffle.TransactionDetails
-    ): Promise<BN>;
-
-    getInputTokensForExactTokens(
-      tokenIn: string,
-      tokenOut: string,
-      amountTokensOut: number | BN | string,
-      txDetails?: Truffle.TransactionDetails
-    ): Promise<BN>;
-
-    getOutputExactTokensForTokens(
-      tokenIn: string,
-      tokenOut: string,
-      amountTokensIn: number | BN | string,
-      txDetails?: Truffle.TransactionDetails
-    ): Promise<BN>;
-
-    getPoolsByIds(
-      ids: (number | BN | string)[],
-      txDetails?: Truffle.TransactionDetails
-    ): Promise<
-      {
-        tradeVolumePerPeriodInCerUsd: BN[];
-        balanceToken: BN;
-        balanceCerUsd: BN;
-        lastSqrtKValue: BN;
-        creditCerUsd: BN;
-      }[]
-    >;
-
-    getPoolsByTokens(
-      tokens: string[],
-      txDetails?: Truffle.TransactionDetails
-    ): Promise<
-      {
-        tradeVolumePerPeriodInCerUsd: BN[];
-        balanceToken: BN;
-        balanceCerUsd: BN;
-        lastSqrtKValue: BN;
-        creditCerUsd: BN;
-      }[]
-    >;
-
-    getSettings(
-      txDetails?: Truffle.TransactionDetails
-    ): Promise<{
-      mintFeeBeneficiary: string;
-      mintFeeMultiplier: BN;
-      feeMinimum: BN;
-      feeMaximum: BN;
-      tvlMultiplierMinimum: BN;
-      tvlMultiplierMaximum: BN;
-    }>;
-
-    getTokenToPoolId(
-      token: string,
-      txDetails?: Truffle.TransactionDetails
-    ): Promise<BN>;
-
     getUtilsContractAtPos(
       pos: number | BN | string,
       txDetails?: Truffle.TransactionDetails
@@ -1165,37 +937,6 @@ export interface CerbySwapV1Instance extends Truffle.ContractInstance {
       operator: string,
       txDetails?: Truffle.TransactionDetails
     ): Promise<boolean>;
-
-    lowLevelSwap: {
-      (
-        token: string,
-        amountTokensOut: number | BN | string,
-        amountCerUsdOut: number | BN | string,
-        transferTo: string,
-        txDetails?: Truffle.TransactionDetails
-      ): Promise<Truffle.TransactionResponse<AllEvents>>;
-      call(
-        token: string,
-        amountTokensOut: number | BN | string,
-        amountCerUsdOut: number | BN | string,
-        transferTo: string,
-        txDetails?: Truffle.TransactionDetails
-      ): Promise<void>;
-      sendTransaction(
-        token: string,
-        amountTokensOut: number | BN | string,
-        amountCerUsdOut: number | BN | string,
-        transferTo: string,
-        txDetails?: Truffle.TransactionDetails
-      ): Promise<string>;
-      estimateGas(
-        token: string,
-        amountTokensOut: number | BN | string,
-        amountCerUsdOut: number | BN | string,
-        transferTo: string,
-        txDetails?: Truffle.TransactionDetails
-      ): Promise<number>;
-    };
 
     name(txDetails?: Truffle.TransactionDetails): Promise<string>;
 
@@ -1356,84 +1097,6 @@ export interface CerbySwapV1Instance extends Truffle.ContractInstance {
       interfaceId: string,
       txDetails?: Truffle.TransactionDetails
     ): Promise<boolean>;
-
-    swapExactTokensForTokens: {
-      (
-        tokenIn: string,
-        tokenOut: string,
-        amountTokensIn: number | BN | string,
-        minAmountTokensOut: number | BN | string,
-        expireTimestamp: number | BN | string,
-        transferTo: string,
-        txDetails?: Truffle.TransactionDetails
-      ): Promise<Truffle.TransactionResponse<AllEvents>>;
-      call(
-        tokenIn: string,
-        tokenOut: string,
-        amountTokensIn: number | BN | string,
-        minAmountTokensOut: number | BN | string,
-        expireTimestamp: number | BN | string,
-        transferTo: string,
-        txDetails?: Truffle.TransactionDetails
-      ): Promise<{ 0: BN; 1: BN }>;
-      sendTransaction(
-        tokenIn: string,
-        tokenOut: string,
-        amountTokensIn: number | BN | string,
-        minAmountTokensOut: number | BN | string,
-        expireTimestamp: number | BN | string,
-        transferTo: string,
-        txDetails?: Truffle.TransactionDetails
-      ): Promise<string>;
-      estimateGas(
-        tokenIn: string,
-        tokenOut: string,
-        amountTokensIn: number | BN | string,
-        minAmountTokensOut: number | BN | string,
-        expireTimestamp: number | BN | string,
-        transferTo: string,
-        txDetails?: Truffle.TransactionDetails
-      ): Promise<number>;
-    };
-
-    swapTokensForExactTokens: {
-      (
-        tokenIn: string,
-        tokenOut: string,
-        amountTokensOut: number | BN | string,
-        maxAmountTokensIn: number | BN | string,
-        expireTimestamp: number | BN | string,
-        transferTo: string,
-        txDetails?: Truffle.TransactionDetails
-      ): Promise<Truffle.TransactionResponse<AllEvents>>;
-      call(
-        tokenIn: string,
-        tokenOut: string,
-        amountTokensOut: number | BN | string,
-        maxAmountTokensIn: number | BN | string,
-        expireTimestamp: number | BN | string,
-        transferTo: string,
-        txDetails?: Truffle.TransactionDetails
-      ): Promise<{ 0: BN; 1: BN }>;
-      sendTransaction(
-        tokenIn: string,
-        tokenOut: string,
-        amountTokensOut: number | BN | string,
-        maxAmountTokensIn: number | BN | string,
-        expireTimestamp: number | BN | string,
-        transferTo: string,
-        txDetails?: Truffle.TransactionDetails
-      ): Promise<string>;
-      estimateGas(
-        tokenIn: string,
-        tokenOut: string,
-        amountTokensOut: number | BN | string,
-        maxAmountTokensIn: number | BN | string,
-        expireTimestamp: number | BN | string,
-        transferTo: string,
-        txDetails?: Truffle.TransactionDetails
-      ): Promise<number>;
-    };
 
     symbol(txDetails?: Truffle.TransactionDetails): Promise<string>;
 
