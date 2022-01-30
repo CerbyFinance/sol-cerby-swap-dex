@@ -16,27 +16,27 @@ abstract contract CerbySwapV1_LiquidityFunctions is
 {
     // user can increase cerUsd credit in the pool
     function increaseCerUsdCreditInPool(
-        address token,
-        uint256 amountCerUsdCredit
+        address _token,
+        uint256 _amountCerUsdCredit
     ) public {
         // getting pool storage link (saves gas compared to memory)
-        Pool storage pool = pools[tokenToPoolId[token]];
+        Pool storage pool = pools[tokenToPoolId[_token]];
 
         // handling overflow just in case
         if (pool.creditCerUsd < type(uint256).max) {
             // increasing credit for user-created pool
-            pool.creditCerUsd += amountCerUsdCredit;
+            pool.creditCerUsd += _amountCerUsdCredit;
 
             // burning user's cerUsd tokens in order to increase the credit for given pool
             ICerbyTokenMinterBurner(cerUsdToken).burnHumanAddress(
                 msg.sender,
-                amountCerUsdCredit
+                _amountCerUsdCredit
             );
         }
 
         // Sync event to update pool variables in the graph node
         emit Sync(
-            token,
+            _token,
             pool.balanceToken,
             pool.balanceCerUsd,
             pool.creditCerUsd
@@ -184,7 +184,7 @@ abstract contract CerbySwapV1_LiquidityFunctions is
             uint256 amountLpTokensToMintAsFee = _getMintFeeLiquidityAmount(
                 pool.lastSqrtKValue,
                 newSqrtKValue,
-                _totalSupply[poolId]
+                contractTotalSupply[poolId]
             );
 
             _mint(
@@ -196,7 +196,7 @@ abstract contract CerbySwapV1_LiquidityFunctions is
         }
 
         // minting LP tokens
-        uint256 lpAmount = (amountTokensIn * _totalSupply[poolId]) /
+        uint256 lpAmount = (amountTokensIn * contractTotalSupply[poolId]) /
             pool.balanceToken;
         _mint(transferTo, poolId, lpAmount, "");
 
@@ -288,7 +288,7 @@ abstract contract CerbySwapV1_LiquidityFunctions is
             totalCerUsdBalance;
 
         // calculating amount of tokens to transfer
-        uint256 totalLPSupply = _totalSupply[poolId];
+        uint256 totalLPSupply = contractTotalSupply[poolId];
         uint256 amountTokensOut = (uint256(pool.balanceToken) *
             amountLpTokensBalanceToBurn) / totalLPSupply;
 

@@ -3,7 +3,6 @@
 
 pragma solidity ^0.8.0;
 
-import "../utils/Context.sol";
 
 /**
  * @dev Contract module which provides a basic access control mechanism, where
@@ -17,8 +16,8 @@ import "../utils/Context.sol";
  * `onlyOwner`, which can be applied to your functions to restrict their use to
  * the owner.
  */
-abstract contract Ownable is Context {
-    address private _owner;
+abstract contract Ownable {
+    address private contractOwner;
 
     event OwnershipTransferred(
         address indexed previousOwner,
@@ -37,14 +36,14 @@ abstract contract Ownable is Context {
      * @dev Returns the address of the current owner.
      */
     function owner() public view virtual returns (address) {
-        return _owner;
+        return contractOwner;
     }
 
     /**
      * @dev Throws if called by any account other than the owner.
      */
     modifier onlyOwner() {
-        if (owner() != _msgSender()) {
+        if (owner() != msg.sender) {
             revert Ownable_CallerIsNotOwner();
         }
         _;
@@ -65,20 +64,20 @@ abstract contract Ownable is Context {
      * @dev Transfers ownership of the contract to a new account (`newOwner`).
      * Can only be called by the current owner.
      */
-    function transferOwnership(address newOwner) public virtual onlyOwner {
-        if (newOwner == address(0)) {
+    function transferOwnership(address _newOwner) public virtual onlyOwner {
+        if (_newOwner == address(0)) {
             revert Ownable_NewOwnerIsNotTheZeroAddress();
         }
-        _transferOwnership(newOwner);
+        _transferOwnership(_newOwner);
     }
 
     /**
      * @dev Transfers ownership of the contract to a new account (`newOwner`).
      * Internal function without access restriction.
      */
-    function _transferOwnership(address newOwner) internal virtual {
-        address oldOwner = _owner;
-        _owner = newOwner;
-        emit OwnershipTransferred(oldOwner, newOwner);
+    function _transferOwnership(address _newOwner) internal virtual {
+        address oldOwner = contractOwner;
+        contractOwner = _newOwner;
+        emit OwnershipTransferred(oldOwner, _newOwner);
     }
 }

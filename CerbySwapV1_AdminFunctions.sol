@@ -62,18 +62,18 @@ abstract contract CerbySwapV1_AdminFunctions is
         );
     }
 
-    function adminSetURI(string calldata newUrlPrefix) external onlyOwner {
-        _setURI(string(abi.encodePacked(newUrlPrefix, "{id}.json")));
+    function adminSetURI(string calldata _newUrlPrefix) external onlyOwner {
+        _setURI(string(abi.encodePacked(_newUrlPrefix, "{id}.json")));
 
-        _urlPrefix = newUrlPrefix;
+        urlPrefix = _newUrlPrefix;
     }
 
     function adminUpdateNameAndSymbol(
-        string memory newName,
-        string memory newSymbol
+        string memory _newContractName,
+        string memory _newContractSymbol
     ) external onlyOwner {
-        _name = newName;
-        _symbol = newSymbol;
+        contractName = _newContractName;
+        contractSymbol = _newContractSymbol;
     }
 
     function adminUpdateFeesAndTvlMultipliers(Settings calldata _settings)
@@ -102,17 +102,17 @@ abstract contract CerbySwapV1_AdminFunctions is
     // only admins are allowed to create new pools with creditCerUsd = unlimitted
     // this is only for trusted tokens such as ETH, BNB, UNI, etc
     function adminCreatePool(
-        address token,
-        uint256 amountTokensIn,
-        uint256 amountCerUsdToMint,
-        address transferTo
+        address _token,
+        uint256 _amountTokensIn,
+        uint256 _amountCerUsdToMint,
+        address _transferTo
     ) external payable onlyOwner {
         _createPool(
-            token,
-            amountTokensIn,
-            amountCerUsdToMint,
+            _token,
+            _amountTokensIn,
+            _amountCerUsdToMint,
             type(uint256).max, // creditCerUsd
-            transferTo
+            _transferTo
         );
     }
 
@@ -122,21 +122,21 @@ abstract contract CerbySwapV1_AdminFunctions is
     // and swapping extra tokens + adding back to liquidity
     // using external contract assigned with admin role
     function adminChangeCerUsdCreditInPool(
-        address token,
-        uint256 amountCerUsdCredit
-    ) external onlyOwner tokenMustExistInPool(token) {
+        address _token,
+        uint256 _amountCerUsdCredit
+    ) external onlyOwner tokenMustExistInPool(_token) {
         // getting pool storage link (saves gas compared to memory)
-        Pool storage pool = pools[tokenToPoolId[token]];
+        Pool storage pool = pools[tokenToPoolId[_token]];
 
         // changing credit for user-created pool
-        pool.creditCerUsd = amountCerUsdCredit;
+        pool.creditCerUsd = _amountCerUsdCredit;
 
         // Sync event to update pool variables in the graph node
         emit Sync(
-            token,
+            _token,
             pool.balanceToken,
             pool.balanceCerUsd,
-            pool.creditCerUsd
+            _amountCerUsdCredit
         );
     }
 }

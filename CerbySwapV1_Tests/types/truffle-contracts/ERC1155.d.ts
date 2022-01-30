@@ -67,25 +67,25 @@ type AllEvents = ApprovalForAll | TransferBatch | TransferSingle | URI;
 
 export interface ERC1155Instance extends Truffle.ContractInstance {
   balanceOf(
-    account: string,
-    id: number | BN | string,
+    _account: string,
+    _id: number | BN | string,
     txDetails?: Truffle.TransactionDetails
   ): Promise<BN>;
 
   balanceOfBatch(
-    accounts: string[],
-    ids: (number | BN | string)[],
+    _accounts: string[],
+    _ids: (number | BN | string)[],
     txDetails?: Truffle.TransactionDetails
   ): Promise<BN[]>;
 
   exists(
-    id: number | BN | string,
+    _id: number | BN | string,
     txDetails?: Truffle.TransactionDetails
   ): Promise<boolean>;
 
   isApprovedForAll(
-    account: string,
-    operator: string,
+    _account: string,
+    _operator: string,
     txDetails?: Truffle.TransactionDetails
   ): Promise<boolean>;
 
@@ -188,7 +188,7 @@ export interface ERC1155Instance extends Truffle.ContractInstance {
   ): Promise<boolean>;
 
   totalSupply(
-    id: number | BN | string,
+    _id: number | BN | string,
     txDetails?: Truffle.TransactionDetails
   ): Promise<BN>;
 
@@ -199,25 +199,25 @@ export interface ERC1155Instance extends Truffle.ContractInstance {
 
   methods: {
     balanceOf(
-      account: string,
-      id: number | BN | string,
+      _account: string,
+      _id: number | BN | string,
       txDetails?: Truffle.TransactionDetails
     ): Promise<BN>;
 
     balanceOfBatch(
-      accounts: string[],
-      ids: (number | BN | string)[],
+      _accounts: string[],
+      _ids: (number | BN | string)[],
       txDetails?: Truffle.TransactionDetails
     ): Promise<BN[]>;
 
     exists(
-      id: number | BN | string,
+      _id: number | BN | string,
       txDetails?: Truffle.TransactionDetails
     ): Promise<boolean>;
 
     isApprovedForAll(
-      account: string,
-      operator: string,
+      _account: string,
+      _operator: string,
       txDetails?: Truffle.TransactionDetails
     ): Promise<boolean>;
 
@@ -320,7 +320,7 @@ export interface ERC1155Instance extends Truffle.ContractInstance {
     ): Promise<boolean>;
 
     totalSupply(
-      id: number | BN | string,
+      _id: number | BN | string,
       txDetails?: Truffle.TransactionDetails
     ): Promise<BN>;
 

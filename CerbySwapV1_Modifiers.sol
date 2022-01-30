@@ -5,23 +5,23 @@ pragma solidity ^0.8.11;
 import "./CerbySwapV1_Declarations.sol";
 
 abstract contract CerbySwapV1_Modifiers is CerbySwapV1_Declarations {
-    modifier tokenMustExistInPool(address token) {
-        if (tokenToPoolId[token] == 0 || token == cerUsdToken) {
+    modifier tokenMustExistInPool(address _token) {
+        if (tokenToPoolId[_token] == 0 || _token == cerUsdToken) {
             revert("C"); // TODO: remove this line on production
             revert CerbySwapV1_TokenDoesNotExist();
         }
         _;
     }
 
-    modifier tokenDoesNotExistInPool(address token) {
-        if (tokenToPoolId[token] > 0) {
+    modifier tokenDoesNotExistInPool(address _token) {
+        if (tokenToPoolId[_token] > 0) {
             revert CerbySwapV1_TokenAlreadyExists();
         }
         _;
     }
 
-    modifier transactionIsNotExpired(uint256 expireTimestamp) {
-        if (block.timestamp > expireTimestamp) {
+    modifier transactionIsNotExpired(uint256 _expireTimestamp) {
+        if (block.timestamp > _expireTimestamp) {
             revert("D"); // TODO: remove this line on production
             revert CerbySwapV1_TransactionIsExpired();
         }

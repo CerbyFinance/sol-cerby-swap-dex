@@ -15,10 +15,10 @@ export interface CerbySwapV1DeclarationsContract
 export interface LiquidityAdded {
   name: "LiquidityAdded";
   args: {
-    token: string;
-    amountTokensIn: BN;
-    amountCerUsdToMint: BN;
-    lpAmount: BN;
+    _token: string;
+    _amountTokensIn: BN;
+    _amountCerUsdToMint: BN;
+    _lpAmount: BN;
     0: string;
     1: BN;
     2: BN;
@@ -29,10 +29,10 @@ export interface LiquidityAdded {
 export interface LiquidityRemoved {
   name: "LiquidityRemoved";
   args: {
-    token: string;
-    amountTokensOut: BN;
-    amountCerUsdToBurn: BN;
-    amountLpTokensBalanceToBurn: BN;
+    _token: string;
+    _amountTokensOut: BN;
+    _amountCerUsdToBurn: BN;
+    _amountLpTokensBalanceToBurn: BN;
     0: string;
     1: BN;
     2: BN;
@@ -43,8 +43,8 @@ export interface LiquidityRemoved {
 export interface PairCreated {
   name: "PairCreated";
   args: {
-    token: string;
-    poolId: BN;
+    _token: string;
+    _poolId: BN;
     0: string;
     1: BN;
   };
@@ -53,14 +53,14 @@ export interface PairCreated {
 export interface Swap {
   name: "Swap";
   args: {
-    token: string;
-    sender: string;
-    amountTokensIn: BN;
-    amountCerUsdIn: BN;
-    amountTokensOut: BN;
+    _token: string;
+    _sender: string;
+    _amountTokensIn: BN;
+    _amountCerUsdIn: BN;
+    __amountTokensOut: BN;
     amountCerUsdOut: BN;
-    currentFee: BN;
-    transferTo: string;
+    _currentFee: BN;
+    _transferTo: string;
     0: string;
     1: string;
     2: BN;
@@ -75,10 +75,10 @@ export interface Swap {
 export interface Sync {
   name: "Sync";
   args: {
-    token: string;
-    newBalanceToken: BN;
-    newBalanceCerUsd: BN;
-    newCreditCerUsd: BN;
+    _token: string;
+    _newBalanceToken: BN;
+    _newBalanceCerUsd: BN;
+    _newCreditCerUsd: BN;
     0: string;
     1: BN;
     2: BN;

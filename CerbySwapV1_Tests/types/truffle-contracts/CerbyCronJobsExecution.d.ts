@@ -17,13 +17,13 @@ type AllEvents = never;
 export interface CerbyCronJobsExecutionInstance
   extends Truffle.ContractInstance {
   getUtilsContractAtPos(
-    pos: number | BN | string,
+    _pos: number | BN | string,
     txDetails?: Truffle.TransactionDetails
   ): Promise<string>;
 
   methods: {
     getUtilsContractAtPos(
-      pos: number | BN | string,
+      _pos: number | BN | string,
       txDetails?: Truffle.TransactionDetails
     ): Promise<string>;
   };

@@ -5,21 +5,21 @@ import "./openzeppelin/token/ERC1155/ERC1155.sol";
 import "./CerbyCronJobsExecution.sol";
 
 abstract contract CerbySwapV1_ERC1155 is ERC1155, CerbyCronJobsExecution {
-    string internal _name = "CerbySwapV1";
-    string internal _symbol = "CS1";
-    string internal _urlPrefix = "https://data.cerby.fi/CerbySwap/v1/";
+    string internal contractName = "CerbySwapV1";
+    string internal contractSymbol = "CS1";
+    string internal urlPrefix = "https://data.cerby.fi/CerbySwap/v1/";
 
     error CerbySwapLP1155V1_TransactionsAreTemporarilyDisabled();
     error CerbySwapLP1155V1_CallerIsNotOwnerNorApproved();
 
-    constructor() ERC1155(string(abi.encodePacked(_urlPrefix, "{id}.json"))) {}
+    constructor() ERC1155(string(abi.encodePacked(urlPrefix, "{id}.json"))) {}
 
     function name() external view returns (string memory) {
-        return _name;
+        return contractName;
     }
 
     function symbol() external view returns (string memory) {
-        return _symbol;
+        return contractSymbol;
     }
 
     function decimals() external pure returns (uint256) {
@@ -31,56 +31,56 @@ abstract contract CerbySwapV1_ERC1155 is ERC1155, CerbyCronJobsExecution {
         uint256 totalSupplyAmount;
 
         // i starts from 1
-        while (_totalSupply[++i] > 0) {
-            totalSupplyAmount += _totalSupply[i];
+        while (contractTotalSupply[++i] > 0) {
+            totalSupplyAmount += contractTotalSupply[i];
         }
         return totalSupplyAmount;
     }
 
-    function uri(uint256 id)
+    function uri(uint256 _id)
         external
         view
         virtual
         override
         returns (string memory)
     {
-        return string(abi.encodePacked(_urlPrefix, id, ".json"));
+        return string(abi.encodePacked(urlPrefix, _id, ".json"));
     }
 
-    function setApprovalForAll(address operator, bool approved)
+    function setApprovalForAll(address _operator, bool _approved)
         external
         virtual
         override
         executeCronJobs
     {
-        _setApprovalForAll(msg.sender, operator, approved);
+        _setApprovalForAll(msg.sender, _operator, _approved);
     }
 
     function safeTransferFrom(
-        address from,
-        address to,
-        uint256 id,
-        uint256 amount,
-        bytes calldata data
+        address _from,
+        address _to,
+        uint256 _id,
+        uint256 _amount,
+        bytes calldata _data
     ) external virtual override executeCronJobs {
-        if (from != msg.sender && !isApprovedForAll(from, msg.sender)) {
+        if (_from != msg.sender && !isApprovedForAll(_from, msg.sender)) {
             revert CerbySwapLP1155V1_CallerIsNotOwnerNorApproved();
         }
 
-        _safeTransferFrom(from, to, id, amount, data);
+        _safeTransferFrom(_from, _to, _id, _amount, _data);
     }
 
     function safeBatchTransferFrom(
-        address from,
-        address to,
-        uint256[] calldata ids,
-        uint256[] calldata amounts,
-        bytes calldata data
+        address _from,
+        address _to,
+        uint256[] calldata _ids,
+        uint256[] calldata _amounts,
+        bytes calldata _data
     ) external virtual override executeCronJobs {
-        if (from != msg.sender && !isApprovedForAll(from, msg.sender)) {
+        if (_from != msg.sender && !isApprovedForAll(_from, msg.sender)) {
             revert CerbySwapLP1155V1_CallerIsNotOwnerNorApproved();
         }
 
-        _safeBatchTransferFrom(from, to, ids, amounts, data);
+        _safeBatchTransferFrom(_from, _to, _ids, _amounts, _data);
     }
 }

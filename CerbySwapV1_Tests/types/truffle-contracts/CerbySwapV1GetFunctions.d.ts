@@ -15,10 +15,10 @@ export interface CerbySwapV1GetFunctionsContract
 export interface LiquidityAdded {
   name: "LiquidityAdded";
   args: {
-    token: string;
-    amountTokensIn: BN;
-    amountCerUsdToMint: BN;
-    lpAmount: BN;
+    _token: string;
+    _amountTokensIn: BN;
+    _amountCerUsdToMint: BN;
+    _lpAmount: BN;
     0: string;
     1: BN;
     2: BN;
@@ -29,10 +29,10 @@ export interface LiquidityAdded {
 export interface LiquidityRemoved {
   name: "LiquidityRemoved";
   args: {
-    token: string;
-    amountTokensOut: BN;
-    amountCerUsdToBurn: BN;
-    amountLpTokensBalanceToBurn: BN;
+    _token: string;
+    _amountTokensOut: BN;
+    _amountCerUsdToBurn: BN;
+    _amountLpTokensBalanceToBurn: BN;
     0: string;
     1: BN;
     2: BN;
@@ -43,8 +43,8 @@ export interface LiquidityRemoved {
 export interface PairCreated {
   name: "PairCreated";
   args: {
-    token: string;
-    poolId: BN;
+    _token: string;
+    _poolId: BN;
     0: string;
     1: BN;
   };
@@ -53,14 +53,14 @@ export interface PairCreated {
 export interface Swap {
   name: "Swap";
   args: {
-    token: string;
-    sender: string;
-    amountTokensIn: BN;
-    amountCerUsdIn: BN;
-    amountTokensOut: BN;
+    _token: string;
+    _sender: string;
+    _amountTokensIn: BN;
+    _amountCerUsdIn: BN;
+    __amountTokensOut: BN;
     amountCerUsdOut: BN;
-    currentFee: BN;
-    transferTo: string;
+    _currentFee: BN;
+    _transferTo: string;
     0: string;
     1: string;
     2: BN;
@@ -75,10 +75,10 @@ export interface Swap {
 export interface Sync {
   name: "Sync";
   args: {
-    token: string;
-    newBalanceToken: BN;
-    newBalanceCerUsd: BN;
-    newCreditCerUsd: BN;
+    _token: string;
+    _newBalanceToken: BN;
+    _newBalanceCerUsd: BN;
+    _newCreditCerUsd: BN;
     0: string;
     1: BN;
     2: BN;
@@ -91,26 +91,26 @@ type AllEvents = LiquidityAdded | LiquidityRemoved | PairCreated | Swap | Sync;
 export interface CerbySwapV1GetFunctionsInstance
   extends Truffle.ContractInstance {
   getCurrentOneMinusFeeBasedOnTrades(
-    token: string,
+    _token: string,
     txDetails?: Truffle.TransactionDetails
   ): Promise<BN>;
 
   getInputTokensForExactTokens(
-    tokenIn: string,
-    tokenOut: string,
-    amountTokensOut: number | BN | string,
+    _tokenIn: string,
+    _tokenOut: string,
+    _amountTokensOut: number | BN | string,
     txDetails?: Truffle.TransactionDetails
   ): Promise<BN>;
 
   getOutputExactTokensForTokens(
-    tokenIn: string,
-    tokenOut: string,
-    amountTokensIn: number | BN | string,
+    _tokenIn: string,
+    _tokenOut: string,
+    _amountTokensIn: number | BN | string,
     txDetails?: Truffle.TransactionDetails
   ): Promise<BN>;
 
   getPoolsByIds(
-    ids: (number | BN | string)[],
+    _ids: (number | BN | string)[],
     txDetails?: Truffle.TransactionDetails
   ): Promise<
     {
@@ -123,7 +123,7 @@ export interface CerbySwapV1GetFunctionsInstance
   >;
 
   getPoolsByTokens(
-    tokens: string[],
+    _tokens: string[],
     txDetails?: Truffle.TransactionDetails
   ): Promise<
     {
@@ -147,32 +147,32 @@ export interface CerbySwapV1GetFunctionsInstance
   }>;
 
   getTokenToPoolId(
-    token: string,
+    _token: string,
     txDetails?: Truffle.TransactionDetails
   ): Promise<BN>;
 
   methods: {
     getCurrentOneMinusFeeBasedOnTrades(
-      token: string,
+      _token: string,
       txDetails?: Truffle.TransactionDetails
     ): Promise<BN>;
 
     getInputTokensForExactTokens(
-      tokenIn: string,
-      tokenOut: string,
-      amountTokensOut: number | BN | string,
+      _tokenIn: string,
+      _tokenOut: string,
+      _amountTokensOut: number | BN | string,
       txDetails?: Truffle.TransactionDetails
     ): Promise<BN>;
 
     getOutputExactTokensForTokens(
-      tokenIn: string,
-      tokenOut: string,
-      amountTokensIn: number | BN | string,
+      _tokenIn: string,
+      _tokenOut: string,
+      _amountTokensIn: number | BN | string,
       txDetails?: Truffle.TransactionDetails
     ): Promise<BN>;
 
     getPoolsByIds(
-      ids: (number | BN | string)[],
+      _ids: (number | BN | string)[],
       txDetails?: Truffle.TransactionDetails
     ): Promise<
       {
@@ -185,7 +185,7 @@ export interface CerbySwapV1GetFunctionsInstance
     >;
 
     getPoolsByTokens(
-      tokens: string[],
+      _tokens: string[],
       txDetails?: Truffle.TransactionDetails
     ): Promise<
       {
@@ -209,7 +209,7 @@ export interface CerbySwapV1GetFunctionsInstance
     }>;
 
     getTokenToPoolId(
-      token: string,
+      _token: string,
       txDetails?: Truffle.TransactionDetails
     ): Promise<BN>;
   };
