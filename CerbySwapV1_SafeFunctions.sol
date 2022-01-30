@@ -10,6 +10,17 @@ abstract contract CerbySwapV1_SafeFunctions is
     CerbySwapV1_EventsAndErrors,
     CerbySwapV1_Declarations
 {
+    function _getPoolBalances(address _token)
+        internal
+        view
+        returns(PoolBalances memory)
+    {
+        return PoolBalances(
+            _getTokenBalance(_token),
+            _getTokenBalance(cerUsdToken)
+        );
+    }
+
     function _getTokenBalance(address _token) internal view returns (uint256) {
         uint256 balanceToken;
         if (_token == nativeToken) {

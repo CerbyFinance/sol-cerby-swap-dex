@@ -1075,34 +1075,6 @@
 				"type": "function"
 			},
 			{
-				"inputs": [
-					{
-						"internalType": "address",
-						"name": "_token",
-						"type": "address"
-					},
-					{
-						"internalType": "uint256",
-						"name": "_amountTokensOut",
-						"type": "uint256"
-					},
-					{
-						"internalType": "uint256",
-						"name": "_amountCerUsdOut",
-						"type": "uint256"
-					},
-					{
-						"internalType": "address",
-						"name": "_transferTo",
-						"type": "address"
-					}
-				],
-				"name": "lowLevelSwap",
-				"outputs": [],
-				"stateMutability": "payable",
-				"type": "function"
-			},
-			{
 				"inputs": [],
 				"name": "name",
 				"outputs": [
@@ -1649,11 +1621,11 @@
 			]
 		},
 		"sol-cerby-swap-v1/CerbySwapV1_SwapFunctions.sol": {
-			"keccak256": "0x2127497871511dc4609befd7be2ab9bac595f0506bb670da72c44f3f33d04023",
+			"keccak256": "0xfb8b16e313a305d92d89eeb4fcf37c4bc7c80b28d4e129baab95969be79eda26",
 			"license": "BUSL-1.1",
 			"urls": [
-				"bzz-raw://31f7730a015902cf0adfbc448029d2a466be41af52d6f73143b8deb384ec20b0",
-				"dweb:/ipfs/QmUNE7vhkGdWZNP8bxYRb8xSJDfkdRsVo7enB9LwSbtnhT"
+				"bzz-raw://11b5b2c1859eaa6cbe5450da3de9b257275089b7670a0a57a14a729527ef1cfa",
+				"dweb:/ipfs/QmTG3PWuSnExYzDdfR7BoKFLT57vh6yCVTqGXP5YRvKRog"
 			]
 		},
 		"sol-cerby-swap-v1/interfaces/ICerbyBotDetection.sol": {

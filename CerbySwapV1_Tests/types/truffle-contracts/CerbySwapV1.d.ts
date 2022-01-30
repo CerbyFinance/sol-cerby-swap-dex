@@ -488,37 +488,6 @@ export interface CerbySwapV1Instance extends Truffle.ContractInstance {
     txDetails?: Truffle.TransactionDetails
   ): Promise<boolean>;
 
-  lowLevelSwap: {
-    (
-      _token: string,
-      _amountTokensOut: number | BN | string,
-      _amountCerUsdOut: number | BN | string,
-      _transferTo: string,
-      txDetails?: Truffle.TransactionDetails
-    ): Promise<Truffle.TransactionResponse<AllEvents>>;
-    call(
-      _token: string,
-      _amountTokensOut: number | BN | string,
-      _amountCerUsdOut: number | BN | string,
-      _transferTo: string,
-      txDetails?: Truffle.TransactionDetails
-    ): Promise<void>;
-    sendTransaction(
-      _token: string,
-      _amountTokensOut: number | BN | string,
-      _amountCerUsdOut: number | BN | string,
-      _transferTo: string,
-      txDetails?: Truffle.TransactionDetails
-    ): Promise<string>;
-    estimateGas(
-      _token: string,
-      _amountTokensOut: number | BN | string,
-      _amountCerUsdOut: number | BN | string,
-      _transferTo: string,
-      txDetails?: Truffle.TransactionDetails
-    ): Promise<number>;
-  };
-
   name(txDetails?: Truffle.TransactionDetails): Promise<string>;
 
   owner(txDetails?: Truffle.TransactionDetails): Promise<string>;
@@ -801,19 +770,19 @@ export interface CerbySwapV1Instance extends Truffle.ContractInstance {
   };
 
   transferOwnership: {
-    (newOwner: string, txDetails?: Truffle.TransactionDetails): Promise<
+    (_newOwner: string, txDetails?: Truffle.TransactionDetails): Promise<
       Truffle.TransactionResponse<AllEvents>
     >;
     call(
-      newOwner: string,
+      _newOwner: string,
       txDetails?: Truffle.TransactionDetails
     ): Promise<void>;
     sendTransaction(
-      newOwner: string,
+      _newOwner: string,
       txDetails?: Truffle.TransactionDetails
     ): Promise<string>;
     estimateGas(
-      newOwner: string,
+      _newOwner: string,
       txDetails?: Truffle.TransactionDetails
     ): Promise<number>;
   };
@@ -1151,37 +1120,6 @@ export interface CerbySwapV1Instance extends Truffle.ContractInstance {
       txDetails?: Truffle.TransactionDetails
     ): Promise<boolean>;
 
-    lowLevelSwap: {
-      (
-        _token: string,
-        _amountTokensOut: number | BN | string,
-        _amountCerUsdOut: number | BN | string,
-        _transferTo: string,
-        txDetails?: Truffle.TransactionDetails
-      ): Promise<Truffle.TransactionResponse<AllEvents>>;
-      call(
-        _token: string,
-        _amountTokensOut: number | BN | string,
-        _amountCerUsdOut: number | BN | string,
-        _transferTo: string,
-        txDetails?: Truffle.TransactionDetails
-      ): Promise<void>;
-      sendTransaction(
-        _token: string,
-        _amountTokensOut: number | BN | string,
-        _amountCerUsdOut: number | BN | string,
-        _transferTo: string,
-        txDetails?: Truffle.TransactionDetails
-      ): Promise<string>;
-      estimateGas(
-        _token: string,
-        _amountTokensOut: number | BN | string,
-        _amountCerUsdOut: number | BN | string,
-        _transferTo: string,
-        txDetails?: Truffle.TransactionDetails
-      ): Promise<number>;
-    };
-
     name(txDetails?: Truffle.TransactionDetails): Promise<string>;
 
     owner(txDetails?: Truffle.TransactionDetails): Promise<string>;
@@ -1467,19 +1405,19 @@ export interface CerbySwapV1Instance extends Truffle.ContractInstance {
     };
 
     transferOwnership: {
-      (newOwner: string, txDetails?: Truffle.TransactionDetails): Promise<
+      (_newOwner: string, txDetails?: Truffle.TransactionDetails): Promise<
         Truffle.TransactionResponse<AllEvents>
       >;
       call(
-        newOwner: string,
+        _newOwner: string,
         txDetails?: Truffle.TransactionDetails
       ): Promise<void>;
       sendTransaction(
-        newOwner: string,
+        _newOwner: string,
         txDetails?: Truffle.TransactionDetails
       ): Promise<string>;
       estimateGas(
-        newOwner: string,
+        _newOwner: string,
         txDetails?: Truffle.TransactionDetails
       ): Promise<number>;
     };

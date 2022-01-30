@@ -3,10 +3,10 @@
 pragma solidity ^0.8.11;
 
 import "./openzeppelin/access/Ownable.sol";
-import "./CerbySwapV1_LiquidityFunctions.sol";
+import "./CerbySwapV1_SwapFunctions.sol";
 
 abstract contract CerbySwapV1_AdminFunctions is
-    CerbySwapV1_LiquidityFunctions,
+    CerbySwapV1_SwapFunctions,
     Ownable
 {
     // TODO: remove on production

@@ -634,19 +634,19 @@ export interface CerbySwapV1AdminFunctionsInstance
   };
 
   transferOwnership: {
-    (newOwner: string, txDetails?: Truffle.TransactionDetails): Promise<
+    (_newOwner: string, txDetails?: Truffle.TransactionDetails): Promise<
       Truffle.TransactionResponse<AllEvents>
     >;
     call(
-      newOwner: string,
+      _newOwner: string,
       txDetails?: Truffle.TransactionDetails
     ): Promise<void>;
     sendTransaction(
-      newOwner: string,
+      _newOwner: string,
       txDetails?: Truffle.TransactionDetails
     ): Promise<string>;
     estimateGas(
-      newOwner: string,
+      _newOwner: string,
       txDetails?: Truffle.TransactionDetails
     ): Promise<number>;
   };
@@ -1130,19 +1130,19 @@ export interface CerbySwapV1AdminFunctionsInstance
     };
 
     transferOwnership: {
-      (newOwner: string, txDetails?: Truffle.TransactionDetails): Promise<
+      (_newOwner: string, txDetails?: Truffle.TransactionDetails): Promise<
         Truffle.TransactionResponse<AllEvents>
       >;
       call(
-        newOwner: string,
+        _newOwner: string,
         txDetails?: Truffle.TransactionDetails
       ): Promise<void>;
       sendTransaction(
-        newOwner: string,
+        _newOwner: string,
         txDetails?: Truffle.TransactionDetails
       ): Promise<string>;
       estimateGas(
-        newOwner: string,
+        _newOwner: string,
         txDetails?: Truffle.TransactionDetails
       ): Promise<number>;
     };

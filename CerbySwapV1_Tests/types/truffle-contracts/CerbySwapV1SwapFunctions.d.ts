@@ -151,37 +151,6 @@ export interface CerbySwapV1SwapFunctionsInstance
     txDetails?: Truffle.TransactionDetails
   ): Promise<BN>;
 
-  lowLevelSwap: {
-    (
-      _token: string,
-      _amountTokensOut: number | BN | string,
-      _amountCerUsdOut: number | BN | string,
-      _transferTo: string,
-      txDetails?: Truffle.TransactionDetails
-    ): Promise<Truffle.TransactionResponse<AllEvents>>;
-    call(
-      _token: string,
-      _amountTokensOut: number | BN | string,
-      _amountCerUsdOut: number | BN | string,
-      _transferTo: string,
-      txDetails?: Truffle.TransactionDetails
-    ): Promise<void>;
-    sendTransaction(
-      _token: string,
-      _amountTokensOut: number | BN | string,
-      _amountCerUsdOut: number | BN | string,
-      _transferTo: string,
-      txDetails?: Truffle.TransactionDetails
-    ): Promise<string>;
-    estimateGas(
-      _token: string,
-      _amountTokensOut: number | BN | string,
-      _amountCerUsdOut: number | BN | string,
-      _transferTo: string,
-      txDetails?: Truffle.TransactionDetails
-    ): Promise<number>;
-  };
-
   swapExactTokensForTokens: {
     (
       _tokenIn: string,
@@ -321,37 +290,6 @@ export interface CerbySwapV1SwapFunctionsInstance
       _token: string,
       txDetails?: Truffle.TransactionDetails
     ): Promise<BN>;
-
-    lowLevelSwap: {
-      (
-        _token: string,
-        _amountTokensOut: number | BN | string,
-        _amountCerUsdOut: number | BN | string,
-        _transferTo: string,
-        txDetails?: Truffle.TransactionDetails
-      ): Promise<Truffle.TransactionResponse<AllEvents>>;
-      call(
-        _token: string,
-        _amountTokensOut: number | BN | string,
-        _amountCerUsdOut: number | BN | string,
-        _transferTo: string,
-        txDetails?: Truffle.TransactionDetails
-      ): Promise<void>;
-      sendTransaction(
-        _token: string,
-        _amountTokensOut: number | BN | string,
-        _amountCerUsdOut: number | BN | string,
-        _transferTo: string,
-        txDetails?: Truffle.TransactionDetails
-      ): Promise<string>;
-      estimateGas(
-        _token: string,
-        _amountTokensOut: number | BN | string,
-        _amountCerUsdOut: number | BN | string,
-        _transferTo: string,
-        txDetails?: Truffle.TransactionDetails
-      ): Promise<number>;
-    };
 
     swapExactTokensForTokens: {
       (

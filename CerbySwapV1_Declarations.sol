@@ -44,9 +44,13 @@ abstract contract CerbySwapV1_Declarations is CerbySwapV1_EventsAndErrors {
 
     struct Pool {
         uint32[NUMBER_OF_TRADE_PERIODS] tradeVolumePerPeriodInCerUsd;
-        uint128 balanceToken;
         uint128 balanceCerUsd;
         uint128 lastSqrtKValue;
         uint256 creditCerUsd;
+    }
+
+    struct PoolBalances {
+        uint balanceToken;
+        uint balanceCerUsd;
     }
 }

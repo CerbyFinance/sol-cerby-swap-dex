@@ -5,7 +5,7 @@ pragma solidity ^0.8.11;
 import "./CerbySwapV1_AdminFunctions.sol";
 import "./CerbySwapV1_SwapFunctions.sol";
 
-contract CerbySwapV1 is CerbySwapV1_AdminFunctions, CerbySwapV1_SwapFunctions {
+contract CerbySwapV1 is CerbySwapV1_AdminFunctions {
     constructor() {
         _transferOwnership(msg.sender);
 
