@@ -57,6 +57,10 @@ abstract contract CerbySwapV1_SafeFunctions is
             revert CerbySwapV1_MsgValueProvidedMustBeZero();
         }
 
+        if (from == address(this)) {
+            return;
+        }
+
         // _safeCoreTransferFrom does not require return value
         _safeCoreTransferFrom(token, from, address(this), amountTokensIn);
     }

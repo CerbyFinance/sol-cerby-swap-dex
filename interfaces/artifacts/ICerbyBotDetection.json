@@ -1,180 +1,180 @@
 {
-	"deploy": {
-		"VM:-": {
-			"linkReferences": {},
-			"autoDeployLib": true
-		},
-		"main:1": {
-			"linkReferences": {},
-			"autoDeployLib": true
-		},
-		"ropsten:3": {
-			"linkReferences": {},
-			"autoDeployLib": true
-		},
-		"rinkeby:4": {
-			"linkReferences": {},
-			"autoDeployLib": true
-		},
-		"kovan:42": {
-			"linkReferences": {},
-			"autoDeployLib": true
-		},
-		"görli:5": {
-			"linkReferences": {},
-			"autoDeployLib": true
-		},
-		"Custom": {
-			"linkReferences": {},
-			"autoDeployLib": true
-		}
-	},
-	"data": {
-		"bytecode": {
-			"functionDebugData": {},
-			"generatedSources": [],
-			"linkReferences": {},
-			"object": "",
-			"opcodes": "",
-			"sourceMap": ""
-		},
-		"deployedBytecode": {
-			"functionDebugData": {},
-			"generatedSources": [],
-			"immutableReferences": {},
-			"linkReferences": {},
-			"object": "",
-			"opcodes": "",
-			"sourceMap": ""
-		},
-		"gasEstimates": null,
-		"methodIdentifiers": {
-			"checkTransactionInfo(address,address,address,uint256,uint256)": "b34ff36e",
-			"detectBotTransaction(address,address)": "ba78ef3b",
-			"executeCronJobs()": "eef84ba1",
-			"isBotAddress(address)": "eaa8f7e3",
-			"registerTransaction(address,address)": "72e64ad6"
-		}
-	},
-	"abi": [
-		{
-			"inputs": [
-				{
-					"internalType": "address",
-					"name": "tokenAddr",
-					"type": "address"
-				},
-				{
-					"internalType": "address",
-					"name": "sender",
-					"type": "address"
-				},
-				{
-					"internalType": "address",
-					"name": "recipient",
-					"type": "address"
-				},
-				{
-					"internalType": "uint256",
-					"name": "recipientBalance",
-					"type": "uint256"
-				},
-				{
-					"internalType": "uint256",
-					"name": "transferAmount",
-					"type": "uint256"
-				}
-			],
-			"name": "checkTransactionInfo",
-			"outputs": [
-				{
-					"components": [
-						{
-							"internalType": "bool",
-							"name": "isBuy",
-							"type": "bool"
-						},
-						{
-							"internalType": "bool",
-							"name": "isSell",
-							"type": "bool"
-						}
-					],
-					"internalType": "struct TransactionInfo",
-					"name": "output",
-					"type": "tuple"
-				}
-			],
-			"stateMutability": "nonpayable",
-			"type": "function"
-		},
-		{
-			"inputs": [
-				{
-					"internalType": "address",
-					"name": "tokenAddr",
-					"type": "address"
-				},
-				{
-					"internalType": "address",
-					"name": "addr",
-					"type": "address"
-				}
-			],
-			"name": "detectBotTransaction",
-			"outputs": [
-				{
-					"internalType": "bool",
-					"name": "",
-					"type": "bool"
-				}
-			],
-			"stateMutability": "nonpayable",
-			"type": "function"
-		},
-		{
-			"inputs": [],
-			"name": "executeCronJobs",
-			"outputs": [],
-			"stateMutability": "nonpayable",
-			"type": "function"
-		},
-		{
-			"inputs": [
-				{
-					"internalType": "address",
-					"name": "addr",
-					"type": "address"
-				}
-			],
-			"name": "isBotAddress",
-			"outputs": [
-				{
-					"internalType": "bool",
-					"name": "",
-					"type": "bool"
-				}
-			],
-			"stateMutability": "view",
-			"type": "function"
-		},
-		{
-			"inputs": [
-				{
-					"internalType": "address",
-					"name": "tokenAddr",
-					"type": "address"
-				},
-				{
-					"internalType": "address",
-					"name": "addr",
-					"type": "address"
-				}
-			],
-			"name": "registerTransaction",
-			"outputs": [],
-			"stateMutability": "nonpayable",
-			"type": "function"
-		}
-	]
+  "deploy": {
+    "VM:-": {
+      "linkReferences": {},
+      "autoDeployLib": true
+    },
+    "main:1": {
+      "linkReferences": {},
+      "autoDeployLib": true
+    },
+    "ropsten:3": {
+      "linkReferences": {},
+      "autoDeployLib": true
+    },
+    "rinkeby:4": {
+      "linkReferences": {},
+      "autoDeployLib": true
+    },
+    "kovan:42": {
+      "linkReferences": {},
+      "autoDeployLib": true
+    },
+    "görli:5": {
+      "linkReferences": {},
+      "autoDeployLib": true
+    },
+    "Custom": {
+      "linkReferences": {},
+      "autoDeployLib": true
+    }
+  },
+  "data": {
+    "bytecode": {
+      "functionDebugData": {},
+      "generatedSources": [],
+      "linkReferences": {},
+      "object": "",
+      "opcodes": "",
+      "sourceMap": ""
+    },
+    "deployedBytecode": {
+      "functionDebugData": {},
+      "generatedSources": [],
+      "immutableReferences": {},
+      "linkReferences": {},
+      "object": "",
+      "opcodes": "",
+      "sourceMap": ""
+    },
+    "gasEstimates": null,
+    "methodIdentifiers": {
+      "checkTransactionInfo(address,address,address,uint256,uint256)": "b34ff36e",
+      "detectBotTransaction(address,address)": "ba78ef3b",
+      "executeCronJobs()": "eef84ba1",
+      "isBotAddress(address)": "eaa8f7e3",
+      "registerTransaction(address,address)": "72e64ad6"
+    }
+  },
+  "abi": [
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "tokenAddr",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "sender",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "recipient",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "recipientBalance",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "transferAmount",
+          "type": "uint256"
+        }
+      ],
+      "name": "checkTransactionInfo",
+      "outputs": [
+        {
+          "components": [
+            {
+              "internalType": "bool",
+              "name": "isBuy",
+              "type": "bool"
+            },
+            {
+              "internalType": "bool",
+              "name": "isSell",
+              "type": "bool"
+            }
+          ],
+          "internalType": "struct TransactionInfo",
+          "name": "output",
+          "type": "tuple"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "tokenAddr",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "addr",
+          "type": "address"
+        }
+      ],
+      "name": "detectBotTransaction",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "executeCronJobs",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "addr",
+          "type": "address"
+        }
+      ],
+      "name": "isBotAddress",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "tokenAddr",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "addr",
+          "type": "address"
+        }
+      ],
+      "name": "registerTransaction",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ]
 }

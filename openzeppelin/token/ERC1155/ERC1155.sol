@@ -40,7 +40,6 @@ abstract contract ERC1155 is ERC165, IERC1155, IERC1155MetadataURI {
     error ERC1155_SettingApprovalStatusForSelf();
     error ERC1155_ERC1155ReceiverRejectsTokens();
     error ERC1155_TransferToNonERC1155ReceiverImplementer();
-    error ERC1155_MintToAmountIsZero();
 
     /**
      * @dev See {_setURI}.
@@ -297,7 +296,7 @@ abstract contract ERC1155 is ERC165, IERC1155, IERC1155MetadataURI {
         }
 
         if (amount == 0) {
-            revert ERC1155_MintToAmountIsZero();
+            return;
         }
 
         address operator = msg.sender;

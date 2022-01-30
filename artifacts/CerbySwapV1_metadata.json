@@ -1,1771 +1,1771 @@
 {
-	"compiler": {
-		"version": "0.8.11+commit.d7f03943"
-	},
-	"language": "Solidity",
-	"output": {
-		"abi": [
-			{
-				"inputs": [],
-				"stateMutability": "nonpayable",
-				"type": "constructor"
-			},
-			{
-				"inputs": [],
-				"name": "CerbyCronJobsExecution_TransactionsAreTemporarilyDisabled",
-				"type": "error"
-			},
-			{
-				"inputs": [],
-				"name": "CerbySwapLP1155V1_CallerIsNotOwnerNorApproved",
-				"type": "error"
-			},
-			{
-				"inputs": [],
-				"name": "CerbySwapLP1155V1_TransactionsAreTemporarilyDisabled",
-				"type": "error"
-			},
-			{
-				"inputs": [],
-				"name": "CerbySwapV1_AmountOfCerUsdMustBeLargerThanOne",
-				"type": "error"
-			},
-			{
-				"inputs": [],
-				"name": "CerbySwapV1_AmountOfCerUsdOrTokensInMustBeLargerThanOne",
-				"type": "error"
-			},
-			{
-				"inputs": [],
-				"name": "CerbySwapV1_AmountOfTokensMustBeLargerThanOne",
-				"type": "error"
-			},
-			{
-				"inputs": [],
-				"name": "CerbySwapV1_CreditCerUsdIsOverflown",
-				"type": "error"
-			},
-			{
-				"inputs": [],
-				"name": "CerbySwapV1_CreditCerUsdMustNotBeBelowZero",
-				"type": "error"
-			},
-			{
-				"inputs": [],
-				"name": "CerbySwapV1_FeeIsWrong",
-				"type": "error"
-			},
-			{
-				"inputs": [],
-				"name": "CerbySwapV1_FeeOnTransferTokensArentSupported",
-				"type": "error"
-			},
-			{
-				"inputs": [],
-				"name": "CerbySwapV1_InputCerUsdAmountIsLargerThanMaximumSpecified",
-				"type": "error"
-			},
-			{
-				"inputs": [],
-				"name": "CerbySwapV1_InputTokensAmountIsLargerThanMaximumSpecified",
-				"type": "error"
-			},
-			{
-				"inputs": [],
-				"name": "CerbySwapV1_InvariantKValueMustBeSameOrIncreasedOnAnySwaps",
-				"type": "error"
-			},
-			{
-				"inputs": [],
-				"name": "CerbySwapV1_MintFeeMultiplierMustNotBeLargerThan50Percent",
-				"type": "error"
-			},
-			{
-				"inputs": [],
-				"name": "CerbySwapV1_MsgValueProvidedMustBeLargerThanAmountTokensIn",
-				"type": "error"
-			},
-			{
-				"inputs": [],
-				"name": "CerbySwapV1_MsgValueProvidedMustBeZero",
-				"type": "error"
-			},
-			{
-				"inputs": [],
-				"name": "CerbySwapV1_OutputCerUsdAmountIsLowerThanMinimumSpecified",
-				"type": "error"
-			},
-			{
-				"inputs": [],
-				"name": "CerbySwapV1_OutputTokensAmountIsLowerThanMinimumSpecified",
-				"type": "error"
-			},
-			{
-				"inputs": [],
-				"name": "CerbySwapV1_SafeTransferFromFailed",
-				"type": "error"
-			},
-			{
-				"inputs": [],
-				"name": "CerbySwapV1_SafeTransferNativeFailed",
-				"type": "error"
-			},
-			{
-				"inputs": [],
-				"name": "CerbySwapV1_SafeTransferTokensFailed",
-				"type": "error"
-			},
-			{
-				"inputs": [],
-				"name": "CerbySwapV1_SwappingTokenToSameTokenIsForbidden",
-				"type": "error"
-			},
-			{
-				"inputs": [],
-				"name": "CerbySwapV1_TokenAlreadyExists",
-				"type": "error"
-			},
-			{
-				"inputs": [],
-				"name": "CerbySwapV1_TokenDoesNotExist",
-				"type": "error"
-			},
-			{
-				"inputs": [],
-				"name": "CerbySwapV1_TransactionIsExpired",
-				"type": "error"
-			},
-			{
-				"inputs": [],
-				"name": "CerbySwapV1_TvlMultiplierIsWrong",
-				"type": "error"
-			},
-			{
-				"inputs": [],
-				"name": "ERC1155_AccountsAndIdsLengthMismatch",
-				"type": "error"
-			},
-			{
-				"inputs": [],
-				"name": "ERC1155_BalanceQueryForTheZeroAddress",
-				"type": "error"
-			},
-			{
-				"inputs": [],
-				"name": "ERC1155_BurnAmountExceedsBalance",
-				"type": "error"
-			},
-			{
-				"inputs": [],
-				"name": "ERC1155_BurnFromZeroAddress",
-				"type": "error"
-			},
-			{
-				"inputs": [],
-				"name": "ERC1155_ERC1155ReceiverRejectsTokens",
-				"type": "error"
-			},
-			{
-				"inputs": [],
-				"name": "ERC1155_IdsAndAmountsLengthMismatch",
-				"type": "error"
-			},
-			{
-				"inputs": [],
-				"name": "ERC1155_InsufficientBalanceForTransfer",
-				"type": "error"
-			},
-			{
-				"inputs": [],
-				"name": "ERC1155_MintToAmountIsZero",
-				"type": "error"
-			},
-			{
-				"inputs": [],
-				"name": "ERC1155_MintToZeroAddress",
-				"type": "error"
-			},
-			{
-				"inputs": [],
-				"name": "ERC1155_SettingApprovalStatusForSelf",
-				"type": "error"
-			},
-			{
-				"inputs": [],
-				"name": "ERC1155_TransferToNonERC1155ReceiverImplementer",
-				"type": "error"
-			},
-			{
-				"inputs": [],
-				"name": "ERC1155_TransferToZeroAddress",
-				"type": "error"
-			},
-			{
-				"inputs": [],
-				"name": "Ownable_CallerIsNotOwner",
-				"type": "error"
-			},
-			{
-				"inputs": [],
-				"name": "Ownable_NewOwnerIsNotTheZeroAddress",
-				"type": "error"
-			},
-			{
-				"anonymous": false,
-				"inputs": [
-					{
-						"indexed": true,
-						"internalType": "address",
-						"name": "account",
-						"type": "address"
-					},
-					{
-						"indexed": true,
-						"internalType": "address",
-						"name": "operator",
-						"type": "address"
-					},
-					{
-						"indexed": false,
-						"internalType": "bool",
-						"name": "approved",
-						"type": "bool"
-					}
-				],
-				"name": "ApprovalForAll",
-				"type": "event"
-			},
-			{
-				"anonymous": false,
-				"inputs": [
-					{
-						"indexed": false,
-						"internalType": "address",
-						"name": "token",
-						"type": "address"
-					},
-					{
-						"indexed": false,
-						"internalType": "uint256",
-						"name": "amountTokensIn",
-						"type": "uint256"
-					},
-					{
-						"indexed": false,
-						"internalType": "uint256",
-						"name": "amountCerUsdToMint",
-						"type": "uint256"
-					},
-					{
-						"indexed": false,
-						"internalType": "uint256",
-						"name": "lpAmount",
-						"type": "uint256"
-					}
-				],
-				"name": "LiquidityAdded",
-				"type": "event"
-			},
-			{
-				"anonymous": false,
-				"inputs": [
-					{
-						"indexed": false,
-						"internalType": "address",
-						"name": "token",
-						"type": "address"
-					},
-					{
-						"indexed": false,
-						"internalType": "uint256",
-						"name": "amountTokensOut",
-						"type": "uint256"
-					},
-					{
-						"indexed": false,
-						"internalType": "uint256",
-						"name": "amountCerUsdToBurn",
-						"type": "uint256"
-					},
-					{
-						"indexed": false,
-						"internalType": "uint256",
-						"name": "amountLpTokensBalanceToBurn",
-						"type": "uint256"
-					}
-				],
-				"name": "LiquidityRemoved",
-				"type": "event"
-			},
-			{
-				"anonymous": false,
-				"inputs": [
-					{
-						"indexed": true,
-						"internalType": "address",
-						"name": "previousOwner",
-						"type": "address"
-					},
-					{
-						"indexed": true,
-						"internalType": "address",
-						"name": "newOwner",
-						"type": "address"
-					}
-				],
-				"name": "OwnershipTransferred",
-				"type": "event"
-			},
-			{
-				"anonymous": false,
-				"inputs": [
-					{
-						"indexed": false,
-						"internalType": "address",
-						"name": "token",
-						"type": "address"
-					},
-					{
-						"indexed": false,
-						"internalType": "uint256",
-						"name": "poolId",
-						"type": "uint256"
-					}
-				],
-				"name": "PairCreated",
-				"type": "event"
-			},
-			{
-				"anonymous": false,
-				"inputs": [
-					{
-						"indexed": false,
-						"internalType": "address",
-						"name": "token",
-						"type": "address"
-					},
-					{
-						"indexed": false,
-						"internalType": "address",
-						"name": "sender",
-						"type": "address"
-					},
-					{
-						"indexed": false,
-						"internalType": "uint256",
-						"name": "amountTokensIn",
-						"type": "uint256"
-					},
-					{
-						"indexed": false,
-						"internalType": "uint256",
-						"name": "amountCerUsdIn",
-						"type": "uint256"
-					},
-					{
-						"indexed": false,
-						"internalType": "uint256",
-						"name": "amountTokensOut",
-						"type": "uint256"
-					},
-					{
-						"indexed": false,
-						"internalType": "uint256",
-						"name": "amountCerUsdOut",
-						"type": "uint256"
-					},
-					{
-						"indexed": false,
-						"internalType": "uint256",
-						"name": "currentFee",
-						"type": "uint256"
-					},
-					{
-						"indexed": false,
-						"internalType": "address",
-						"name": "transferTo",
-						"type": "address"
-					}
-				],
-				"name": "Swap",
-				"type": "event"
-			},
-			{
-				"anonymous": false,
-				"inputs": [
-					{
-						"indexed": false,
-						"internalType": "address",
-						"name": "token",
-						"type": "address"
-					},
-					{
-						"indexed": false,
-						"internalType": "uint256",
-						"name": "newBalanceToken",
-						"type": "uint256"
-					},
-					{
-						"indexed": false,
-						"internalType": "uint256",
-						"name": "newBalanceCerUsd",
-						"type": "uint256"
-					},
-					{
-						"indexed": false,
-						"internalType": "uint256",
-						"name": "newCreditCerUsd",
-						"type": "uint256"
-					}
-				],
-				"name": "Sync",
-				"type": "event"
-			},
-			{
-				"anonymous": false,
-				"inputs": [
-					{
-						"indexed": true,
-						"internalType": "address",
-						"name": "operator",
-						"type": "address"
-					},
-					{
-						"indexed": true,
-						"internalType": "address",
-						"name": "from",
-						"type": "address"
-					},
-					{
-						"indexed": true,
-						"internalType": "address",
-						"name": "to",
-						"type": "address"
-					},
-					{
-						"indexed": false,
-						"internalType": "uint256[]",
-						"name": "ids",
-						"type": "uint256[]"
-					},
-					{
-						"indexed": false,
-						"internalType": "uint256[]",
-						"name": "values",
-						"type": "uint256[]"
-					}
-				],
-				"name": "TransferBatch",
-				"type": "event"
-			},
-			{
-				"anonymous": false,
-				"inputs": [
-					{
-						"indexed": true,
-						"internalType": "address",
-						"name": "operator",
-						"type": "address"
-					},
-					{
-						"indexed": true,
-						"internalType": "address",
-						"name": "from",
-						"type": "address"
-					},
-					{
-						"indexed": true,
-						"internalType": "address",
-						"name": "to",
-						"type": "address"
-					},
-					{
-						"indexed": false,
-						"internalType": "uint256",
-						"name": "id",
-						"type": "uint256"
-					},
-					{
-						"indexed": false,
-						"internalType": "uint256",
-						"name": "value",
-						"type": "uint256"
-					}
-				],
-				"name": "TransferSingle",
-				"type": "event"
-			},
-			{
-				"anonymous": false,
-				"inputs": [
-					{
-						"indexed": false,
-						"internalType": "string",
-						"name": "value",
-						"type": "string"
-					},
-					{
-						"indexed": true,
-						"internalType": "uint256",
-						"name": "id",
-						"type": "uint256"
-					}
-				],
-				"name": "URI",
-				"type": "event"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "address",
-						"name": "token",
-						"type": "address"
-					},
-					{
-						"internalType": "uint256",
-						"name": "amountTokensIn",
-						"type": "uint256"
-					},
-					{
-						"internalType": "uint256",
-						"name": "expireTimestamp",
-						"type": "uint256"
-					},
-					{
-						"internalType": "address",
-						"name": "transferTo",
-						"type": "address"
-					}
-				],
-				"name": "addTokenLiquidity",
-				"outputs": [
-					{
-						"internalType": "uint256",
-						"name": "",
-						"type": "uint256"
-					}
-				],
-				"stateMutability": "payable",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "address",
-						"name": "token",
-						"type": "address"
-					},
-					{
-						"internalType": "uint256",
-						"name": "amountCerUsdCredit",
-						"type": "uint256"
-					}
-				],
-				"name": "adminChangeCerUsdCreditInPool",
-				"outputs": [],
-				"stateMutability": "nonpayable",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "address",
-						"name": "token",
-						"type": "address"
-					},
-					{
-						"internalType": "uint256",
-						"name": "amountTokensIn",
-						"type": "uint256"
-					},
-					{
-						"internalType": "uint256",
-						"name": "amountCerUsdToMint",
-						"type": "uint256"
-					},
-					{
-						"internalType": "address",
-						"name": "transferTo",
-						"type": "address"
-					}
-				],
-				"name": "adminCreatePool",
-				"outputs": [],
-				"stateMutability": "payable",
-				"type": "function"
-			},
-			{
-				"inputs": [],
-				"name": "adminInitialize",
-				"outputs": [],
-				"stateMutability": "payable",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "string",
-						"name": "newUrlPrefix",
-						"type": "string"
-					}
-				],
-				"name": "adminSetURI",
-				"outputs": [],
-				"stateMutability": "nonpayable",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"components": [
-							{
-								"internalType": "address",
-								"name": "mintFeeBeneficiary",
-								"type": "address"
-							},
-							{
-								"internalType": "uint256",
-								"name": "mintFeeMultiplier",
-								"type": "uint256"
-							},
-							{
-								"internalType": "uint256",
-								"name": "feeMinimum",
-								"type": "uint256"
-							},
-							{
-								"internalType": "uint256",
-								"name": "feeMaximum",
-								"type": "uint256"
-							},
-							{
-								"internalType": "uint256",
-								"name": "tvlMultiplierMinimum",
-								"type": "uint256"
-							},
-							{
-								"internalType": "uint256",
-								"name": "tvlMultiplierMaximum",
-								"type": "uint256"
-							}
-						],
-						"internalType": "struct CerbySwapV1_Declarations.Settings",
-						"name": "_settings",
-						"type": "tuple"
-					}
-				],
-				"name": "adminUpdateFeesAndTvlMultipliers",
-				"outputs": [],
-				"stateMutability": "nonpayable",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "string",
-						"name": "newName",
-						"type": "string"
-					},
-					{
-						"internalType": "string",
-						"name": "newSymbol",
-						"type": "string"
-					}
-				],
-				"name": "adminUpdateNameAndSymbol",
-				"outputs": [],
-				"stateMutability": "nonpayable",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "address",
-						"name": "account",
-						"type": "address"
-					},
-					{
-						"internalType": "uint256",
-						"name": "id",
-						"type": "uint256"
-					}
-				],
-				"name": "balanceOf",
-				"outputs": [
-					{
-						"internalType": "uint256",
-						"name": "",
-						"type": "uint256"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "address[]",
-						"name": "accounts",
-						"type": "address[]"
-					},
-					{
-						"internalType": "uint256[]",
-						"name": "ids",
-						"type": "uint256[]"
-					}
-				],
-				"name": "balanceOfBatch",
-				"outputs": [
-					{
-						"internalType": "uint256[]",
-						"name": "",
-						"type": "uint256[]"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "address",
-						"name": "token",
-						"type": "address"
-					},
-					{
-						"internalType": "uint256",
-						"name": "amountTokensIn",
-						"type": "uint256"
-					},
-					{
-						"internalType": "uint256",
-						"name": "amountCerUsdToMint",
-						"type": "uint256"
-					},
-					{
-						"internalType": "address",
-						"name": "transferTo",
-						"type": "address"
-					}
-				],
-				"name": "createPool",
-				"outputs": [],
-				"stateMutability": "payable",
-				"type": "function"
-			},
-			{
-				"inputs": [],
-				"name": "decimals",
-				"outputs": [
-					{
-						"internalType": "uint256",
-						"name": "",
-						"type": "uint256"
-					}
-				],
-				"stateMutability": "pure",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "uint256",
-						"name": "id",
-						"type": "uint256"
-					}
-				],
-				"name": "exists",
-				"outputs": [
-					{
-						"internalType": "bool",
-						"name": "",
-						"type": "bool"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "address",
-						"name": "token",
-						"type": "address"
-					}
-				],
-				"name": "getCurrentOneMinusFeeBasedOnTrades",
-				"outputs": [
-					{
-						"internalType": "uint256",
-						"name": "fee",
-						"type": "uint256"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "address",
-						"name": "tokenIn",
-						"type": "address"
-					},
-					{
-						"internalType": "address",
-						"name": "tokenOut",
-						"type": "address"
-					},
-					{
-						"internalType": "uint256",
-						"name": "amountTokensOut",
-						"type": "uint256"
-					}
-				],
-				"name": "getInputTokensForExactTokens",
-				"outputs": [
-					{
-						"internalType": "uint256",
-						"name": "",
-						"type": "uint256"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "address",
-						"name": "tokenIn",
-						"type": "address"
-					},
-					{
-						"internalType": "address",
-						"name": "tokenOut",
-						"type": "address"
-					},
-					{
-						"internalType": "uint256",
-						"name": "amountTokensIn",
-						"type": "uint256"
-					}
-				],
-				"name": "getOutputExactTokensForTokens",
-				"outputs": [
-					{
-						"internalType": "uint256",
-						"name": "",
-						"type": "uint256"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "uint256[]",
-						"name": "ids",
-						"type": "uint256[]"
-					}
-				],
-				"name": "getPoolsByIds",
-				"outputs": [
-					{
-						"components": [
-							{
-								"internalType": "uint32[8]",
-								"name": "tradeVolumePerPeriodInCerUsd",
-								"type": "uint32[8]"
-							},
-							{
-								"internalType": "uint128",
-								"name": "balanceToken",
-								"type": "uint128"
-							},
-							{
-								"internalType": "uint128",
-								"name": "balanceCerUsd",
-								"type": "uint128"
-							},
-							{
-								"internalType": "uint128",
-								"name": "lastSqrtKValue",
-								"type": "uint128"
-							},
-							{
-								"internalType": "uint256",
-								"name": "creditCerUsd",
-								"type": "uint256"
-							}
-						],
-						"internalType": "struct CerbySwapV1_Declarations.Pool[]",
-						"name": "",
-						"type": "tuple[]"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "address[]",
-						"name": "tokens",
-						"type": "address[]"
-					}
-				],
-				"name": "getPoolsByTokens",
-				"outputs": [
-					{
-						"components": [
-							{
-								"internalType": "uint32[8]",
-								"name": "tradeVolumePerPeriodInCerUsd",
-								"type": "uint32[8]"
-							},
-							{
-								"internalType": "uint128",
-								"name": "balanceToken",
-								"type": "uint128"
-							},
-							{
-								"internalType": "uint128",
-								"name": "balanceCerUsd",
-								"type": "uint128"
-							},
-							{
-								"internalType": "uint128",
-								"name": "lastSqrtKValue",
-								"type": "uint128"
-							},
-							{
-								"internalType": "uint256",
-								"name": "creditCerUsd",
-								"type": "uint256"
-							}
-						],
-						"internalType": "struct CerbySwapV1_Declarations.Pool[]",
-						"name": "",
-						"type": "tuple[]"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [],
-				"name": "getSettings",
-				"outputs": [
-					{
-						"components": [
-							{
-								"internalType": "address",
-								"name": "mintFeeBeneficiary",
-								"type": "address"
-							},
-							{
-								"internalType": "uint256",
-								"name": "mintFeeMultiplier",
-								"type": "uint256"
-							},
-							{
-								"internalType": "uint256",
-								"name": "feeMinimum",
-								"type": "uint256"
-							},
-							{
-								"internalType": "uint256",
-								"name": "feeMaximum",
-								"type": "uint256"
-							},
-							{
-								"internalType": "uint256",
-								"name": "tvlMultiplierMinimum",
-								"type": "uint256"
-							},
-							{
-								"internalType": "uint256",
-								"name": "tvlMultiplierMaximum",
-								"type": "uint256"
-							}
-						],
-						"internalType": "struct CerbySwapV1_Declarations.Settings",
-						"name": "",
-						"type": "tuple"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "address",
-						"name": "token",
-						"type": "address"
-					}
-				],
-				"name": "getTokenToPoolId",
-				"outputs": [
-					{
-						"internalType": "uint256",
-						"name": "",
-						"type": "uint256"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "uint256",
-						"name": "pos",
-						"type": "uint256"
-					}
-				],
-				"name": "getUtilsContractAtPos",
-				"outputs": [
-					{
-						"internalType": "address",
-						"name": "",
-						"type": "address"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "address",
-						"name": "token",
-						"type": "address"
-					},
-					{
-						"internalType": "uint256",
-						"name": "amountCerUsdCredit",
-						"type": "uint256"
-					}
-				],
-				"name": "increaseCerUsdCreditInPool",
-				"outputs": [],
-				"stateMutability": "nonpayable",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "address",
-						"name": "account",
-						"type": "address"
-					},
-					{
-						"internalType": "address",
-						"name": "operator",
-						"type": "address"
-					}
-				],
-				"name": "isApprovedForAll",
-				"outputs": [
-					{
-						"internalType": "bool",
-						"name": "",
-						"type": "bool"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "address",
-						"name": "token",
-						"type": "address"
-					},
-					{
-						"internalType": "uint256",
-						"name": "amountTokensOut",
-						"type": "uint256"
-					},
-					{
-						"internalType": "uint256",
-						"name": "amountCerUsdOut",
-						"type": "uint256"
-					},
-					{
-						"internalType": "address",
-						"name": "transferTo",
-						"type": "address"
-					}
-				],
-				"name": "lowLevelSwap",
-				"outputs": [],
-				"stateMutability": "payable",
-				"type": "function"
-			},
-			{
-				"inputs": [],
-				"name": "name",
-				"outputs": [
-					{
-						"internalType": "string",
-						"name": "",
-						"type": "string"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [],
-				"name": "owner",
-				"outputs": [
-					{
-						"internalType": "address",
-						"name": "",
-						"type": "address"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "address",
-						"name": "token",
-						"type": "address"
-					},
-					{
-						"internalType": "uint256",
-						"name": "amountLpTokensBalanceToBurn",
-						"type": "uint256"
-					},
-					{
-						"internalType": "uint256",
-						"name": "expireTimestamp",
-						"type": "uint256"
-					},
-					{
-						"internalType": "address",
-						"name": "transferTo",
-						"type": "address"
-					}
-				],
-				"name": "removeTokenLiquidity",
-				"outputs": [
-					{
-						"internalType": "uint256",
-						"name": "",
-						"type": "uint256"
-					}
-				],
-				"stateMutability": "nonpayable",
-				"type": "function"
-			},
-			{
-				"inputs": [],
-				"name": "renounceOwnership",
-				"outputs": [],
-				"stateMutability": "nonpayable",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "address",
-						"name": "from",
-						"type": "address"
-					},
-					{
-						"internalType": "address",
-						"name": "to",
-						"type": "address"
-					},
-					{
-						"internalType": "uint256[]",
-						"name": "ids",
-						"type": "uint256[]"
-					},
-					{
-						"internalType": "uint256[]",
-						"name": "amounts",
-						"type": "uint256[]"
-					},
-					{
-						"internalType": "bytes",
-						"name": "data",
-						"type": "bytes"
-					}
-				],
-				"name": "safeBatchTransferFrom",
-				"outputs": [],
-				"stateMutability": "nonpayable",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "address",
-						"name": "from",
-						"type": "address"
-					},
-					{
-						"internalType": "address",
-						"name": "to",
-						"type": "address"
-					},
-					{
-						"internalType": "uint256",
-						"name": "id",
-						"type": "uint256"
-					},
-					{
-						"internalType": "uint256",
-						"name": "amount",
-						"type": "uint256"
-					},
-					{
-						"internalType": "bytes",
-						"name": "data",
-						"type": "bytes"
-					}
-				],
-				"name": "safeTransferFrom",
-				"outputs": [],
-				"stateMutability": "nonpayable",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "address",
-						"name": "operator",
-						"type": "address"
-					},
-					{
-						"internalType": "bool",
-						"name": "approved",
-						"type": "bool"
-					}
-				],
-				"name": "setApprovalForAll",
-				"outputs": [],
-				"stateMutability": "nonpayable",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "bytes4",
-						"name": "interfaceId",
-						"type": "bytes4"
-					}
-				],
-				"name": "supportsInterface",
-				"outputs": [
-					{
-						"internalType": "bool",
-						"name": "",
-						"type": "bool"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "address",
-						"name": "tokenIn",
-						"type": "address"
-					},
-					{
-						"internalType": "address",
-						"name": "tokenOut",
-						"type": "address"
-					},
-					{
-						"internalType": "uint256",
-						"name": "amountTokensIn",
-						"type": "uint256"
-					},
-					{
-						"internalType": "uint256",
-						"name": "minAmountTokensOut",
-						"type": "uint256"
-					},
-					{
-						"internalType": "uint256",
-						"name": "expireTimestamp",
-						"type": "uint256"
-					},
-					{
-						"internalType": "address",
-						"name": "transferTo",
-						"type": "address"
-					}
-				],
-				"name": "swapExactTokensForTokens",
-				"outputs": [
-					{
-						"internalType": "uint256",
-						"name": "",
-						"type": "uint256"
-					},
-					{
-						"internalType": "uint256",
-						"name": "",
-						"type": "uint256"
-					}
-				],
-				"stateMutability": "payable",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "address",
-						"name": "tokenIn",
-						"type": "address"
-					},
-					{
-						"internalType": "address",
-						"name": "tokenOut",
-						"type": "address"
-					},
-					{
-						"internalType": "uint256",
-						"name": "amountTokensOut",
-						"type": "uint256"
-					},
-					{
-						"internalType": "uint256",
-						"name": "maxAmountTokensIn",
-						"type": "uint256"
-					},
-					{
-						"internalType": "uint256",
-						"name": "expireTimestamp",
-						"type": "uint256"
-					},
-					{
-						"internalType": "address",
-						"name": "transferTo",
-						"type": "address"
-					}
-				],
-				"name": "swapTokensForExactTokens",
-				"outputs": [
-					{
-						"internalType": "uint256",
-						"name": "",
-						"type": "uint256"
-					},
-					{
-						"internalType": "uint256",
-						"name": "",
-						"type": "uint256"
-					}
-				],
-				"stateMutability": "payable",
-				"type": "function"
-			},
-			{
-				"inputs": [],
-				"name": "symbol",
-				"outputs": [
-					{
-						"internalType": "string",
-						"name": "",
-						"type": "string"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "address",
-						"name": "token",
-						"type": "address"
-					}
-				],
-				"name": "syncPool",
-				"outputs": [],
-				"stateMutability": "nonpayable",
-				"type": "function"
-			},
-			{
-				"inputs": [],
-				"name": "testInit",
-				"outputs": [],
-				"stateMutability": "nonpayable",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "address",
-						"name": "",
-						"type": "address"
-					},
-					{
-						"internalType": "address",
-						"name": "_testCerbyToken",
-						"type": "address"
-					},
-					{
-						"internalType": "address",
-						"name": "_cerUsdToken",
-						"type": "address"
-					},
-					{
-						"internalType": "address",
-						"name": "_testUsdcToken",
-						"type": "address"
-					},
-					{
-						"internalType": "address",
-						"name": "",
-						"type": "address"
-					}
-				],
-				"name": "testSetupTokens",
-				"outputs": [],
-				"stateMutability": "nonpayable",
-				"type": "function"
-			},
-			{
-				"inputs": [],
-				"name": "totalSupply",
-				"outputs": [
-					{
-						"internalType": "uint256",
-						"name": "",
-						"type": "uint256"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "uint256",
-						"name": "id",
-						"type": "uint256"
-					}
-				],
-				"name": "totalSupply",
-				"outputs": [
-					{
-						"internalType": "uint256",
-						"name": "",
-						"type": "uint256"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "address",
-						"name": "newOwner",
-						"type": "address"
-					}
-				],
-				"name": "transferOwnership",
-				"outputs": [],
-				"stateMutability": "nonpayable",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "uint256",
-						"name": "id",
-						"type": "uint256"
-					}
-				],
-				"name": "uri",
-				"outputs": [
-					{
-						"internalType": "string",
-						"name": "",
-						"type": "string"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"stateMutability": "payable",
-				"type": "receive"
-			}
-		],
-		"devdoc": {
-			"kind": "dev",
-			"methods": {
-				"balanceOf(address,uint256)": {
-					"details": "See {IERC1155-balanceOf}. Requirements: - `account` cannot be the zero address."
-				},
-				"balanceOfBatch(address[],uint256[])": {
-					"details": "See {IERC1155-balanceOfBatch}. Requirements: - `accounts` and `ids` must have the same length."
-				},
-				"exists(uint256)": {
-					"details": "Indicates whether any token exist with a given id, or not."
-				},
-				"isApprovedForAll(address,address)": {
-					"details": "See {IERC1155-isApprovedForAll}."
-				},
-				"owner()": {
-					"details": "Returns the address of the current owner."
-				},
-				"renounceOwnership()": {
-					"details": "Leaves the contract without owner. It will not be possible to call `onlyOwner` functions anymore. Can only be called by the current owner. NOTE: Renouncing ownership will leave the contract without an owner, thereby removing any functionality that is only available to the owner."
-				},
-				"safeBatchTransferFrom(address,address,uint256[],uint256[],bytes)": {
-					"details": "xref:ROOT:erc1155.adoc#batch-operations[Batched] version of {safeTransferFrom}. Emits a {TransferBatch} event. Requirements: - `ids` and `amounts` must have the same length. - If `to` refers to a smart contract, it must implement {IERC1155Receiver-onERC1155BatchReceived} and return the acceptance magic value."
-				},
-				"safeTransferFrom(address,address,uint256,uint256,bytes)": {
-					"details": "Transfers `amount` tokens of token type `id` from `from` to `to`. Emits a {TransferSingle} event. Requirements: - `to` cannot be the zero address. - If the caller is not `from`, it must be have been approved to spend ``from``'s tokens via {setApprovalForAll}. - `from` must have a balance of tokens of type `id` of at least `amount`. - If `to` refers to a smart contract, it must implement {IERC1155Receiver-onERC1155Received} and return the acceptance magic value."
-				},
-				"setApprovalForAll(address,bool)": {
-					"details": "Grants or revokes permission to `operator` to transfer the caller's tokens, according to `approved`, Emits an {ApprovalForAll} event. Requirements: - `operator` cannot be the caller."
-				},
-				"supportsInterface(bytes4)": {
-					"details": "See {IERC165-supportsInterface}."
-				},
-				"totalSupply(uint256)": {
-					"details": "Total amount of tokens in with a given id."
-				},
-				"transferOwnership(address)": {
-					"details": "Transfers ownership of the contract to a new account (`newOwner`). Can only be called by the current owner."
-				}
-			},
-			"version": 1
-		},
-		"userdoc": {
-			"kind": "user",
-			"methods": {},
-			"version": 1
-		}
-	},
-	"settings": {
-		"compilationTarget": {
-			"sol-cerby-swap-v1/CerbySwapV1.sol": "CerbySwapV1"
-		},
-		"evmVersion": "london",
-		"libraries": {},
-		"metadata": {
-			"bytecodeHash": "ipfs"
-		},
-		"optimizer": {
-			"enabled": true,
-			"runs": 200
-		},
-		"remappings": []
-	},
-	"sources": {
-		"sol-cerby-swap-v1/CerbyCronJobsExecution.sol": {
-			"keccak256": "0x3e10ba6f6f9e39a71cd69036ce00b599f9c27bdd114f6f94bc0a8fbeb2e6127c",
-			"license": "BUSL-1.1",
-			"urls": [
-				"bzz-raw://aac8f278c3f3acf489d232bf64de4b7550b3885dd6c2f2708d6f9a9819e967b9",
-				"dweb:/ipfs/QmSj6b3f17EzvYaXXGFGCx2mDVBKLH2VNnAkXNhGWAEQqr"
-			]
-		},
-		"sol-cerby-swap-v1/CerbySwapV1.sol": {
-			"keccak256": "0xb7debfc55712ef1274abaf8cc10d07821f165eb22237b905f4073e4cf947d099",
-			"license": "BUSL-1.1",
-			"urls": [
-				"bzz-raw://a32d511356aba9dfeb0ba6bae1d06b7130bf5319111caf829db8c6e265cb5027",
-				"dweb:/ipfs/QmNeciZtw9QBDJsLGm8t4qiK1c9GpULAkJM9o2RbMHwP8s"
-			]
-		},
-		"sol-cerby-swap-v1/CerbySwapV1_AdminFunctions.sol": {
-			"keccak256": "0x7cab5fd4bc505119729e9e9600300b7d01ddd0b698ff1878f47b1c9ed727e6b1",
-			"license": "BUSL-1.1",
-			"urls": [
-				"bzz-raw://db72ba6f3beadb69d7d1dbe4ae6c0a8b16c918df4c990ac4c5dcff267c2983b0",
-				"dweb:/ipfs/QmRt6JkKUt5PkihNcTHHP8SuziQDh2GhhX6Faj76GDDJV2"
-			]
-		},
-		"sol-cerby-swap-v1/CerbySwapV1_Declarations.sol": {
-			"keccak256": "0x77282ed19945bb4ec58c2da1a2c60bedc8b0caa5a3a152b24583b3d2e8dd7643",
-			"license": "BUSL-1.1",
-			"urls": [
-				"bzz-raw://92d96321a03ccb7d548ef65a5a1af44c66439284134ad1bdb6a7c696885b6114",
-				"dweb:/ipfs/QmSK7SQBj7hycpMToZiwanfjzK5sTb8VFctmQfxQyjZ7uJ"
-			]
-		},
-		"sol-cerby-swap-v1/CerbySwapV1_ERC1155.sol": {
-			"keccak256": "0x41b0d85a4c55a39d4032ebcca58080bcafbdfda8be3b14be27821a13e470b3b0",
-			"license": "BUSL-1.1",
-			"urls": [
-				"bzz-raw://aadeb00e9ba26eea8fef8c422c076a0c1ef5105f6ffbfe6010ed097678083efc",
-				"dweb:/ipfs/QmfSJMwvrRJAveU59nrqxfzQMd8ah5naN49JwaVapmCcUX"
-			]
-		},
-		"sol-cerby-swap-v1/CerbySwapV1_EventsAndErrors.sol": {
-			"keccak256": "0x3ca7af1c46dcec218a1119fc0462f0e60aa7fe7597201b2e5bf3a4259bdccae4",
-			"license": "BUSL-1.1",
-			"urls": [
-				"bzz-raw://d7d39d56a002eb0acaa18e5ca99a0a8a568c1196734a65dda535c81f9f4b89f0",
-				"dweb:/ipfs/Qmcf4TcAcSo8A4QFgtPkWhJCd9wiPVcEPn4xnH6m8jt3St"
-			]
-		},
-		"sol-cerby-swap-v1/CerbySwapV1_GetFunctions.sol": {
-			"keccak256": "0x4229ef4d44e738e7f85237fa370cbca86723b1c51e93791754a4cb7618053f86",
-			"license": "BUSL-1.1",
-			"urls": [
-				"bzz-raw://0789a61ce0793af3a09467e9a26342b2a7e3409e017f0d93395bf3727221f5b3",
-				"dweb:/ipfs/QmSQLsUPDBsA9CjhsgAjL425aNUXyBYYFYaKzwuikdLnGc"
-			]
-		},
-		"sol-cerby-swap-v1/CerbySwapV1_LiquidityFunctions.sol": {
-			"keccak256": "0x62c063eb49ae463d181860e7d436cbc81e9587d9e7c5873ab2f3e85c3607952e",
-			"license": "BUSL-1.1",
-			"urls": [
-				"bzz-raw://26dd27d7de69a7b9776b976c0b9ac0d8bbf8d2c3127da07118e48859baa08b7c",
-				"dweb:/ipfs/QmWAQr2nj7ZPdC2LJg3oc5Gg4A1NdyUr9TpATAXLNfJKBg"
-			]
-		},
-		"sol-cerby-swap-v1/CerbySwapV1_Math.sol": {
-			"keccak256": "0x3dcb08dc7cf72eeca29afa2162fd9929bf7233bd8850a5461f201e3ab1895864",
-			"license": "BUSL-1.1",
-			"urls": [
-				"bzz-raw://11de421a3e7dc3af2d637766093941dfe883f43fff61c6cae621f178d5d15bc7",
-				"dweb:/ipfs/QmZRwrYJ3kpjuHkSkLcjmVwcbxfmT9zQ1FUFGCKk3fVm9C"
-			]
-		},
-		"sol-cerby-swap-v1/CerbySwapV1_Modifiers.sol": {
-			"keccak256": "0x19de6eb4be48f3ae50e12057fda63b8ed3d0a2ccfcd8b55669c56f70a8bdf748",
-			"license": "BUSL-1.1",
-			"urls": [
-				"bzz-raw://f2c8b1ab0ea7ed42f99db071d88527f46c610a5f6adf9676b70dcf61499cb69d",
-				"dweb:/ipfs/QmR64FdWMfCrCmmaaP1ww2x4ew7hS9M2jq3RLxDnA1ZCNz"
-			]
-		},
-		"sol-cerby-swap-v1/CerbySwapV1_SafeFunctions.sol": {
-			"keccak256": "0xe2b7805039836f08eee08c782ef32b9b765545ce554af7b36b4781cee901bf7b",
-			"license": "BUSL-1.1",
-			"urls": [
-				"bzz-raw://3c4860fa556d9df37350aa9ee70078d89081e2ebefbb3dc4cfa101100937a1ae",
-				"dweb:/ipfs/Qmb5HvURPMtirQycn9qRzgfFFUBhjgy7eZdTPCierU1JN1"
-			]
-		},
-		"sol-cerby-swap-v1/CerbySwapV1_SwapFunctions.sol": {
-			"keccak256": "0xd32ba3dc4cb266654203f3852ec2c159402f9384e20feb135ac74d4fd58efb6d",
-			"license": "BUSL-1.1",
-			"urls": [
-				"bzz-raw://41bc4c55c130820d08772c7f9aced4801b1dbfe7562c486baa2c4600225412e2",
-				"dweb:/ipfs/QmSE9Sd4qpFoEGEMj51VhBwz8sPkM6p6SsJGiUQZsToj8w"
-			]
-		},
-		"sol-cerby-swap-v1/interfaces/ICerbyBotDetection.sol": {
-			"keccak256": "0x1edc9775a343929a6722a1f8cde8b41d15959e58439ed6a606b1ecf6c1920bb7",
-			"license": "BUSL-1.1",
-			"urls": [
-				"bzz-raw://917931f683191dfc3d381fd70cde802fbd967fc691e727445bc2a33ec87e9fa8",
-				"dweb:/ipfs/QmZY9619gqezspATPKNGhFBgAcZA7dBmF4JADjf1xysEZs"
-			]
-		},
-		"sol-cerby-swap-v1/interfaces/ICerbyToken.sol": {
-			"keccak256": "0x4e54c2b2e26a8614ad9d19d94b0cf97c134f6b6f333557dd41d5d0981465f92f",
-			"license": "MIT",
-			"urls": [
-				"bzz-raw://b0fa49f30eed7d09333d1e4463f16bb0a253ddf4a85fd04bac7f0d2064472e6a",
-				"dweb:/ipfs/Qmas97Mp7VUZkU6vb15Ed9WV63kcER9SRdt76m7DDtic5u"
-			]
-		},
-		"sol-cerby-swap-v1/interfaces/ICerbyTokenMinterBurner.sol": {
-			"keccak256": "0x2e737a3ef8e66c4f88d1da86b213994f322ff36fdc623b2dcc514b73a93e5631",
-			"license": "BSD-2-Clause",
-			"urls": [
-				"bzz-raw://caf7e0e9e86d083eb669adf07269c3191a9eec50e39409189e0a3e2780fcd780",
-				"dweb:/ipfs/QmdzdSZS4KvuxEgmqoaRQ5TSqMnxiyLzcbC39cfm3XxCtw"
-			]
-		},
-		"sol-cerby-swap-v1/interfaces/IERC20.sol": {
-			"keccak256": "0xc4e165d9bee5094c42ab4f2da3022c3e246973abf08856f0e9bc8e7245dbeb84",
-			"license": "MIT",
-			"urls": [
-				"bzz-raw://ca5bf2dfdda6c9adac678cb2a17f58d5796f38790ec7c9cf71cb551ad6b4f436",
-				"dweb:/ipfs/QmYqfyEaD9W43mdxLdQPKEqJwu7vELomxDCWvuHwiceMNb"
-			]
-		},
-		"sol-cerby-swap-v1/openzeppelin/access/Ownable.sol": {
-			"keccak256": "0x924c2f441a43a8bdec4c16badc71c2837b442a59000dce1db8b664fbc1bcf978",
-			"license": "MIT",
-			"urls": [
-				"bzz-raw://a0368f78db918654c09768ff9194582d85e5d05efde371e9e80d06b898cad0f1",
-				"dweb:/ipfs/QmZH3UWunWgLc3rKB1QQrU8ryEgix5D71ZioTQfcdGwHKf"
-			]
-		},
-		"sol-cerby-swap-v1/openzeppelin/token/ERC1155/ERC1155.sol": {
-			"keccak256": "0x395ba2833099bf0664b8b235345d26967aa135021aec97e81e240b7d463f028e",
-			"license": "MIT",
-			"urls": [
-				"bzz-raw://7f784b8b03e09e6ce94da6dd8f0d119f2a37fad3079661d021c7c4c17d366b0e",
-				"dweb:/ipfs/Qman7VcRTnRec9G5hyFEyKKvazmxa5dCKBJKXcb6g3Hd7L"
-			]
-		},
-		"sol-cerby-swap-v1/openzeppelin/token/ERC1155/IERC1155.sol": {
-			"keccak256": "0x1bbdcc6f4bb2a949e0972a56922aacbb0dfb96b758b1af485783fd46622f7d2d",
-			"license": "MIT",
-			"urls": [
-				"bzz-raw://888e83f7844b76f02c05c22f7f35a56c63a9e4aac3bc3d6b2cec7ad5f01a5898",
-				"dweb:/ipfs/QmPAizEA5aw5hEeu8ch5THThW57H2tBSCAZqhZGgLs3pxT"
-			]
-		},
-		"sol-cerby-swap-v1/openzeppelin/token/ERC1155/IERC1155Receiver.sol": {
-			"keccak256": "0xc743d2235b8854045c308d2f8f1ed88efed6c2bebf2b7a4a51ea42480c82e566",
-			"license": "MIT",
-			"urls": [
-				"bzz-raw://05e54e397a053f319187999ef4d65446a7f15f693ddd66dfaed4d856f67dac4e",
-				"dweb:/ipfs/QmbGTFVdZxShg76UPcuLAXm6HBjZx3Vn6CL1eaBhV9rST1"
-			]
-		},
-		"sol-cerby-swap-v1/openzeppelin/token/ERC1155/extensions/IERC1155MetadataURI.sol": {
-			"keccak256": "0xa66d18b9a85458d28fc3304717964502ae36f7f8a2ff35bc83f6f85d74b03574",
-			"license": "MIT",
-			"urls": [
-				"bzz-raw://e46c80ea068989111d6103e5521223f9ef337e93de76deed8b03f75c6f7b2797",
-				"dweb:/ipfs/QmNoSE6knNfFncdDDLTb3fGR6oSQty1srG96Vsx3E9wQdw"
-			]
-		},
-		"sol-cerby-swap-v1/openzeppelin/utils/Context.sol": {
-			"keccak256": "0xe2e337e6dde9ef6b680e07338c493ebea1b5fd09b43424112868e9cc1706bca7",
-			"license": "MIT",
-			"urls": [
-				"bzz-raw://6df0ddf21ce9f58271bdfaa85cde98b200ef242a05a3f85c2bc10a8294800a92",
-				"dweb:/ipfs/QmRK2Y5Yc6BK7tGKkgsgn3aJEQGi5aakeSPZvS65PV8Xp3"
-			]
-		},
-		"sol-cerby-swap-v1/openzeppelin/utils/introspection/ERC165.sol": {
-			"keccak256": "0x80cff4f25810ab85caa3f5839b7cb5b7683a9540da82268e2b9f422e0d4d58e6",
-			"license": "MIT",
-			"urls": [
-				"bzz-raw://1858a5438e273c2f48db04bfa9e49e5a5bbf5ccb36b1c666756647aacfca2a04",
-				"dweb:/ipfs/QmR1bYQhYWtRLLXMyRJYtZRaEmXkbFGWHcd6a59VKrFgMR"
-			]
-		},
-		"sol-cerby-swap-v1/openzeppelin/utils/introspection/IERC165.sol": {
-			"keccak256": "0x447a5f3ddc18419d41ff92b3773fb86471b1db25773e07f877f548918a185bf1",
-			"license": "MIT",
-			"urls": [
-				"bzz-raw://be161e54f24e5c6fae81a12db1a8ae87bc5ae1b0ddc805d82a1440a68455088f",
-				"dweb:/ipfs/QmP7C3CHdY9urF4dEMb9wmsp1wMxHF6nhA2yQE5SKiPAdy"
-			]
-		}
-	},
-	"version": 1
+  "compiler": {
+    "version": "0.8.11+commit.d7f03943"
+  },
+  "language": "Solidity",
+  "output": {
+    "abi": [
+      {
+        "inputs": [],
+        "stateMutability": "nonpayable",
+        "type": "constructor"
+      },
+      {
+        "inputs": [],
+        "name": "CerbyCronJobsExecution_TransactionsAreTemporarilyDisabled",
+        "type": "error"
+      },
+      {
+        "inputs": [],
+        "name": "CerbySwapLP1155V1_CallerIsNotOwnerNorApproved",
+        "type": "error"
+      },
+      {
+        "inputs": [],
+        "name": "CerbySwapLP1155V1_TransactionsAreTemporarilyDisabled",
+        "type": "error"
+      },
+      {
+        "inputs": [],
+        "name": "CerbySwapV1_AmountOfCerUsdMustBeLargerThanOne",
+        "type": "error"
+      },
+      {
+        "inputs": [],
+        "name": "CerbySwapV1_AmountOfCerUsdOrTokensInMustBeLargerThanOne",
+        "type": "error"
+      },
+      {
+        "inputs": [],
+        "name": "CerbySwapV1_AmountOfTokensMustBeLargerThanOne",
+        "type": "error"
+      },
+      {
+        "inputs": [],
+        "name": "CerbySwapV1_CreditCerUsdIsOverflown",
+        "type": "error"
+      },
+      {
+        "inputs": [],
+        "name": "CerbySwapV1_CreditCerUsdMustNotBeBelowZero",
+        "type": "error"
+      },
+      {
+        "inputs": [],
+        "name": "CerbySwapV1_FeeIsWrong",
+        "type": "error"
+      },
+      {
+        "inputs": [],
+        "name": "CerbySwapV1_FeeOnTransferTokensArentSupported",
+        "type": "error"
+      },
+      {
+        "inputs": [],
+        "name": "CerbySwapV1_InputCerUsdAmountIsLargerThanMaximumSpecified",
+        "type": "error"
+      },
+      {
+        "inputs": [],
+        "name": "CerbySwapV1_InputTokensAmountIsLargerThanMaximumSpecified",
+        "type": "error"
+      },
+      {
+        "inputs": [],
+        "name": "CerbySwapV1_InvariantKValueMustBeSameOrIncreasedOnAnySwaps",
+        "type": "error"
+      },
+      {
+        "inputs": [],
+        "name": "CerbySwapV1_MintFeeMultiplierMustNotBeLargerThan50Percent",
+        "type": "error"
+      },
+      {
+        "inputs": [],
+        "name": "CerbySwapV1_MsgValueProvidedMustBeLargerThanAmountTokensIn",
+        "type": "error"
+      },
+      {
+        "inputs": [],
+        "name": "CerbySwapV1_MsgValueProvidedMustBeZero",
+        "type": "error"
+      },
+      {
+        "inputs": [],
+        "name": "CerbySwapV1_OutputCerUsdAmountIsLowerThanMinimumSpecified",
+        "type": "error"
+      },
+      {
+        "inputs": [],
+        "name": "CerbySwapV1_OutputTokensAmountIsLowerThanMinimumSpecified",
+        "type": "error"
+      },
+      {
+        "inputs": [],
+        "name": "CerbySwapV1_SafeTransferFromFailed",
+        "type": "error"
+      },
+      {
+        "inputs": [],
+        "name": "CerbySwapV1_SafeTransferNativeFailed",
+        "type": "error"
+      },
+      {
+        "inputs": [],
+        "name": "CerbySwapV1_SafeTransferTokensFailed",
+        "type": "error"
+      },
+      {
+        "inputs": [],
+        "name": "CerbySwapV1_SwappingTokenToSameTokenIsForbidden",
+        "type": "error"
+      },
+      {
+        "inputs": [],
+        "name": "CerbySwapV1_TokenAlreadyExists",
+        "type": "error"
+      },
+      {
+        "inputs": [],
+        "name": "CerbySwapV1_TokenDoesNotExist",
+        "type": "error"
+      },
+      {
+        "inputs": [],
+        "name": "CerbySwapV1_TransactionIsExpired",
+        "type": "error"
+      },
+      {
+        "inputs": [],
+        "name": "CerbySwapV1_TvlMultiplierIsWrong",
+        "type": "error"
+      },
+      {
+        "inputs": [],
+        "name": "ERC1155_AccountsAndIdsLengthMismatch",
+        "type": "error"
+      },
+      {
+        "inputs": [],
+        "name": "ERC1155_BalanceQueryForTheZeroAddress",
+        "type": "error"
+      },
+      {
+        "inputs": [],
+        "name": "ERC1155_BurnAmountExceedsBalance",
+        "type": "error"
+      },
+      {
+        "inputs": [],
+        "name": "ERC1155_BurnFromZeroAddress",
+        "type": "error"
+      },
+      {
+        "inputs": [],
+        "name": "ERC1155_ERC1155ReceiverRejectsTokens",
+        "type": "error"
+      },
+      {
+        "inputs": [],
+        "name": "ERC1155_IdsAndAmountsLengthMismatch",
+        "type": "error"
+      },
+      {
+        "inputs": [],
+        "name": "ERC1155_InsufficientBalanceForTransfer",
+        "type": "error"
+      },
+      {
+        "inputs": [],
+        "name": "ERC1155_MintToAmountIsZero",
+        "type": "error"
+      },
+      {
+        "inputs": [],
+        "name": "ERC1155_MintToZeroAddress",
+        "type": "error"
+      },
+      {
+        "inputs": [],
+        "name": "ERC1155_SettingApprovalStatusForSelf",
+        "type": "error"
+      },
+      {
+        "inputs": [],
+        "name": "ERC1155_TransferToNonERC1155ReceiverImplementer",
+        "type": "error"
+      },
+      {
+        "inputs": [],
+        "name": "ERC1155_TransferToZeroAddress",
+        "type": "error"
+      },
+      {
+        "inputs": [],
+        "name": "Ownable_CallerIsNotOwner",
+        "type": "error"
+      },
+      {
+        "inputs": [],
+        "name": "Ownable_NewOwnerIsNotTheZeroAddress",
+        "type": "error"
+      },
+      {
+        "anonymous": false,
+        "inputs": [
+          {
+            "indexed": true,
+            "internalType": "address",
+            "name": "account",
+            "type": "address"
+          },
+          {
+            "indexed": true,
+            "internalType": "address",
+            "name": "operator",
+            "type": "address"
+          },
+          {
+            "indexed": false,
+            "internalType": "bool",
+            "name": "approved",
+            "type": "bool"
+          }
+        ],
+        "name": "ApprovalForAll",
+        "type": "event"
+      },
+      {
+        "anonymous": false,
+        "inputs": [
+          {
+            "indexed": false,
+            "internalType": "address",
+            "name": "token",
+            "type": "address"
+          },
+          {
+            "indexed": false,
+            "internalType": "uint256",
+            "name": "amountTokensIn",
+            "type": "uint256"
+          },
+          {
+            "indexed": false,
+            "internalType": "uint256",
+            "name": "amountCerUsdToMint",
+            "type": "uint256"
+          },
+          {
+            "indexed": false,
+            "internalType": "uint256",
+            "name": "lpAmount",
+            "type": "uint256"
+          }
+        ],
+        "name": "LiquidityAdded",
+        "type": "event"
+      },
+      {
+        "anonymous": false,
+        "inputs": [
+          {
+            "indexed": false,
+            "internalType": "address",
+            "name": "token",
+            "type": "address"
+          },
+          {
+            "indexed": false,
+            "internalType": "uint256",
+            "name": "amountTokensOut",
+            "type": "uint256"
+          },
+          {
+            "indexed": false,
+            "internalType": "uint256",
+            "name": "amountCerUsdToBurn",
+            "type": "uint256"
+          },
+          {
+            "indexed": false,
+            "internalType": "uint256",
+            "name": "amountLpTokensBalanceToBurn",
+            "type": "uint256"
+          }
+        ],
+        "name": "LiquidityRemoved",
+        "type": "event"
+      },
+      {
+        "anonymous": false,
+        "inputs": [
+          {
+            "indexed": true,
+            "internalType": "address",
+            "name": "previousOwner",
+            "type": "address"
+          },
+          {
+            "indexed": true,
+            "internalType": "address",
+            "name": "newOwner",
+            "type": "address"
+          }
+        ],
+        "name": "OwnershipTransferred",
+        "type": "event"
+      },
+      {
+        "anonymous": false,
+        "inputs": [
+          {
+            "indexed": false,
+            "internalType": "address",
+            "name": "token",
+            "type": "address"
+          },
+          {
+            "indexed": false,
+            "internalType": "uint256",
+            "name": "poolId",
+            "type": "uint256"
+          }
+        ],
+        "name": "PairCreated",
+        "type": "event"
+      },
+      {
+        "anonymous": false,
+        "inputs": [
+          {
+            "indexed": false,
+            "internalType": "address",
+            "name": "token",
+            "type": "address"
+          },
+          {
+            "indexed": false,
+            "internalType": "address",
+            "name": "sender",
+            "type": "address"
+          },
+          {
+            "indexed": false,
+            "internalType": "uint256",
+            "name": "amountTokensIn",
+            "type": "uint256"
+          },
+          {
+            "indexed": false,
+            "internalType": "uint256",
+            "name": "amountCerUsdIn",
+            "type": "uint256"
+          },
+          {
+            "indexed": false,
+            "internalType": "uint256",
+            "name": "amountTokensOut",
+            "type": "uint256"
+          },
+          {
+            "indexed": false,
+            "internalType": "uint256",
+            "name": "amountCerUsdOut",
+            "type": "uint256"
+          },
+          {
+            "indexed": false,
+            "internalType": "uint256",
+            "name": "currentFee",
+            "type": "uint256"
+          },
+          {
+            "indexed": false,
+            "internalType": "address",
+            "name": "transferTo",
+            "type": "address"
+          }
+        ],
+        "name": "Swap",
+        "type": "event"
+      },
+      {
+        "anonymous": false,
+        "inputs": [
+          {
+            "indexed": false,
+            "internalType": "address",
+            "name": "token",
+            "type": "address"
+          },
+          {
+            "indexed": false,
+            "internalType": "uint256",
+            "name": "newBalanceToken",
+            "type": "uint256"
+          },
+          {
+            "indexed": false,
+            "internalType": "uint256",
+            "name": "newBalanceCerUsd",
+            "type": "uint256"
+          },
+          {
+            "indexed": false,
+            "internalType": "uint256",
+            "name": "newCreditCerUsd",
+            "type": "uint256"
+          }
+        ],
+        "name": "Sync",
+        "type": "event"
+      },
+      {
+        "anonymous": false,
+        "inputs": [
+          {
+            "indexed": true,
+            "internalType": "address",
+            "name": "operator",
+            "type": "address"
+          },
+          {
+            "indexed": true,
+            "internalType": "address",
+            "name": "from",
+            "type": "address"
+          },
+          {
+            "indexed": true,
+            "internalType": "address",
+            "name": "to",
+            "type": "address"
+          },
+          {
+            "indexed": false,
+            "internalType": "uint256[]",
+            "name": "ids",
+            "type": "uint256[]"
+          },
+          {
+            "indexed": false,
+            "internalType": "uint256[]",
+            "name": "values",
+            "type": "uint256[]"
+          }
+        ],
+        "name": "TransferBatch",
+        "type": "event"
+      },
+      {
+        "anonymous": false,
+        "inputs": [
+          {
+            "indexed": true,
+            "internalType": "address",
+            "name": "operator",
+            "type": "address"
+          },
+          {
+            "indexed": true,
+            "internalType": "address",
+            "name": "from",
+            "type": "address"
+          },
+          {
+            "indexed": true,
+            "internalType": "address",
+            "name": "to",
+            "type": "address"
+          },
+          {
+            "indexed": false,
+            "internalType": "uint256",
+            "name": "id",
+            "type": "uint256"
+          },
+          {
+            "indexed": false,
+            "internalType": "uint256",
+            "name": "value",
+            "type": "uint256"
+          }
+        ],
+        "name": "TransferSingle",
+        "type": "event"
+      },
+      {
+        "anonymous": false,
+        "inputs": [
+          {
+            "indexed": false,
+            "internalType": "string",
+            "name": "value",
+            "type": "string"
+          },
+          {
+            "indexed": true,
+            "internalType": "uint256",
+            "name": "id",
+            "type": "uint256"
+          }
+        ],
+        "name": "URI",
+        "type": "event"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "address",
+            "name": "token",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "amountTokensIn",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "expireTimestamp",
+            "type": "uint256"
+          },
+          {
+            "internalType": "address",
+            "name": "transferTo",
+            "type": "address"
+          }
+        ],
+        "name": "addTokenLiquidity",
+        "outputs": [
+          {
+            "internalType": "uint256",
+            "name": "",
+            "type": "uint256"
+          }
+        ],
+        "stateMutability": "payable",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "address",
+            "name": "token",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "amountCerUsdCredit",
+            "type": "uint256"
+          }
+        ],
+        "name": "adminChangeCerUsdCreditInPool",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "address",
+            "name": "token",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "amountTokensIn",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "amountCerUsdToMint",
+            "type": "uint256"
+          },
+          {
+            "internalType": "address",
+            "name": "transferTo",
+            "type": "address"
+          }
+        ],
+        "name": "adminCreatePool",
+        "outputs": [],
+        "stateMutability": "payable",
+        "type": "function"
+      },
+      {
+        "inputs": [],
+        "name": "adminInitialize",
+        "outputs": [],
+        "stateMutability": "payable",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "string",
+            "name": "newUrlPrefix",
+            "type": "string"
+          }
+        ],
+        "name": "adminSetURI",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
+            "components": [
+              {
+                "internalType": "address",
+                "name": "mintFeeBeneficiary",
+                "type": "address"
+              },
+              {
+                "internalType": "uint256",
+                "name": "mintFeeMultiplier",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "feeMinimum",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "feeMaximum",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "tvlMultiplierMinimum",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "tvlMultiplierMaximum",
+                "type": "uint256"
+              }
+            ],
+            "internalType": "struct CerbySwapV1_Declarations.Settings",
+            "name": "_settings",
+            "type": "tuple"
+          }
+        ],
+        "name": "adminUpdateFeesAndTvlMultipliers",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "string",
+            "name": "newName",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "newSymbol",
+            "type": "string"
+          }
+        ],
+        "name": "adminUpdateNameAndSymbol",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "address",
+            "name": "account",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "id",
+            "type": "uint256"
+          }
+        ],
+        "name": "balanceOf",
+        "outputs": [
+          {
+            "internalType": "uint256",
+            "name": "",
+            "type": "uint256"
+          }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "address[]",
+            "name": "accounts",
+            "type": "address[]"
+          },
+          {
+            "internalType": "uint256[]",
+            "name": "ids",
+            "type": "uint256[]"
+          }
+        ],
+        "name": "balanceOfBatch",
+        "outputs": [
+          {
+            "internalType": "uint256[]",
+            "name": "",
+            "type": "uint256[]"
+          }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "address",
+            "name": "token",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "amountTokensIn",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "amountCerUsdToMint",
+            "type": "uint256"
+          },
+          {
+            "internalType": "address",
+            "name": "transferTo",
+            "type": "address"
+          }
+        ],
+        "name": "createPool",
+        "outputs": [],
+        "stateMutability": "payable",
+        "type": "function"
+      },
+      {
+        "inputs": [],
+        "name": "decimals",
+        "outputs": [
+          {
+            "internalType": "uint256",
+            "name": "",
+            "type": "uint256"
+          }
+        ],
+        "stateMutability": "pure",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "uint256",
+            "name": "id",
+            "type": "uint256"
+          }
+        ],
+        "name": "exists",
+        "outputs": [
+          {
+            "internalType": "bool",
+            "name": "",
+            "type": "bool"
+          }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "address",
+            "name": "token",
+            "type": "address"
+          }
+        ],
+        "name": "getCurrentOneMinusFeeBasedOnTrades",
+        "outputs": [
+          {
+            "internalType": "uint256",
+            "name": "fee",
+            "type": "uint256"
+          }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "address",
+            "name": "tokenIn",
+            "type": "address"
+          },
+          {
+            "internalType": "address",
+            "name": "tokenOut",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "amountTokensOut",
+            "type": "uint256"
+          }
+        ],
+        "name": "getInputTokensForExactTokens",
+        "outputs": [
+          {
+            "internalType": "uint256",
+            "name": "",
+            "type": "uint256"
+          }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "address",
+            "name": "tokenIn",
+            "type": "address"
+          },
+          {
+            "internalType": "address",
+            "name": "tokenOut",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "amountTokensIn",
+            "type": "uint256"
+          }
+        ],
+        "name": "getOutputExactTokensForTokens",
+        "outputs": [
+          {
+            "internalType": "uint256",
+            "name": "",
+            "type": "uint256"
+          }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "uint256[]",
+            "name": "ids",
+            "type": "uint256[]"
+          }
+        ],
+        "name": "getPoolsByIds",
+        "outputs": [
+          {
+            "components": [
+              {
+                "internalType": "uint32[8]",
+                "name": "tradeVolumePerPeriodInCerUsd",
+                "type": "uint32[8]"
+              },
+              {
+                "internalType": "uint128",
+                "name": "balanceToken",
+                "type": "uint128"
+              },
+              {
+                "internalType": "uint128",
+                "name": "balanceCerUsd",
+                "type": "uint128"
+              },
+              {
+                "internalType": "uint128",
+                "name": "lastSqrtKValue",
+                "type": "uint128"
+              },
+              {
+                "internalType": "uint256",
+                "name": "creditCerUsd",
+                "type": "uint256"
+              }
+            ],
+            "internalType": "struct CerbySwapV1_Declarations.Pool[]",
+            "name": "",
+            "type": "tuple[]"
+          }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "address[]",
+            "name": "tokens",
+            "type": "address[]"
+          }
+        ],
+        "name": "getPoolsByTokens",
+        "outputs": [
+          {
+            "components": [
+              {
+                "internalType": "uint32[8]",
+                "name": "tradeVolumePerPeriodInCerUsd",
+                "type": "uint32[8]"
+              },
+              {
+                "internalType": "uint128",
+                "name": "balanceToken",
+                "type": "uint128"
+              },
+              {
+                "internalType": "uint128",
+                "name": "balanceCerUsd",
+                "type": "uint128"
+              },
+              {
+                "internalType": "uint128",
+                "name": "lastSqrtKValue",
+                "type": "uint128"
+              },
+              {
+                "internalType": "uint256",
+                "name": "creditCerUsd",
+                "type": "uint256"
+              }
+            ],
+            "internalType": "struct CerbySwapV1_Declarations.Pool[]",
+            "name": "",
+            "type": "tuple[]"
+          }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "inputs": [],
+        "name": "getSettings",
+        "outputs": [
+          {
+            "components": [
+              {
+                "internalType": "address",
+                "name": "mintFeeBeneficiary",
+                "type": "address"
+              },
+              {
+                "internalType": "uint256",
+                "name": "mintFeeMultiplier",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "feeMinimum",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "feeMaximum",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "tvlMultiplierMinimum",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "tvlMultiplierMaximum",
+                "type": "uint256"
+              }
+            ],
+            "internalType": "struct CerbySwapV1_Declarations.Settings",
+            "name": "",
+            "type": "tuple"
+          }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "address",
+            "name": "token",
+            "type": "address"
+          }
+        ],
+        "name": "getTokenToPoolId",
+        "outputs": [
+          {
+            "internalType": "uint256",
+            "name": "",
+            "type": "uint256"
+          }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "uint256",
+            "name": "pos",
+            "type": "uint256"
+          }
+        ],
+        "name": "getUtilsContractAtPos",
+        "outputs": [
+          {
+            "internalType": "address",
+            "name": "",
+            "type": "address"
+          }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "address",
+            "name": "token",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "amountCerUsdCredit",
+            "type": "uint256"
+          }
+        ],
+        "name": "increaseCerUsdCreditInPool",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "address",
+            "name": "account",
+            "type": "address"
+          },
+          {
+            "internalType": "address",
+            "name": "operator",
+            "type": "address"
+          }
+        ],
+        "name": "isApprovedForAll",
+        "outputs": [
+          {
+            "internalType": "bool",
+            "name": "",
+            "type": "bool"
+          }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "address",
+            "name": "token",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "amountTokensOut",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "amountCerUsdOut",
+            "type": "uint256"
+          },
+          {
+            "internalType": "address",
+            "name": "transferTo",
+            "type": "address"
+          }
+        ],
+        "name": "lowLevelSwap",
+        "outputs": [],
+        "stateMutability": "payable",
+        "type": "function"
+      },
+      {
+        "inputs": [],
+        "name": "name",
+        "outputs": [
+          {
+            "internalType": "string",
+            "name": "",
+            "type": "string"
+          }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "inputs": [],
+        "name": "owner",
+        "outputs": [
+          {
+            "internalType": "address",
+            "name": "",
+            "type": "address"
+          }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "address",
+            "name": "token",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "amountLpTokensBalanceToBurn",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "expireTimestamp",
+            "type": "uint256"
+          },
+          {
+            "internalType": "address",
+            "name": "transferTo",
+            "type": "address"
+          }
+        ],
+        "name": "removeTokenLiquidity",
+        "outputs": [
+          {
+            "internalType": "uint256",
+            "name": "",
+            "type": "uint256"
+          }
+        ],
+        "stateMutability": "nonpayable",
+        "type": "function"
+      },
+      {
+        "inputs": [],
+        "name": "renounceOwnership",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "address",
+            "name": "from",
+            "type": "address"
+          },
+          {
+            "internalType": "address",
+            "name": "to",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256[]",
+            "name": "ids",
+            "type": "uint256[]"
+          },
+          {
+            "internalType": "uint256[]",
+            "name": "amounts",
+            "type": "uint256[]"
+          },
+          {
+            "internalType": "bytes",
+            "name": "data",
+            "type": "bytes"
+          }
+        ],
+        "name": "safeBatchTransferFrom",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "address",
+            "name": "from",
+            "type": "address"
+          },
+          {
+            "internalType": "address",
+            "name": "to",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "id",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "amount",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bytes",
+            "name": "data",
+            "type": "bytes"
+          }
+        ],
+        "name": "safeTransferFrom",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "address",
+            "name": "operator",
+            "type": "address"
+          },
+          {
+            "internalType": "bool",
+            "name": "approved",
+            "type": "bool"
+          }
+        ],
+        "name": "setApprovalForAll",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "bytes4",
+            "name": "interfaceId",
+            "type": "bytes4"
+          }
+        ],
+        "name": "supportsInterface",
+        "outputs": [
+          {
+            "internalType": "bool",
+            "name": "",
+            "type": "bool"
+          }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "address",
+            "name": "tokenIn",
+            "type": "address"
+          },
+          {
+            "internalType": "address",
+            "name": "tokenOut",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "amountTokensIn",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "minAmountTokensOut",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "expireTimestamp",
+            "type": "uint256"
+          },
+          {
+            "internalType": "address",
+            "name": "transferTo",
+            "type": "address"
+          }
+        ],
+        "name": "swapExactTokensForTokens",
+        "outputs": [
+          {
+            "internalType": "uint256",
+            "name": "",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "",
+            "type": "uint256"
+          }
+        ],
+        "stateMutability": "payable",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "address",
+            "name": "tokenIn",
+            "type": "address"
+          },
+          {
+            "internalType": "address",
+            "name": "tokenOut",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "amountTokensOut",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "maxAmountTokensIn",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "expireTimestamp",
+            "type": "uint256"
+          },
+          {
+            "internalType": "address",
+            "name": "transferTo",
+            "type": "address"
+          }
+        ],
+        "name": "swapTokensForExactTokens",
+        "outputs": [
+          {
+            "internalType": "uint256",
+            "name": "",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "",
+            "type": "uint256"
+          }
+        ],
+        "stateMutability": "payable",
+        "type": "function"
+      },
+      {
+        "inputs": [],
+        "name": "symbol",
+        "outputs": [
+          {
+            "internalType": "string",
+            "name": "",
+            "type": "string"
+          }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "address",
+            "name": "token",
+            "type": "address"
+          }
+        ],
+        "name": "syncPool",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+      },
+      {
+        "inputs": [],
+        "name": "testInit",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "address",
+            "name": "",
+            "type": "address"
+          },
+          {
+            "internalType": "address",
+            "name": "_testCerbyToken",
+            "type": "address"
+          },
+          {
+            "internalType": "address",
+            "name": "_cerUsdToken",
+            "type": "address"
+          },
+          {
+            "internalType": "address",
+            "name": "_testUsdcToken",
+            "type": "address"
+          },
+          {
+            "internalType": "address",
+            "name": "",
+            "type": "address"
+          }
+        ],
+        "name": "testSetupTokens",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+      },
+      {
+        "inputs": [],
+        "name": "totalSupply",
+        "outputs": [
+          {
+            "internalType": "uint256",
+            "name": "",
+            "type": "uint256"
+          }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "uint256",
+            "name": "id",
+            "type": "uint256"
+          }
+        ],
+        "name": "totalSupply",
+        "outputs": [
+          {
+            "internalType": "uint256",
+            "name": "",
+            "type": "uint256"
+          }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "address",
+            "name": "newOwner",
+            "type": "address"
+          }
+        ],
+        "name": "transferOwnership",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "uint256",
+            "name": "id",
+            "type": "uint256"
+          }
+        ],
+        "name": "uri",
+        "outputs": [
+          {
+            "internalType": "string",
+            "name": "",
+            "type": "string"
+          }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "stateMutability": "payable",
+        "type": "receive"
+      }
+    ],
+    "devdoc": {
+      "kind": "dev",
+      "methods": {
+        "balanceOf(address,uint256)": {
+          "details": "See {IERC1155-balanceOf}. Requirements: - `account` cannot be the zero address."
+        },
+        "balanceOfBatch(address[],uint256[])": {
+          "details": "See {IERC1155-balanceOfBatch}. Requirements: - `accounts` and `ids` must have the same length."
+        },
+        "exists(uint256)": {
+          "details": "Indicates whether any token exist with a given id, or not."
+        },
+        "isApprovedForAll(address,address)": {
+          "details": "See {IERC1155-isApprovedForAll}."
+        },
+        "owner()": {
+          "details": "Returns the address of the current owner."
+        },
+        "renounceOwnership()": {
+          "details": "Leaves the contract without owner. It will not be possible to call `onlyOwner` functions anymore. Can only be called by the current owner. NOTE: Renouncing ownership will leave the contract without an owner, thereby removing any functionality that is only available to the owner."
+        },
+        "safeBatchTransferFrom(address,address,uint256[],uint256[],bytes)": {
+          "details": "xref:ROOT:erc1155.adoc#batch-operations[Batched] version of {safeTransferFrom}. Emits a {TransferBatch} event. Requirements: - `ids` and `amounts` must have the same length. - If `to` refers to a smart contract, it must implement {IERC1155Receiver-onERC1155BatchReceived} and return the acceptance magic value."
+        },
+        "safeTransferFrom(address,address,uint256,uint256,bytes)": {
+          "details": "Transfers `amount` tokens of token type `id` from `from` to `to`. Emits a {TransferSingle} event. Requirements: - `to` cannot be the zero address. - If the caller is not `from`, it must be have been approved to spend ``from``'s tokens via {setApprovalForAll}. - `from` must have a balance of tokens of type `id` of at least `amount`. - If `to` refers to a smart contract, it must implement {IERC1155Receiver-onERC1155Received} and return the acceptance magic value."
+        },
+        "setApprovalForAll(address,bool)": {
+          "details": "Grants or revokes permission to `operator` to transfer the caller's tokens, according to `approved`, Emits an {ApprovalForAll} event. Requirements: - `operator` cannot be the caller."
+        },
+        "supportsInterface(bytes4)": {
+          "details": "See {IERC165-supportsInterface}."
+        },
+        "totalSupply(uint256)": {
+          "details": "Total amount of tokens in with a given id."
+        },
+        "transferOwnership(address)": {
+          "details": "Transfers ownership of the contract to a new account (`newOwner`). Can only be called by the current owner."
+        }
+      },
+      "version": 1
+    },
+    "userdoc": {
+      "kind": "user",
+      "methods": {},
+      "version": 1
+    }
+  },
+  "settings": {
+    "compilationTarget": {
+      "sol-cerby-swap-v1/CerbySwapV1.sol": "CerbySwapV1"
+    },
+    "evmVersion": "london",
+    "libraries": {},
+    "metadata": {
+      "bytecodeHash": "ipfs"
+    },
+    "optimizer": {
+      "enabled": true,
+      "runs": 200
+    },
+    "remappings": []
+  },
+  "sources": {
+    "sol-cerby-swap-v1/CerbyCronJobsExecution.sol": {
+      "keccak256": "0x3e10ba6f6f9e39a71cd69036ce00b599f9c27bdd114f6f94bc0a8fbeb2e6127c",
+      "license": "BUSL-1.1",
+      "urls": [
+        "bzz-raw://aac8f278c3f3acf489d232bf64de4b7550b3885dd6c2f2708d6f9a9819e967b9",
+        "dweb:/ipfs/QmSj6b3f17EzvYaXXGFGCx2mDVBKLH2VNnAkXNhGWAEQqr"
+      ]
+    },
+    "sol-cerby-swap-v1/CerbySwapV1.sol": {
+      "keccak256": "0xb7debfc55712ef1274abaf8cc10d07821f165eb22237b905f4073e4cf947d099",
+      "license": "BUSL-1.1",
+      "urls": [
+        "bzz-raw://a32d511356aba9dfeb0ba6bae1d06b7130bf5319111caf829db8c6e265cb5027",
+        "dweb:/ipfs/QmNeciZtw9QBDJsLGm8t4qiK1c9GpULAkJM9o2RbMHwP8s"
+      ]
+    },
+    "sol-cerby-swap-v1/CerbySwapV1_AdminFunctions.sol": {
+      "keccak256": "0x7cab5fd4bc505119729e9e9600300b7d01ddd0b698ff1878f47b1c9ed727e6b1",
+      "license": "BUSL-1.1",
+      "urls": [
+        "bzz-raw://db72ba6f3beadb69d7d1dbe4ae6c0a8b16c918df4c990ac4c5dcff267c2983b0",
+        "dweb:/ipfs/QmRt6JkKUt5PkihNcTHHP8SuziQDh2GhhX6Faj76GDDJV2"
+      ]
+    },
+    "sol-cerby-swap-v1/CerbySwapV1_Declarations.sol": {
+      "keccak256": "0xc389733bc0e481da4c39c7dfdd2cff9e3c2a7dbdc07a10be48db74f0182b3b1b",
+      "license": "BUSL-1.1",
+      "urls": [
+        "bzz-raw://14a52491ff42f4d504d9ed8e43bb47cab522ef03cf183ab30a68c8910d38826b",
+        "dweb:/ipfs/QmSSM9DJ4hc2WeMCGmpeDwoh22y11wsyjE4emUXbuSrZtS"
+      ]
+    },
+    "sol-cerby-swap-v1/CerbySwapV1_ERC1155.sol": {
+      "keccak256": "0x41b0d85a4c55a39d4032ebcca58080bcafbdfda8be3b14be27821a13e470b3b0",
+      "license": "BUSL-1.1",
+      "urls": [
+        "bzz-raw://aadeb00e9ba26eea8fef8c422c076a0c1ef5105f6ffbfe6010ed097678083efc",
+        "dweb:/ipfs/QmfSJMwvrRJAveU59nrqxfzQMd8ah5naN49JwaVapmCcUX"
+      ]
+    },
+    "sol-cerby-swap-v1/CerbySwapV1_EventsAndErrors.sol": {
+      "keccak256": "0x3ca7af1c46dcec218a1119fc0462f0e60aa7fe7597201b2e5bf3a4259bdccae4",
+      "license": "BUSL-1.1",
+      "urls": [
+        "bzz-raw://d7d39d56a002eb0acaa18e5ca99a0a8a568c1196734a65dda535c81f9f4b89f0",
+        "dweb:/ipfs/Qmcf4TcAcSo8A4QFgtPkWhJCd9wiPVcEPn4xnH6m8jt3St"
+      ]
+    },
+    "sol-cerby-swap-v1/CerbySwapV1_GetFunctions.sol": {
+      "keccak256": "0x6fa826810eab2fc24d63be2357356648ea2bafb8cab71d3fbeb8264bacc5e7de",
+      "license": "BUSL-1.1",
+      "urls": [
+        "bzz-raw://20331ffdda83619317c6c6925faa3573a3bc2e4b5b4fa082ea3df8bd9064b60b",
+        "dweb:/ipfs/QmeZxCKCpAgFFkWDs5LYbXekdSmdDcQhSq5bdBmQR9revh"
+      ]
+    },
+    "sol-cerby-swap-v1/CerbySwapV1_LiquidityFunctions.sol": {
+      "keccak256": "0xb10a2598e5d402f97b6a7a98dee13e293424b64dba352fbfb4abadbea18d5a80",
+      "license": "BUSL-1.1",
+      "urls": [
+        "bzz-raw://1b8054adfc463266a49bd36a8027bcdf0ffc84932a48410033cf57acf88b1eb2",
+        "dweb:/ipfs/QmSPBY7g5Abec52xNHgzncgu2Q4bQacDuDZ2SXEW8hyo33"
+      ]
+    },
+    "sol-cerby-swap-v1/CerbySwapV1_Math.sol": {
+      "keccak256": "0x3dcb08dc7cf72eeca29afa2162fd9929bf7233bd8850a5461f201e3ab1895864",
+      "license": "BUSL-1.1",
+      "urls": [
+        "bzz-raw://11de421a3e7dc3af2d637766093941dfe883f43fff61c6cae621f178d5d15bc7",
+        "dweb:/ipfs/QmZRwrYJ3kpjuHkSkLcjmVwcbxfmT9zQ1FUFGCKk3fVm9C"
+      ]
+    },
+    "sol-cerby-swap-v1/CerbySwapV1_Modifiers.sol": {
+      "keccak256": "0x19de6eb4be48f3ae50e12057fda63b8ed3d0a2ccfcd8b55669c56f70a8bdf748",
+      "license": "BUSL-1.1",
+      "urls": [
+        "bzz-raw://f2c8b1ab0ea7ed42f99db071d88527f46c610a5f6adf9676b70dcf61499cb69d",
+        "dweb:/ipfs/QmR64FdWMfCrCmmaaP1ww2x4ew7hS9M2jq3RLxDnA1ZCNz"
+      ]
+    },
+    "sol-cerby-swap-v1/CerbySwapV1_SafeFunctions.sol": {
+      "keccak256": "0x647304b2f2bbe42adde392e9020a836fbdecbe8b016eb622834fa51031964988",
+      "license": "BUSL-1.1",
+      "urls": [
+        "bzz-raw://3d0a499e46c181b16489789ded0329bc2da35220539bc779ccbcc4f3884f8de3",
+        "dweb:/ipfs/QmfYECNgG9ALqPeAU8cUpHrmq3PpKJwHWCmLNc392JUzW8"
+      ]
+    },
+    "sol-cerby-swap-v1/CerbySwapV1_SwapFunctions.sol": {
+      "keccak256": "0x48d4ecc0b0e3eab6ef92567ee1a3dfc8246c31115fcae476c5f816c03b6eab11",
+      "license": "BUSL-1.1",
+      "urls": [
+        "bzz-raw://621bf29d035e87e8c75431a8d150dec2c6d895f6b655a243b084c63e3cdf1f59",
+        "dweb:/ipfs/QmaWskepJq6nVyyHYCySaUYNpGsZrtmDFdbf8sAbYNc21k"
+      ]
+    },
+    "sol-cerby-swap-v1/interfaces/ICerbyBotDetection.sol": {
+      "keccak256": "0x1edc9775a343929a6722a1f8cde8b41d15959e58439ed6a606b1ecf6c1920bb7",
+      "license": "BUSL-1.1",
+      "urls": [
+        "bzz-raw://917931f683191dfc3d381fd70cde802fbd967fc691e727445bc2a33ec87e9fa8",
+        "dweb:/ipfs/QmZY9619gqezspATPKNGhFBgAcZA7dBmF4JADjf1xysEZs"
+      ]
+    },
+    "sol-cerby-swap-v1/interfaces/ICerbyToken.sol": {
+      "keccak256": "0x4e54c2b2e26a8614ad9d19d94b0cf97c134f6b6f333557dd41d5d0981465f92f",
+      "license": "MIT",
+      "urls": [
+        "bzz-raw://b0fa49f30eed7d09333d1e4463f16bb0a253ddf4a85fd04bac7f0d2064472e6a",
+        "dweb:/ipfs/Qmas97Mp7VUZkU6vb15Ed9WV63kcER9SRdt76m7DDtic5u"
+      ]
+    },
+    "sol-cerby-swap-v1/interfaces/ICerbyTokenMinterBurner.sol": {
+      "keccak256": "0x2e737a3ef8e66c4f88d1da86b213994f322ff36fdc623b2dcc514b73a93e5631",
+      "license": "BSD-2-Clause",
+      "urls": [
+        "bzz-raw://caf7e0e9e86d083eb669adf07269c3191a9eec50e39409189e0a3e2780fcd780",
+        "dweb:/ipfs/QmdzdSZS4KvuxEgmqoaRQ5TSqMnxiyLzcbC39cfm3XxCtw"
+      ]
+    },
+    "sol-cerby-swap-v1/interfaces/IERC20.sol": {
+      "keccak256": "0xc4e165d9bee5094c42ab4f2da3022c3e246973abf08856f0e9bc8e7245dbeb84",
+      "license": "MIT",
+      "urls": [
+        "bzz-raw://ca5bf2dfdda6c9adac678cb2a17f58d5796f38790ec7c9cf71cb551ad6b4f436",
+        "dweb:/ipfs/QmYqfyEaD9W43mdxLdQPKEqJwu7vELomxDCWvuHwiceMNb"
+      ]
+    },
+    "sol-cerby-swap-v1/openzeppelin/access/Ownable.sol": {
+      "keccak256": "0x924c2f441a43a8bdec4c16badc71c2837b442a59000dce1db8b664fbc1bcf978",
+      "license": "MIT",
+      "urls": [
+        "bzz-raw://a0368f78db918654c09768ff9194582d85e5d05efde371e9e80d06b898cad0f1",
+        "dweb:/ipfs/QmZH3UWunWgLc3rKB1QQrU8ryEgix5D71ZioTQfcdGwHKf"
+      ]
+    },
+    "sol-cerby-swap-v1/openzeppelin/token/ERC1155/ERC1155.sol": {
+      "keccak256": "0x395ba2833099bf0664b8b235345d26967aa135021aec97e81e240b7d463f028e",
+      "license": "MIT",
+      "urls": [
+        "bzz-raw://7f784b8b03e09e6ce94da6dd8f0d119f2a37fad3079661d021c7c4c17d366b0e",
+        "dweb:/ipfs/Qman7VcRTnRec9G5hyFEyKKvazmxa5dCKBJKXcb6g3Hd7L"
+      ]
+    },
+    "sol-cerby-swap-v1/openzeppelin/token/ERC1155/IERC1155.sol": {
+      "keccak256": "0x1bbdcc6f4bb2a949e0972a56922aacbb0dfb96b758b1af485783fd46622f7d2d",
+      "license": "MIT",
+      "urls": [
+        "bzz-raw://888e83f7844b76f02c05c22f7f35a56c63a9e4aac3bc3d6b2cec7ad5f01a5898",
+        "dweb:/ipfs/QmPAizEA5aw5hEeu8ch5THThW57H2tBSCAZqhZGgLs3pxT"
+      ]
+    },
+    "sol-cerby-swap-v1/openzeppelin/token/ERC1155/IERC1155Receiver.sol": {
+      "keccak256": "0xc743d2235b8854045c308d2f8f1ed88efed6c2bebf2b7a4a51ea42480c82e566",
+      "license": "MIT",
+      "urls": [
+        "bzz-raw://05e54e397a053f319187999ef4d65446a7f15f693ddd66dfaed4d856f67dac4e",
+        "dweb:/ipfs/QmbGTFVdZxShg76UPcuLAXm6HBjZx3Vn6CL1eaBhV9rST1"
+      ]
+    },
+    "sol-cerby-swap-v1/openzeppelin/token/ERC1155/extensions/IERC1155MetadataURI.sol": {
+      "keccak256": "0xa66d18b9a85458d28fc3304717964502ae36f7f8a2ff35bc83f6f85d74b03574",
+      "license": "MIT",
+      "urls": [
+        "bzz-raw://e46c80ea068989111d6103e5521223f9ef337e93de76deed8b03f75c6f7b2797",
+        "dweb:/ipfs/QmNoSE6knNfFncdDDLTb3fGR6oSQty1srG96Vsx3E9wQdw"
+      ]
+    },
+    "sol-cerby-swap-v1/openzeppelin/utils/Context.sol": {
+      "keccak256": "0xe2e337e6dde9ef6b680e07338c493ebea1b5fd09b43424112868e9cc1706bca7",
+      "license": "MIT",
+      "urls": [
+        "bzz-raw://6df0ddf21ce9f58271bdfaa85cde98b200ef242a05a3f85c2bc10a8294800a92",
+        "dweb:/ipfs/QmRK2Y5Yc6BK7tGKkgsgn3aJEQGi5aakeSPZvS65PV8Xp3"
+      ]
+    },
+    "sol-cerby-swap-v1/openzeppelin/utils/introspection/ERC165.sol": {
+      "keccak256": "0x80cff4f25810ab85caa3f5839b7cb5b7683a9540da82268e2b9f422e0d4d58e6",
+      "license": "MIT",
+      "urls": [
+        "bzz-raw://1858a5438e273c2f48db04bfa9e49e5a5bbf5ccb36b1c666756647aacfca2a04",
+        "dweb:/ipfs/QmR1bYQhYWtRLLXMyRJYtZRaEmXkbFGWHcd6a59VKrFgMR"
+      ]
+    },
+    "sol-cerby-swap-v1/openzeppelin/utils/introspection/IERC165.sol": {
+      "keccak256": "0x447a5f3ddc18419d41ff92b3773fb86471b1db25773e07f877f548918a185bf1",
+      "license": "MIT",
+      "urls": [
+        "bzz-raw://be161e54f24e5c6fae81a12db1a8ae87bc5ae1b0ddc805d82a1440a68455088f",
+        "dweb:/ipfs/QmP7C3CHdY9urF4dEMb9wmsp1wMxHF6nhA2yQE5SKiPAdy"
+      ]
+    }
+  },
+  "version": 1
 }
