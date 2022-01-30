@@ -135,7 +135,9 @@ export interface CerbySwapV1GetFunctionsInstance
     }[]
   >;
 
-  getSettings(txDetails?: Truffle.TransactionDetails): Promise<{
+  getSettings(
+    txDetails?: Truffle.TransactionDetails
+  ): Promise<{
     mintFeeBeneficiary: string;
     mintFeeMultiplier: BN;
     feeMinimum: BN;
@@ -195,7 +197,9 @@ export interface CerbySwapV1GetFunctionsInstance
       }[]
     >;
 
-    getSettings(txDetails?: Truffle.TransactionDetails): Promise<{
+    getSettings(
+      txDetails?: Truffle.TransactionDetails
+    ): Promise<{
       mintFeeBeneficiary: string;
       mintFeeMultiplier: BN;
       feeMinimum: BN;
