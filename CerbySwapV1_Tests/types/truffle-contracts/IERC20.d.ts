@@ -12,12 +12,58 @@ export interface IERC20Contract extends Truffle.Contract<IERC20Instance> {
 type AllEvents = never;
 
 export interface IERC20Instance extends Truffle.ContractInstance {
+  approve: {
+    (
+      _spender: string,
+      _value: number | BN | string,
+      txDetails?: Truffle.TransactionDetails
+    ): Promise<Truffle.TransactionResponse<AllEvents>>;
+    call(
+      _spender: string,
+      _value: number | BN | string,
+      txDetails?: Truffle.TransactionDetails
+    ): Promise<boolean>;
+    sendTransaction(
+      _spender: string,
+      _value: number | BN | string,
+      txDetails?: Truffle.TransactionDetails
+    ): Promise<string>;
+    estimateGas(
+      _spender: string,
+      _value: number | BN | string,
+      txDetails?: Truffle.TransactionDetails
+    ): Promise<number>;
+  };
+
   balanceOf(
     account: string,
     txDetails?: Truffle.TransactionDetails
   ): Promise<BN>;
 
   methods: {
+    approve: {
+      (
+        _spender: string,
+        _value: number | BN | string,
+        txDetails?: Truffle.TransactionDetails
+      ): Promise<Truffle.TransactionResponse<AllEvents>>;
+      call(
+        _spender: string,
+        _value: number | BN | string,
+        txDetails?: Truffle.TransactionDetails
+      ): Promise<boolean>;
+      sendTransaction(
+        _spender: string,
+        _value: number | BN | string,
+        txDetails?: Truffle.TransactionDetails
+      ): Promise<string>;
+      estimateGas(
+        _spender: string,
+        _value: number | BN | string,
+        txDetails?: Truffle.TransactionDetails
+      ): Promise<number>;
+    };
+
     balanceOf(
       account: string,
       txDetails?: Truffle.TransactionDetails

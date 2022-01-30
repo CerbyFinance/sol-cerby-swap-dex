@@ -28,7 +28,7 @@ contract CerbySwapV1 is CerbySwapV1_AdminFunctions {
 
         // Filling with empty pool 0th id
         uint32[NUMBER_OF_TRADE_PERIODS] memory tradeVolumePerPeriodInCerUsd;
-        pools.push(Pool(tradeVolumePerPeriodInCerUsd, 0, 0, 0, 0));
+        pools.push(Pool(BURN_ADDRESS, tradeVolumePerPeriodInCerUsd, 0, 0));
 
         if (block.chainid == 1) {
             // Ethereum

@@ -5,7 +5,10 @@ pragma solidity ^0.8.11;
 import "./CerbySwapV1_EventsAndErrors.sol";
 import "./CerbySwapV1_Declarations_CerUsd.sol";
 
-abstract contract CerbySwapV1_Declarations is CerbySwapV1_EventsAndErrors, CerbySwapV1_Declarations_CerUsd {
+abstract contract CerbySwapV1_Declarations is
+    CerbySwapV1_EventsAndErrors,
+    CerbySwapV1_Declarations_CerUsd
+{
     Pool[] internal pools;
     mapping(address => uint256) internal tokenToPoolId;
 
@@ -49,7 +52,7 @@ abstract contract CerbySwapV1_Declarations is CerbySwapV1_EventsAndErrors, Cerby
     }
 
     struct PoolBalances {
-        uint balanceToken;
-        uint balanceCerUsd;
+        uint256 balanceToken;
+        uint256 balanceCerUsd;
     }
 }

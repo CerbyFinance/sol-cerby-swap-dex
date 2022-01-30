@@ -128,14 +128,19 @@ abstract contract CerbySwapV1_AdminFunctions is
         // getting pool storage link (saves gas compared to memory)
         Pool storage pool = pools[tokenToPoolId[_token]];
 
+        PoolBalances memory poolBalances = _getPoolBalances(
+            _token,
+            pool.vaultAddress
+        );
+
         // changing credit for user-created pool
-        pool.creditCerUsd = _amountCerUsdCredit;
+        pool.creditCerUsd = uint128(_amountCerUsdCredit);
 
         // Sync event to update pool variables in the graph node
         emit Sync(
             _token,
-            pool.balanceToken,
-            pool.balanceCerUsd,
+            poolBalances.balanceToken,
+            poolBalances.balanceCerUsd,
             _amountCerUsdCredit
         );
     }

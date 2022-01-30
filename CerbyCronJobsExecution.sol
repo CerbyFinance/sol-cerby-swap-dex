@@ -7,9 +7,8 @@ import "./interfaces/ICerbyBotDetection.sol";
 
 abstract contract CerbyCronJobsExecution {
     uint256 internal constant CERBY_BOT_DETECTION_CONTRACT_ID = 3;
-    ICerbyToken internal constant CERBY_TOKEN_INSTANCE = ICerbyToken(
-        0xdef1fac7Bf08f173D286BbBDcBeeADe695129840
-    );
+    ICerbyToken internal constant CERBY_TOKEN_INSTANCE =
+        ICerbyToken(0xdef1fac7Bf08f173D286BbBDcBeeADe695129840);
 
     error CerbyCronJobsExecution_TransactionsAreTemporarilyDisabled();
 
@@ -38,10 +37,7 @@ abstract contract CerbyCronJobsExecution {
         virtual
         returns (address)
     {
-        return
-            CERBY_TOKEN_INSTANCE.getUtilsContractAtPos(
-                _pos
-            );
+        return CERBY_TOKEN_INSTANCE.getUtilsContractAtPos(_pos);
     }
 
     modifier checkForBots(address _addr) {

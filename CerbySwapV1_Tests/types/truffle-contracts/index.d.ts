@@ -17,6 +17,7 @@ import { CerbySwapV1LiquidityFunctionsContract } from "./CerbySwapV1LiquidityFun
 import { CerbySwapV1ModifiersContract } from "./CerbySwapV1Modifiers";
 import { CerbySwapV1SafeFunctionsContract } from "./CerbySwapV1SafeFunctions";
 import { CerbySwapV1SwapFunctionsContract } from "./CerbySwapV1SwapFunctions";
+import { CerbySwapV1VaultContract } from "./CerbySwapV1Vault";
 import { ERC1155Contract } from "./ERC1155";
 import { ERC1155HolderContract } from "./ERC1155Holder";
 import { ERC1155ReceiverContract } from "./ERC1155Receiver";
@@ -76,6 +77,7 @@ declare global {
       require(
         name: "CerbySwapV1_SwapFunctions"
       ): CerbySwapV1SwapFunctionsContract;
+      require(name: "CerbySwapV1_Vault"): CerbySwapV1VaultContract;
       require(name: "ERC1155"): ERC1155Contract;
       require(name: "ERC1155Holder"): ERC1155HolderContract;
       require(name: "ERC1155Receiver"): ERC1155ReceiverContract;
@@ -162,6 +164,10 @@ export {
   CerbySwapV1SwapFunctionsContract,
   CerbySwapV1SwapFunctionsInstance,
 } from "./CerbySwapV1SwapFunctions";
+export {
+  CerbySwapV1VaultContract,
+  CerbySwapV1VaultInstance,
+} from "./CerbySwapV1Vault";
 export { ERC1155Contract, ERC1155Instance } from "./ERC1155";
 export { ERC1155HolderContract, ERC1155HolderInstance } from "./ERC1155Holder";
 export {

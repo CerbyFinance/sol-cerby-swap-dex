@@ -5,7 +5,10 @@ pragma solidity ^0.8.11;
 import "./CerbySwapV1_Modifiers.sol";
 import "./CerbySwapV1_SafeFunctions.sol";
 
-abstract contract CerbySwapV1_GetFunctions is CerbySwapV1_Modifiers, CerbySwapV1_SafeFunctions {
+abstract contract CerbySwapV1_GetFunctions is
+    CerbySwapV1_Modifiers,
+    CerbySwapV1_SafeFunctions
+{
     function getTokenToPoolId(address _token) public view returns (uint256) {
         return tokenToPoolId[_token];
     }
@@ -27,16 +30,18 @@ abstract contract CerbySwapV1_GetFunctions is CerbySwapV1_Modifiers, CerbySwapV1
         // getting pool storage link (saves gas compared to memory)
         Pool storage pool = pools[tokenToPoolId[_token]];
 
-        PoolBalances memory poolBalances = _getPoolBalances(_token);
+        PoolBalances memory poolBalances = _getPoolBalances(
+            _token,
+            pool.vaultAddress
+        );
 
         return _getCurrentOneMinusFeeBasedOnTrades(pool, poolBalances);
     }
 
-    function _getCurrentOneMinusFeeBasedOnTrades(Pool storage _pool, PoolBalances memory _poolBalances)
-        internal
-        view
-        returns (uint256)
-    {
+    function _getCurrentOneMinusFeeBasedOnTrades(
+        Pool storage _pool,
+        PoolBalances memory _poolBalances
+    ) internal view returns (uint256) {
         // getting last 24 hours trade volume in USD
         uint256 currentPeriod = _getCurrentPeriod();
         uint256 nextPeriod = (currentPeriod + 1) % NUMBER_OF_TRADE_PERIODS;
@@ -55,10 +60,10 @@ abstract contract CerbySwapV1_GetFunctions is CerbySwapV1_Modifiers, CerbySwapV1
         // trades <= TVL * min              ---> fee = feeMaximum
         // TVL * min < trades < TVL * max   ---> fee is between feeMaximum and feeMinimum
         // trades >= TVL * max              ---> fee = feeMinimum
-        uint256 tvlMin = (_poolBalances.balanceCerUsd * settings.tvlMultiplierMinimum) /
-            TVL_MULTIPLIER_DENORM;
-        uint256 tvlMax = (_poolBalances.balanceCerUsd * settings.tvlMultiplierMaximum) /
-            TVL_MULTIPLIER_DENORM;
+        uint256 tvlMin = (_poolBalances.balanceCerUsd *
+            settings.tvlMultiplierMinimum) / TVL_MULTIPLIER_DENORM;
+        uint256 tvlMax = (_poolBalances.balanceCerUsd *
+            settings.tvlMultiplierMaximum) / TVL_MULTIPLIER_DENORM;
         uint256 fee;
         if (volume <= tvlMin) {
             fee = settings.feeMaximum; // 1.00%
@@ -84,11 +89,14 @@ abstract contract CerbySwapV1_GetFunctions is CerbySwapV1_Modifiers, CerbySwapV1
     ) public view returns (uint256) {
         uint256 amountTokensOut;
 
+        address vaultAddressIn = pools[tokenToPoolId[_tokenIn]].vaultAddress;
+        address vaultAddressOut = pools[tokenToPoolId[_tokenOut]].vaultAddress;
+
         // direction XXX --> cerUSD
         if (_tokenIn != cerUsdToken && _tokenOut == cerUsdToken) {
             // getting amountTokensOut
             amountTokensOut = _getOutputExactTokensForCerUsd(
-                _getPoolBalances(_tokenIn),
+                _getPoolBalances(_tokenIn, vaultAddressIn),
                 _tokenIn,
                 _amountTokensIn
             );
@@ -99,7 +107,7 @@ abstract contract CerbySwapV1_GetFunctions is CerbySwapV1_Modifiers, CerbySwapV1
         if (_tokenIn == cerUsdToken && _tokenOut != cerUsdToken) {
             // getting amountTokensOut
             amountTokensOut = _getOutputExactCerUsdForTokens(
-                _getPoolBalances(_tokenOut),
+                _getPoolBalances(_tokenOut, vaultAddressOut),
                 _tokenOut,
                 _amountTokensIn
             );
@@ -110,13 +118,13 @@ abstract contract CerbySwapV1_GetFunctions is CerbySwapV1_Modifiers, CerbySwapV1
         // direction XXX --> cerUSD --> YYY (or XXX --> YYY)
         // getting amountTokensOut
         uint256 amountCerUsdOut = _getOutputExactTokensForCerUsd(
-            _getPoolBalances(_tokenIn),
+            _getPoolBalances(_tokenIn, vaultAddressIn),
             _tokenIn,
             _amountTokensIn
         );
 
         amountTokensOut = _getOutputExactCerUsdForTokens(
-            _getPoolBalances(_tokenOut),
+            _getPoolBalances(_tokenOut, vaultAddressOut),
             _tokenOut,
             amountCerUsdOut
         );
@@ -130,11 +138,14 @@ abstract contract CerbySwapV1_GetFunctions is CerbySwapV1_Modifiers, CerbySwapV1
     ) public view returns (uint256) {
         uint256 amountTokensIn;
 
+        address vaultAddressIn = pools[tokenToPoolId[_tokenIn]].vaultAddress;
+        address vaultAddressOut = pools[tokenToPoolId[_tokenOut]].vaultAddress;
+
         // direction XXX --> cerUSD
         if (_tokenIn != cerUsdToken && _tokenOut == cerUsdToken) {
             // getting amountTokensOut
             amountTokensIn = _getInputTokensForExactCerUsd(
-                _getPoolBalances(_tokenIn),
+                _getPoolBalances(_tokenIn, vaultAddressIn),
                 _tokenIn,
                 _amountTokensOut
             );
@@ -145,7 +156,7 @@ abstract contract CerbySwapV1_GetFunctions is CerbySwapV1_Modifiers, CerbySwapV1
         if (_tokenIn == cerUsdToken && _tokenOut != cerUsdToken) {
             // getting amountTokensOut
             amountTokensIn = _getInputCerUsdForExactTokens(
-                _getPoolBalances(_tokenOut),
+                _getPoolBalances(_tokenOut, vaultAddressOut),
                 _tokenOut,
                 _amountTokensOut
             );
@@ -156,13 +167,13 @@ abstract contract CerbySwapV1_GetFunctions is CerbySwapV1_Modifiers, CerbySwapV1
         // direction XXX --> cerUSD --> YYY (or XXX --> YYY)
         // getting amountTokensOut
         uint256 amountCerUsdOut = _getInputCerUsdForExactTokens(
-            _getPoolBalances(_tokenIn),
+            _getPoolBalances(_tokenIn, vaultAddressIn),
             _tokenOut,
             _amountTokensOut
         );
 
         amountTokensIn = _getInputTokensForExactCerUsd(
-            _getPoolBalances(_tokenOut),
+            _getPoolBalances(_tokenOut, vaultAddressOut),
             _tokenIn,
             amountCerUsdOut
         );
@@ -191,9 +202,6 @@ abstract contract CerbySwapV1_GetFunctions is CerbySwapV1_Modifiers, CerbySwapV1
         address _token,
         uint256 _amountCerUsdIn
     ) internal view tokenMustExistInPool(_token) returns (uint256) {
-        // getting pool storage link (saves gas compared to memory)
-        Pool storage pool = pools[tokenToPoolId[_token]];
-
         return
             _getOutput(
                 _amountCerUsdIn,
@@ -238,9 +246,6 @@ abstract contract CerbySwapV1_GetFunctions is CerbySwapV1_Modifiers, CerbySwapV1
         address _token,
         uint256 _amountTokensOut
     ) internal view tokenMustExistInPool(_token) returns (uint256) {
-        // getting pool storage link (saves gas compared to memory)
-        Pool storage pool = pools[tokenToPoolId[_token]];
-
         return
             _getInput(
                 _amountTokensOut,
@@ -262,7 +267,6 @@ abstract contract CerbySwapV1_GetFunctions is CerbySwapV1_Modifiers, CerbySwapV1
             1; // adding +1 for any rounding trims
         return amountIn;
     }
-    
 
     function getPoolsByIds(uint256[] calldata _ids)
         public

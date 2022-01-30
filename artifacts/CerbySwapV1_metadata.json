@@ -513,22 +513,22 @@
 				"inputs": [
 					{
 						"internalType": "address",
-						"name": "token",
+						"name": "_token",
 						"type": "address"
 					},
 					{
 						"internalType": "uint256",
-						"name": "amountTokensIn",
+						"name": "_amountTokensIn",
 						"type": "uint256"
 					},
 					{
 						"internalType": "uint256",
-						"name": "expireTimestamp",
+						"name": "_expireTimestamp",
 						"type": "uint256"
 					},
 					{
 						"internalType": "address",
-						"name": "transferTo",
+						"name": "_transferTo",
 						"type": "address"
 					}
 				],
@@ -724,22 +724,22 @@
 				"inputs": [
 					{
 						"internalType": "address",
-						"name": "token",
+						"name": "_token",
 						"type": "address"
 					},
 					{
 						"internalType": "uint256",
-						"name": "amountTokensIn",
+						"name": "_amountTokensIn",
 						"type": "uint256"
 					},
 					{
 						"internalType": "uint256",
-						"name": "amountCerUsdToMint",
+						"name": "_amountCerUsdToMint",
 						"type": "uint256"
 					},
 					{
 						"internalType": "address",
-						"name": "transferTo",
+						"name": "_transferTo",
 						"type": "address"
 					}
 				],
@@ -870,19 +870,14 @@
 					{
 						"components": [
 							{
+								"internalType": "address",
+								"name": "vaultAddress",
+								"type": "address"
+							},
+							{
 								"internalType": "uint32[8]",
 								"name": "tradeVolumePerPeriodInCerUsd",
 								"type": "uint32[8]"
-							},
-							{
-								"internalType": "uint128",
-								"name": "balanceToken",
-								"type": "uint128"
-							},
-							{
-								"internalType": "uint128",
-								"name": "balanceCerUsd",
-								"type": "uint128"
 							},
 							{
 								"internalType": "uint128",
@@ -890,9 +885,9 @@
 								"type": "uint128"
 							},
 							{
-								"internalType": "uint256",
+								"internalType": "uint128",
 								"name": "creditCerUsd",
-								"type": "uint256"
+								"type": "uint128"
 							}
 						],
 						"internalType": "struct CerbySwapV1_Declarations.Pool[]",
@@ -916,19 +911,14 @@
 					{
 						"components": [
 							{
+								"internalType": "address",
+								"name": "vaultAddress",
+								"type": "address"
+							},
+							{
 								"internalType": "uint32[8]",
 								"name": "tradeVolumePerPeriodInCerUsd",
 								"type": "uint32[8]"
-							},
-							{
-								"internalType": "uint128",
-								"name": "balanceToken",
-								"type": "uint128"
-							},
-							{
-								"internalType": "uint128",
-								"name": "balanceCerUsd",
-								"type": "uint128"
 							},
 							{
 								"internalType": "uint128",
@@ -936,9 +926,9 @@
 								"type": "uint128"
 							},
 							{
-								"internalType": "uint256",
+								"internalType": "uint128",
 								"name": "creditCerUsd",
-								"type": "uint256"
+								"type": "uint128"
 							}
 						],
 						"internalType": "struct CerbySwapV1_Declarations.Pool[]",
@@ -1104,22 +1094,22 @@
 				"inputs": [
 					{
 						"internalType": "address",
-						"name": "token",
+						"name": "_token",
 						"type": "address"
 					},
 					{
 						"internalType": "uint256",
-						"name": "amountLpTokensBalanceToBurn",
+						"name": "_amountLpTokensBalanceToBurn",
 						"type": "uint256"
 					},
 					{
 						"internalType": "uint256",
-						"name": "expireTimestamp",
+						"name": "_expireTimestamp",
 						"type": "uint256"
 					},
 					{
 						"internalType": "address",
-						"name": "transferTo",
+						"name": "_transferTo",
 						"type": "address"
 					}
 				],
@@ -1280,14 +1270,9 @@
 				"name": "swapExactTokensForTokens",
 				"outputs": [
 					{
-						"internalType": "uint256",
+						"internalType": "uint256[]",
 						"name": "",
-						"type": "uint256"
-					},
-					{
-						"internalType": "uint256",
-						"name": "",
-						"type": "uint256"
+						"type": "uint256[]"
 					}
 				],
 				"stateMutability": "payable",
@@ -1329,14 +1314,9 @@
 				"name": "swapTokensForExactTokens",
 				"outputs": [
 					{
-						"internalType": "uint256",
+						"internalType": "uint256[]",
 						"name": "",
-						"type": "uint256"
-					},
-					{
-						"internalType": "uint256",
-						"name": "",
-						"type": "uint256"
+						"type": "uint256[]"
 					}
 				],
 				"stateMutability": "payable",
@@ -1353,19 +1333,6 @@
 					}
 				],
 				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "address",
-						"name": "token",
-						"type": "address"
-					}
-				],
-				"name": "syncPool",
-				"outputs": [],
-				"stateMutability": "nonpayable",
 				"type": "function"
 			},
 			{
@@ -1533,35 +1500,43 @@
 	},
 	"sources": {
 		"sol-cerby-swap-v1/CerbyCronJobsExecution.sol": {
-			"keccak256": "0xf67823985defca1221f119af7c7a037f14d1be67f8ea1b77fd17f3916e760627",
+			"keccak256": "0xb433deb79e41673d75619dc006f75b4d2c00300b1fba2e03a0f34c3f596d9e37",
 			"license": "BUSL-1.1",
 			"urls": [
-				"bzz-raw://10961393673913b6be27a4c1f9f9ff94de792e8a4377b227c2d4bc13ee5e08a5",
-				"dweb:/ipfs/Qmdzw5LBAsMRd2at7mwZmC1cSNpo48V7aeL7ZYuxqM7M4C"
+				"bzz-raw://815cc832c1a1212b8981b1a1836a5137f22a5f7d70db710136f1d210ffe783cc",
+				"dweb:/ipfs/QmdHu3MWRYNg5Vb8TDgWmk9g6wYkggX4PsRvWh5f5dAbjJ"
 			]
 		},
 		"sol-cerby-swap-v1/CerbySwapV1.sol": {
-			"keccak256": "0xb7debfc55712ef1274abaf8cc10d07821f165eb22237b905f4073e4cf947d099",
+			"keccak256": "0xdc4f6a636c3554b8a44e344eb533ba53dc2e582f7589d42e22c70e281b55b395",
 			"license": "BUSL-1.1",
 			"urls": [
-				"bzz-raw://a32d511356aba9dfeb0ba6bae1d06b7130bf5319111caf829db8c6e265cb5027",
-				"dweb:/ipfs/QmNeciZtw9QBDJsLGm8t4qiK1c9GpULAkJM9o2RbMHwP8s"
+				"bzz-raw://2124cbe2ac3988fb41a4603903133d297aa032c7f3c07193cfa8d9cd366e92a0",
+				"dweb:/ipfs/Qmbr6VZzX93kyEABpSosEBZt3hqfg9835MbSpDYm6hmQt5"
 			]
 		},
 		"sol-cerby-swap-v1/CerbySwapV1_AdminFunctions.sol": {
-			"keccak256": "0xe2d86ecca4933f6f7d07dedab319e1ca4a03c15e97fcfcac05eee0e7d3da3263",
+			"keccak256": "0xf80e7af15aefe154c2d41c1d3059bf5e9b7580002f8f9e776807a51154521405",
 			"license": "BUSL-1.1",
 			"urls": [
-				"bzz-raw://bdd68ab4874b6bb2f1676564fdf51d14bd8b8798aef90d7ec94f22ebb6e4fc0e",
-				"dweb:/ipfs/Qmek8bhFv2skUZbehbGxso5KFjvjkxpMPFFRbQwR1vrQ6R"
+				"bzz-raw://79c3f7583654d720080b43b7101803d8a1f72d381d905056820650ce61e64a87",
+				"dweb:/ipfs/QmSvvyehx6dorh7kgBUBW7c9MomtCVS2SuumS8vDSoX4rr"
 			]
 		},
 		"sol-cerby-swap-v1/CerbySwapV1_Declarations.sol": {
-			"keccak256": "0xc389733bc0e481da4c39c7dfdd2cff9e3c2a7dbdc07a10be48db74f0182b3b1b",
+			"keccak256": "0x905566dafe3d7ce3d1c860a5fae5de796f0d0609ee4711dda404aca06d59d125",
 			"license": "BUSL-1.1",
 			"urls": [
-				"bzz-raw://14a52491ff42f4d504d9ed8e43bb47cab522ef03cf183ab30a68c8910d38826b",
-				"dweb:/ipfs/QmSSM9DJ4hc2WeMCGmpeDwoh22y11wsyjE4emUXbuSrZtS"
+				"bzz-raw://452de30a7e93941259ccec3d61d0f4dc223b0e71d0b9466bc3ac6da5de6722cb",
+				"dweb:/ipfs/QmQUSJwbcLAwqCvN48SEWHUkuM1yabcseJ8zMYcvrwLGPq"
+			]
+		},
+		"sol-cerby-swap-v1/CerbySwapV1_Declarations_CerUsd.sol": {
+			"keccak256": "0xddb815dc61a72e9b4007ed31c69db028cd11fd2d014553262ad3d36ce274ae47",
+			"license": "BUSL-1.1",
+			"urls": [
+				"bzz-raw://7309e22f72b54c2ab96bc388c1b7a52853797cf35829c5521190930076457a8a",
+				"dweb:/ipfs/QmRpX1kXVxfhQgZvJaQZeceyxWj47jvJNPfZrZzKQ7XyhD"
 			]
 		},
 		"sol-cerby-swap-v1/CerbySwapV1_ERC1155.sol": {
@@ -1581,19 +1556,11 @@
 			]
 		},
 		"sol-cerby-swap-v1/CerbySwapV1_GetFunctions.sol": {
-			"keccak256": "0x7f0edca1cc291dd6fb4bb655e20e8b77ab55aead103c124aeba24b85bad63282",
+			"keccak256": "0xa11a4903e2a830d7612a14976170ca371c2d2a80984d266e1005e2f82881ac65",
 			"license": "BUSL-1.1",
 			"urls": [
-				"bzz-raw://5439e8f289c91b3d3a9a6f9b5f2643e6a483fd74f51e96b712cc9eb2c1bb7680",
-				"dweb:/ipfs/QmdNWc3iz29KSxhFeT7NxMAQhSxStX5bAR72ZJnLpuJJ7m"
-			]
-		},
-		"sol-cerby-swap-v1/CerbySwapV1_LiquidityFunctions.sol": {
-			"keccak256": "0xd9fd58f8658a2347d10e68eee9a135953db5c4fc6837086010efce08327c02b6",
-			"license": "BUSL-1.1",
-			"urls": [
-				"bzz-raw://a9d04537bb90a907238601904caa8cff713d92d615e838f5e264ea7c1b626d76",
-				"dweb:/ipfs/QmUyUHgkAKB3wZFUMMi7jAqHG8hpFu92AEoKZohcQAsU9x"
+				"bzz-raw://56a9d5a4d48b1718b70b77065dd743beff9da14cdfb362a8a9431dd3baaeb144",
+				"dweb:/ipfs/QmTFLNQRVrs51WG8UAGQEmUKnE3MVMNj5CZAJbTLQGdDmj"
 			]
 		},
 		"sol-cerby-swap-v1/CerbySwapV1_Math.sol": {
@@ -1613,19 +1580,27 @@
 			]
 		},
 		"sol-cerby-swap-v1/CerbySwapV1_SafeFunctions.sol": {
-			"keccak256": "0x03087789dd1cc3ea01b160b65e89897b5ee45283531acce44ff7120284576550",
+			"keccak256": "0xd6f0acbdf190d1a41c4b7e32a0e39af88e8129cd4b7afb2c9cb6f7a3c521e7a5",
 			"license": "BUSL-1.1",
 			"urls": [
-				"bzz-raw://f866372e3cc625d435697493cbd4f109fafbe357614ffd8141e616376f0803f8",
-				"dweb:/ipfs/Qmac4WVE4HpdGBCDMDX6MUTwLJ7PDNzFCGetF6rpbQtZ6G"
+				"bzz-raw://0eb6ed736b5e4bcd081fb3f93f5f08fb1ababb8804dfab55e19c9c2a143b15be",
+				"dweb:/ipfs/QmSvLtt4np29YVC9VeyoaQssTRywEBnf9WB2ouRAGwL7Ui"
 			]
 		},
 		"sol-cerby-swap-v1/CerbySwapV1_SwapFunctions.sol": {
-			"keccak256": "0xfb8b16e313a305d92d89eeb4fcf37c4bc7c80b28d4e129baab95969be79eda26",
+			"keccak256": "0xf0958afaf284a20241024a013780d5a6cd4dc03d63eebf94cbeb34964b92d0a3",
 			"license": "BUSL-1.1",
 			"urls": [
-				"bzz-raw://11b5b2c1859eaa6cbe5450da3de9b257275089b7670a0a57a14a729527ef1cfa",
-				"dweb:/ipfs/QmTG3PWuSnExYzDdfR7BoKFLT57vh6yCVTqGXP5YRvKRog"
+				"bzz-raw://9697c69b8a8a434cda4927ba35c05db6b86431658fbf05bbc158db8c2d551152",
+				"dweb:/ipfs/QmQs14bpS383WCM85QDb9GLhpwNMiX99VCtJBFEGwgBDRe"
+			]
+		},
+		"sol-cerby-swap-v1/CerbySwapV1_Vault.sol": {
+			"keccak256": "0x2fcfdb4b9f10cfa8f5d512cc0c30c8c0250a43970e61d33a7aa088017aae0562",
+			"license": "BUSL-1.1",
+			"urls": [
+				"bzz-raw://527ccdd9756212b69c02d2a1f4884a1f86c587750994b69a9863537ba370a6c5",
+				"dweb:/ipfs/QmQYkUuFyvLY5jBftmy4GQbVNTk7upKgopKNGZuDM1enYg"
 			]
 		},
 		"sol-cerby-swap-v1/interfaces/ICerbyBotDetection.sol": {
@@ -1653,11 +1628,11 @@
 			]
 		},
 		"sol-cerby-swap-v1/interfaces/IERC20.sol": {
-			"keccak256": "0xc4e165d9bee5094c42ab4f2da3022c3e246973abf08856f0e9bc8e7245dbeb84",
+			"keccak256": "0xda13353498704ae49fbaa3e5cb67d98732b74f2a074fcf671571ba6731b93bed",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://ca5bf2dfdda6c9adac678cb2a17f58d5796f38790ec7c9cf71cb551ad6b4f436",
-				"dweb:/ipfs/QmYqfyEaD9W43mdxLdQPKEqJwu7vELomxDCWvuHwiceMNb"
+				"bzz-raw://b5ec772418221396e82f38662096867b27d51703038611c8597328d66ee9a6fa",
+				"dweb:/ipfs/QmWgGVka1ihRDtXraQ1C6M5FgmheeES3RnEp4LeCPSdRE5"
 			]
 		},
 		"sol-cerby-swap-v1/openzeppelin/access/Ownable.sol": {

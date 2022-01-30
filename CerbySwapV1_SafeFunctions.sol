@@ -10,55 +10,66 @@ abstract contract CerbySwapV1_SafeFunctions is
     CerbySwapV1_EventsAndErrors,
     CerbySwapV1_Declarations
 {
-    function _getPoolBalances(address _token)
+    function _getPoolBalances(address _token, address _vault)
         internal
         view
-        returns(PoolBalances memory)
+        returns (PoolBalances memory)
     {
-        return PoolBalances(
-            _getTokenBalance(_token),
-            _getTokenBalance(cerUsdToken)
-        );
+        return
+            PoolBalances(
+                _getTokenBalance(_token, _vault),
+                _getTokenBalance(cerUsdToken, _vault)
+            );
     }
 
-    function _getTokenBalance(address _token) internal view returns (uint256) {
+    function _getTokenBalance(address _token, address _vault)
+        internal
+        view
+        returns (uint256)
+    {
         uint256 balanceToken;
         if (_token == nativeToken) {
             // getting native token balance
-            balanceToken = address(this).balance;
+            balanceToken = _vault.balance;
             return balanceToken;
         }
 
         // token != nativeToken clause
         // getting contract token balance
-        balanceToken = IERC20(_token).balanceOf(address(this));
+        balanceToken = IERC20(_token).balanceOf(_vault);
         return balanceToken;
     }
 
     function _safeTransferFromHelper(
         address _token,
         address _from,
-        uint256 _amountTokensIn
+        address _to,
+        uint256 _amountTokens
     ) internal {
-        if (_token == nativeToken) {
+        // native tokens sender --> this
+        if (_token == nativeToken && _to == address(this)) {
             // sender must sent some native tokens
-            if (msg.value < _amountTokensIn) {
+            if (msg.value < _amountTokens) {
                 revert CerbySwapV1_MsgValueProvidedMustBeLargerThanAmountTokensIn();
             }
 
             // refunding excess of native tokens
             // to make sure msg.value == amountTokensIn
-            if (msg.value > _amountTokensIn) {
-                _safeTransferHelper(
-                    nativeToken,
-                    msg.sender,
-                    msg.value - _amountTokensIn,
-                    false
-                );
+            if (msg.value > _amountTokens) {
+                _safeCoreTransferNative(msg.sender, msg.value - _amountTokens);
             }
 
             // msg.value == amountTokensIn here
             return;
+        }
+
+        // native tokens this --> sender
+        if (
+            _token == nativeToken &&
+            _from == address(this) &&
+            _to != address(this)
+        ) {
+            _safeCoreTransferNative(_to, _amountTokens);
         }
 
         // token != nativeToken clause
@@ -68,61 +79,8 @@ abstract contract CerbySwapV1_SafeFunctions is
             revert CerbySwapV1_MsgValueProvidedMustBeZero();
         }
 
-        if (_from == address(this)) {
-            return;
-        }
-
         // _safeCoreTransferFrom does not require return value
-        _safeCoreTransferFrom(_token, _from, address(this), _amountTokensIn);
-    }
-
-    function _safeTransferHelper(
-        address _token,
-        address _to,
-        uint256 _amountTokensOut,
-        bool _needToCheckForBots
-    ) internal {
-        if (
-            _to == address(this) || // don't need to transfer to current contract
-            _amountTokensOut <= 1
-        ) {
-            return;
-        }
-
-        // some transfer such as refund excess of native tokens
-        // we don't check for bots
-        if (_needToCheckForBots) {
-            //checkTransactionForBots(token, msg.sender, to); // TODO: enable on production
-        }
-
-        // transferring the native tokens and exiting right after
-        // because we trust them
-        if (_token == nativeToken) {
-            _safeCoreTransferNative(_to, _amountTokensOut);
-            return;
-        }
-
-        // transferring the cerUSD tokens and exiting right after
-        // because we trust them
-        if (_token == cerUsdToken) {
-            _safeCoreTransferToken(_token, _to, _amountTokensOut);
-            return;
-        }
-
-        // token != cerUsdToken && token != nativeToken clause
-        // thats why here we only check whether token has fee-on-transfer
-        uint256 oldBalanceToken = _getTokenBalance(_token);
-
-        // transferring the tokens
-        _safeCoreTransferToken(_token, _to, _amountTokensOut);
-
-        // we trust cerUsdToken and nativeTokens
-        // thats why don't need to check whether it has fee-on-transfer
-        // these tokens are known to be without any fee-on-transfer
-        uint256 newBalanceToken = _getTokenBalance(_token);
-        if (newBalanceToken + _amountTokensOut != oldBalanceToken) {
-            revert CerbySwapV1_FeeOnTransferTokensArentSupported();
-        }
+        _safeCoreTransferFrom(_token, _from, _to, _amountTokens);
     }
 
     function _safeCoreTransferToken(

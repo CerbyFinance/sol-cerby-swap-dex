@@ -114,9 +114,8 @@ export interface CerbySwapV1GetFunctionsInstance
     txDetails?: Truffle.TransactionDetails
   ): Promise<
     {
+      vaultAddress: string;
       tradeVolumePerPeriodInCerUsd: BN[];
-      balanceToken: BN;
-      balanceCerUsd: BN;
       lastSqrtKValue: BN;
       creditCerUsd: BN;
     }[]
@@ -127,9 +126,8 @@ export interface CerbySwapV1GetFunctionsInstance
     txDetails?: Truffle.TransactionDetails
   ): Promise<
     {
+      vaultAddress: string;
       tradeVolumePerPeriodInCerUsd: BN[];
-      balanceToken: BN;
-      balanceCerUsd: BN;
       lastSqrtKValue: BN;
       creditCerUsd: BN;
     }[]
@@ -176,9 +174,8 @@ export interface CerbySwapV1GetFunctionsInstance
       txDetails?: Truffle.TransactionDetails
     ): Promise<
       {
+        vaultAddress: string;
         tradeVolumePerPeriodInCerUsd: BN[];
-        balanceToken: BN;
-        balanceCerUsd: BN;
         lastSqrtKValue: BN;
         creditCerUsd: BN;
       }[]
@@ -189,9 +186,8 @@ export interface CerbySwapV1GetFunctionsInstance
       txDetails?: Truffle.TransactionDetails
     ): Promise<
       {
+        vaultAddress: string;
         tradeVolumePerPeriodInCerUsd: BN[];
-        balanceToken: BN;
-        balanceCerUsd: BN;
         lastSqrtKValue: BN;
         creditCerUsd: BN;
       }[]
