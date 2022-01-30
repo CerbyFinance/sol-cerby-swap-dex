@@ -3,15 +3,14 @@
 pragma solidity ^0.8.11;
 
 import "./CerbySwapV1_EventsAndErrors.sol";
+import "./CerbySwapV1_Declarations_CerUsd.sol";
 
-abstract contract CerbySwapV1_Declarations is CerbySwapV1_EventsAndErrors {
+abstract contract CerbySwapV1_Declarations is CerbySwapV1_EventsAndErrors, CerbySwapV1_Declarations_CerUsd {
     Pool[] internal pools;
     mapping(address => uint256) internal tokenToPoolId;
-    uint256 internal totalCerUsdBalance;
 
     address internal testCerbyToken =
         0xE7126C0Fb4B1f5F79E5Bbec3948139dCF348B49C; // TODO: remove on production
-    address internal cerUsdToken = 0x0fC5025C764cE34df352757e82f7B5c4Df39A836; // TODO: make constant
     address internal testUsdcToken = 0x7412F2cD820d1E63bd130B0FFEBe44c4E5A47d71; // TODO: remove on production
 
     address internal nativeToken = 0x14769F96e57B80c66837701DE0B43686Fb4632De;
@@ -43,10 +42,10 @@ abstract contract CerbySwapV1_Declarations is CerbySwapV1_EventsAndErrors {
     }
 
     struct Pool {
+        address vaultAddress;
         uint32[NUMBER_OF_TRADE_PERIODS] tradeVolumePerPeriodInCerUsd;
-        uint128 balanceCerUsd;
         uint128 lastSqrtKValue;
-        uint256 creditCerUsd;
+        uint128 creditCerUsd;
     }
 
     struct PoolBalances {
