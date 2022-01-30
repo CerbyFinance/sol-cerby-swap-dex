@@ -50,7 +50,7 @@ abstract contract CerbySwapV1_SwapFunctions is CerbySwapV1_SafeFunctions, CerbyS
             _safeTransferFromHelper(tokenIn, fromAddress, amountTokensIn);
 
             // swapping XXX ---> cerUSD
-            _swap(
+            lowLevelSwap(
                 tokenIn,
                 0,
                 amountTokensOut,
@@ -74,7 +74,7 @@ abstract contract CerbySwapV1_SwapFunctions is CerbySwapV1_SafeFunctions, CerbyS
             _safeTransferFromHelper(tokenIn, fromAddress, amountTokensIn);
 
             // swapping cerUSD ---> YYY
-            _swap(
+            lowLevelSwap(
                 tokenOut,
                 amountTokensOut,
                 0,
@@ -101,7 +101,7 @@ abstract contract CerbySwapV1_SwapFunctions is CerbySwapV1_SafeFunctions, CerbyS
             _safeTransferFromHelper(tokenIn, fromAddress, amountTokensIn);
 
             // swapping XXX ---> cerUSD
-            _swap(
+            lowLevelSwap(
                 tokenIn,
                 0,
                 amountCerUsdOut,
@@ -109,7 +109,7 @@ abstract contract CerbySwapV1_SwapFunctions is CerbySwapV1_SafeFunctions, CerbyS
             );
 
             // swapping cerUSD ---> YYY
-            _swap(
+            lowLevelSwap(
                 tokenOut,
                 amountTokensOut,
                 0,
@@ -167,7 +167,7 @@ abstract contract CerbySwapV1_SwapFunctions is CerbySwapV1_SafeFunctions, CerbyS
             _safeTransferFromHelper(tokenIn, fromAddress, amountTokensIn);
 
             // swapping XXX ---> cerUSD
-            _swap(
+            lowLevelSwap(
                 tokenIn,
                 0,
                 amountTokensOut,
@@ -199,7 +199,7 @@ abstract contract CerbySwapV1_SwapFunctions is CerbySwapV1_SafeFunctions, CerbyS
             _safeTransferFromHelper(tokenIn, fromAddress, amountTokensIn);
 
             // swapping cerUSD ---> YYY
-            _swap(
+            lowLevelSwap(
                 tokenOut,
                 amountTokensOut,
                 0,
@@ -250,7 +250,7 @@ abstract contract CerbySwapV1_SwapFunctions is CerbySwapV1_SafeFunctions, CerbyS
             _safeTransferFromHelper(tokenIn, fromAddress, amountTokensIn);
             
             // swapping XXX ---> cerUSD
-            _swap(
+            lowLevelSwap(
                 tokenIn,
                 0,
                 amountCerUsdOut,
@@ -258,7 +258,7 @@ abstract contract CerbySwapV1_SwapFunctions is CerbySwapV1_SafeFunctions, CerbyS
             );
 
             // swapping cerUSD ---> YYY
-            _swap(
+            lowLevelSwap(
                 tokenOut,
                 amountTokensOut,
                 0,
@@ -279,22 +279,6 @@ abstract contract CerbySwapV1_SwapFunctions is CerbySwapV1_SafeFunctions, CerbyS
     )
         public
         payable
-    {
-        _swap(
-            token,
-            amountTokensOut,
-            amountCerUsdOut,
-            transferTo
-        );
-    }
-
-    function _swap(
-        address token,
-        uint amountTokensOut,
-        uint amountCerUsdOut,
-        address transferTo
-    )
-        private
         tokenMustExistInPool(token)
     {
         Pool storage pool = pools[tokenToPoolId[token]];
