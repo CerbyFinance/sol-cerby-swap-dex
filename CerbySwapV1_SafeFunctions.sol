@@ -10,12 +10,8 @@ abstract contract CerbySwapV1_SafeFunctions is
     CerbySwapV1_EventsAndErrors,
     CerbySwapV1_Declarations
 {
-    function _getTokenBalance(address token)
-        internal
-        view
-        returns (uint256)
-    {
-        uint balanceToken;
+    function _getTokenBalance(address token) internal view returns (uint256) {
+        uint256 balanceToken;
         if (token == nativeToken) {
             // getting native token balance
             balanceToken = address(this).balance;
@@ -53,7 +49,7 @@ abstract contract CerbySwapV1_SafeFunctions is
             // msg.value == amountTokensIn here
             return;
         }
-        
+
         // token != nativeToken clause
         // sender must not send any native tokens
         if (msg.value > 0) {

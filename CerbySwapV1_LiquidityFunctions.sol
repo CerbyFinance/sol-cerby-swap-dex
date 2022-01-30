@@ -84,9 +84,7 @@ abstract contract CerbySwapV1_LiquidityFunctions is
         }
 
         // create new pool record
-        uint256 newSqrtKValue = sqrt(
-            amountTokensIn * amountCerUsdToMint
-        );
+        uint256 newSqrtKValue = sqrt(amountTokensIn * amountCerUsdToMint);
 
         // filling with 1 usd per hour in trades to reduce gas later
         uint32[NUMBER_OF_TRADE_PERIODS] memory tradeVolumePerPeriodInCerUsd;
@@ -118,8 +116,7 @@ abstract contract CerbySwapV1_LiquidityFunctions is
         _mint(DEAD_ADDRESS, poolId, MINIMUM_LIQUIDITY, "");
 
         // minting initial lp tokens
-        uint256 lpAmount = newSqrtKValue -
-            MINIMUM_LIQUIDITY;
+        uint256 lpAmount = newSqrtKValue - MINIMUM_LIQUIDITY;
         _mint(transferTo, poolId, lpAmount, "");
 
         // PairCreated event is needed to track new pairs created in the graph node
@@ -373,7 +370,7 @@ abstract contract CerbySwapV1_LiquidityFunctions is
     function syncPool(address token)
         public
         tokenMustExistInPool(token)
-        // checkForBotsAndExecuteCronJobs(msg.sender) // TODO: enable on production
+    // checkForBotsAndExecuteCronJobs(msg.sender) // TODO: enable on production
     {
         // getting pool storage link (saves gas compared to memory)
         uint256 poolId = tokenToPoolId[token];

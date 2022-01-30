@@ -20,8 +20,8 @@ abstract contract CerbySwapV1_SwapFunctions is
         public
         payable
         transactionIsNotExpired(expireTimestamp)
-        // checkForBots(msg.sender) // TODO: enable on production
         returns (
+            // checkForBots(msg.sender) // TODO: enable on production
             uint256,
             uint256
         )
@@ -33,7 +33,7 @@ abstract contract CerbySwapV1_SwapFunctions is
         }
 
         uint256 amountTokensOut;
-    
+
         // swaping XXX --> cerUSD
         if (tokenIn != cerUsdToken && tokenOut == cerUsdToken) {
             // getting amountTokensOut
@@ -55,8 +55,8 @@ abstract contract CerbySwapV1_SwapFunctions is
             // swapping XXX ---> cerUSD
             lowLevelSwap(tokenIn, 0, amountTokensOut, transferTo);
             return (amountTokensIn, amountTokensOut);
-        } 
-        
+        }
+
         // swaping cerUSD --> YYY
         if (tokenIn == cerUsdToken && tokenOut != cerUsdToken) {
             // getting amountTokensOut
@@ -80,11 +80,13 @@ abstract contract CerbySwapV1_SwapFunctions is
 
             return (amountTokensIn, amountTokensOut);
             // TODO: uncomment below
-        } 
-        
+        }
+
         // swaping XXX --> cerUsd --> YYY (or XXX --> YYY)
         if (
-            tokenIn != cerUsdToken && tokenIn != cerUsdToken && tokenIn != tokenOut
+            tokenIn != cerUsdToken &&
+            tokenIn != cerUsdToken &&
+            tokenIn != tokenOut
         ) {
             // getting amountTokensOut=
             uint256 amountCerUsdOut = _getOutputExactTokensForCerUsd(
@@ -115,7 +117,7 @@ abstract contract CerbySwapV1_SwapFunctions is
             lowLevelSwap(tokenOut, amountTokensOut, 0, transferTo);
             return (amountTokensIn, amountTokensOut);
         }
-        
+
         // tokenIn == tokenOut clause
         revert("L"); // TODO: remove this line on production
         revert CerbySwapV1_SwappingTokenToSameTokenIsForbidden();
@@ -132,8 +134,8 @@ abstract contract CerbySwapV1_SwapFunctions is
         public
         payable
         transactionIsNotExpired(expireTimestamp)
-        // checkForBots(msg.sender) // TODO: enable on production
         returns (
+            // checkForBots(msg.sender) // TODO: enable on production
             uint256,
             uint256
         )
@@ -168,8 +170,8 @@ abstract contract CerbySwapV1_SwapFunctions is
             lowLevelSwap(tokenIn, 0, amountTokensOut, transferTo);
 
             return (amountTokensIn, amountTokensOut);
-        } 
-        
+        }
+
         // swapping cerUSD --> YYY
         if (tokenIn == cerUsdToken && tokenOut != cerUsdToken) {
             // getting amountTokensOut
@@ -198,11 +200,13 @@ abstract contract CerbySwapV1_SwapFunctions is
             lowLevelSwap(tokenOut, amountTokensOut, 0, transferTo);
 
             return (amountTokensIn, amountTokensOut);
-        } 
-                
+        }
+
         // swaping XXX --> cerUsd --> YYY (or XXX --> YYY)
         if (
-            tokenIn != cerUsdToken && tokenOut != cerUsdToken && tokenIn != tokenOut
+            tokenIn != cerUsdToken &&
+            tokenOut != cerUsdToken &&
+            tokenIn != tokenOut
         ) {
             // getting amountTokensOut
             uint256 amountCerUsdOut = _getInputCerUsdForExactTokens(
@@ -251,7 +255,7 @@ abstract contract CerbySwapV1_SwapFunctions is
 
             return (amountTokensIn, amountTokensOut);
         }
-        
+
         // tokenIn == tokenOut clause
         revert("L"); // TODO: remove this line on production
         revert CerbySwapV1_SwappingTokenToSameTokenIsForbidden();

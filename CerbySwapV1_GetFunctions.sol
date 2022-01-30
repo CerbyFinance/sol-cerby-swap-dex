@@ -65,7 +65,8 @@ abstract contract CerbySwapV1_GetFunctions is CerbySwapV1_Modifiers {
                 ((volume - tvlMin) *
                     (settings.feeMaximum - settings.feeMinimum)) /
                 (tvlMax - tvlMin); // between 1.00% and 0.01%
-        } else {// if (volume > tvlMax)            
+        } else {
+            // if (volume > tvlMax)
             fee = settings.feeMinimum; // 0.01%
         }
 
@@ -88,8 +89,8 @@ abstract contract CerbySwapV1_GetFunctions is CerbySwapV1_Modifiers {
                 amountTokensIn
             );
             return amountTokensOut;
-        } 
-        
+        }
+
         // direction cerUSD --> YYY
         if (tokenIn == cerUsdToken && tokenOut != cerUsdToken) {
             // getting amountTokensOut
@@ -99,7 +100,7 @@ abstract contract CerbySwapV1_GetFunctions is CerbySwapV1_Modifiers {
             );
             return amountTokensOut;
         }
-        
+
         // tokenIn != cerUsdToken && tokenIn != cerUsdToken clause
         // direction XXX --> cerUSD --> YYY (or XXX --> YYY)
         // getting amountTokensOut
@@ -130,7 +131,7 @@ abstract contract CerbySwapV1_GetFunctions is CerbySwapV1_Modifiers {
                 amountTokensOut
             );
             return amountTokensIn;
-        } 
+        }
 
         // direction cerUSD --> YYY
         if (tokenIn == cerUsdToken && tokenOut != cerUsdToken) {
@@ -140,8 +141,8 @@ abstract contract CerbySwapV1_GetFunctions is CerbySwapV1_Modifiers {
                 amountTokensOut
             );
             return amountTokensIn;
-        } 
-        
+        }
+
         // tokenIn != cerUsdToken && tokenIn != cerUsdToken clause
         // direction XXX --> cerUSD --> YYY (or XXX --> YYY)
         // getting amountTokensOut
