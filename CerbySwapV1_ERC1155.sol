@@ -6,8 +6,10 @@ import "./openzeppelin/token/ERC1155/extensions/ERC1155Supply.sol";
 import "./CerbyCronJobsExecution.sol";
 
 
-abstract contract CerbySwapV1_ERC1155 is ERC1155Supply, CerbyCronJobsExecution {
-
+abstract contract CerbySwapV1_ERC1155 is
+    ERC1155Supply,
+    CerbyCronJobsExecution
+{
     string internal _name = "CerbySwapV1";
     string internal _symbol = "CS1";
     string internal _urlPrefix = "https://data.cerby.fi/CerbySwap/v1/";
@@ -67,9 +69,9 @@ abstract contract CerbySwapV1_ERC1155 is ERC1155Supply, CerbyCronJobsExecution {
         return string(abi.encodePacked(_urlPrefix, id, ".json"));
     }
 
-    function setApprovalForAll(address operator, bool approved) 
-        public 
-        virtual 
+    function setApprovalForAll(address operator, bool approved)
+        public
+        virtual
         override
         executeCronJobs()
     {
@@ -82,20 +84,23 @@ abstract contract CerbySwapV1_ERC1155 is ERC1155Supply, CerbyCronJobsExecution {
         uint id,
         uint amount,
         bytes memory data
-    ) 
-        public 
-        virtual 
+    )
+        public
+        virtual
         override
         executeCronJobs()
     {
-        if (
-            from != _msgSender() &&
-            !isApprovedForAll(from, _msgSender())
-        ) {
+        if (from != _msgSender() && !isApprovedForAll(from, _msgSender())) {
             revert CerbySwapLP1155V1_CallerIsNotOwnerNorApproved();
         }
-        
-        _safeTransferFrom(from, to, id, amount, data);
+
+        _safeTransferFrom(
+            from,
+            to,
+            id,
+            amount,
+            data
+        );
     }
 
     function safeBatchTransferFrom(
@@ -104,16 +109,13 @@ abstract contract CerbySwapV1_ERC1155 is ERC1155Supply, CerbyCronJobsExecution {
         uint256[] memory ids,
         uint256[] memory amounts,
         bytes memory data
-    ) 
-        public 
-        virtual 
-        override 
+    )
+        public
+        virtual
+        override
         executeCronJobs()
     {
-        if (
-            from != _msgSender() &&
-            !isApprovedForAll(from, _msgSender())
-        ) {
+        if (from != _msgSender() && !isApprovedForAll(from, _msgSender())) {
             revert CerbySwapLP1155V1_CallerIsNotOwnerNorApproved();
         }
 

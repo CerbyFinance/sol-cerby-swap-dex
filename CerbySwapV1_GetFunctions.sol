@@ -6,8 +6,7 @@ import "./CerbySwapV1_Modifiers.sol";
 
 abstract contract CerbySwapV1_GetFunctions is CerbySwapV1_Modifiers {
 
-
-    function getTokenToPoolId(address token) 
+    function getTokenToPoolId(address token)
         public
         view
         returns (uint)
@@ -15,7 +14,7 @@ abstract contract CerbySwapV1_GetFunctions is CerbySwapV1_Modifiers {
         return tokenToPoolId[token];
     }
 
-    function getSettings() 
+    function getSettings()
         public
         view
         returns (Settings memory)
@@ -29,9 +28,14 @@ abstract contract CerbySwapV1_GetFunctions is CerbySwapV1_Modifiers {
         returns (uint)
     {
         return (block.timestamp / ONE_PERIOD_IN_SECONDS) % NUMBER_OF_TRADE_PERIODS;
+        // return block.timestamp
+            // / ONE_PERIOD_IN_SECONDS
+            // % NUMBER_OF_TRADE_PERIODS;
     }
 
-    function getCurrentOneMinusFeeBasedOnTrades(address token)
+    function getCurrentOneMinusFeeBasedOnTrades(
+        address token
+    )
         public
         view
         returns (uint fee)
@@ -51,8 +55,8 @@ abstract contract CerbySwapV1_GetFunctions is CerbySwapV1_Modifiers {
         uint currentPeriod = _getCurrentPeriod();
         uint nextPeriod = (currentPeriod + 1) % NUMBER_OF_TRADE_PERIODS;
         uint volume;
-        for(uint i; i<NUMBER_OF_TRADE_PERIODS; i++)
-        {
+
+        for (uint i; i<NUMBER_OF_TRADE_PERIODS; i++) {
             // skipping current and next period because those values are currently updating
             // and are incorrect
             if (i == currentPeriod || i == nextPeriod) continue;
@@ -66,17 +70,23 @@ abstract contract CerbySwapV1_GetFunctions is CerbySwapV1_Modifiers {
         // trades <= TVL * min              ---> fee = feeMaximum
         // TVL * min < trades < TVL * max   ---> fee is between feeMaximum and feeMinimum
         // trades >= TVL * max              ---> fee = feeMinimum
-        uint tvlMin = 
-            (pool.balanceCerUsd * settings.tvlMultiplierMinimum) / TVL_MULTIPLIER_DENORM;
-        uint tvlMax = 
-            (pool.balanceCerUsd * settings.tvlMultiplierMaximum) / TVL_MULTIPLIER_DENORM;
+        uint tvlMin = pool.balanceCerUsd
+            * settings.tvlMultiplierMinimum
+            / TVL_MULTIPLIER_DENORM;
+
+        uint tvlMax =pool.balanceCerUsd
+            * settings.tvlMultiplierMaximum
+            / TVL_MULTIPLIER_DENORM;
+
         uint fee;
+
+        // TO-DO: review branching
         if (volume <= tvlMin) {
             fee = settings.feeMaximum; // 1.00%
         } else if (tvlMin < volume && volume < tvlMax) {
-            fee = 
-                settings.feeMaximum - 
-                    ((volume - tvlMin) * (settings.feeMaximum - settings.feeMinimum))  / 
+            fee =
+                settings.feeMaximum -
+                    ((volume - tvlMin) * (settings.feeMaximum - settings.feeMinimum))  /
                         (tvlMax - tvlMin); // between 1.00% and 0.01%
         } else if (volume > tvlMax) {
             fee = settings.feeMinimum; // 0.01%
@@ -96,21 +106,33 @@ abstract contract CerbySwapV1_GetFunctions is CerbySwapV1_Modifiers {
         returns (uint amountTokensOut)
     {
         if (tokenIn != cerUsdToken && tokenOut == cerUsdToken) {
-
             // getting amountTokensOut
-            amountTokensOut = _getOutputExactTokensForCerUsd(tokenIn, amountTokensIn);
+            amountTokensOut = _getOutputExactTokensForCerUsd(
+                tokenIn,
+                amountTokensIn
+            );
+
         } else if (tokenIn == cerUsdToken && tokenOut != cerUsdToken) {
 
             // getting amountTokensOut
-            amountTokensOut = _getOutputExactCerUsdForTokens(tokenOut, amountTokensIn);
+            amountTokensOut = _getOutputExactCerUsdForTokens(
+                tokenOut,
+                amountTokensIn
+            );
+
         } else if (tokenIn != cerUsdToken && tokenIn != cerUsdToken) {
 
             // getting amountTokensOut
-            uint amountCerUsdOut = _getOutputExactTokensForCerUsd(tokenIn, amountTokensIn);
+            uint amountCerUsdOut = _getOutputExactTokensForCerUsd(
+                tokenIn,
+                amountTokensIn
+            );
 
-            amountTokensOut = _getOutputExactCerUsdForTokens(tokenOut, amountCerUsdOut);
+            amountTokensOut = _getOutputExactCerUsdForTokens(
+                tokenOut,
+                amountCerUsdOut
+            );
         }
-        return amountTokensOut;
     }
 
     function getInputTokensForExactTokens(
@@ -140,7 +162,10 @@ abstract contract CerbySwapV1_GetFunctions is CerbySwapV1_Modifiers {
         return amountTokensIn;
     }
 
-    function _getOutputExactTokensForCerUsd(address token, uint amountTokensIn)
+    function _getOutputExactTokensForCerUsd(
+        address token,
+        uint amountTokensIn
+    )
         internal
         view
         tokenMustExistInPool(token)
@@ -157,7 +182,10 @@ abstract contract CerbySwapV1_GetFunctions is CerbySwapV1_Modifiers {
         );
     }
 
-    function _getOutputExactCerUsdForTokens(address token, uint amountCerUsdIn)
+    function _getOutputExactCerUsdForTokens(
+        address token,
+        uint amountCerUsdIn
+    )
         internal
         view
         tokenMustExistInPool(token)
@@ -175,14 +203,22 @@ abstract contract CerbySwapV1_GetFunctions is CerbySwapV1_Modifiers {
         );
     }
 
-    function _getOutput(uint amountIn, uint reservesIn, uint reservesOut, uint oneMinusFee)
+    function _getOutput(
+        uint amountIn,
+        uint reservesIn,
+        uint reservesOut,
+        uint oneMinusFee
+    )
         internal
         pure
         returns (uint)
     {
-        uint amountInWithFee = amountIn * oneMinusFee;
-        uint amountOut = 
-            (reservesOut * amountInWithFee) / (reservesIn * FEE_DENORM + amountInWithFee);
+        uint amountInWithFee = amountIn
+            * oneMinusFee;
+
+        uint amountOut = reservesOut * amountInWithFee
+            / (reservesIn * FEE_DENORM + amountInWithFee);
+
         return amountOut;
     }
 
@@ -221,7 +257,12 @@ abstract contract CerbySwapV1_GetFunctions is CerbySwapV1_Modifiers {
         );
     }
 
-    function _getInput(uint amountOut, uint reservesIn, uint reservesOut, uint oneMinusFee)
+    function _getInput(
+        uint amountOut,
+        uint reservesIn,
+        uint reservesOut,
+        uint oneMinusFee
+    )
         internal
         pure
         returns (uint)
@@ -231,19 +272,25 @@ abstract contract CerbySwapV1_GetFunctions is CerbySwapV1_Modifiers {
         return amountIn;
     }
 
-    function getPoolsByIds(uint[] calldata ids)
+    function getPoolsByIds(
+        uint[] calldata ids
+    )
         public
         view
         returns (Pool[] memory)
     {
         Pool[] memory outputPools = new Pool[](ids.length);
+
         for(uint i; i<ids.length; i++) {
             outputPools[i] = pools[ids[i]];
         }
+
         return outputPools;
     }
 
-    function getPoolsByTokens(address[] calldata tokens)
+    function getPoolsByTokens(
+        address[] calldata tokens
+    )
         public
         view
         returns (Pool[] memory)

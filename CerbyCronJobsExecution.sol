@@ -9,7 +9,7 @@ abstract contract CerbyCronJobsExecution {
 
     uint internal constant CERBY_BOT_DETECTION_CONTRACT_ID = 3;
     address internal constant CERBY_TOKEN_CONTRACT_ADDRESS = 0xdef1fac7Bf08f173D286BbBDcBeeADe695129840;
-    
+
     error CerbyCronJobsExecution_TransactionsAreTemporarilyDisabled();
 
     modifier checkForBotsAndExecuteCronJobs(address addr)
@@ -43,7 +43,7 @@ abstract contract CerbyCronJobsExecution {
     {
         return ICerbyToken(CERBY_TOKEN_CONTRACT_ADDRESS).getUtilsContractAtPos(pos);
     }
-    
+
     modifier checkForBots(address addr)
     {
         ICerbyBotDetection iCerbyBotDetection = ICerbyBotDetection(
@@ -56,7 +56,7 @@ abstract contract CerbyCronJobsExecution {
         }
         _;
     }
-    
+
     modifier checkTransactionAndExecuteCron(address tokenAddr, address addr)
     {
         ICerbyBotDetection iCerbyBotDetection = ICerbyBotDetection(
@@ -70,8 +70,6 @@ abstract contract CerbyCronJobsExecution {
         iCerbyBotDetection.executeCronJobs();
         _;
     }
-
-
 
     function checkTransactionForBots(address token, address from, address to)
         internal

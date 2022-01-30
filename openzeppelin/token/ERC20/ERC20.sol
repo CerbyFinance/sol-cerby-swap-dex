@@ -300,22 +300,17 @@ contract ERC20 is Context, IERC20, IERC20Metadata {
      * - `account` must have at least `amount` tokens.
      */
     function _burn(address account, uint256 amount) internal virtual {
-        if (
-            account == address(0)
-        ) {
+
+        if (account == address(0)) {
             revert ERC20_BurnFromTheZeroAddress();
         }
 
         uint256 accountBalance = _balances[account];
-        if (
-            accountBalance < amount
-        ) {
-            revert ERC20_BurnAmountExceedsBalance();
-        }
 
         unchecked {
             _balances[account] = accountBalance - amount;
         }
+
         _totalSupply -= amount;
 
         emit Transfer(account, address(0), amount);

@@ -5,10 +5,10 @@ pragma solidity ^0.8.11;
 import "./openzeppelin/access/Ownable.sol";
 import "./CerbySwapV1_LiquidityFunctions.sol";
 
-abstract contract CerbySwapV1_AdminFunctions is CerbySwapV1_LiquidityFunctions, Ownable {
-
-
-
+abstract contract CerbySwapV1_AdminFunctions is
+    CerbySwapV1_LiquidityFunctions,
+    Ownable
+{
     // TODO: remove on production
     function testSetupTokens(address , address _testCerbyToken, address _cerUsdToken, address _testUsdcToken, address )
         public
@@ -17,7 +17,7 @@ abstract contract CerbySwapV1_AdminFunctions is CerbySwapV1_LiquidityFunctions, 
         testCerbyToken = _testCerbyToken;
         cerUsdToken = _cerUsdToken;
         testUsdcToken = _testUsdcToken;
-        
+
         testInit();
     }
 
@@ -43,11 +43,11 @@ abstract contract CerbySwapV1_AdminFunctions is CerbySwapV1_LiquidityFunctions, 
     }
 
     // TODO: remove on production
-    function adminInitialize() 
+    function adminInitialize()
         public
         payable
         onlyOwner() // TODO: enable on production
-    {        
+    {
 
         // TODO: remove on production
         adminCreatePool(
@@ -64,11 +64,13 @@ abstract contract CerbySwapV1_AdminFunctions is CerbySwapV1_LiquidityFunctions, 
         onlyOwner()
     {
         _setURI(string(abi.encodePacked(newUrlPrefix, "{id}.json")));
-
         _urlPrefix = newUrlPrefix;
     }
 
-    function adminUpdateNameAndSymbol(string memory newName, string memory newSymbol)
+    function adminUpdateNameAndSymbol(
+        string memory newName,
+        string memory newSymbol
+    )
         public
         onlyOwner()
     {
@@ -90,15 +92,11 @@ abstract contract CerbySwapV1_AdminFunctions is CerbySwapV1_LiquidityFunctions, 
             revert CerbySwapV1_FeeIsWrong();
         }
 
-        if (
-            _settings.tvlMultiplierMinimum > _settings.tvlMultiplierMaximum
-        ) {
+        if (_settings.tvlMultiplierMinimum > _settings.tvlMultiplierMaximum) {
             revert CerbySwapV1_TvlMultiplierIsWrong();
         }
 
-        if (
-            _settings.mintFeeMultiplier * 2 >= MINT_FEE_DENORM
-        ) {
+        if (_settings.mintFeeMultiplier * 2 >= MINT_FEE_DENORM) {
             revert CerbySwapV1_MintFeeMultiplierMustNotBeLargerThan50Percent();
         }
 
@@ -109,9 +107,9 @@ abstract contract CerbySwapV1_AdminFunctions is CerbySwapV1_LiquidityFunctions, 
     // only admins are allowed to create new pools with creditCerUsd = unlimitted
     // this is only for trusted tokens such as ETH, BNB, UNI, etc
     function adminCreatePool(
-        address token, 
-        uint amountTokensIn, 
-        uint amountCerUsdToMint, 
+        address token,
+        uint amountTokensIn,
+        uint amountCerUsdToMint,
         address transferTo
     )
         public
@@ -119,9 +117,9 @@ abstract contract CerbySwapV1_AdminFunctions is CerbySwapV1_LiquidityFunctions, 
         onlyOwner()
     {
         _createPool(
-            token, 
-            amountTokensIn, 
-            amountCerUsdToMint, 
+            token,
+            amountTokensIn,
+            amountCerUsdToMint,
             type(uint).max,
             transferTo
         );
@@ -130,7 +128,7 @@ abstract contract CerbySwapV1_AdminFunctions is CerbySwapV1_LiquidityFunctions, 
 
     // admin can change cerUsd credit in the pool
     // just in case user adds a token with too high price
-    // admins will be able to fix it by increasing credit 
+    // admins will be able to fix it by increasing credit
     // and swapping extra tokens + adding back to liquidity
     // using external contract assigned with admin role
     function adminChangeCerUsdCreditInPool(
@@ -145,13 +143,12 @@ abstract contract CerbySwapV1_AdminFunctions is CerbySwapV1_LiquidityFunctions, 
 
         // changing credit for user-created pool
         pools[poolId].creditCerUsd = amountCerUsdCredit;
-        
+
         emit Sync(
-            token, 
-            pools[poolId].balanceToken, 
+            token,
+            pools[poolId].balanceToken,
             pools[poolId].balanceCerUsd,
             pools[poolId].creditCerUsd
         );
     }
-
 }

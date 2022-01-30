@@ -10,35 +10,34 @@ abstract contract CerbySwapV1_EventsAndErrors {
         uint poolId
     );
     event LiquidityAdded(
-        address token, 
-        uint amountTokensIn, 
-        uint amountCerUsdToMint, 
+        address token,
+        uint amountTokensIn,
+        uint amountCerUsdToMint,
         uint lpAmount
     );
     event LiquidityRemoved(
-        address token, 
-        uint amountTokensOut, 
-        uint amountCerUsdToBurn, 
+        address token,
+        uint amountTokensOut,
+        uint amountCerUsdToBurn,
         uint amountLpTokensBalanceToBurn
     );
     event Swap(
         address token,
-        address sender, 
-        uint amountTokensIn, 
-        uint amountCerUsdIn, 
-        uint amountTokensOut, 
+        address sender,
+        uint amountTokensIn,
+        uint amountCerUsdIn,
+        uint amountTokensOut,
         uint amountCerUsdOut,
         uint currentFee,
         address transferTo
     );
     event Sync(
-        address token, 
-        uint newBalanceToken, 
+        address token,
+        uint newBalanceToken,
         uint newBalanceCerUsd,
         uint newCreditCerUsd
     );
 
-        
     error CerbySwapV1_TokenAlreadyExists();
     error CerbySwapV1_TokenDoesNotExist();
     error CerbySwapV1_TransactionIsExpired();

@@ -12,7 +12,7 @@ abstract contract CerbySwapV1_Modifiers is CerbySwapV1_Declarations {
         if(
             tokenToPoolId[token] == 0 ||
             token == cerUsdToken
-        ){ 
+        ){
             revert("C"); // TODO: remove this line on production
             revert CerbySwapV1_TokenDoesNotExist();
         }
@@ -22,7 +22,7 @@ abstract contract CerbySwapV1_Modifiers is CerbySwapV1_Declarations {
     modifier tokenDoesNotExistInPool(address token)
     {
         if(
-            tokenToPoolId[token] > 0            
+            tokenToPoolId[token] > 0
         ) {
             revert CerbySwapV1_TokenAlreadyExists();
         }
