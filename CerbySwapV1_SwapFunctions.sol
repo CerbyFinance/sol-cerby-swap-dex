@@ -301,9 +301,8 @@ abstract contract CerbySwapV1_SwapFunctions is
 
             // calculating old K value including trade fees (multiplied by FEE_DENORM^2)
             uint256 beforeKValueDenormed = uint256(pool.balanceCerUsd) *
-                FEE_DENORM *
                 uint256(pool.balanceToken) *
-                FEE_DENORM;
+                FEE_DENORM_SQUARED;
 
             // calculating new pool values
             uint256 _totalCerUsdBalance = totalCerUsdBalance +
