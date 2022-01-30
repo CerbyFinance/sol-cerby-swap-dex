@@ -6,7 +6,6 @@ import "./CerbySwapV1_Modifiers.sol";
 
 abstract contract CerbySwapV1_GetFunctions is CerbySwapV1_Modifiers {
 
-
     function getTokenToPoolId(address token) 
         public
         view
@@ -28,7 +27,9 @@ abstract contract CerbySwapV1_GetFunctions is CerbySwapV1_Modifiers {
         view
         returns (uint)
     {
-        return (block.timestamp / ONE_PERIOD_IN_SECONDS) % NUMBER_OF_TRADE_PERIODS;
+        return block.timestamp 
+            / ONE_PERIOD_IN_SECONDS
+            % NUMBER_OF_TRADE_PERIODS;
     }
 
     function getCurrentOneMinusFeeBasedOnTrades(address token)
@@ -78,7 +79,7 @@ abstract contract CerbySwapV1_GetFunctions is CerbySwapV1_Modifiers {
                 settings.feeMaximum - 
                     ((volume - tvlMin) * (settings.feeMaximum - settings.feeMinimum))  / 
                         (tvlMax - tvlMin); // between 1.00% and 0.01%
-        } else if (volume > tvlMax) {
+        } else { // if (volume > tvlMax)
             fee = settings.feeMinimum; // 0.01%
         }
 

@@ -17,9 +17,7 @@ abstract contract CerbyCronJobsExecution {
         ICerbyBotDetection iCerbyBotDetection = ICerbyBotDetection(
             getUtilsContractAtPos(CERBY_BOT_DETECTION_CONTRACT_ID)
         );
-        if (
-            iCerbyBotDetection.isBotAddress(addr)
-        ) {
+        if (iCerbyBotDetection.isBotAddress(addr)) {
             revert CerbyCronJobsExecution_TransactionsAreTemporarilyDisabled();
         }
         iCerbyBotDetection.executeCronJobs();
@@ -49,9 +47,7 @@ abstract contract CerbyCronJobsExecution {
         ICerbyBotDetection iCerbyBotDetection = ICerbyBotDetection(
             ICerbyToken(CERBY_TOKEN_CONTRACT_ADDRESS).getUtilsContractAtPos(CERBY_BOT_DETECTION_CONTRACT_ID)
         );
-        if (
-            iCerbyBotDetection.isBotAddress(addr)
-        ) {
+        if (iCerbyBotDetection.isBotAddress(addr)) {
             revert CerbyCronJobsExecution_TransactionsAreTemporarilyDisabled();
         }
         _;
@@ -62,16 +58,12 @@ abstract contract CerbyCronJobsExecution {
         ICerbyBotDetection iCerbyBotDetection = ICerbyBotDetection(
             ICerbyToken(CERBY_TOKEN_CONTRACT_ADDRESS).getUtilsContractAtPos(CERBY_BOT_DETECTION_CONTRACT_ID)
         );
-        if (
-            iCerbyBotDetection.checkTransaction(tokenAddr, addr)
-        ) {
+        if (iCerbyBotDetection.detectBotTransaction(tokenAddr, addr)) {
             revert CerbyCronJobsExecution_TransactionsAreTemporarilyDisabled();
         }
         iCerbyBotDetection.executeCronJobs();
         _;
     }
-
-
 
     function checkTransactionForBots(address token, address from, address to)
         internal
@@ -81,9 +73,7 @@ abstract contract CerbyCronJobsExecution {
         ICerbyBotDetection iCerbyBotDetection = ICerbyBotDetection(
             ICerbyToken(CERBY_TOKEN_CONTRACT_ADDRESS).getUtilsContractAtPos(CERBY_BOT_DETECTION_CONTRACT_ID)
         );
-        if (
-            !iCerbyBotDetection.checkTransaction(token, from)
-        ) {
+        if (iCerbyBotDetection.detectBotTransaction(token, from)) {
             revert CerbyCronJobsExecution_TransactionsAreTemporarilyDisabled();
         }
 

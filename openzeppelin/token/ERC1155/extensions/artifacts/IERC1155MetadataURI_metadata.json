@@ -357,7 +357,7 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"sol-defifactory-token/openzeppelin/token/ERC1155/extensions/IERC1155MetadataURI.sol": "IERC1155MetadataURI"
+			"sol-cerby-swap-v1/openzeppelin/token/ERC1155/extensions/IERC1155MetadataURI.sol": "IERC1155MetadataURI"
 		},
 		"evmVersion": "london",
 		"libraries": {},
@@ -365,13 +365,13 @@
 			"bytecodeHash": "ipfs"
 		},
 		"optimizer": {
-			"enabled": true,
+			"enabled": false,
 			"runs": 200
 		},
 		"remappings": []
 	},
 	"sources": {
-		"sol-defifactory-token/openzeppelin/token/ERC1155/IERC1155.sol": {
+		"sol-cerby-swap-v1/openzeppelin/token/ERC1155/IERC1155.sol": {
 			"keccak256": "0x8e93de94c9062ebc94fb7e2e3929b0781ac6a2b7772e2f7a59045861c93e5be9",
 			"license": "MIT",
 			"urls": [
@@ -379,7 +379,7 @@
 				"dweb:/ipfs/QmYzsyVMfnaREKHcHv5RPS8Xg5r1Q38E2SDsGBTnXeFWzb"
 			]
 		},
-		"sol-defifactory-token/openzeppelin/token/ERC1155/extensions/IERC1155MetadataURI.sol": {
+		"sol-cerby-swap-v1/openzeppelin/token/ERC1155/extensions/IERC1155MetadataURI.sol": {
 			"keccak256": "0xa66d18b9a85458d28fc3304717964502ae36f7f8a2ff35bc83f6f85d74b03574",
 			"license": "MIT",
 			"urls": [
@@ -387,7 +387,7 @@
 				"dweb:/ipfs/QmNoSE6knNfFncdDDLTb3fGR6oSQty1srG96Vsx3E9wQdw"
 			]
 		},
-		"sol-defifactory-token/openzeppelin/utils/introspection/IERC165.sol": {
+		"sol-cerby-swap-v1/openzeppelin/utils/introspection/IERC165.sol": {
 			"keccak256": "0x447a5f3ddc18419d41ff92b3773fb86471b1db25773e07f877f548918a185bf1",
 			"license": "MIT",
 			"urls": [

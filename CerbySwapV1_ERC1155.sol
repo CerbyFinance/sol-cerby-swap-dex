@@ -2,11 +2,14 @@
 pragma solidity ^0.8.11;
 
 
-import "./openzeppelin/token/ERC1155/extensions/ERC1155Supply.sol";
+import "./openzeppelin/token/ERC1155/ERC1155.sol";
 import "./CerbyCronJobsExecution.sol";
 
 
-abstract contract CerbySwapV1_ERC1155 is ERC1155Supply, CerbyCronJobsExecution {
+abstract contract CerbySwapV1_ERC1155 is 
+    ERC1155, 
+    CerbyCronJobsExecution 
+{
 
     string internal _name = "CerbySwapV1";
     string internal _symbol = "CS1";
@@ -21,7 +24,7 @@ abstract contract CerbySwapV1_ERC1155 is ERC1155Supply, CerbyCronJobsExecution {
     }
 
     function name()
-        public
+        external
         view
         returns(string memory)
     {
@@ -29,7 +32,7 @@ abstract contract CerbySwapV1_ERC1155 is ERC1155Supply, CerbyCronJobsExecution {
     }
 
     function symbol()
-        public
+        external
         view
         returns(string memory)
     {
@@ -37,7 +40,7 @@ abstract contract CerbySwapV1_ERC1155 is ERC1155Supply, CerbyCronJobsExecution {
     }
 
     function decimals()
-        public
+        external
         pure
         returns(uint)
     {
@@ -45,7 +48,7 @@ abstract contract CerbySwapV1_ERC1155 is ERC1155Supply, CerbyCronJobsExecution {
     }
 
     function totalSupply()
-        public
+        external
         view
         returns(uint)
     {
@@ -58,7 +61,7 @@ abstract contract CerbySwapV1_ERC1155 is ERC1155Supply, CerbyCronJobsExecution {
     }
 
     function uri(uint id)
-        public
+        external
         view
         virtual
         override
@@ -68,12 +71,12 @@ abstract contract CerbySwapV1_ERC1155 is ERC1155Supply, CerbyCronJobsExecution {
     }
 
     function setApprovalForAll(address operator, bool approved) 
-        public 
+        external 
         virtual 
         override
         executeCronJobs()
     {
-        _setApprovalForAll(_msgSender(), operator, approved);
+        _setApprovalForAll(msg.sender, operator, approved);
     }
 
     function safeTransferFrom(
@@ -81,16 +84,16 @@ abstract contract CerbySwapV1_ERC1155 is ERC1155Supply, CerbyCronJobsExecution {
         address to,
         uint id,
         uint amount,
-        bytes memory data
+        bytes calldata data
     ) 
-        public 
+        external 
         virtual 
         override
         executeCronJobs()
     {
         if (
-            from != _msgSender() &&
-            !isApprovedForAll(from, _msgSender())
+            from != msg.sender &&
+            !isApprovedForAll(from, msg.sender)
         ) {
             revert CerbySwapLP1155V1_CallerIsNotOwnerNorApproved();
         }
@@ -101,18 +104,18 @@ abstract contract CerbySwapV1_ERC1155 is ERC1155Supply, CerbyCronJobsExecution {
     function safeBatchTransferFrom(
         address from,
         address to,
-        uint256[] memory ids,
-        uint256[] memory amounts,
-        bytes memory data
+        uint256[] calldata ids,
+        uint256[] calldata amounts,
+        bytes calldata data
     ) 
-        public 
+        external 
         virtual 
         override 
         executeCronJobs()
     {
         if (
-            from != _msgSender() &&
-            !isApprovedForAll(from, _msgSender())
+            from != msg.sender &&
+            !isApprovedForAll(from, msg.sender)
         ) {
             revert CerbySwapLP1155V1_CallerIsNotOwnerNorApproved();
         }

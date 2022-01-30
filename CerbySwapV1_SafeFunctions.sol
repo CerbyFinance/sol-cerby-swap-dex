@@ -67,45 +67,49 @@ abstract contract CerbySwapV1_SafeFunctions is CerbySwapV1_EventsAndErrors, Cerb
     )
         internal
     {
+        if (
+            to != address(this) || // can't transfer to current contract
+            amountTokensOut <= 1
+        ) {
+            return;
+        }
+
         // some transfer such as refund excess of native tokens
         // we don't check for bots
         if (needToCheckForBots) {
             //checkTransactionForBots(token, msg.sender, to); // TODO: enable on production
         }
 
-        if (to != address(this)) {
+        // we trust cerUsdToken and nativeTokens
+        // thats why don't need to check whether it has fee-on-transfer
+        // these tokens are known to be without any fee-on-transfer
+        uint oldBalanceToken;
+        if (
+            token != cerUsdToken &&
+            token != nativeToken
+        ) {
+            oldBalanceToken = _getTokenBalance(token);
+        }
 
-            // we trust cerUsdToken and nativeTokens
-            // thats why don't need to check whether it has fee-on-transfer
-            // these tokens are known to be without any fee-on-transfer
-            uint oldBalanceToken;
+        // actually transferring the tokens
+        if (token == nativeToken) {
+            _safeCoreTransferNative(to, amountTokensOut);
+        } else {
+            _safeCoreTransferToken(token, to, amountTokensOut);
+        }
+
+        // we trust cerUsdToken and nativeTokens
+        // thats why don't need to check whether it has fee-on-transfer
+        // these tokens are known to be without any fee-on-transfer
+        if (
+            token != cerUsdToken &&
+            token != nativeToken
+        ) {
+            uint newBalanceToken = _getTokenBalance(token);
             if (
-                token != cerUsdToken &&
-                token != nativeToken
+                newBalanceToken + amountTokensOut != oldBalanceToken
             ) {
-                oldBalanceToken = _getTokenBalance(token);
-            }
-
-            // actually transferring the tokens
-            if (token == nativeToken) {
-                _safeCoreTransferNative(to, amountTokensOut);
-            } else {
-                _safeCoreTransferToken(token, to, amountTokensOut);
-            }
-
-            // we trust cerUsdToken and nativeTokens
-            // thats why don't need to check whether it has fee-on-transfer
-            // these tokens are known to be without any fee-on-transfer
-            if (
-                token != cerUsdToken &&
-                token != nativeToken
-            ) {
-                uint newBalanceToken = _getTokenBalance(token);
-                if (
-                    newBalanceToken + amountTokensOut != oldBalanceToken
-                ) {
-                    revert CerbySwapV1_FeeOnTransferTokensArentSupported();
-                }
+                revert CerbySwapV1_FeeOnTransferTokensArentSupported();
             }
         }
     }

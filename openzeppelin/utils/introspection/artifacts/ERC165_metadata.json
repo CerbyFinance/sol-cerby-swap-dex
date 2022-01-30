@@ -43,7 +43,7 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"sol-defifactory-token/openzeppelin/utils/introspection/ERC165.sol": "ERC165"
+			"sol-cerby-swap-v1/openzeppelin/utils/introspection/ERC165.sol": "ERC165"
 		},
 		"evmVersion": "london",
 		"libraries": {},
@@ -51,13 +51,13 @@
 			"bytecodeHash": "ipfs"
 		},
 		"optimizer": {
-			"enabled": true,
+			"enabled": false,
 			"runs": 200
 		},
 		"remappings": []
 	},
 	"sources": {
-		"sol-defifactory-token/openzeppelin/utils/introspection/ERC165.sol": {
+		"sol-cerby-swap-v1/openzeppelin/utils/introspection/ERC165.sol": {
 			"keccak256": "0xd10975de010d89fd1c78dc5e8a9a7e7f496198085c151648f20cba166b32582b",
 			"license": "MIT",
 			"urls": [
@@ -65,7 +65,7 @@
 				"dweb:/ipfs/QmZptt1nmYoA5SgjwnSgWqgUSDgm4q52Yos3xhnMv3MV43"
 			]
 		},
-		"sol-defifactory-token/openzeppelin/utils/introspection/IERC165.sol": {
+		"sol-cerby-swap-v1/openzeppelin/utils/introspection/IERC165.sol": {
 			"keccak256": "0x447a5f3ddc18419d41ff92b3773fb86471b1db25773e07f877f548918a185bf1",
 			"license": "MIT",
 			"urls": [

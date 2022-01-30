@@ -5,13 +5,13 @@ pragma solidity ^0.8.11;
 import "./openzeppelin/access/Ownable.sol";
 import "./CerbySwapV1_LiquidityFunctions.sol";
 
-abstract contract CerbySwapV1_AdminFunctions is CerbySwapV1_LiquidityFunctions, Ownable {
-
-
-
+abstract contract CerbySwapV1_AdminFunctions is 
+    CerbySwapV1_LiquidityFunctions, 
+    Ownable 
+{
     // TODO: remove on production
     function testSetupTokens(address , address _testCerbyToken, address _cerUsdToken, address _testUsdcToken, address )
-        public
+        external
     {
         //testCerbyBotDetectionContract = _testCerbyBotDetectionContract;
         testCerbyToken = _testCerbyToken;
@@ -26,41 +26,44 @@ abstract contract CerbySwapV1_AdminFunctions is CerbySwapV1_LiquidityFunctions, 
         public
     {
         // TODO: remove on production
-        adminCreatePool(
+        _createPool(
             testCerbyToken,
             1e18 * 1e6,
             1e18 * 5e5,
+            type(uint).max,
             msg.sender
         );
 
         // TODO: remove on production
-        adminCreatePool(
+        _createPool(
             testUsdcToken,
             1e18 * 7e5,
             1e18 * 7e5,
+            type(uint).max,
             msg.sender
         );
     }
 
     // TODO: remove on production
     function adminInitialize() 
-        public
+        external
         payable
         onlyOwner() // TODO: enable on production
     {        
 
         // TODO: remove on production
-        adminCreatePool(
+        _createPool(
             nativeToken,
             1e15,
             1e18 * 1e6,
+            type(uint).max,
             msg.sender
         );
     }
 
 
-    function adminSetURI(string memory newUrlPrefix)
-        public
+    function adminSetURI(string calldata newUrlPrefix)
+        external
         onlyOwner()
     {
         _setURI(string(abi.encodePacked(newUrlPrefix, "{id}.json")));
@@ -69,7 +72,7 @@ abstract contract CerbySwapV1_AdminFunctions is CerbySwapV1_LiquidityFunctions, 
     }
 
     function adminUpdateNameAndSymbol(string memory newName, string memory newSymbol)
-        public
+        external
         onlyOwner()
     {
         _name = newName;
@@ -79,7 +82,7 @@ abstract contract CerbySwapV1_AdminFunctions is CerbySwapV1_LiquidityFunctions, 
     function adminUpdateFeesAndTvlMultipliers(
         Settings calldata _settings
     )
-        public
+        external
         onlyOwner()
     {
         if(
@@ -90,15 +93,11 @@ abstract contract CerbySwapV1_AdminFunctions is CerbySwapV1_LiquidityFunctions, 
             revert CerbySwapV1_FeeIsWrong();
         }
 
-        if (
-            _settings.tvlMultiplierMinimum > _settings.tvlMultiplierMaximum
-        ) {
+        if (_settings.tvlMultiplierMinimum > _settings.tvlMultiplierMaximum) {
             revert CerbySwapV1_TvlMultiplierIsWrong();
         }
 
-        if (
-            _settings.mintFeeMultiplier * 2 >= MINT_FEE_DENORM
-        ) {
+        if (_settings.mintFeeMultiplier * 2 >= MINT_FEE_DENORM) {
             revert CerbySwapV1_MintFeeMultiplierMustNotBeLargerThan50Percent();
         }
 
@@ -114,7 +113,7 @@ abstract contract CerbySwapV1_AdminFunctions is CerbySwapV1_LiquidityFunctions, 
         uint amountCerUsdToMint, 
         address transferTo
     )
-        public
+        external
         payable
         onlyOwner()
     {
@@ -122,7 +121,7 @@ abstract contract CerbySwapV1_AdminFunctions is CerbySwapV1_LiquidityFunctions, 
             token, 
             amountTokensIn, 
             amountCerUsdToMint, 
-            type(uint).max,
+            type(uint).max, // creditCerUsd
             transferTo
         );
     }
@@ -137,20 +136,22 @@ abstract contract CerbySwapV1_AdminFunctions is CerbySwapV1_LiquidityFunctions, 
         address token,
         uint amountCerUsdCredit
     )
-        public
+        external
         onlyOwner()
         tokenMustExistInPool(token)
     {
-        uint poolId = tokenToPoolId[token];
+        // getting pool storage link (saves gas compared to memory)
+        Pool storage pool = pools[tokenToPoolId[token]];
 
         // changing credit for user-created pool
-        pools[poolId].creditCerUsd = amountCerUsdCredit;
+        pool.creditCerUsd = amountCerUsdCredit;
         
+        // Sync event to update pool variables in the graph node
         emit Sync(
             token, 
-            pools[poolId].balanceToken, 
-            pools[poolId].balanceCerUsd,
-            pools[poolId].creditCerUsd
+            pool.balanceToken, 
+            pool.balanceCerUsd,
+            pool.creditCerUsd
         );
     }
 

@@ -21,7 +21,7 @@ interface ICerbyBotDetection {
     function executeCronJobs()
         external;
 
-    function checkTransaction(address tokenAddr, address addr)
+    function detectBotTransaction(address tokenAddr, address addr)
         external
         returns (bool);
         

@@ -1527,13 +1527,13 @@
 					"details": "Leaves the contract without owner. It will not be possible to call `onlyOwner` functions anymore. Can only be called by the current owner. NOTE: Renouncing ownership will leave the contract without an owner, thereby removing any functionality that is only available to the owner."
 				},
 				"safeBatchTransferFrom(address,address,uint256[],uint256[],bytes)": {
-					"details": "See {IERC1155-safeBatchTransferFrom}."
+					"details": "xref:ROOT:erc1155.adoc#batch-operations[Batched] version of {safeTransferFrom}. Emits a {TransferBatch} event. Requirements: - `ids` and `amounts` must have the same length. - If `to` refers to a smart contract, it must implement {IERC1155Receiver-onERC1155BatchReceived} and return the acceptance magic value."
 				},
 				"safeTransferFrom(address,address,uint256,uint256,bytes)": {
-					"details": "See {IERC1155-safeTransferFrom}."
+					"details": "Transfers `amount` tokens of token type `id` from `from` to `to`. Emits a {TransferSingle} event. Requirements: - `to` cannot be the zero address. - If the caller is not `from`, it must be have been approved to spend ``from``'s tokens via {setApprovalForAll}. - `from` must have a balance of tokens of type `id` of at least `amount`. - If `to` refers to a smart contract, it must implement {IERC1155Receiver-onERC1155Received} and return the acceptance magic value."
 				},
 				"setApprovalForAll(address,bool)": {
-					"details": "See {IERC1155-setApprovalForAll}."
+					"details": "Grants or revokes permission to `operator` to transfer the caller's tokens, according to `approved`, Emits an {ApprovalForAll} event. Requirements: - `operator` cannot be the caller."
 				},
 				"supportsInterface(bytes4)": {
 					"details": "See {IERC165-supportsInterface}."
@@ -1563,34 +1563,34 @@
 			"bytecodeHash": "ipfs"
 		},
 		"optimizer": {
-			"enabled": true,
+			"enabled": false,
 			"runs": 200
 		},
 		"remappings": []
 	},
 	"sources": {
 		"sol-cerby-swap-v1/CerbyCronJobsExecution.sol": {
-			"keccak256": "0xefa5b53f0157193788ee0ec5312bf567afc908263755e5ad917dd0738717cb12",
+			"keccak256": "0x69d63337590225a89fec8c5553727ab03663387ddad89b4d37def9bb28f81ab5",
 			"license": "BUSL-1.1",
 			"urls": [
-				"bzz-raw://715127ba21afb540fe48c5e983db28d2ce29c67f03ce7a0ab876465336b9f36f",
-				"dweb:/ipfs/QmNceFtzHMgVrS4m1bNtjdBUZ2hs6v4KzDbTCeDxN9UpHw"
+				"bzz-raw://1cd5f919daed236fe3887fb7ae88b5f108e4b62a9efd7017377d79d7601a23b9",
+				"dweb:/ipfs/Qmc3Hu8V6DyJr3ERJVdm7AzNeD3ypH4QjE6yuCS1mNdV43"
 			]
 		},
 		"sol-cerby-swap-v1/CerbySwapV1.sol": {
-			"keccak256": "0x84810a1d95d4c3979e06b34ae5768b709272b7260ce0ebf3930b99b2ed8e5f1b",
+			"keccak256": "0xebbb152433851f139ae2b2a0e92fd077d81c27d24c25df310f4eeed27739ea6b",
 			"license": "BUSL-1.1",
 			"urls": [
-				"bzz-raw://50b5f1b794d4eac7b36a02c641db88e5bee273589f6d0ffc0e64988cc274e644",
-				"dweb:/ipfs/QmTRYthW9d8B9ZGtpUhPxQJcsjQcNxTDLFH36FhuLFL7Et"
+				"bzz-raw://60e6af63e1d9db5c316b4f7d6d0af374cd203aa03d2258d5192d22e1880ed7af",
+				"dweb:/ipfs/QmPu3QC1XvzXotervQHk4oUyRWBxyJbJ7aqVzNwVTn46VJ"
 			]
 		},
 		"sol-cerby-swap-v1/CerbySwapV1_AdminFunctions.sol": {
-			"keccak256": "0xb2adf8b2f9357a3142828210f415c776cacc1aaa6e334798260bfa9329735a47",
+			"keccak256": "0xe30f7310608fb5240c3f017e5debfb75f525e3bc3e7ab633f620af75275cb735",
 			"license": "BUSL-1.1",
 			"urls": [
-				"bzz-raw://4c20d6b89412605817527f8c59f6b3ef9c592a125be98074f8f90bd3242cc48c",
-				"dweb:/ipfs/QmayfazA9fG11zouD4GSzw2GNGhyT4neJh1XK118kJXPQ6"
+				"bzz-raw://9238f2fac6e4f8be8a06ce4606121b23d7f6d051afa97277d73b21b76721151d",
+				"dweb:/ipfs/QmUyx13BkyojxYNZDkpUmj5MmFSryj5aeEZrg7o9cwN7Sp"
 			]
 		},
 		"sol-cerby-swap-v1/CerbySwapV1_Declarations.sol": {
@@ -1602,11 +1602,11 @@
 			]
 		},
 		"sol-cerby-swap-v1/CerbySwapV1_ERC1155.sol": {
-			"keccak256": "0x6d3a83fce71198a2e4c69bd788f245d8152e4a7ec40857f1848b1dd6419ecb41",
+			"keccak256": "0x9aadd0c5dc752ab654c7659f2282935f21775aa778379a94fd5f73aebace6843",
 			"license": "BUSL-1.1",
 			"urls": [
-				"bzz-raw://a79c0ce209e8049d367a80ec2a6f4d0a8fe7a77298c0c3d463e5fce07da0ade5",
-				"dweb:/ipfs/QmUXiFhH9HYMzhkA8TdMQHE14uNbBBTTPcqF1KgvZJ6rZD"
+				"bzz-raw://c63faf71c942a58b18dccdc4c137dca303b5f218c050034e699cf7d0450af361",
+				"dweb:/ipfs/QmWTjJZ43SPbBofdQLsmTRGCipmtEymWvpmsYnUvWTaYm3"
 			]
 		},
 		"sol-cerby-swap-v1/CerbySwapV1_EventsAndErrors.sol": {
@@ -1650,11 +1650,11 @@
 			]
 		},
 		"sol-cerby-swap-v1/CerbySwapV1_SafeFunctions.sol": {
-			"keccak256": "0xa260a9070b77d2d9b453c93721e88de470cfe1ea646cc4eb8801d504b026ecf4",
+			"keccak256": "0x22ccd124771d3753f10c7911fa2cfe37d76d9a93491bb3a320f5e629e5a290cd",
 			"license": "BUSL-1.1",
 			"urls": [
-				"bzz-raw://4cf233261eaa44f0ea0b4202c9a94914a334926ab20944d17bd319aa84238edc",
-				"dweb:/ipfs/QmWMbQ3T1L8y6CriXKA7w1f1Q8govtbgLmMfWcN28wi7L9"
+				"bzz-raw://11247d10d2c4aae87f66d1796657892146f7273429067f64c74731502f5d26b3",
+				"dweb:/ipfs/Qmc88ttFdX9RfqNHEUM9PK9tXn9ax6d3m5eARCDrRa6vRS"
 			]
 		},
 		"sol-cerby-swap-v1/CerbySwapV1_SwapFunctions.sol": {
@@ -1666,11 +1666,11 @@
 			]
 		},
 		"sol-cerby-swap-v1/interfaces/ICerbyBotDetection.sol": {
-			"keccak256": "0x88ae2b0a36185fd4906dbc9e7bd41a682d05edf05478c27ca5ce9ff0bc5cdef2",
+			"keccak256": "0x67fbd6f84cd6054f4c818863f096c7e7f5bf7f062e65cd4da11c30c665aa22b8",
 			"license": "BUSL-1.1",
 			"urls": [
-				"bzz-raw://9e13b92a1ddbd96344b9035c2bf91ada49bfad04ee4181929c36791ba224cbe9",
-				"dweb:/ipfs/QmaVVRj9B3F32WpVuYzH6BZZE5751BrAcjWn81rVciAoRa"
+				"bzz-raw://8ce3d4c1e96555f4f86b40adc7b0a4176d9079507ea6bd0fbc619b698dbbe6d3",
+				"dweb:/ipfs/QmczDqHq8STu2h4cyxVex9oHaseKWxxQwVgZ7TAJJF8cQm"
 			]
 		},
 		"sol-cerby-swap-v1/interfaces/ICerbyToken.sol": {
@@ -1706,11 +1706,11 @@
 			]
 		},
 		"sol-cerby-swap-v1/openzeppelin/token/ERC1155/ERC1155.sol": {
-			"keccak256": "0xef43a311c72201e893577cae6f1a8ecf9fd825cac3c20162d821d02488b56c6e",
+			"keccak256": "0xd06200d71396488f7342c6f61bef9744311ff660f22e4dcd2380c830db423d96",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://0a37d25d99ca787546bafb80e34176c81547f2f352d2a5a49ee566205ee52f3d",
-				"dweb:/ipfs/QmSGnZjvCbE8ARLWFK6z8R9vw1ExNaBfXxGWMEJPvPwKGB"
+				"bzz-raw://77cff2e2f29449d89384fcc6f3ddebe10b96d7cde9bc381a9f9f6ce369890dcb",
+				"dweb:/ipfs/QmYB4WsVxe98NFFpUyFz1UeAzDBAK9gYgmahiUS4eWJtHq"
 			]
 		},
 		"sol-cerby-swap-v1/openzeppelin/token/ERC1155/IERC1155.sol": {
@@ -1727,14 +1727,6 @@
 			"urls": [
 				"bzz-raw://05e54e397a053f319187999ef4d65446a7f15f693ddd66dfaed4d856f67dac4e",
 				"dweb:/ipfs/QmbGTFVdZxShg76UPcuLAXm6HBjZx3Vn6CL1eaBhV9rST1"
-			]
-		},
-		"sol-cerby-swap-v1/openzeppelin/token/ERC1155/extensions/ERC1155Supply.sol": {
-			"keccak256": "0x2108b09ce3511b6e71ae743d85a4b18b21b54eeb1ff6df04f525daec279f410e",
-			"license": "MIT",
-			"urls": [
-				"bzz-raw://925664ad2ae77f86e0ca588381352f3ac81f266e3fd7f20fbfa6feaec045a9fb",
-				"dweb:/ipfs/QmfVGKaxxXWKfL3RKtu3GzdYzWdtivYJUMm1XzFhf3TZDp"
 			]
 		},
 		"sol-cerby-swap-v1/openzeppelin/token/ERC1155/extensions/IERC1155MetadataURI.sol": {

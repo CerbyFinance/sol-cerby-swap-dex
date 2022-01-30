@@ -394,21 +394,6 @@ export interface CerbySwapV1LiquidityFunctionsInstance
     ): Promise<number>;
   };
 
-  skimPool: {
-    (token: string, txDetails?: Truffle.TransactionDetails): Promise<
-      Truffle.TransactionResponse<AllEvents>
-    >;
-    call(token: string, txDetails?: Truffle.TransactionDetails): Promise<void>;
-    sendTransaction(
-      token: string,
-      txDetails?: Truffle.TransactionDetails
-    ): Promise<string>;
-    estimateGas(
-      token: string,
-      txDetails?: Truffle.TransactionDetails
-    ): Promise<number>;
-  };
-
   supportsInterface(
     interfaceId: string,
     txDetails?: Truffle.TransactionDetails
@@ -674,24 +659,6 @@ export interface CerbySwapV1LiquidityFunctionsInstance
       estimateGas(
         operator: string,
         approved: boolean,
-        txDetails?: Truffle.TransactionDetails
-      ): Promise<number>;
-    };
-
-    skimPool: {
-      (token: string, txDetails?: Truffle.TransactionDetails): Promise<
-        Truffle.TransactionResponse<AllEvents>
-      >;
-      call(
-        token: string,
-        txDetails?: Truffle.TransactionDetails
-      ): Promise<void>;
-      sendTransaction(
-        token: string,
-        txDetails?: Truffle.TransactionDetails
-      ): Promise<string>;
-      estimateGas(
-        token: string,
         txDetails?: Truffle.TransactionDetails
       ): Promise<number>;
     };
