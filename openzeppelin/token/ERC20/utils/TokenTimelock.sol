@@ -29,7 +29,10 @@ contract TokenTimelock {
         address beneficiary_,
         uint256 releaseTime_
     ) {
-        require(releaseTime_ > block.timestamp, "TokenTimelock: release time is before current time");
+        require(
+            releaseTime_ > block.timestamp,
+            "TokenTimelock: release time is before current time"
+        );
         _token = token_;
         _beneficiary = beneficiary_;
         _releaseTime = releaseTime_;
@@ -60,7 +63,10 @@ contract TokenTimelock {
      * @notice Transfers tokens held by timelock to beneficiary.
      */
     function release() public virtual {
-        require(block.timestamp >= releaseTime(), "TokenTimelock: current time is before release time");
+        require(
+            block.timestamp >= releaseTime(),
+            "TokenTimelock: current time is before release time"
+        );
 
         uint256 amount = token().balanceOf(address(this));
         require(amount > 0, "TokenTimelock: no tokens to release");

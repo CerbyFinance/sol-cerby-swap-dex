@@ -25,8 +25,17 @@ abstract contract ERC20Wrapper is ERC20 {
     /**
      * @dev Allow a user to deposit underlying tokens and mint the corresponding number of wrapped tokens.
      */
-    function depositFor(address account, uint256 amount) public virtual returns (bool) {
-        SafeERC20.safeTransferFrom(underlying, _msgSender(), address(this), amount);
+    function depositFor(address account, uint256 amount)
+        public
+        virtual
+        returns (bool)
+    {
+        SafeERC20.safeTransferFrom(
+            underlying,
+            _msgSender(),
+            address(this),
+            amount
+        );
         _mint(account, amount);
         return true;
     }
@@ -34,7 +43,11 @@ abstract contract ERC20Wrapper is ERC20 {
     /**
      * @dev Allow a user to burn a number of wrapped tokens and withdraw the corresponding number of underlying tokens.
      */
-    function withdrawTo(address account, uint256 amount) public virtual returns (bool) {
+    function withdrawTo(address account, uint256 amount)
+        public
+        virtual
+        returns (bool)
+    {
         _burn(_msgSender(), amount);
         SafeERC20.safeTransfer(underlying, account, amount);
         return true;

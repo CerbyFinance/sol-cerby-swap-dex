@@ -99,6 +99,11 @@
 		},
 		{
 			"inputs": [],
+			"name": "ERC1155_MintToAmountIsZero",
+			"type": "error"
+		},
+		{
+			"inputs": [],
 			"name": "ERC1155_MintToZeroAddress",
 			"type": "error"
 		},

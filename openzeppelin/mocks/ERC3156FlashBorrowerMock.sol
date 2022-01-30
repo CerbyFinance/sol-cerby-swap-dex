@@ -14,7 +14,8 @@ import "../utils/Address.sol";
  * live networks.
  */
 contract ERC3156FlashBorrowerMock is IERC3156FlashBorrower {
-    bytes32 internal constant _RETURN_VALUE = keccak256("ERC3156FlashBorrower.onFlashLoan");
+    bytes32 internal constant _RETURN_VALUE =
+        keccak256("ERC3156FlashBorrower.onFlashLoan");
 
     bool immutable _enableApprove;
     bool immutable _enableReturn;
@@ -36,7 +37,11 @@ contract ERC3156FlashBorrowerMock is IERC3156FlashBorrower {
     ) public override returns (bytes32) {
         require(msg.sender == token);
 
-        emit BalanceOf(token, address(this), IERC20(token).balanceOf(address(this)));
+        emit BalanceOf(
+            token,
+            address(this),
+            IERC20(token).balanceOf(address(this))
+        );
         emit TotalSupply(token, IERC20(token).totalSupply());
 
         if (data.length > 0) {

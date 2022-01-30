@@ -3,7 +3,5 @@
 pragma solidity ^0.8.10;
 
 interface ICerbyCronJobs {
-    
-    function executeCronJobs()
-        external;
+    function executeCronJobs() external;
 }

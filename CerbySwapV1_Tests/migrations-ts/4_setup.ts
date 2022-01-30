@@ -22,7 +22,7 @@ module.exports = async function (deployer) {
 
       TestCerUsdToken.address,
       TestUsdcToken.address,
-      zeroAddr,
+      zeroAddr
       // Weth.address,
     );
 

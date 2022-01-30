@@ -20,7 +20,10 @@ import "../utils/Context.sol";
 abstract contract Ownable is Context {
     address private _owner;
 
-    event OwnershipTransferred(address indexed previousOwner, address indexed newOwner);
+    event OwnershipTransferred(
+        address indexed previousOwner,
+        address indexed newOwner
+    );
 
     error Ownable_CallerIsNotOwner();
     error Ownable_NewOwnerIsNotTheZeroAddress();
@@ -28,8 +31,7 @@ abstract contract Ownable is Context {
     /**
      * @dev Initializes the contract setting the deployer as the initial owner.
      */
-    constructor() {
-    }
+    constructor() {}
 
     /**
      * @dev Returns the address of the current owner.

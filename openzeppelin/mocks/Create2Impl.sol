@@ -18,7 +18,11 @@ contract Create2Impl {
         Create2.deploy(value, salt, type(ERC1820Implementer).creationCode);
     }
 
-    function computeAddress(bytes32 salt, bytes32 codeHash) public view returns (address) {
+    function computeAddress(bytes32 salt, bytes32 codeHash)
+        public
+        view
+        returns (address)
+    {
         return Create2.computeAddress(salt, codeHash);
     }
 

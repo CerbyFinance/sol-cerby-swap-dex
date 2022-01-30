@@ -42,6 +42,11 @@
 			},
 			{
 				"inputs": [],
+				"name": "ERC1155_MintToAmountIsZero",
+				"type": "error"
+			},
+			{
+				"inputs": [],
 				"name": "ERC1155_MintToZeroAddress",
 				"type": "error"
 			},
@@ -467,26 +472,26 @@
 			"bytecodeHash": "ipfs"
 		},
 		"optimizer": {
-			"enabled": false,
+			"enabled": true,
 			"runs": 200
 		},
 		"remappings": []
 	},
 	"sources": {
 		"sol-cerby-swap-v1/openzeppelin/token/ERC1155/ERC1155.sol": {
-			"keccak256": "0xd06200d71396488f7342c6f61bef9744311ff660f22e4dcd2380c830db423d96",
+			"keccak256": "0x395ba2833099bf0664b8b235345d26967aa135021aec97e81e240b7d463f028e",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://77cff2e2f29449d89384fcc6f3ddebe10b96d7cde9bc381a9f9f6ce369890dcb",
-				"dweb:/ipfs/QmYB4WsVxe98NFFpUyFz1UeAzDBAK9gYgmahiUS4eWJtHq"
+				"bzz-raw://7f784b8b03e09e6ce94da6dd8f0d119f2a37fad3079661d021c7c4c17d366b0e",
+				"dweb:/ipfs/Qman7VcRTnRec9G5hyFEyKKvazmxa5dCKBJKXcb6g3Hd7L"
 			]
 		},
 		"sol-cerby-swap-v1/openzeppelin/token/ERC1155/IERC1155.sol": {
-			"keccak256": "0x8e93de94c9062ebc94fb7e2e3929b0781ac6a2b7772e2f7a59045861c93e5be9",
+			"keccak256": "0x1bbdcc6f4bb2a949e0972a56922aacbb0dfb96b758b1af485783fd46622f7d2d",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://f920a631bf986c610fe573d3c70a2bb6f224f86f4a8550016470c7ee476c9ab5",
-				"dweb:/ipfs/QmYzsyVMfnaREKHcHv5RPS8Xg5r1Q38E2SDsGBTnXeFWzb"
+				"bzz-raw://888e83f7844b76f02c05c22f7f35a56c63a9e4aac3bc3d6b2cec7ad5f01a5898",
+				"dweb:/ipfs/QmPAizEA5aw5hEeu8ch5THThW57H2tBSCAZqhZGgLs3pxT"
 			]
 		},
 		"sol-cerby-swap-v1/openzeppelin/token/ERC1155/IERC1155Receiver.sol": {
@@ -506,11 +511,11 @@
 			]
 		},
 		"sol-cerby-swap-v1/openzeppelin/utils/introspection/ERC165.sol": {
-			"keccak256": "0xd10975de010d89fd1c78dc5e8a9a7e7f496198085c151648f20cba166b32582b",
+			"keccak256": "0x80cff4f25810ab85caa3f5839b7cb5b7683a9540da82268e2b9f422e0d4d58e6",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://fb0048dee081f6fffa5f74afc3fb328483c2a30504e94a0ddd2a5114d731ec4d",
-				"dweb:/ipfs/QmZptt1nmYoA5SgjwnSgWqgUSDgm4q52Yos3xhnMv3MV43"
+				"bzz-raw://1858a5438e273c2f48db04bfa9e49e5a5bbf5ccb36b1c666756647aacfca2a04",
+				"dweb:/ipfs/QmR1bYQhYWtRLLXMyRJYtZRaEmXkbFGWHcd6a59VKrFgMR"
 			]
 		},
 		"sol-cerby-swap-v1/openzeppelin/utils/introspection/IERC165.sol": {

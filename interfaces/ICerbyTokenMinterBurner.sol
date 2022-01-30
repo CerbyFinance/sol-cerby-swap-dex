@@ -3,27 +3,20 @@
 pragma solidity ^0.8.10;
 
 interface ICerbyTokenMinterBurner {
-    
-    function balanceOf(
-        address account
-    )
-        external
-        view
-        returns (uint);
-    
-    function totalSupply()
-        external
-        view
-        returns (uint);
-        
-    function mintHumanAddress(address to, uint desiredAmountToMint) external;
+    function balanceOf(address account) external view returns (uint256);
 
-    function burnHumanAddress(address from, uint desiredAmountToBurn) external;
-    
-    function transferCustom(address sender, address recipient, uint256 amount) external;
-    
-    function getUtilsContractAtPos(uint pos)
-        external
-        view
-        returns (address);
+    function totalSupply() external view returns (uint256);
+
+    function mintHumanAddress(address to, uint256 desiredAmountToMint) external;
+
+    function burnHumanAddress(address from, uint256 desiredAmountToBurn)
+        external;
+
+    function transferCustom(
+        address sender,
+        address recipient,
+        uint256 amount
+    ) external;
+
+    function getUtilsContractAtPos(uint256 pos) external view returns (address);
 }

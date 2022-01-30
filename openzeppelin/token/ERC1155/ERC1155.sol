@@ -15,12 +15,7 @@ import "../../utils/introspection/ERC165.sol";
  *
  * _Available since v3.1._
  */
-abstract contract ERC1155 is 
-    ERC165, 
-    IERC1155, 
-    IERC1155MetadataURI 
-{
-
+abstract contract ERC1155 is ERC165, IERC1155, IERC1155MetadataURI {
     // Mapping from token ID to account balances
     mapping(uint256 => mapping(address => uint256)) internal _balances;
 
@@ -30,9 +25,9 @@ abstract contract ERC1155 is
     // Used as the URI for all token types by relying on ID substitution, e.g. https://token-cdn-domain/{id}.json
     string internal _uri;
 
-    mapping(uint => uint) internal _totalSupply;
+    mapping(uint256 => uint256) internal _totalSupply;
 
-    address constant internal BURN_ADDRESS = address(0);
+    address internal constant BURN_ADDRESS = address(0);
 
     error ERC1155_BalanceQueryForTheZeroAddress();
     error ERC1155_AccountsAndIdsLengthMismatch();
@@ -45,6 +40,7 @@ abstract contract ERC1155 is
     error ERC1155_SettingApprovalStatusForSelf();
     error ERC1155_ERC1155ReceiverRejectsTokens();
     error ERC1155_TransferToNonERC1155ReceiverImplementer();
+    error ERC1155_MintToAmountIsZero();
 
     /**
      * @dev See {_setURI}.
@@ -56,32 +52,18 @@ abstract contract ERC1155 is
     /**
      * @dev Total amount of tokens in with a given id.
      */
-    function totalSupply(uint id) 
-        external 
-        view 
-        virtual 
-        returns (uint) 
-    {
+    function totalSupply(uint256 id) external view virtual returns (uint256) {
         return _totalSupply[id];
     }
 
     /**
      * @dev Indicates whether any token exist with a given id, or not.
      */
-    function exists(uint id) 
-        external 
-        view 
-        virtual 
-        returns (bool) 
-    {
+    function exists(uint256 id) external view virtual returns (bool) {
         return _totalSupply[id] > 0;
     }
 
-    function isContract(address account) 
-        internal 
-        view 
-        returns (bool) 
-    {
+    function isContract(address account) internal view returns (bool) {
         // This method relies on extcodesize, which returns 0 for contracts in
         // construction, since the code is only stored at the end of the
         // constructor execution.
@@ -103,12 +85,12 @@ abstract contract ERC1155 is
      * Clients calling this function must replace the `\{id\}` substring with the
      * actual token type ID.
      */
-    function uri(uint256) 
-        external 
-        view 
-        virtual 
-        override 
-        returns (string memory) 
+    function uri(uint256)
+        external
+        view
+        virtual
+        override
+        returns (string memory)
     {
         return _uri;
     }
@@ -120,15 +102,12 @@ abstract contract ERC1155 is
      *
      * - `account` cannot be the zero address.
      */
-    function balanceOf(
-        address account, 
-        uint256 id
-    ) 
-        public 
-        view 
-        virtual 
-        override 
-        returns (uint256) 
+    function balanceOf(address account, uint256 id)
+        public
+        view
+        virtual
+        override
+        returns (uint256)
     {
         if (account == BURN_ADDRESS) {
             revert ERC1155_BalanceQueryForTheZeroAddress();
@@ -144,10 +123,7 @@ abstract contract ERC1155 is
      *
      * - `accounts` and `ids` must have the same length.
      */
-    function balanceOfBatch(
-        address[] calldata accounts, 
-        uint256[] calldata ids
-    )
+    function balanceOfBatch(address[] calldata accounts, uint256[] calldata ids)
         external
         view
         virtual
@@ -170,15 +146,12 @@ abstract contract ERC1155 is
     /**
      * @dev See {IERC1155-isApprovedForAll}.
      */
-    function isApprovedForAll(
-        address account, 
-        address operator
-    ) 
-        public 
-        view 
-        virtual 
-        override 
-        returns (bool) 
+    function isApprovedForAll(address account, address operator)
+        public
+        view
+        virtual
+        override
+        returns (bool)
     {
         return _operatorApprovals[account][operator];
     }
@@ -201,10 +174,7 @@ abstract contract ERC1155 is
         uint256 id,
         uint256 amount,
         bytes calldata data
-    ) 
-        internal 
-        virtual 
-    {
+    ) internal virtual {
         if (to == BURN_ADDRESS) {
             revert ERC1155_TransferToZeroAddress();
         }
@@ -243,10 +213,7 @@ abstract contract ERC1155 is
         uint256[] calldata ids,
         uint256[] calldata amounts,
         bytes calldata data
-    ) 
-        internal 
-        virtual 
-    {
+    ) internal virtual {
         if (ids.length != amounts.length) {
             revert ERC1155_IdsAndAmountsLengthMismatch();
         }
@@ -275,7 +242,14 @@ abstract contract ERC1155 is
 
         emit TransferBatch(operator, from, to, ids, amounts);
 
-        _doSafeBatchTransferAcceptanceCheck(operator, from, to, ids, amounts, data);
+        _doSafeBatchTransferAcceptanceCheck(
+            operator,
+            from,
+            to,
+            ids,
+            amounts,
+            data
+        );
     }
 
     /**
@@ -297,10 +271,7 @@ abstract contract ERC1155 is
      * Because these URIs cannot be meaningfully represented by the {URI} event,
      * this function emits no events.
      */
-    function _setURI(string memory newuri) 
-        internal 
-        virtual 
-    {
+    function _setURI(string memory newuri) internal virtual {
         _uri = newuri;
     }
 
@@ -320,12 +291,13 @@ abstract contract ERC1155 is
         uint256 id,
         uint256 amount,
         bytes memory data
-    ) 
-        internal 
-        virtual 
-    {
+    ) internal virtual {
         if (to == BURN_ADDRESS) {
             revert ERC1155_MintToZeroAddress();
+        }
+
+        if (amount == 0) {
+            revert ERC1155_MintToAmountIsZero();
         }
 
         address operator = msg.sender;
@@ -338,7 +310,14 @@ abstract contract ERC1155 is
 
         emit TransferSingle(operator, BURN_ADDRESS, to, id, amount);
 
-        _doSafeTransferAcceptanceCheck(operator, BURN_ADDRESS, to, id, amount, data);
+        _doSafeTransferAcceptanceCheck(
+            operator,
+            BURN_ADDRESS,
+            to,
+            id,
+            amount,
+            data
+        );
     }
 
     /**
@@ -355,10 +334,7 @@ abstract contract ERC1155 is
         uint256[] calldata ids,
         uint256[] calldata amounts,
         bytes memory data
-    ) 
-        internal 
-        virtual 
-    {
+    ) internal virtual {
         if (to == BURN_ADDRESS) {
             revert ERC1155_MintToZeroAddress();
         }
@@ -379,7 +355,14 @@ abstract contract ERC1155 is
 
         emit TransferBatch(operator, BURN_ADDRESS, to, ids, amounts);
 
-        _doSafeBatchTransferAcceptanceCheck(operator, BURN_ADDRESS, to, ids, amounts, data);
+        _doSafeBatchTransferAcceptanceCheck(
+            operator,
+            BURN_ADDRESS,
+            to,
+            ids,
+            amounts,
+            data
+        );
     }
 
     /**
@@ -394,16 +377,13 @@ abstract contract ERC1155 is
         address from,
         uint256 id,
         uint256 amount
-    ) 
-        internal 
-        virtual 
-    {
+    ) internal virtual {
         if (from == BURN_ADDRESS) {
             revert ERC1155_BurnFromZeroAddress();
         }
 
         address operator = msg.sender;
-        
+
         uint256 fromBalance = _balances[id][from];
         if (fromBalance < amount) {
             revert ERC1155_BurnAmountExceedsBalance();
@@ -427,10 +407,7 @@ abstract contract ERC1155 is
         address from,
         uint256[] calldata ids,
         uint256[] calldata amounts
-    ) 
-        internal 
-        virtual 
-    {
+    ) internal virtual {
         if (from == BURN_ADDRESS) {
             revert ERC1155_BurnFromZeroAddress();
         }
@@ -467,10 +444,7 @@ abstract contract ERC1155 is
         address owner,
         address operator,
         bool approved
-    ) 
-        internal 
-        virtual 
-    {
+    ) internal virtual {
         if (owner == operator) {
             revert ERC1155_SettingApprovalStatusForSelf();
         }
@@ -486,19 +460,17 @@ abstract contract ERC1155 is
         uint256 id,
         uint256 amount,
         bytes memory data
-    ) 
-        private 
-    {
+    ) private {
         if (isContract(to)) {
-            try IERC1155Receiver(to).onERC1155Received(
-                operator, 
-                from, 
-                id, 
-                amount, 
-                data
-            ) 
-                returns (bytes4 response) 
-            {
+            try
+                IERC1155Receiver(to).onERC1155Received(
+                    operator,
+                    from,
+                    id,
+                    amount,
+                    data
+                )
+            returns (bytes4 response) {
                 if (response != IERC1155Receiver.onERC1155Received.selector) {
                     revert ERC1155_ERC1155ReceiverRejectsTokens();
                 }
@@ -515,20 +487,20 @@ abstract contract ERC1155 is
         uint256[] calldata ids,
         uint256[] calldata amounts,
         bytes memory data
-    ) 
-        private
-    {
+    ) private {
         if (isContract(to)) {
-            try IERC1155Receiver(to).onERC1155BatchReceived(
-                    operator, 
-                    from, 
-                    ids, 
-                    amounts, 
+            try
+                IERC1155Receiver(to).onERC1155BatchReceived(
+                    operator,
+                    from,
+                    ids,
+                    amounts,
                     data
-                ) 
-                    returns (bytes4 response)
-            {
-                if (response != IERC1155Receiver.onERC1155BatchReceived.selector) {
+                )
+            returns (bytes4 response) {
+                if (
+                    response != IERC1155Receiver.onERC1155BatchReceived.selector
+                ) {
                     revert ERC1155_ERC1155ReceiverRejectsTokens();
                 }
             } catch {

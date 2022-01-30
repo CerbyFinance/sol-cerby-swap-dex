@@ -1,112 +1,112 @@
 {
-	"deploy": {
-		"VM:-": {
-			"linkReferences": {},
-			"autoDeployLib": true
-		},
-		"main:1": {
-			"linkReferences": {},
-			"autoDeployLib": true
-		},
-		"ropsten:3": {
-			"linkReferences": {},
-			"autoDeployLib": true
-		},
-		"rinkeby:4": {
-			"linkReferences": {},
-			"autoDeployLib": true
-		},
-		"kovan:42": {
-			"linkReferences": {},
-			"autoDeployLib": true
-		},
-		"görli:5": {
-			"linkReferences": {},
-			"autoDeployLib": true
-		},
-		"Custom": {
-			"linkReferences": {},
-			"autoDeployLib": true
-		}
-	},
-	"data": {
-		"bytecode": {
-			"generatedSources": [],
-			"linkReferences": {},
-			"object": "",
-			"opcodes": "",
-			"sourceMap": ""
-		},
-		"deployedBytecode": {
-			"generatedSources": [],
-			"immutableReferences": {},
-			"linkReferences": {},
-			"object": "",
-			"opcodes": "",
-			"sourceMap": ""
-		},
-		"gasEstimates": null,
-		"methodIdentifiers": {
-			"balanceOf(address)": "70a08231",
-			"burger(address,uint256)": "1bef86f4",
-			"mentos(address,uint256)": "1e9a04ed"
-		}
-	},
-	"abi": [
-		{
-			"inputs": [
-				{
-					"internalType": "address",
-					"name": "account",
-					"type": "address"
-				}
-			],
-			"name": "balanceOf",
-			"outputs": [
-				{
-					"internalType": "uint256",
-					"name": "",
-					"type": "uint256"
-				}
-			],
-			"stateMutability": "view",
-			"type": "function"
-		},
-		{
-			"inputs": [
-				{
-					"internalType": "address",
-					"name": "from",
-					"type": "address"
-				},
-				{
-					"internalType": "uint256",
-					"name": "desiredAmountBurn",
-					"type": "uint256"
-				}
-			],
-			"name": "burger",
-			"outputs": [],
-			"stateMutability": "nonpayable",
-			"type": "function"
-		},
-		{
-			"inputs": [
-				{
-					"internalType": "address",
-					"name": "to",
-					"type": "address"
-				},
-				{
-					"internalType": "uint256",
-					"name": "desiredAmountToMint",
-					"type": "uint256"
-				}
-			],
-			"name": "mentos",
-			"outputs": [],
-			"stateMutability": "nonpayable",
-			"type": "function"
-		}
-	]
+  "deploy": {
+    "VM:-": {
+      "linkReferences": {},
+      "autoDeployLib": true
+    },
+    "main:1": {
+      "linkReferences": {},
+      "autoDeployLib": true
+    },
+    "ropsten:3": {
+      "linkReferences": {},
+      "autoDeployLib": true
+    },
+    "rinkeby:4": {
+      "linkReferences": {},
+      "autoDeployLib": true
+    },
+    "kovan:42": {
+      "linkReferences": {},
+      "autoDeployLib": true
+    },
+    "görli:5": {
+      "linkReferences": {},
+      "autoDeployLib": true
+    },
+    "Custom": {
+      "linkReferences": {},
+      "autoDeployLib": true
+    }
+  },
+  "data": {
+    "bytecode": {
+      "generatedSources": [],
+      "linkReferences": {},
+      "object": "",
+      "opcodes": "",
+      "sourceMap": ""
+    },
+    "deployedBytecode": {
+      "generatedSources": [],
+      "immutableReferences": {},
+      "linkReferences": {},
+      "object": "",
+      "opcodes": "",
+      "sourceMap": ""
+    },
+    "gasEstimates": null,
+    "methodIdentifiers": {
+      "balanceOf(address)": "70a08231",
+      "burger(address,uint256)": "1bef86f4",
+      "mentos(address,uint256)": "1e9a04ed"
+    }
+  },
+  "abi": [
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "account",
+          "type": "address"
+        }
+      ],
+      "name": "balanceOf",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "from",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "desiredAmountBurn",
+          "type": "uint256"
+        }
+      ],
+      "name": "burger",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "to",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "desiredAmountToMint",
+          "type": "uint256"
+        }
+      ],
+      "name": "mentos",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ]
 }

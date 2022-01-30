@@ -15,7 +15,7 @@ module.exports = function (deployer) {
     // CerbyBotDetection,
     // CerbySwapLP1155V1,
     // CerbySwapV1,
-  ].forEach(item => deployer.deploy(item));
+  ].forEach((item) => deployer.deploy(item));
 } as Truffle.Migration;
 
 export {};

@@ -69,7 +69,12 @@ contract GovernorTimelockControlMock is
         return super.state(proposalId);
     }
 
-    function proposalThreshold() public view override(Governor, GovernorSettings) returns (uint256) {
+    function proposalThreshold()
+        public
+        view
+        override(Governor, GovernorSettings)
+        returns (uint256)
+    {
         return super.proposalThreshold();
     }
 
@@ -88,7 +93,12 @@ contract GovernorTimelockControlMock is
         uint256[] memory values,
         bytes[] memory calldatas,
         bytes32 descriptionHash
-    ) internal virtual override(Governor, GovernorTimelockControl) returns (uint256 proposalId) {
+    )
+        internal
+        virtual
+        override(Governor, GovernorTimelockControl)
+        returns (uint256 proposalId)
+    {
         return super._cancel(targets, values, calldatas, descriptionHash);
     }
 
@@ -102,7 +112,13 @@ contract GovernorTimelockControlMock is
         return super.getVotes(account, blockNumber);
     }
 
-    function _executor() internal view virtual override(Governor, GovernorTimelockControl) returns (address) {
+    function _executor()
+        internal
+        view
+        virtual
+        override(Governor, GovernorTimelockControl)
+        returns (address)
+    {
         return super._executor();
     }
 }

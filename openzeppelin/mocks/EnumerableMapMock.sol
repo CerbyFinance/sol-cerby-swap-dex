@@ -29,7 +29,11 @@ contract EnumerableMapMock {
         return _map.length();
     }
 
-    function at(uint256 index) public view returns (uint256 key, address value) {
+    function at(uint256 index)
+        public
+        view
+        returns (uint256 key, address value)
+    {
         return _map.at(index);
     }
 
@@ -41,7 +45,11 @@ contract EnumerableMapMock {
         return _map.get(key);
     }
 
-    function getWithMessage(uint256 key, string calldata errorMessage) public view returns (address) {
+    function getWithMessage(uint256 key, string calldata errorMessage)
+        public
+        view
+        returns (address)
+    {
         return _map.get(key, errorMessage);
     }
 }

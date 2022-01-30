@@ -7,10 +7,10 @@ const binPath = path.resolve(__dirname, "../../bin");
 const folder = fs.readdirSync(binPath);
 
 folder
-  .filter(item => item.includes("json") && !item.includes("solc-output"))
-  .forEach(item => {
+  .filter((item) => item.includes("json") && !item.includes("solc-output"))
+  .forEach((item) => {
     const { contractName, abi, bytecode } = JSON.parse(
-      fs.readFileSync(binPath + "/" + item, "utf8"),
+      fs.readFileSync(binPath + "/" + item, "utf8")
     );
 
     const toSave = {

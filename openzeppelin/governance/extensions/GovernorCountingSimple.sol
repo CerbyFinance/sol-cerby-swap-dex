@@ -33,14 +33,26 @@ abstract contract GovernorCountingSimple is Governor {
      * @dev See {IGovernor-COUNTING_MODE}.
      */
     // solhint-disable-next-line func-name-mixedcase
-    function COUNTING_MODE() public pure virtual override returns (string memory) {
+    function COUNTING_MODE()
+        public
+        pure
+        virtual
+        override
+        returns (string memory)
+    {
         return "support=bravo&quorum=for,abstain";
     }
 
     /**
      * @dev See {IGovernor-hasVoted}.
      */
-    function hasVoted(uint256 proposalId, address account) public view virtual override returns (bool) {
+    function hasVoted(uint256 proposalId, address account)
+        public
+        view
+        virtual
+        override
+        returns (bool)
+    {
         return _proposalVotes[proposalId].hasVoted[account];
     }
 
@@ -58,22 +70,40 @@ abstract contract GovernorCountingSimple is Governor {
         )
     {
         ProposalVote storage proposalvote = _proposalVotes[proposalId];
-        return (proposalvote.againstVotes, proposalvote.forVotes, proposalvote.abstainVotes);
+        return (
+            proposalvote.againstVotes,
+            proposalvote.forVotes,
+            proposalvote.abstainVotes
+        );
     }
 
     /**
      * @dev See {Governor-_quorumReached}.
      */
-    function _quorumReached(uint256 proposalId) internal view virtual override returns (bool) {
+    function _quorumReached(uint256 proposalId)
+        internal
+        view
+        virtual
+        override
+        returns (bool)
+    {
         ProposalVote storage proposalvote = _proposalVotes[proposalId];
 
-        return quorum(proposalSnapshot(proposalId)) <= proposalvote.forVotes + proposalvote.abstainVotes;
+        return
+            quorum(proposalSnapshot(proposalId)) <=
+            proposalvote.forVotes + proposalvote.abstainVotes;
     }
 
     /**
      * @dev See {Governor-_voteSucceeded}. In this module, the forVotes must be strictly over the againstVotes.
      */
-    function _voteSucceeded(uint256 proposalId) internal view virtual override returns (bool) {
+    function _voteSucceeded(uint256 proposalId)
+        internal
+        view
+        virtual
+        override
+        returns (bool)
+    {
         ProposalVote storage proposalvote = _proposalVotes[proposalId];
 
         return proposalvote.forVotes > proposalvote.againstVotes;
@@ -90,7 +120,10 @@ abstract contract GovernorCountingSimple is Governor {
     ) internal virtual override {
         ProposalVote storage proposalvote = _proposalVotes[proposalId];
 
-        require(!proposalvote.hasVoted[account], "GovernorVotingSimple: vote already cast");
+        require(
+            !proposalvote.hasVoted[account],
+            "GovernorVotingSimple: vote already cast"
+        );
         proposalvote.hasVoted[account] = true;
 
         if (support == uint8(VoteType.Against)) {

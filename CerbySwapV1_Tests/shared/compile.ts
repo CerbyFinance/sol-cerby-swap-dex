@@ -9,8 +9,8 @@ const binPath = path.resolve(__dirname, "../../bin");
 
 const ignite = async () => {
   const { stdout, stderr } = await execP(
-    path.resolve(__dirname, "../pre-compile.sh"),
-  ).catch(e => ({ stdout: "", stderr: e }));
+    path.resolve(__dirname, "../pre-compile.sh")
+  ).catch((e) => ({ stdout: "", stderr: e }));
 
   console.log(stderr);
   console.log(stdout);
@@ -26,11 +26,11 @@ const ignite = async () => {
   }, {} as { [key: string]: string[] });
 
   Object.entries(groupedByName).forEach(([contractName, values], _) => {
-    const abiFileName = values.find(item => item.includes("abi"))!;
-    const binFileName = values.find(item => item.includes("bin"))!;
+    const abiFileName = values.find((item) => item.includes("abi"))!;
+    const binFileName = values.find((item) => item.includes("bin"))!;
 
     const abi = JSON.parse(
-      fs.readFileSync(binPath + "/" + abiFileName, "utf8"),
+      fs.readFileSync(binPath + "/" + abiFileName, "utf8")
     );
     const bytecode = fs.readFileSync(binPath + "/" + binFileName, "utf8");
 
@@ -41,7 +41,7 @@ const ignite = async () => {
     };
 
     const pathToSave = path.resolve(
-      compiledPath + "/" + contractName + ".json",
+      compiledPath + "/" + contractName + ".json"
     );
 
     fs.writeFileSync(pathToSave, JSON.stringify(toSave, null, 2));

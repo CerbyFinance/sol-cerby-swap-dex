@@ -16,15 +16,24 @@ import "../ERC20.sol";
  * _Available since v4.1._
  */
 abstract contract ERC20FlashMint is ERC20, IERC3156FlashLender {
-    bytes32 private constant _RETURN_VALUE = keccak256("ERC3156FlashBorrower.onFlashLoan");
+    bytes32 private constant _RETURN_VALUE =
+        keccak256("ERC3156FlashBorrower.onFlashLoan");
 
     /**
      * @dev Returns the maximum amount of tokens available for loan.
      * @param token The address of the token that is requested.
      * @return The amont of token that can be loaned.
      */
-    function maxFlashLoan(address token) public view override returns (uint256) {
-        return token == address(this) ? type(uint256).max - ERC20.totalSupply() : 0;
+    function maxFlashLoan(address token)
+        public
+        view
+        override
+        returns (uint256)
+    {
+        return
+            token == address(this)
+                ? type(uint256).max - ERC20.totalSupply()
+                : 0;
     }
 
     /**
@@ -35,7 +44,13 @@ abstract contract ERC20FlashMint is ERC20, IERC3156FlashLender {
      * @param amount The amount of tokens to be loaned.
      * @return The fees applied to the corresponding flash loan.
      */
-    function flashFee(address token, uint256 amount) public view virtual override returns (uint256) {
+    function flashFee(address token, uint256 amount)
+        public
+        view
+        virtual
+        override
+        returns (uint256)
+    {
         require(token == address(this), "ERC20FlashMint: wrong token");
         // silence warning about unused variable without the addition of bytecode.
         amount;
@@ -65,12 +80,20 @@ abstract contract ERC20FlashMint is ERC20, IERC3156FlashLender {
         uint256 fee = flashFee(token, amount);
         _mint(address(receiver), amount);
         require(
-            receiver.onFlashLoan(msg.sender, token, amount, fee, data) == _RETURN_VALUE,
+            receiver.onFlashLoan(msg.sender, token, amount, fee, data) ==
+                _RETURN_VALUE,
             "ERC20FlashMint: invalid return value"
         );
         uint256 currentAllowance = allowance(address(receiver), address(this));
-        require(currentAllowance >= amount + fee, "ERC20FlashMint: allowance does not allow refund");
-        _approve(address(receiver), address(this), currentAllowance - amount - fee);
+        require(
+            currentAllowance >= amount + fee,
+            "ERC20FlashMint: allowance does not allow refund"
+        );
+        _approve(
+            address(receiver),
+            address(this),
+            currentAllowance - amount - fee
+        );
         _burn(address(receiver), amount + fee);
         return true;
     }

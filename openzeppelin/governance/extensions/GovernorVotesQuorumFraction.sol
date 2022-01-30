@@ -14,7 +14,10 @@ import "./GovernorVotes.sol";
 abstract contract GovernorVotesQuorumFraction is GovernorVotes {
     uint256 private _quorumNumerator;
 
-    event QuorumNumeratorUpdated(uint256 oldQuorumNumerator, uint256 newQuorumNumerator);
+    event QuorumNumeratorUpdated(
+        uint256 oldQuorumNumerator,
+        uint256 newQuorumNumerator
+    );
 
     constructor(uint256 quorumNumeratorValue) {
         _updateQuorumNumerator(quorumNumeratorValue);
@@ -28,15 +31,30 @@ abstract contract GovernorVotesQuorumFraction is GovernorVotes {
         return 100;
     }
 
-    function quorum(uint256 blockNumber) public view virtual override returns (uint256) {
-        return (token.getPastTotalSupply(blockNumber) * quorumNumerator()) / quorumDenominator();
+    function quorum(uint256 blockNumber)
+        public
+        view
+        virtual
+        override
+        returns (uint256)
+    {
+        return
+            (token.getPastTotalSupply(blockNumber) * quorumNumerator()) /
+            quorumDenominator();
     }
 
-    function updateQuorumNumerator(uint256 newQuorumNumerator) external virtual onlyGovernance {
+    function updateQuorumNumerator(uint256 newQuorumNumerator)
+        external
+        virtual
+        onlyGovernance
+    {
         _updateQuorumNumerator(newQuorumNumerator);
     }
 
-    function _updateQuorumNumerator(uint256 newQuorumNumerator) internal virtual {
+    function _updateQuorumNumerator(uint256 newQuorumNumerator)
+        internal
+        virtual
+    {
         require(
             newQuorumNumerator <= quorumDenominator(),
             "GovernorVotesQuorumFraction: quorumNumerator over quorumDenominator"

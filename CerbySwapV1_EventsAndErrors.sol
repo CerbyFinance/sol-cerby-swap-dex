@@ -2,43 +2,37 @@
 
 pragma solidity ^0.8.11;
 
-
 abstract contract CerbySwapV1_EventsAndErrors {
-
-    event PairCreated(
-        address token,
-        uint poolId
-    );
+    event PairCreated(address token, uint256 poolId);
     event LiquidityAdded(
-        address token, 
-        uint amountTokensIn, 
-        uint amountCerUsdToMint, 
-        uint lpAmount
+        address token,
+        uint256 amountTokensIn,
+        uint256 amountCerUsdToMint,
+        uint256 lpAmount
     );
     event LiquidityRemoved(
-        address token, 
-        uint amountTokensOut, 
-        uint amountCerUsdToBurn, 
-        uint amountLpTokensBalanceToBurn
+        address token,
+        uint256 amountTokensOut,
+        uint256 amountCerUsdToBurn,
+        uint256 amountLpTokensBalanceToBurn
     );
     event Swap(
         address token,
-        address sender, 
-        uint amountTokensIn, 
-        uint amountCerUsdIn, 
-        uint amountTokensOut, 
-        uint amountCerUsdOut,
-        uint currentFee,
+        address sender,
+        uint256 amountTokensIn,
+        uint256 amountCerUsdIn,
+        uint256 amountTokensOut,
+        uint256 amountCerUsdOut,
+        uint256 currentFee,
         address transferTo
     );
     event Sync(
-        address token, 
-        uint newBalanceToken, 
-        uint newBalanceCerUsd,
-        uint newCreditCerUsd
+        address token,
+        uint256 newBalanceToken,
+        uint256 newBalanceCerUsd,
+        uint256 newCreditCerUsd
     );
 
-        
     error CerbySwapV1_TokenAlreadyExists();
     error CerbySwapV1_TokenDoesNotExist();
     error CerbySwapV1_TransactionIsExpired();

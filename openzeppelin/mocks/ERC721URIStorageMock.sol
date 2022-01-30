@@ -11,7 +11,9 @@ import "../token/ERC721/extensions/ERC721URIStorage.sol";
 contract ERC721URIStorageMock is ERC721URIStorage {
     string private _baseTokenURI;
 
-    constructor(string memory name, string memory symbol) ERC721(name, symbol) {}
+    constructor(string memory name, string memory symbol)
+        ERC721(name, symbol)
+    {}
 
     function _baseURI() internal view virtual override returns (string memory) {
         return _baseTokenURI;

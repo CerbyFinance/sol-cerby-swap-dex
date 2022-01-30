@@ -61,7 +61,12 @@ contract GovernorCompatibilityBravoMock is
         return super.proposalEta(proposalId);
     }
 
-    function proposalThreshold() public view override(Governor, GovernorSettings) returns (uint256) {
+    function proposalThreshold()
+        public
+        view
+        override(Governor, GovernorSettings)
+        returns (uint256)
+    {
         return super.proposalThreshold();
     }
 
@@ -70,7 +75,12 @@ contract GovernorCompatibilityBravoMock is
         uint256[] memory values,
         bytes[] memory calldatas,
         string memory description
-    ) public virtual override(IGovernor, Governor, GovernorCompatibilityBravo) returns (uint256) {
+    )
+        public
+        virtual
+        override(IGovernor, Governor, GovernorCompatibilityBravo)
+        returns (uint256)
+    {
         return super.propose(targets, values, calldatas, description);
     }
 
@@ -79,7 +89,12 @@ contract GovernorCompatibilityBravoMock is
         uint256[] memory values,
         bytes[] memory calldatas,
         bytes32 salt
-    ) public virtual override(IGovernorTimelock, GovernorTimelockCompound) returns (uint256) {
+    )
+        public
+        virtual
+        override(IGovernorTimelock, GovernorTimelockCompound)
+        returns (uint256)
+    {
         return super.queue(targets, values, calldatas, salt);
     }
 
@@ -120,7 +135,12 @@ contract GovernorCompatibilityBravoMock is
         uint256[] memory values,
         bytes[] memory calldatas,
         bytes32 salt
-    ) internal virtual override(Governor, GovernorTimelockCompound) returns (uint256 proposalId) {
+    )
+        internal
+        virtual
+        override(Governor, GovernorTimelockCompound)
+        returns (uint256 proposalId)
+    {
         return super._cancel(targets, values, calldatas, salt);
     }
 
@@ -134,7 +154,13 @@ contract GovernorCompatibilityBravoMock is
         return super.getVotes(account, blockNumber);
     }
 
-    function _executor() internal view virtual override(Governor, GovernorTimelockCompound) returns (address) {
+    function _executor()
+        internal
+        view
+        virtual
+        override(Governor, GovernorTimelockCompound)
+        returns (address)
+    {
         return super._executor();
     }
 }

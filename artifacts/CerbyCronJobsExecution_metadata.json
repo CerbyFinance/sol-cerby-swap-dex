@@ -51,34 +51,34 @@
 			"bytecodeHash": "ipfs"
 		},
 		"optimizer": {
-			"enabled": false,
+			"enabled": true,
 			"runs": 200
 		},
 		"remappings": []
 	},
 	"sources": {
 		"sol-cerby-swap-v1/CerbyCronJobsExecution.sol": {
-			"keccak256": "0x69d63337590225a89fec8c5553727ab03663387ddad89b4d37def9bb28f81ab5",
+			"keccak256": "0x3e10ba6f6f9e39a71cd69036ce00b599f9c27bdd114f6f94bc0a8fbeb2e6127c",
 			"license": "BUSL-1.1",
 			"urls": [
-				"bzz-raw://1cd5f919daed236fe3887fb7ae88b5f108e4b62a9efd7017377d79d7601a23b9",
-				"dweb:/ipfs/Qmc3Hu8V6DyJr3ERJVdm7AzNeD3ypH4QjE6yuCS1mNdV43"
+				"bzz-raw://aac8f278c3f3acf489d232bf64de4b7550b3885dd6c2f2708d6f9a9819e967b9",
+				"dweb:/ipfs/QmSj6b3f17EzvYaXXGFGCx2mDVBKLH2VNnAkXNhGWAEQqr"
 			]
 		},
 		"sol-cerby-swap-v1/interfaces/ICerbyBotDetection.sol": {
-			"keccak256": "0x67fbd6f84cd6054f4c818863f096c7e7f5bf7f062e65cd4da11c30c665aa22b8",
+			"keccak256": "0x1edc9775a343929a6722a1f8cde8b41d15959e58439ed6a606b1ecf6c1920bb7",
 			"license": "BUSL-1.1",
 			"urls": [
-				"bzz-raw://8ce3d4c1e96555f4f86b40adc7b0a4176d9079507ea6bd0fbc619b698dbbe6d3",
-				"dweb:/ipfs/QmczDqHq8STu2h4cyxVex9oHaseKWxxQwVgZ7TAJJF8cQm"
+				"bzz-raw://917931f683191dfc3d381fd70cde802fbd967fc691e727445bc2a33ec87e9fa8",
+				"dweb:/ipfs/QmZY9619gqezspATPKNGhFBgAcZA7dBmF4JADjf1xysEZs"
 			]
 		},
 		"sol-cerby-swap-v1/interfaces/ICerbyToken.sol": {
-			"keccak256": "0x1cf233391c970f48f8e1a2db9a3e81c4ebb8c2ff423c6d1c553df632f04abf2d",
+			"keccak256": "0x4e54c2b2e26a8614ad9d19d94b0cf97c134f6b6f333557dd41d5d0981465f92f",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://845a3faee636b03fa2b2e09a4d43df33ce2f1ac5f031c9f4d9f7a5f2a1d5ee7e",
-				"dweb:/ipfs/QmV6PFf9HzucpBj4y6zvW7BbuMRGhQAEa7MRWKCCREgB7V"
+				"bzz-raw://b0fa49f30eed7d09333d1e4463f16bb0a253ddf4a85fd04bac7f0d2064472e6a",
+				"dweb:/ipfs/Qmas97Mp7VUZkU6vb15Ed9WV63kcER9SRdt76m7DDtic5u"
 			]
 		}
 	},

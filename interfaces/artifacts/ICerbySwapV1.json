@@ -1,298 +1,298 @@
 {
-	"deploy": {
-		"VM:-": {
-			"linkReferences": {},
-			"autoDeployLib": true
-		},
-		"main:1": {
-			"linkReferences": {},
-			"autoDeployLib": true
-		},
-		"ropsten:3": {
-			"linkReferences": {},
-			"autoDeployLib": true
-		},
-		"rinkeby:4": {
-			"linkReferences": {},
-			"autoDeployLib": true
-		},
-		"kovan:42": {
-			"linkReferences": {},
-			"autoDeployLib": true
-		},
-		"görli:5": {
-			"linkReferences": {},
-			"autoDeployLib": true
-		},
-		"Custom": {
-			"linkReferences": {},
-			"autoDeployLib": true
-		}
-	},
-	"data": {
-		"bytecode": {
-			"functionDebugData": {},
-			"generatedSources": [],
-			"linkReferences": {},
-			"object": "",
-			"opcodes": "",
-			"sourceMap": ""
-		},
-		"deployedBytecode": {
-			"functionDebugData": {},
-			"generatedSources": [],
-			"immutableReferences": {},
-			"linkReferences": {},
-			"object": "",
-			"opcodes": "",
-			"sourceMap": ""
-		},
-		"gasEstimates": null,
-		"methodIdentifiers": {
-			"addTokenLiquidity(address,uint256,uint256,address)": "43fefad4",
-			"getCurrentFeeBasedOnTrades(address)": "9162ebf0",
-			"getInputTokensForExactTokens(address,address,uint256)": "c790985a",
-			"getOutputExactTokensForTokens(address,address,uint256)": "48b08d62",
-			"getPoolsByTokens(address[])": "34e150ab",
-			"removeTokenLiquidity(address,uint256,uint256,address)": "74fcf071",
-			"swapExactTokensForTokens(address,address,uint256,uint256,uint256,address)": "a60c6e55"
-		}
-	},
-	"abi": [
-		{
-			"inputs": [
-				{
-					"internalType": "address",
-					"name": "token",
-					"type": "address"
-				},
-				{
-					"internalType": "uint256",
-					"name": "amountTokensIn",
-					"type": "uint256"
-				},
-				{
-					"internalType": "uint256",
-					"name": "expireTimestamp",
-					"type": "uint256"
-				},
-				{
-					"internalType": "address",
-					"name": "transferTo",
-					"type": "address"
-				}
-			],
-			"name": "addTokenLiquidity",
-			"outputs": [
-				{
-					"internalType": "uint256",
-					"name": "",
-					"type": "uint256"
-				}
-			],
-			"stateMutability": "payable",
-			"type": "function"
-		},
-		{
-			"inputs": [
-				{
-					"internalType": "address",
-					"name": "token",
-					"type": "address"
-				}
-			],
-			"name": "getCurrentFeeBasedOnTrades",
-			"outputs": [
-				{
-					"internalType": "uint256",
-					"name": "fee",
-					"type": "uint256"
-				}
-			],
-			"stateMutability": "view",
-			"type": "function"
-		},
-		{
-			"inputs": [
-				{
-					"internalType": "address",
-					"name": "tokenIn",
-					"type": "address"
-				},
-				{
-					"internalType": "address",
-					"name": "tokenOut",
-					"type": "address"
-				},
-				{
-					"internalType": "uint256",
-					"name": "amountTokensOut",
-					"type": "uint256"
-				}
-			],
-			"name": "getInputTokensForExactTokens",
-			"outputs": [
-				{
-					"internalType": "uint256",
-					"name": "amountTokensIn",
-					"type": "uint256"
-				}
-			],
-			"stateMutability": "view",
-			"type": "function"
-		},
-		{
-			"inputs": [
-				{
-					"internalType": "address",
-					"name": "tokenIn",
-					"type": "address"
-				},
-				{
-					"internalType": "address",
-					"name": "tokenOut",
-					"type": "address"
-				},
-				{
-					"internalType": "uint256",
-					"name": "amountTokensIn",
-					"type": "uint256"
-				}
-			],
-			"name": "getOutputExactTokensForTokens",
-			"outputs": [
-				{
-					"internalType": "uint256",
-					"name": "amountTokensOut",
-					"type": "uint256"
-				}
-			],
-			"stateMutability": "view",
-			"type": "function"
-		},
-		{
-			"inputs": [
-				{
-					"internalType": "address[]",
-					"name": "tokens",
-					"type": "address[]"
-				}
-			],
-			"name": "getPoolsByTokens",
-			"outputs": [
-				{
-					"components": [
-						{
-							"internalType": "uint32[8]",
-							"name": "tradeVolumePerPeriodInCerUsd",
-							"type": "uint32[8]"
-						},
-						{
-							"internalType": "uint128",
-							"name": "balanceToken",
-							"type": "uint128"
-						},
-						{
-							"internalType": "uint128",
-							"name": "balanceCerUsd",
-							"type": "uint128"
-						},
-						{
-							"internalType": "uint128",
-							"name": "lastSqrtKValue",
-							"type": "uint128"
-						}
-					],
-					"internalType": "struct Pool[]",
-					"name": "",
-					"type": "tuple[]"
-				}
-			],
-			"stateMutability": "view",
-			"type": "function"
-		},
-		{
-			"inputs": [
-				{
-					"internalType": "address",
-					"name": "token",
-					"type": "address"
-				},
-				{
-					"internalType": "uint256",
-					"name": "amountLpTokensBalanceToBurn",
-					"type": "uint256"
-				},
-				{
-					"internalType": "uint256",
-					"name": "expireTimestamp",
-					"type": "uint256"
-				},
-				{
-					"internalType": "address",
-					"name": "transferTo",
-					"type": "address"
-				}
-			],
-			"name": "removeTokenLiquidity",
-			"outputs": [
-				{
-					"internalType": "uint256",
-					"name": "",
-					"type": "uint256"
-				}
-			],
-			"stateMutability": "nonpayable",
-			"type": "function"
-		},
-		{
-			"inputs": [
-				{
-					"internalType": "address",
-					"name": "tokenIn",
-					"type": "address"
-				},
-				{
-					"internalType": "address",
-					"name": "tokenOut",
-					"type": "address"
-				},
-				{
-					"internalType": "uint256",
-					"name": "amountTokensIn",
-					"type": "uint256"
-				},
-				{
-					"internalType": "uint256",
-					"name": "minAmountTokensOut",
-					"type": "uint256"
-				},
-				{
-					"internalType": "uint256",
-					"name": "expireTimestamp",
-					"type": "uint256"
-				},
-				{
-					"internalType": "address",
-					"name": "transferTo",
-					"type": "address"
-				}
-			],
-			"name": "swapExactTokensForTokens",
-			"outputs": [
-				{
-					"internalType": "uint256",
-					"name": "",
-					"type": "uint256"
-				},
-				{
-					"internalType": "uint256",
-					"name": "",
-					"type": "uint256"
-				}
-			],
-			"stateMutability": "payable",
-			"type": "function"
-		}
-	]
+  "deploy": {
+    "VM:-": {
+      "linkReferences": {},
+      "autoDeployLib": true
+    },
+    "main:1": {
+      "linkReferences": {},
+      "autoDeployLib": true
+    },
+    "ropsten:3": {
+      "linkReferences": {},
+      "autoDeployLib": true
+    },
+    "rinkeby:4": {
+      "linkReferences": {},
+      "autoDeployLib": true
+    },
+    "kovan:42": {
+      "linkReferences": {},
+      "autoDeployLib": true
+    },
+    "görli:5": {
+      "linkReferences": {},
+      "autoDeployLib": true
+    },
+    "Custom": {
+      "linkReferences": {},
+      "autoDeployLib": true
+    }
+  },
+  "data": {
+    "bytecode": {
+      "functionDebugData": {},
+      "generatedSources": [],
+      "linkReferences": {},
+      "object": "",
+      "opcodes": "",
+      "sourceMap": ""
+    },
+    "deployedBytecode": {
+      "functionDebugData": {},
+      "generatedSources": [],
+      "immutableReferences": {},
+      "linkReferences": {},
+      "object": "",
+      "opcodes": "",
+      "sourceMap": ""
+    },
+    "gasEstimates": null,
+    "methodIdentifiers": {
+      "addTokenLiquidity(address,uint256,uint256,address)": "43fefad4",
+      "getCurrentFeeBasedOnTrades(address)": "9162ebf0",
+      "getInputTokensForExactTokens(address,address,uint256)": "c790985a",
+      "getOutputExactTokensForTokens(address,address,uint256)": "48b08d62",
+      "getPoolsByTokens(address[])": "34e150ab",
+      "removeTokenLiquidity(address,uint256,uint256,address)": "74fcf071",
+      "swapExactTokensForTokens(address,address,uint256,uint256,uint256,address)": "a60c6e55"
+    }
+  },
+  "abi": [
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "token",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "amountTokensIn",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "expireTimestamp",
+          "type": "uint256"
+        },
+        {
+          "internalType": "address",
+          "name": "transferTo",
+          "type": "address"
+        }
+      ],
+      "name": "addTokenLiquidity",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "payable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "token",
+          "type": "address"
+        }
+      ],
+      "name": "getCurrentFeeBasedOnTrades",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "fee",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "tokenIn",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "tokenOut",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "amountTokensOut",
+          "type": "uint256"
+        }
+      ],
+      "name": "getInputTokensForExactTokens",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "amountTokensIn",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "tokenIn",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "tokenOut",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "amountTokensIn",
+          "type": "uint256"
+        }
+      ],
+      "name": "getOutputExactTokensForTokens",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "amountTokensOut",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address[]",
+          "name": "tokens",
+          "type": "address[]"
+        }
+      ],
+      "name": "getPoolsByTokens",
+      "outputs": [
+        {
+          "components": [
+            {
+              "internalType": "uint32[8]",
+              "name": "tradeVolumePerPeriodInCerUsd",
+              "type": "uint32[8]"
+            },
+            {
+              "internalType": "uint128",
+              "name": "balanceToken",
+              "type": "uint128"
+            },
+            {
+              "internalType": "uint128",
+              "name": "balanceCerUsd",
+              "type": "uint128"
+            },
+            {
+              "internalType": "uint128",
+              "name": "lastSqrtKValue",
+              "type": "uint128"
+            }
+          ],
+          "internalType": "struct Pool[]",
+          "name": "",
+          "type": "tuple[]"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "token",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "amountLpTokensBalanceToBurn",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "expireTimestamp",
+          "type": "uint256"
+        },
+        {
+          "internalType": "address",
+          "name": "transferTo",
+          "type": "address"
+        }
+      ],
+      "name": "removeTokenLiquidity",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "tokenIn",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "tokenOut",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "amountTokensIn",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "minAmountTokensOut",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "expireTimestamp",
+          "type": "uint256"
+        },
+        {
+          "internalType": "address",
+          "name": "transferTo",
+          "type": "address"
+        }
+      ],
+      "name": "swapExactTokensForTokens",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "payable",
+      "type": "function"
+    }
+  ]
 }

@@ -52,7 +52,13 @@ abstract contract IGovernor is IERC165 {
      *
      * Note: `support` values should be seen as buckets. There interpretation depends on the voting module used.
      */
-    event VoteCast(address indexed voter, uint256 proposalId, uint8 support, uint256 weight, string reason);
+    event VoteCast(
+        address indexed voter,
+        uint256 proposalId,
+        uint8 support,
+        uint256 weight,
+        string reason
+    );
 
     /**
      * @notice module:core
@@ -100,7 +106,11 @@ abstract contract IGovernor is IERC165 {
      * @notice module:core
      * @dev Current state of a proposal, following Compound's convention
      */
-    function state(uint256 proposalId) public view virtual returns (ProposalState);
+    function state(uint256 proposalId)
+        public
+        view
+        virtual
+        returns (ProposalState);
 
     /**
      * @notice module:core
@@ -108,14 +118,22 @@ abstract contract IGovernor is IERC165 {
      * ERC20Votes, the snapshot is performed at the end of this block. Hence, voting for this proposal starts at the
      * beginning of the following block.
      */
-    function proposalSnapshot(uint256 proposalId) public view virtual returns (uint256);
+    function proposalSnapshot(uint256 proposalId)
+        public
+        view
+        virtual
+        returns (uint256);
 
     /**
      * @notice module:core
      * @dev Block number at which votes close. Votes close at the end of this block, so it is possible to cast a vote
      * during this block.
      */
-    function proposalDeadline(uint256 proposalId) public view virtual returns (uint256);
+    function proposalDeadline(uint256 proposalId)
+        public
+        view
+        virtual
+        returns (uint256);
 
     /**
      * @notice module:user-config
@@ -149,13 +167,21 @@ abstract contract IGovernor is IERC165 {
      * Note: this can be implemented in a number of ways, for example by reading the delegated balance from one (or
      * multiple), {ERC20Votes} tokens.
      */
-    function getVotes(address account, uint256 blockNumber) public view virtual returns (uint256);
+    function getVotes(address account, uint256 blockNumber)
+        public
+        view
+        virtual
+        returns (uint256);
 
     /**
      * @notice module:voting
      * @dev Returns weither `account` has cast a vote on `proposalId`.
      */
-    function hasVoted(uint256 proposalId, address account) public view virtual returns (bool);
+    function hasVoted(uint256 proposalId, address account)
+        public
+        view
+        virtual
+        returns (bool);
 
     /**
      * @dev Create a new proposal. Vote start {IGovernor-votingDelay} blocks after the proposal is created and ends
@@ -190,7 +216,10 @@ abstract contract IGovernor is IERC165 {
      *
      * Emits a {VoteCast} event.
      */
-    function castVote(uint256 proposalId, uint8 support) public virtual returns (uint256 balance);
+    function castVote(uint256 proposalId, uint8 support)
+        public
+        virtual
+        returns (uint256 balance);
 
     /**
      * @dev Cast a with a reason

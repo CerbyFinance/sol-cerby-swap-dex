@@ -6,10 +6,7 @@ import BN from "bn.js";
 import { EventData, PastEventOptions } from "web3-eth-contract";
 
 export interface ERC1155Contract extends Truffle.Contract<ERC1155Instance> {
-  "new"(
-    uri_: string,
-    meta?: Truffle.TransactionDetails
-  ): Promise<ERC1155Instance>;
+  "new"(meta?: Truffle.TransactionDetails): Promise<ERC1155Instance>;
 }
 
 export interface ApprovalForAll {
@@ -80,6 +77,11 @@ export interface ERC1155Instance extends Truffle.ContractInstance {
     ids: (number | BN | string)[],
     txDetails?: Truffle.TransactionDetails
   ): Promise<BN[]>;
+
+  exists(
+    id: number | BN | string,
+    txDetails?: Truffle.TransactionDetails
+  ): Promise<boolean>;
 
   isApprovedForAll(
     account: string,
@@ -185,6 +187,11 @@ export interface ERC1155Instance extends Truffle.ContractInstance {
     txDetails?: Truffle.TransactionDetails
   ): Promise<boolean>;
 
+  totalSupply(
+    id: number | BN | string,
+    txDetails?: Truffle.TransactionDetails
+  ): Promise<BN>;
+
   uri(
     arg0: number | BN | string,
     txDetails?: Truffle.TransactionDetails
@@ -202,6 +209,11 @@ export interface ERC1155Instance extends Truffle.ContractInstance {
       ids: (number | BN | string)[],
       txDetails?: Truffle.TransactionDetails
     ): Promise<BN[]>;
+
+    exists(
+      id: number | BN | string,
+      txDetails?: Truffle.TransactionDetails
+    ): Promise<boolean>;
 
     isApprovedForAll(
       account: string,
@@ -306,6 +318,11 @@ export interface ERC1155Instance extends Truffle.ContractInstance {
       interfaceId: string,
       txDetails?: Truffle.TransactionDetails
     ): Promise<boolean>;
+
+    totalSupply(
+      id: number | BN | string,
+      txDetails?: Truffle.TransactionDetails
+    ): Promise<BN>;
 
     uri(
       arg0: number | BN | string,

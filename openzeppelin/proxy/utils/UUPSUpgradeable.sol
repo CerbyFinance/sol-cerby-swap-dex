@@ -29,8 +29,14 @@ abstract contract UUPSUpgradeable is ERC1967Upgrade {
      * fail.
      */
     modifier onlyProxy() {
-        require(address(this) != __self, "Function must be called through delegatecall");
-        require(_getImplementation() == __self, "Function must be called through active proxy");
+        require(
+            address(this) != __self,
+            "Function must be called through delegatecall"
+        );
+        require(
+            _getImplementation() == __self,
+            "Function must be called through active proxy"
+        );
         _;
     }
 
@@ -54,7 +60,12 @@ abstract contract UUPSUpgradeable is ERC1967Upgrade {
      *
      * Emits an {Upgraded} event.
      */
-    function upgradeToAndCall(address newImplementation, bytes memory data) external payable virtual onlyProxy {
+    function upgradeToAndCall(address newImplementation, bytes memory data)
+        external
+        payable
+        virtual
+        onlyProxy
+    {
         _authorizeUpgrade(newImplementation);
         _upgradeToAndCallSecure(newImplementation, data, true);
     }
