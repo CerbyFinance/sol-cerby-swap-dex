@@ -37,6 +37,7 @@ contract("Cerby", (accounts) => {
     const ETH_POOL_POS = await cerbySwap.getTokenToPoolId(
       "0x14769F96e57B80c66837701DE0B43686Fb4632De"
     );
+    console.log(Date.now());
     console.log("CerbySwapV1 Address: " + cerbySwap.address);
     console.log("TestCerbyToken Address: " + TestCerbyToken.address);
     console.log("TestCerUsdToken Address: " + TestCerUsdToken.address);
