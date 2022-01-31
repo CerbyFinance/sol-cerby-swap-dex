@@ -123,19 +123,12 @@ export interface CerbySwapV1GetFunctionsInstance
     feeMaximum: BN;
     tvlMultiplierMinimum: BN;
     tvlMultiplierMaximum: BN;
-    sincePeriodAgoToTrackTradeVolume: BN;
   }>;
 
   getTokenToPoolId(
     _token: string,
     txDetails?: Truffle.TransactionDetails
   ): Promise<BN>;
-
-  hourlyCache(
-    arg0: string,
-    arg1: number | BN | string,
-    txDetails?: Truffle.TransactionDetails
-  ): Promise<{ 0: BN; 1: BN }>;
 
   methods: {
     getCurrentOneMinusFeeBasedOnTrades(
@@ -171,19 +164,12 @@ export interface CerbySwapV1GetFunctionsInstance
       feeMaximum: BN;
       tvlMultiplierMinimum: BN;
       tvlMultiplierMaximum: BN;
-      sincePeriodAgoToTrackTradeVolume: BN;
     }>;
 
     getTokenToPoolId(
       _token: string,
       txDetails?: Truffle.TransactionDetails
     ): Promise<BN>;
-
-    hourlyCache(
-      arg0: string,
-      arg1: number | BN | string,
-      txDetails?: Truffle.TransactionDetails
-    ): Promise<{ 0: BN; 1: BN }>;
   };
 
   getPastEvents(event: string): Promise<EventData[]>;

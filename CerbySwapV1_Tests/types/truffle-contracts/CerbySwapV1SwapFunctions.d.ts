@@ -267,7 +267,6 @@ export interface CerbySwapV1SwapFunctionsInstance
     feeMaximum: BN;
     tvlMultiplierMinimum: BN;
     tvlMultiplierMaximum: BN;
-    sincePeriodAgoToTrackTradeVolume: BN;
   }>;
 
   getTokenToPoolId(
@@ -279,12 +278,6 @@ export interface CerbySwapV1SwapFunctionsInstance
     _pos: number | BN | string,
     txDetails?: Truffle.TransactionDetails
   ): Promise<string>;
-
-  hourlyCache(
-    arg0: string,
-    arg1: number | BN | string,
-    txDetails?: Truffle.TransactionDetails
-  ): Promise<{ 0: BN; 1: BN }>;
 
   increaseCerUsdCreditInPool: {
     (
@@ -646,7 +639,6 @@ export interface CerbySwapV1SwapFunctionsInstance
       feeMaximum: BN;
       tvlMultiplierMinimum: BN;
       tvlMultiplierMaximum: BN;
-      sincePeriodAgoToTrackTradeVolume: BN;
     }>;
 
     getTokenToPoolId(
@@ -658,12 +650,6 @@ export interface CerbySwapV1SwapFunctionsInstance
       _pos: number | BN | string,
       txDetails?: Truffle.TransactionDetails
     ): Promise<string>;
-
-    hourlyCache(
-      arg0: string,
-      arg1: number | BN | string,
-      txDetails?: Truffle.TransactionDetails
-    ): Promise<{ 0: BN; 1: BN }>;
 
     increaseCerUsdCreditInPool: {
       (

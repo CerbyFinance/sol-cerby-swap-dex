@@ -173,22 +173,22 @@ abstract contract CerbySwapV1_GetFunctions is
         // TVL * min < trades < TVL * max   ---> fee is between feeMaximum and feeMinimum
         // trades >= TVL * max              ---> fee = feeMinimum
         uint256 tvlMin = (_poolBalances.balanceCerUsd *
-            settings.tvlMultiplierMinimum) / TVL_MULTIPLIER_DENORM;
+            uint256(settings.tvlMultiplierMinimum)) / TVL_MULTIPLIER_DENORM;
         uint256 tvlMax = (_poolBalances.balanceCerUsd *
-            settings.tvlMultiplierMaximum) / TVL_MULTIPLIER_DENORM;
+            uint256(settings.tvlMultiplierMaximum)) / TVL_MULTIPLIER_DENORM;
         if (volume <= tvlMin) {
-            return FEE_DENORM - settings.feeMaximum; // fee is maximum
+            return FEE_DENORM - uint256(settings.feeMaximum); // fee is maximum
         }
-        
+
         if (volume >= tvlMax) {
-            return FEE_DENORM - settings.feeMinimum; // fee is minimum
+            return FEE_DENORM - uint256(settings.feeMinimum); // fee is minimum
         }
-        
+
         return
             FEE_DENORM -
-            settings.feeMaximum +
+            uint256(settings.feeMaximum) +
             ((volume - tvlMin) *
-                (settings.feeMaximum - settings.feeMinimum)) /
+                (uint256(settings.feeMaximum) - uint256(settings.feeMinimum))) /
             (tvlMax - tvlMin); // fee is between minimum and maximum
     }
 

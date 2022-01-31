@@ -106,6 +106,8 @@ abstract contract CerbySwapV1_LiquidityFunctions is
         Pool memory pool = Pool(
             vaultAddress,
             tradeVolumePerPeriodInCerUsd,
+            type(uint8).max, // lastCachedTradePeriod
+            uint16(FEE_DENORM - settings.feeMaximum), // lastCachedOneMinusFee
             uint128(newSqrtKValue),
             uint128(_creditCerUsd)
         );
@@ -369,7 +371,7 @@ abstract contract CerbySwapV1_LiquidityFunctions is
         uint256 _totalLPSupply
     ) private view returns (uint256) {
         uint256 amountLpTokensToMintAsFee;
-        uint256 mintFeeMultiplier = settings.mintFeeMultiplier;
+        uint256 mintFeeMultiplier = uint256(settings.mintFeeMultiplier);
         if (
             _newSqrtKValue > _lastSqrtKValue &&
             _lastSqrtKValue > 0 &&

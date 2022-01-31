@@ -4,8 +4,7 @@ pragma solidity ^0.8.11;
 
 import "./CerbySwapV1_LiquidityFunctions.sol";
 
-abstract contract CerbySwapV1_SwapFunctions is CerbySwapV1_LiquidityFunctions
-{
+abstract contract CerbySwapV1_SwapFunctions is CerbySwapV1_LiquidityFunctions {
     function swapExactTokensForTokens(
         address _tokenIn,
         address _tokenOut,
@@ -404,18 +403,29 @@ abstract contract CerbySwapV1_SwapFunctions is CerbySwapV1_LiquidityFunctions
             revert CerbySwapV1_CreditCerUsdMustNotBeBelowZero();
         }
 
-        // calculating old K value including trade fees (multiplied by FEE_DENORM^2)
-        uint256 beforeKValueDenormed = _poolBalancesBefore.balanceToken *
-            _poolBalancesBefore.balanceCerUsd *
-            FEE_DENORM_SQUARED;
-
         // calculating fees
         // if swap is ANY --> cerUSD, fee is calculated
         // if swap is cerUSD --> ANY, fee is zero
-        uint256 oneMinusFee = amountCerUsdIn > 1 && amountTokensIn <= 1
-            ? FEE_DENORM
-            : _getCurrentOneMinusFeeBasedOnTrades(pool, _poolBalancesBefore);
+        uint256 currentPeriod = _getCurrentPeriod();
+        uint256 oneMinusFee = FEE_DENORM;
+        if (amountCerUsdIn > 1 && amountTokensIn <= 1) {
+            if (currentPeriod != pool.lastCachedTradePeriod) {
+                pool.lastCachedTradePeriod = uint8(currentPeriod);
+                pool.lastCachedOneMinusFee = uint16(
+                    _getCurrentOneMinusFeeBasedOnTrades(
+                        pool,
+                        _poolBalancesBefore
+                    )
+                );
+            }
+            oneMinusFee = pool.lastCachedOneMinusFee;
+        }
         {
+            // calculating old K value including trade fees (multiplied by FEE_DENORM^2)
+            uint256 beforeKValueDenormed = _poolBalancesBefore.balanceToken *
+                _poolBalancesBefore.balanceCerUsd *
+                FEE_DENORM_SQUARED;
+
             // calculating new K value including trade fees
             uint256 afterKValueDenormed = (poolBalancesAfter.balanceCerUsd *
                 FEE_DENORM -
@@ -441,8 +451,7 @@ abstract contract CerbySwapV1_SwapFunctions is CerbySwapV1_LiquidityFunctions
 
             // updating 1 hour trade pool values
             // only for direction ANY --> cerUSD
-            uint256 currentPeriod = _getCurrentPeriod();
-            uint256 nextPeriod = (currentPeriod + 1) % NUMBER_OF_TRADE_PERIODS;
+            uint256 nextPeriod = currentPeriod + 1;
             if (_amountCerUsdOut > TRADE_VOLUME_DENORM) {
                 // or else amountCerUsdOut / TRADE_VOLUME_DENORM == 0
                 // stores in 10xUSD value, up-to $40B per 4 hours per pair will be stored correctly

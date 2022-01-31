@@ -90,19 +90,7 @@ type AllEvents = LiquidityAdded | LiquidityRemoved | PoolCreated | Swap | Sync;
 
 export interface CerbySwapV1SafeFunctionsInstance
   extends Truffle.ContractInstance {
-  hourlyCache(
-    arg0: string,
-    arg1: number | BN | string,
-    txDetails?: Truffle.TransactionDetails
-  ): Promise<{ 0: BN; 1: BN }>;
-
-  methods: {
-    hourlyCache(
-      arg0: string,
-      arg1: number | BN | string,
-      txDetails?: Truffle.TransactionDetails
-    ): Promise<{ 0: BN; 1: BN }>;
-  };
+  methods: {};
 
   getPastEvents(event: string): Promise<EventData[]>;
   getPastEvents(
