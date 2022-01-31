@@ -176,7 +176,7 @@ abstract contract CerbySwapV1_GetFunctions is
             settings.tvlMultiplierMaximum) / TVL_MULTIPLIER_DENORM;
         if (volume <= tvlMin) {
             return FEE_DENORM - settings.feeMaximum; // fee is maximum
-        } else if (volume > tvlMax) {
+        } else if (volume >= tvlMax) {
             return FEE_DENORM - settings.feeMinimum; // fee is minimum
         }
 
