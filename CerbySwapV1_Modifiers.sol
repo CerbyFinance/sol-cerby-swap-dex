@@ -5,6 +5,7 @@ pragma solidity ^0.8.11;
 import "./CerbySwapV1_Declarations.sol";
 
 abstract contract CerbySwapV1_Modifiers is CerbySwapV1_Declarations {
+
     modifier tokenMustExistInPool(address _token) {
         if (tokenToPoolId[_token] == 0 || _token == cerUsdToken) {
             revert("C"); // TODO: remove this line on production

@@ -5,18 +5,27 @@ pragma solidity ^0.8.11;
 import "./CerbySwapV1_AdminFunctions.sol";
 import "./CerbySwapV1_SwapFunctions.sol";
 
-contract CerbySwapV1 is CerbySwapV1_AdminFunctions, CerbySwapV1_SwapFunctions {
+contract CerbySwapV1 is
+    CerbySwapV1_AdminFunctions,
+    CerbySwapV1_SwapFunctions
+{
     constructor() {
-        _transferOwnership(msg.sender);
+
+        _transferOwnership(
+            msg.sender
+        );
 
         address mintFeeBeneficiary = 0xdEF78a28c78A461598d948bc0c689ce88f812AD8; // CerbyBridge fees wallet
-        uint256 mintFeeMultiplier = (MINT_FEE_DENORM * 20) / 100; // means 20% of fees goes to buyback & burn Cerby
+        uint256 mintFeeMultiplier = MINT_FEE_DENORM * 20 / 100; // means 20% of fees goes to buyback & burn Cerby
         uint256 tvlMultiplier = 1369863014; // 0.1369863014
         uint256 feeMinimum = 1; // 0.01%
         uint256 feeMaximum = 200; // 2.00%
+
         uint256 tvlMultiplierMinimum = tvlMultiplier; // TVL * 0.1369863014
-        uint256 tvlMultiplierMaximum = (tvlMultiplier * feeMaximum) /
-            feeMinimum; // TVL * 27.397260274
+        uint256 tvlMultiplierMaximum = tvlMultiplier  // TVL * 27.397260274
+            * feeMaximum
+            / feeMinimum;
+
         settings = Settings(
             mintFeeBeneficiary,
             mintFeeMultiplier,
@@ -28,7 +37,16 @@ contract CerbySwapV1 is CerbySwapV1_AdminFunctions, CerbySwapV1_SwapFunctions {
 
         // Filling with empty pool 0th id
         uint32[NUMBER_OF_TRADE_PERIODS] memory tradeVolumePerPeriodInCerUsd;
-        pools.push(Pool(tradeVolumePerPeriodInCerUsd, 0, 0, 0, 0));
+
+        pools.push(
+            Pool(
+                tradeVolumePerPeriodInCerUsd,
+                0,
+                0,
+                0,
+                0
+            )
+        );
 
         if (block.chainid == 1) {
             // Ethereum

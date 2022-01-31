@@ -16,7 +16,9 @@ abstract contract CerbySwapV1_AdminFunctions is
         address _cerUsdToken,
         address _testUsdcToken,
         address
-    ) external {
+    )
+        external
+    {
         //testCerbyBotDetectionContract = _testCerbyBotDetectionContract;
         testCerbyToken = _testCerbyToken;
         cerUsdToken = _cerUsdToken;
@@ -26,7 +28,9 @@ abstract contract CerbySwapV1_AdminFunctions is
     }
 
     // TODO: remove on production
-    function testInit() public {
+    function testInit()
+        public
+    {
         // TODO: remove on production
         _createPool(
             testCerbyToken,
@@ -56,27 +60,36 @@ abstract contract CerbySwapV1_AdminFunctions is
         _createPool(
             nativeToken,
             1e15,
-            1e18 * 1e6,
+            1e18 * 1e6, // Q: CONSTANT ?
             type(uint256).max,
             msg.sender
         );
     }
 
-    function adminSetURI(string calldata _newUrlPrefix) external onlyOwner {
+    function adminSetURI(
+        string calldata _newUrlPrefix
+    )
+        external
+        onlyOwner
+    {
         _setURI(string(abi.encodePacked(_newUrlPrefix, "{id}.json")));
-
         urlPrefix = _newUrlPrefix;
     }
 
     function adminUpdateNameAndSymbol(
         string memory _newContractName,
         string memory _newContractSymbol
-    ) external onlyOwner {
+    )
+        external
+        onlyOwner
+    {
         contractName = _newContractName;
         contractSymbol = _newContractSymbol;
     }
 
-    function adminUpdateFeesAndTvlMultipliers(Settings calldata _settings)
+    function adminUpdateFeesAndTvlMultipliers(
+        Settings calldata _settings
+    )
         external
         onlyOwner
     {
@@ -106,7 +119,11 @@ abstract contract CerbySwapV1_AdminFunctions is
         uint256 _amountTokensIn,
         uint256 _amountCerUsdToMint,
         address _transferTo
-    ) external payable onlyOwner {
+    )
+        external
+        payable
+        onlyOwner
+    {
         _createPool(
             _token,
             _amountTokensIn,
@@ -124,7 +141,11 @@ abstract contract CerbySwapV1_AdminFunctions is
     function adminChangeCerUsdCreditInPool(
         address _token,
         uint256 _amountCerUsdCredit
-    ) external onlyOwner tokenMustExistInPool(_token) {
+    )
+        external
+        onlyOwner
+        tokenMustExistInPool(_token)
+    {
         // getting pool storage link (saves gas compared to memory)
         Pool storage pool = pools[tokenToPoolId[_token]];
 

@@ -5,6 +5,7 @@ import "./openzeppelin/token/ERC1155/ERC1155.sol";
 import "./CerbyCronJobsExecution.sol";
 
 abstract contract CerbySwapV1_ERC1155 is ERC1155, CerbyCronJobsExecution {
+
     string internal contractName = "CerbySwapV1";
     string internal contractSymbol = "CS1";
     string internal urlPrefix = "https://data.cerby.fi/CerbySwap/v1/";
@@ -14,19 +15,35 @@ abstract contract CerbySwapV1_ERC1155 is ERC1155, CerbyCronJobsExecution {
 
     constructor() ERC1155(string(abi.encodePacked(urlPrefix, "{id}.json"))) {}
 
-    function name() external view returns (string memory) {
+    function name()
+        external
+        view
+        returns (string memory)
+    {
         return contractName;
     }
 
-    function symbol() external view returns (string memory) {
+    function symbol()
+        external
+        view
+        returns (string memory)
+    {
         return contractSymbol;
     }
 
-    function decimals() external pure returns (uint256) {
+    function decimals()
+        external
+        pure
+        returns (uint256)
+    {
         return 18;
     }
 
-    function totalSupply() external view returns (uint256) {
+    function totalSupply()
+        external
+        view
+        returns (uint256)
+    {
         uint256 i;
         uint256 totalSupplyAmount;
 
@@ -34,6 +51,7 @@ abstract contract CerbySwapV1_ERC1155 is ERC1155, CerbyCronJobsExecution {
         while (contractTotalSupply[++i] > 0) {
             totalSupplyAmount += contractTotalSupply[i];
         }
+
         return totalSupplyAmount;
     }
 
@@ -47,13 +65,20 @@ abstract contract CerbySwapV1_ERC1155 is ERC1155, CerbyCronJobsExecution {
         return string(abi.encodePacked(urlPrefix, _id, ".json"));
     }
 
-    function setApprovalForAll(address _operator, bool _approved)
+    function setApprovalForAll(
+        address _operator,
+        bool _approved
+    )
         external
         virtual
         override
         executeCronJobs
     {
-        _setApprovalForAll(msg.sender, _operator, _approved);
+        _setApprovalForAll(
+            msg.sender,
+            _operator,
+            _approved
+        );
     }
 
     function safeTransferFrom(
@@ -62,12 +87,23 @@ abstract contract CerbySwapV1_ERC1155 is ERC1155, CerbyCronJobsExecution {
         uint256 _id,
         uint256 _amount,
         bytes calldata _data
-    ) external virtual override executeCronJobs {
+    )
+        external
+        virtual
+        override
+        executeCronJobs
+    {
         if (_from != msg.sender && !isApprovedForAll(_from, msg.sender)) {
             revert CerbySwapLP1155V1_CallerIsNotOwnerNorApproved();
         }
 
-        _safeTransferFrom(_from, _to, _id, _amount, _data);
+        _safeTransferFrom(
+            _from,
+            _to,
+            _id,
+            _amount,
+            _data
+        );
     }
 
     function safeBatchTransferFrom(
@@ -76,11 +112,22 @@ abstract contract CerbySwapV1_ERC1155 is ERC1155, CerbyCronJobsExecution {
         uint256[] calldata _ids,
         uint256[] calldata _amounts,
         bytes calldata _data
-    ) external virtual override executeCronJobs {
+    )
+        external
+        virtual
+        override
+        executeCronJobs
+    {
         if (_from != msg.sender && !isApprovedForAll(_from, msg.sender)) {
             revert CerbySwapLP1155V1_CallerIsNotOwnerNorApproved();
         }
 
-        _safeBatchTransferFrom(_from, _to, _ids, _amounts, _data);
+        _safeBatchTransferFrom(
+            _from,
+            _to,
+            _ids,
+            _amounts,
+            _data
+        );
     }
 }

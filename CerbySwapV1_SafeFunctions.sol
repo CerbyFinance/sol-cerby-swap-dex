@@ -10,25 +10,28 @@ abstract contract CerbySwapV1_SafeFunctions is
     CerbySwapV1_EventsAndErrors,
     CerbySwapV1_Declarations
 {
-    function _getTokenBalance(address _token) internal view returns (uint256) {
-        uint256 balanceToken;
+    function _getTokenBalance(
+        address _token
+    )
+        internal
+        view
+        returns (uint256 balanceToken)
+    {
         if (_token == nativeToken) {
-            // getting native token balance
             balanceToken = address(this).balance;
             return balanceToken;
         }
 
-        // token != nativeToken clause
-        // getting contract token balance
         balanceToken = IERC20(_token).balanceOf(address(this));
-        return balanceToken;
     }
 
     function _safeTransferFromHelper(
         address _token,
         address _from,
         uint256 _amountTokensIn
-    ) internal {
+    )
+        internal
+    {
         if (_token == nativeToken) {
             // sender must sent some native tokens
             if (msg.value < _amountTokensIn) {
@@ -62,7 +65,12 @@ abstract contract CerbySwapV1_SafeFunctions is
         }
 
         // _safeCoreTransferFrom does not require return value
-        _safeCoreTransferFrom(_token, _from, address(this), _amountTokensIn);
+        _safeCoreTransferFrom(
+            _token,
+            _from,
+            address(this),
+            _amountTokensIn
+        );
     }
 
     function _safeTransferHelper(
@@ -70,9 +78,10 @@ abstract contract CerbySwapV1_SafeFunctions is
         address _to,
         uint256 _amountTokensOut,
         bool _needToCheckForBots
-    ) internal {
-        if (
-            _to == address(this) || // don't need to transfer to current contract
+    )
+        internal
+    {
+        if (_to == address(this) || // don't need to transfer to current contract
             _amountTokensOut <= 1
         ) {
             return;
@@ -87,38 +96,53 @@ abstract contract CerbySwapV1_SafeFunctions is
         // transferring the native tokens and exiting right after
         // because we trust them
         if (_token == nativeToken) {
-            _safeCoreTransferNative(_to, _amountTokensOut);
+            _safeCoreTransferNative(
+                _to,
+                _amountTokensOut
+            );
             return;
         }
 
         // transferring the cerUSD tokens and exiting right after
         // because we trust them
         if (_token == cerUsdToken) {
-            _safeCoreTransferToken(_token, _to, _amountTokensOut);
+            _safeCoreTransferToken(
+                _token,
+                _to,
+                _amountTokensOut
+            );
             return;
         }
 
-        // token != cerUsdToken && token != nativeToken clause
-        // thats why here we only check whether token has fee-on-transfer
-        uint256 oldBalanceToken = _getTokenBalance(_token);
+        uint256 oldBalanceToken = _getTokenBalance(
+            _token
+        );
 
-        // transferring the tokens
-        _safeCoreTransferToken(_token, _to, _amountTokensOut);
+        _safeCoreTransferToken(
+            _token,
+            _to,
+            _amountTokensOut
+        );
 
         // we trust cerUsdToken and nativeTokens
         // thats why don't need to check whether it has fee-on-transfer
         // these tokens are known to be without any fee-on-transfer
-        uint256 newBalanceToken = _getTokenBalance(_token);
-        if (newBalanceToken + _amountTokensOut != oldBalanceToken) {
-            revert CerbySwapV1_FeeOnTransferTokensArentSupported();
-        }
+        
+        uint256 newBalanceToken = _getTokenBalance(
+            _token
+        );
+
+        if (newBalanceToken + _amountTokensOut == oldBalanceToken) return;
+        revert CerbySwapV1_FeeOnTransferTokensArentSupported();
     }
 
     function _safeCoreTransferToken(
         address _token,
         address _to,
         uint256 _value
-    ) internal {
+    )
+        internal
+    {
         // refer to https://github.com/Uniswap/solidity-lib/blob/master/contracts/libraries/TransferHelper.sol
         (bool success, bytes memory data) = _token.call(
             abi.encodeWithSelector(0xa9059cbb, _to, _value)
@@ -147,12 +171,17 @@ abstract contract CerbySwapV1_SafeFunctions is
         }
     }
 
-    function _safeCoreTransferNative(address _to, uint256 _value) internal {
+    function _safeCoreTransferNative(
+        address _to,
+        uint256 _value
+    )
+        internal
+    {
         // refer to https://github.com/Uniswap/solidity-lib/blob/master/contracts/libraries/TransferHelper.sol
         (bool success, ) = _to.call{value: _value}(new bytes(0));
 
         // we allow only successfull calls
-        if (!success) {
+        if (success == false) {
             revert CerbySwapV1_SafeTransferNativeFailed();
         }
     }
