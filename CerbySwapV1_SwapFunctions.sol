@@ -415,18 +415,20 @@ abstract contract CerbySwapV1_SwapFunctions is CerbySwapV1_LiquidityFunctions {
             // if oneMinusFee isn't cached yet for currentPeriod => we cache it first
             // to avoid out of gas errors we inflate gas estimations by always updating cache
             if (
-                oneMinusFeeCached[_token][currentPeriod] == 0 ||
+                hourlyCache[_token][currentPeriod].hourlyOneMinusFee == 0 ||
                 tx.gasprice == 0
             ) {
-                oneMinusFeeCached[_token][
-                    currentPeriod
-                ] = _getCurrentOneMinusFeeBasedOnTrades(
-                    _token,
-                    _poolBalancesBefore
+                hourlyCache[_token][currentPeriod].hourlyOneMinusFee = uint16(
+                    _getCurrentOneMinusFeeBasedOnTrades(
+                        _token,
+                        _poolBalancesBefore
+                    )
                 );
             }
             // getting cached value from storage
-            oneMinusFee = oneMinusFeeCached[_token][currentPeriod];
+            oneMinusFee = uint256(
+                hourlyCache[_token][currentPeriod].hourlyOneMinusFee
+            );
         }
         {
             // calculating new K value including trade fees
@@ -462,9 +464,8 @@ abstract contract CerbySwapV1_SwapFunctions is CerbySwapV1_LiquidityFunctions {
             // updating 1 hour trade pool values
             // only for direction ANY --> cerUSD
             if (_amountCerUsdOut > 1) {
-                hourlyTradeVolumeInCerUsd[_token][
-                    currentPeriod
-                ] += _amountCerUsdOut;
+                hourlyCache[_token][currentPeriod]
+                    .hourlyTradeVolumeInCerUsd += uint128(_amountCerUsdOut);
             }
         }
         // safely transfering tokens

@@ -131,17 +131,11 @@ export interface CerbySwapV1GetFunctionsInstance
     txDetails?: Truffle.TransactionDetails
   ): Promise<BN>;
 
-  hourlyTradeVolumeInCerUsd(
+  hourlyCache(
     arg0: string,
     arg1: number | BN | string,
     txDetails?: Truffle.TransactionDetails
-  ): Promise<BN>;
-
-  oneMinusFeeCached(
-    arg0: string,
-    arg1: number | BN | string,
-    txDetails?: Truffle.TransactionDetails
-  ): Promise<BN>;
+  ): Promise<{ 0: BN; 1: BN }>;
 
   methods: {
     getCurrentOneMinusFeeBasedOnTrades(
@@ -185,17 +179,11 @@ export interface CerbySwapV1GetFunctionsInstance
       txDetails?: Truffle.TransactionDetails
     ): Promise<BN>;
 
-    hourlyTradeVolumeInCerUsd(
+    hourlyCache(
       arg0: string,
       arg1: number | BN | string,
       txDetails?: Truffle.TransactionDetails
-    ): Promise<BN>;
-
-    oneMinusFeeCached(
-      arg0: string,
-      arg1: number | BN | string,
-      txDetails?: Truffle.TransactionDetails
-    ): Promise<BN>;
+    ): Promise<{ 0: BN; 1: BN }>;
   };
 
   getPastEvents(event: string): Promise<EventData[]>;

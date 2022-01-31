@@ -164,7 +164,7 @@ abstract contract CerbySwapV1_GetFunctions is
         ) {
             // skipping current period because this values is currently updating
 
-            volume += hourlyTradeVolumeInCerUsd[_token][i];
+            volume += uint256(hourlyCache[_token][i].hourlyTradeVolumeInCerUsd);
         }
 
         // trades <= TVL * min              ---> fee = feeMaximum

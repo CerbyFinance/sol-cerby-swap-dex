@@ -11,9 +11,7 @@ abstract contract CerbySwapV1_Declarations is
 {
     Pool[] internal pools;
     mapping(address => uint256) internal tokenToPoolId;
-    mapping(address => mapping(uint256 => uint256))
-        public hourlyTradeVolumeInCerUsd;
-    mapping(address => mapping(uint256 => uint256)) public oneMinusFeeCached;
+    mapping(address => mapping(uint256 => HourlyCache)) public hourlyCache;
 
     address internal testCerbyToken =
         0x527ea24a5917c452DBF402EdC9Da4190239bCcf1; // TODO: remove on production
@@ -36,6 +34,11 @@ abstract contract CerbySwapV1_Declarations is
     address internal constant DEAD_ADDRESS = address(0xdead);
 
     Settings internal settings;
+
+    struct HourlyCache {
+        uint16 hourlyOneMinusFee;
+        uint128 hourlyTradeVolumeInCerUsd;
+    }
 
     struct Settings {
         address mintFeeBeneficiary;
