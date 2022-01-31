@@ -14,7 +14,7 @@ contract CerbySwapV1_Vault is CerbySwapV1_Declarations_CerUsd {
 
     constructor(
         address _token,
-        address _cerUsd,
+        address _cerUsd, // TODO: remove cerUsd update from here on production
         bool isNativeToken
     ) {
         if (!isNativeToken) {

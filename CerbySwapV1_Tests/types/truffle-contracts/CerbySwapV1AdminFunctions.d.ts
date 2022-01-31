@@ -285,6 +285,7 @@ export interface CerbySwapV1AdminFunctionsInstance
         feeMaximum: number | BN | string;
         tvlMultiplierMinimum: number | BN | string;
         tvlMultiplierMaximum: number | BN | string;
+        sinceHowManyHoursAgoToTrackTradeVolume: number | BN | string;
       },
       txDetails?: Truffle.TransactionDetails
     ): Promise<Truffle.TransactionResponse<AllEvents>>;
@@ -296,6 +297,7 @@ export interface CerbySwapV1AdminFunctionsInstance
         feeMaximum: number | BN | string;
         tvlMultiplierMinimum: number | BN | string;
         tvlMultiplierMaximum: number | BN | string;
+        sinceHowManyHoursAgoToTrackTradeVolume: number | BN | string;
       },
       txDetails?: Truffle.TransactionDetails
     ): Promise<void>;
@@ -307,6 +309,7 @@ export interface CerbySwapV1AdminFunctionsInstance
         feeMaximum: number | BN | string;
         tvlMultiplierMinimum: number | BN | string;
         tvlMultiplierMaximum: number | BN | string;
+        sinceHowManyHoursAgoToTrackTradeVolume: number | BN | string;
       },
       txDetails?: Truffle.TransactionDetails
     ): Promise<string>;
@@ -318,6 +321,7 @@ export interface CerbySwapV1AdminFunctionsInstance
         feeMaximum: number | BN | string;
         tvlMultiplierMinimum: number | BN | string;
         tvlMultiplierMaximum: number | BN | string;
+        sinceHowManyHoursAgoToTrackTradeVolume: number | BN | string;
       },
       txDetails?: Truffle.TransactionDetails
     ): Promise<number>;
@@ -429,6 +433,7 @@ export interface CerbySwapV1AdminFunctionsInstance
     feeMaximum: BN;
     tvlMultiplierMinimum: BN;
     tvlMultiplierMaximum: BN;
+    sinceHowManyHoursAgoToTrackTradeVolume: BN;
   }>;
 
   getTokenToPoolId(
@@ -881,6 +886,7 @@ export interface CerbySwapV1AdminFunctionsInstance
           feeMaximum: number | BN | string;
           tvlMultiplierMinimum: number | BN | string;
           tvlMultiplierMaximum: number | BN | string;
+          sinceHowManyHoursAgoToTrackTradeVolume: number | BN | string;
         },
         txDetails?: Truffle.TransactionDetails
       ): Promise<Truffle.TransactionResponse<AllEvents>>;
@@ -892,6 +898,7 @@ export interface CerbySwapV1AdminFunctionsInstance
           feeMaximum: number | BN | string;
           tvlMultiplierMinimum: number | BN | string;
           tvlMultiplierMaximum: number | BN | string;
+          sinceHowManyHoursAgoToTrackTradeVolume: number | BN | string;
         },
         txDetails?: Truffle.TransactionDetails
       ): Promise<void>;
@@ -903,6 +910,7 @@ export interface CerbySwapV1AdminFunctionsInstance
           feeMaximum: number | BN | string;
           tvlMultiplierMinimum: number | BN | string;
           tvlMultiplierMaximum: number | BN | string;
+          sinceHowManyHoursAgoToTrackTradeVolume: number | BN | string;
         },
         txDetails?: Truffle.TransactionDetails
       ): Promise<string>;
@@ -914,6 +922,7 @@ export interface CerbySwapV1AdminFunctionsInstance
           feeMaximum: number | BN | string;
           tvlMultiplierMinimum: number | BN | string;
           tvlMultiplierMaximum: number | BN | string;
+          sinceHowManyHoursAgoToTrackTradeVolume: number | BN | string;
         },
         txDetails?: Truffle.TransactionDetails
       ): Promise<number>;
@@ -1025,6 +1034,7 @@ export interface CerbySwapV1AdminFunctionsInstance
       feeMaximum: BN;
       tvlMultiplierMinimum: BN;
       tvlMultiplierMaximum: BN;
+      sinceHowManyHoursAgoToTrackTradeVolume: BN;
     }>;
 
     getTokenToPoolId(

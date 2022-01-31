@@ -46,14 +46,14 @@ abstract contract CerbySwapV1_SwapFunctions is
         // swaping XXX --> cerUSD
         if (_tokenIn != cerUsdToken && _tokenOut == cerUsdToken) {
             // getting pool balances before the swap
-            PoolBalances memory poolBalancesBefore = _getPoolBalances(
+            PoolBalances memory poolInBalancesBefore = _getPoolBalances(
                 _tokenIn,
                 vaultAddressIn
             );
 
             // getting amountTokensOut
             amounts[1] = _getOutputExactTokensForCerUsd(
-                poolBalancesBefore,
+                poolInBalancesBefore,
                 _tokenIn,
                 _amountTokensIn
             );
@@ -73,7 +73,7 @@ abstract contract CerbySwapV1_SwapFunctions is
             );
 
             // swapping XXX ---> cerUSD
-            _swap(_tokenIn, poolBalancesBefore, 0, amounts[1], _transferTo);
+            _swap(_tokenIn, poolInBalancesBefore, 0, amounts[1], _transferTo);
 
             return amounts;
         }
@@ -81,14 +81,14 @@ abstract contract CerbySwapV1_SwapFunctions is
         // swaping cerUSD --> YYY
         if (_tokenIn == cerUsdToken && _tokenOut != cerUsdToken) {
             // getting pool balances before the swap
-            PoolBalances memory poolBalancesBefore = _getPoolBalances(
+            PoolBalances memory poolOutBalancesBefore = _getPoolBalances(
                 _tokenOut,
                 vaultAddressOut
             );
 
             // getting amountTokensOut
             amounts[1] = _getOutputExactCerUsdForTokens(
-                poolBalancesBefore,
+                poolOutBalancesBefore,
                 _tokenOut,
                 _amountTokensIn
             );
@@ -108,7 +108,7 @@ abstract contract CerbySwapV1_SwapFunctions is
             );
 
             // swapping cerUSD ---> YYY
-            _swap(_tokenOut, poolBalancesBefore, amounts[1], 0, _transferTo);
+            _swap(_tokenOut, poolOutBalancesBefore, amounts[1], 0, _transferTo);
 
             return amounts;
         }
@@ -204,14 +204,14 @@ abstract contract CerbySwapV1_SwapFunctions is
         // swapping XXX --> cerUSD
         if (_tokenIn != cerUsdToken && _tokenOut == cerUsdToken) {
             // getting pool balances before the swap
-            PoolBalances memory poolBalancesBefore = _getPoolBalances(
+            PoolBalances memory poolInBalancesBefore = _getPoolBalances(
                 _tokenIn,
                 vaultAddressIn
             );
 
             // getting amountTokensOut
             amounts[0] = _getInputTokensForExactCerUsd(
-                poolBalancesBefore,
+                poolInBalancesBefore,
                 _tokenIn,
                 _amountTokensOut
             );
@@ -239,7 +239,7 @@ abstract contract CerbySwapV1_SwapFunctions is
             // swapping XXX ---> cerUSD
             _swap(
                 _tokenIn,
-                poolBalancesBefore,
+                poolInBalancesBefore,
                 0,
                 _amountTokensOut,
                 _transferTo
@@ -251,14 +251,14 @@ abstract contract CerbySwapV1_SwapFunctions is
         // swapping cerUSD --> YYY
         if (_tokenIn == cerUsdToken && _tokenOut != cerUsdToken) {
             // getting pool balances before the swap
-            PoolBalances memory poolBalancesBefore = _getPoolBalances(
+            PoolBalances memory poolOutBalancesBefore = _getPoolBalances(
                 _tokenOut,
                 vaultAddressOut
             );
 
             // getting amountTokensOut
             amounts[0] = _getInputCerUsdForExactTokens(
-                poolBalancesBefore,
+                poolOutBalancesBefore,
                 _tokenOut,
                 _amountTokensOut
             );
@@ -286,7 +286,7 @@ abstract contract CerbySwapV1_SwapFunctions is
             // swapping cerUSD ---> YYY
             _swap(
                 _tokenOut,
-                poolBalancesBefore,
+                poolOutBalancesBefore,
                 _amountTokensOut,
                 0,
                 _transferTo
@@ -406,8 +406,8 @@ abstract contract CerbySwapV1_SwapFunctions is
 
         // checking if cerUsd credit is enough to cover this swap
         if (
-            pool.creditCerUsd < type(uint128).max &&
-            pool.creditCerUsd + amountCerUsdIn < _amountCerUsdOut
+            pool.creditCerUsd < MAX_CER_USD_CREDIT &&
+            uint256(pool.creditCerUsd) + amountCerUsdIn < _amountCerUsdOut
         ) {
             revert("Z");
             revert CerbySwapV1_CreditCerUsdMustNotBeBelowZero();
@@ -423,7 +423,7 @@ abstract contract CerbySwapV1_SwapFunctions is
         // if swap is cerUSD --> ANY, fee is zero
         uint256 oneMinusFee = amountCerUsdIn > 1 && amountTokensIn <= 1
             ? FEE_DENORM
-            : _getCurrentOneMinusFeeBasedOnTrades(pool, _poolBalancesBefore);
+            : _getCurrentOneMinusFeeBasedOnTrades(_token, _poolBalancesBefore);
         {
             // calculating new K value including trade fees
             uint256 afterKValueDenormed = (poolBalancesAfter.balanceCerUsd *
@@ -440,7 +440,7 @@ abstract contract CerbySwapV1_SwapFunctions is
             }
 
             // updating creditCerUsd only if pool is user-created
-            if (pool.creditCerUsd < type(uint128).max) {
+            if (pool.creditCerUsd < MAX_CER_USD_CREDIT) {
                 pool.creditCerUsd = uint128(
                     uint256(pool.creditCerUsd) +
                         amountCerUsdIn -
@@ -450,27 +450,10 @@ abstract contract CerbySwapV1_SwapFunctions is
 
             // updating 1 hour trade pool values
             // only for direction ANY --> cerUSD
-            uint256 currentPeriod = _getCurrentPeriod();
-            uint256 nextPeriod = (currentPeriod + 1) % NUMBER_OF_TRADE_PERIODS;
-            if (_amountCerUsdOut > TRADE_VOLUME_DENORM) {
-                // or else amountCerUsdOut / TRADE_VOLUME_DENORM == 0
-                // stores in 10xUSD value, up-to $40B per 4 hours per pair will be stored correctly
-                uint256 updatedTradeVolume = uint256(
-                    pool.tradeVolumePerPeriodInCerUsd[currentPeriod]
-                ) + _amountCerUsdOut / TRADE_VOLUME_DENORM; // if ANY --> cerUSD, then output is cerUSD only
-
-                // handling overflow just in case
-                pool.tradeVolumePerPeriodInCerUsd[
-                    currentPeriod
-                ] = updatedTradeVolume < type(uint32).max
-                    ? uint32(updatedTradeVolume)
-                    : type(uint32).max;
-            }
-
-            // clearing next 1 hour trade value
-            if (pool.tradeVolumePerPeriodInCerUsd[nextPeriod] > 1) {
-                // gas saving to not zero the field
-                pool.tradeVolumePerPeriodInCerUsd[nextPeriod] = 1;
+            if (_amountCerUsdOut > 1) {
+                hourlyTradeVolumeInCerUsd[_token][
+                    _getCurrentPeriod()
+                ] += _amountCerUsdOut;
             }
         }
         // safely transfering tokens
@@ -528,7 +511,7 @@ abstract contract CerbySwapV1_SwapFunctions is
             pool.vaultAddress
         );
 
-        if (pool.creditCerUsd < type(uint128).max) {
+        if (pool.creditCerUsd < MAX_CER_USD_CREDIT) {
             // increasing credit for user-created pool
             pool.creditCerUsd += uint128(_amountCerUsdCredit);
 
@@ -573,6 +556,7 @@ abstract contract CerbySwapV1_SwapFunctions is
     ) internal tokenDoesNotExistInPool(_token) {
         // creating vault contract to safely store tokens
         address vaultAddress = address(
+            // TODO: remove cerUsdToken from parameters on production
             new CerbySwapV1_Vault(_token, cerUsdToken, _token == nativeToken)
         );
 
@@ -601,10 +585,8 @@ abstract contract CerbySwapV1_SwapFunctions is
         uint256 newSqrtKValue = sqrt(_amountTokensIn * _amountCerUsdToMint);
 
         // preparing pool object to push into storage
-        uint32[NUMBER_OF_TRADE_PERIODS] memory tradeVolumePerPeriodInCerUsd;
         Pool memory pool = Pool(
             vaultAddress,
-            tradeVolumePerPeriodInCerUsd,
             uint128(newSqrtKValue),
             uint128(_creditCerUsd)
         );

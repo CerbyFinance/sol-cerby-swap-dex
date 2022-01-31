@@ -18,8 +18,7 @@ abstract contract CerbySwapV1_GetFunctions is
     }
 
     function _getCurrentPeriod() internal view returns (uint256) {
-        return
-            (block.timestamp / ONE_PERIOD_IN_SECONDS) % NUMBER_OF_TRADE_PERIODS;
+        return block.timestamp / ONE_PERIOD_IN_SECONDS;
     }
 
     function getCurrentOneMinusFeeBasedOnTrades(address _token)
@@ -35,27 +34,26 @@ abstract contract CerbySwapV1_GetFunctions is
             pool.vaultAddress
         );
 
-        return _getCurrentOneMinusFeeBasedOnTrades(pool, poolBalances);
+        return _getCurrentOneMinusFeeBasedOnTrades(_token, poolBalances);
     }
 
     function _getCurrentOneMinusFeeBasedOnTrades(
-        Pool storage _pool,
+        address _token,
         PoolBalances memory _poolBalances
     ) internal view returns (uint256) {
         // getting last 24 hours trade volume in USD
         uint256 currentPeriod = _getCurrentPeriod();
-        uint256 nextPeriod = (currentPeriod + 1) % NUMBER_OF_TRADE_PERIODS;
         uint256 volume;
-        for (uint256 i; i < NUMBER_OF_TRADE_PERIODS; i++) {
-            // skipping current and next period because those values are currently updating
-            // and are incorrect
-            if (i == currentPeriod || i == nextPeriod) continue;
+        for (
+            uint256 i = currentPeriod -
+                settings.sinceHowManyHoursAgoToTrackTradeVolume;
+            i < currentPeriod;
+            i++
+        ) {
+            // skipping current period because this values is currently updating
 
-            volume += _pool.tradeVolumePerPeriodInCerUsd[i];
+            volume += hourlyTradeVolumeInCerUsd[_token][i];
         }
-
-        // multiplying it to make wei dimention
-        volume = volume * TRADE_VOLUME_DENORM;
 
         // trades <= TVL * min              ---> fee = feeMaximum
         // TVL * min < trades < TVL * max   ---> fee is between feeMaximum and feeMinimum
@@ -164,13 +162,13 @@ abstract contract CerbySwapV1_GetFunctions is
         // direction XXX --> cerUSD --> YYY (or XXX --> YYY)
         // getting amountTokensOut
         uint256 amountCerUsdOut = _getInputCerUsdForExactTokens(
-            _getPoolBalances(_tokenIn, vaultAddressIn),
+            _getPoolBalances(_tokenOut, vaultAddressOut),
             _tokenOut,
             _amountTokensOut
         );
 
         amountTokensIn = _getInputTokensForExactCerUsd(
-            _getPoolBalances(_tokenOut, vaultAddressOut),
+            _getPoolBalances(_tokenIn, vaultAddressIn),
             _tokenIn,
             amountCerUsdOut
         );
@@ -183,14 +181,13 @@ abstract contract CerbySwapV1_GetFunctions is
         uint256 _amountTokensIn
     ) internal view tokenMustExistInPool(_token) returns (uint256) {
         // getting pool storage link (saves gas compared to memory)
-        Pool storage pool = pools[tokenToPoolId[_token]];
 
         return
             _getOutput(
                 _amountTokensIn,
                 uint256(poolBalances.balanceToken),
                 uint256(poolBalances.balanceCerUsd),
-                _getCurrentOneMinusFeeBasedOnTrades(pool, poolBalances)
+                _getCurrentOneMinusFeeBasedOnTrades(_token, poolBalances)
             );
     }
 
@@ -227,14 +224,12 @@ abstract contract CerbySwapV1_GetFunctions is
         uint256 _amountCerUsdOut
     ) internal view tokenMustExistInPool(_token) returns (uint256) {
         // getting pool storage link (saves gas compared to memory)
-        Pool storage pool = pools[tokenToPoolId[_token]];
-
         return
             _getInput(
                 _amountCerUsdOut,
                 uint256(poolBalances.balanceToken),
                 uint256(poolBalances.balanceCerUsd),
-                _getCurrentOneMinusFeeBasedOnTrades(pool, poolBalances)
+                _getCurrentOneMinusFeeBasedOnTrades(_token, poolBalances)
             );
     }
 

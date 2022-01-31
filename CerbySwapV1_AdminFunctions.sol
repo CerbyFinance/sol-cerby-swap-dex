@@ -32,7 +32,7 @@ abstract contract CerbySwapV1_AdminFunctions is
             testCerbyToken,
             1e18 * 1e6,
             1e18 * 5e5,
-            type(uint256).max,
+            MAX_CER_USD_CREDIT,
             msg.sender
         );
 
@@ -41,7 +41,7 @@ abstract contract CerbySwapV1_AdminFunctions is
             testUsdcToken,
             1e18 * 7e5,
             1e18 * 7e5,
-            type(uint256).max,
+            MAX_CER_USD_CREDIT,
             msg.sender
         );
     }
@@ -57,7 +57,7 @@ abstract contract CerbySwapV1_AdminFunctions is
             nativeToken,
             1e15,
             1e18 * 1e6,
-            type(uint256).max,
+            MAX_CER_USD_CREDIT,
             msg.sender
         );
     }
@@ -111,7 +111,7 @@ abstract contract CerbySwapV1_AdminFunctions is
             _token,
             _amountTokensIn,
             _amountCerUsdToMint,
-            type(uint256).max, // creditCerUsd
+            MAX_CER_USD_CREDIT, // creditCerUsd
             _transferTo
         );
     }

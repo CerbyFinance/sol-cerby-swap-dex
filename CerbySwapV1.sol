@@ -17,18 +17,19 @@ contract CerbySwapV1 is CerbySwapV1_AdminFunctions {
         uint256 tvlMultiplierMinimum = tvlMultiplier; // TVL * 0.1369863014
         uint256 tvlMultiplierMaximum = (tvlMultiplier * feeMaximum) /
             feeMinimum; // TVL * 27.397260274
+        uint256 sinceHowManyHoursAgoToTrackTradeVolume = 24; // tracking last 24 hours trade volume
         settings = Settings(
             mintFeeBeneficiary,
             mintFeeMultiplier,
             feeMinimum,
             feeMaximum,
             tvlMultiplierMinimum,
-            tvlMultiplierMaximum
+            tvlMultiplierMaximum,
+            24
         );
 
         // Filling with empty pool 0th id
-        uint32[NUMBER_OF_TRADE_PERIODS] memory tradeVolumePerPeriodInCerUsd;
-        pools.push(Pool(BURN_ADDRESS, tradeVolumePerPeriodInCerUsd, 0, 0));
+        pools.push(Pool(BURN_ADDRESS, 0, 0));
 
         if (block.chainid == 1) {
             // Ethereum
