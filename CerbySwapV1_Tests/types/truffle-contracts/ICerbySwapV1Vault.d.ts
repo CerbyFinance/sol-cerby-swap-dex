@@ -5,22 +5,41 @@
 import BN from "bn.js";
 import { EventData, PastEventOptions } from "web3-eth-contract";
 
-export interface CerbySwapV1VaultContract
-  extends Truffle.Contract<CerbySwapV1VaultInstance> {
-  "new"(
-    _token: string,
-    _cerUsd: string,
-    isNativeToken: boolean,
-    meta?: Truffle.TransactionDetails
-  ): Promise<CerbySwapV1VaultInstance>;
+export interface ICerbySwapV1VaultContract
+  extends Truffle.Contract<ICerbySwapV1VaultInstance> {
+  "new"(meta?: Truffle.TransactionDetails): Promise<ICerbySwapV1VaultInstance>;
 }
 
 type AllEvents = never;
 
-export interface CerbySwapV1VaultInstance extends Truffle.ContractInstance {
-  token0(txDetails?: Truffle.TransactionDetails): Promise<string>;
+export interface ICerbySwapV1VaultInstance extends Truffle.ContractInstance {
+  approve: {
+    (
+      _spender: string,
+      _value: number | BN | string,
+      txDetails?: Truffle.TransactionDetails
+    ): Promise<Truffle.TransactionResponse<AllEvents>>;
+    call(
+      _spender: string,
+      _value: number | BN | string,
+      txDetails?: Truffle.TransactionDetails
+    ): Promise<boolean>;
+    sendTransaction(
+      _spender: string,
+      _value: number | BN | string,
+      txDetails?: Truffle.TransactionDetails
+    ): Promise<string>;
+    estimateGas(
+      _spender: string,
+      _value: number | BN | string,
+      txDetails?: Truffle.TransactionDetails
+    ): Promise<number>;
+  };
 
-  token1(txDetails?: Truffle.TransactionDetails): Promise<string>;
+  balanceOf(
+    account: string,
+    txDetails?: Truffle.TransactionDetails
+  ): Promise<BN>;
 
   withdrawEth: {
     (
@@ -46,9 +65,33 @@ export interface CerbySwapV1VaultInstance extends Truffle.ContractInstance {
   };
 
   methods: {
-    token0(txDetails?: Truffle.TransactionDetails): Promise<string>;
+    approve: {
+      (
+        _spender: string,
+        _value: number | BN | string,
+        txDetails?: Truffle.TransactionDetails
+      ): Promise<Truffle.TransactionResponse<AllEvents>>;
+      call(
+        _spender: string,
+        _value: number | BN | string,
+        txDetails?: Truffle.TransactionDetails
+      ): Promise<boolean>;
+      sendTransaction(
+        _spender: string,
+        _value: number | BN | string,
+        txDetails?: Truffle.TransactionDetails
+      ): Promise<string>;
+      estimateGas(
+        _spender: string,
+        _value: number | BN | string,
+        txDetails?: Truffle.TransactionDetails
+      ): Promise<number>;
+    };
 
-    token1(txDetails?: Truffle.TransactionDetails): Promise<string>;
+    balanceOf(
+      account: string,
+      txDetails?: Truffle.TransactionDetails
+    ): Promise<BN>;
 
     withdrawEth: {
       (

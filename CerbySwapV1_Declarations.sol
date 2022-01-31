@@ -13,8 +13,8 @@ abstract contract CerbySwapV1_Declarations is
     mapping(address => uint256) internal tokenToPoolId;
 
     address internal testCerbyToken =
-        0xE7126C0Fb4B1f5F79E5Bbec3948139dCF348B49C; // TODO: remove on production
-    address internal testUsdcToken = 0x7412F2cD820d1E63bd130B0FFEBe44c4E5A47d71; // TODO: remove on production
+        0x527ea24a5917c452DBF402EdC9Da4190239bCcf1; // TODO: remove on production
+    address internal testUsdcToken = 0x947Ef3df5B7D5EC37214Dd06C4042C8E7b0cEBd7; // TODO: remove on production
 
     address internal nativeToken = 0x14769F96e57B80c66837701DE0B43686Fb4632De;
 

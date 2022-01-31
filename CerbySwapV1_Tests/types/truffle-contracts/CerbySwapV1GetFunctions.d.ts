@@ -40,8 +40,8 @@ export interface LiquidityRemoved {
   };
 }
 
-export interface PairCreated {
-  name: "PairCreated";
+export interface PoolCreated {
+  name: "PoolCreated";
   args: {
     _token: string;
     _poolId: BN;
@@ -86,7 +86,7 @@ export interface Sync {
   };
 }
 
-type AllEvents = LiquidityAdded | LiquidityRemoved | PairCreated | Swap | Sync;
+type AllEvents = LiquidityAdded | LiquidityRemoved | PoolCreated | Swap | Sync;
 
 export interface CerbySwapV1GetFunctionsInstance
   extends Truffle.ContractInstance {
@@ -109,29 +109,10 @@ export interface CerbySwapV1GetFunctionsInstance
     txDetails?: Truffle.TransactionDetails
   ): Promise<BN>;
 
-  getPoolsByIds(
-    _ids: (number | BN | string)[],
-    txDetails?: Truffle.TransactionDetails
-  ): Promise<
-    {
-      vaultAddress: string;
-      tradeVolumePerPeriodInCerUsd: BN[];
-      lastSqrtKValue: BN;
-      creditCerUsd: BN;
-    }[]
-  >;
-
   getPoolsByTokens(
     _tokens: string[],
     txDetails?: Truffle.TransactionDetails
-  ): Promise<
-    {
-      vaultAddress: string;
-      tradeVolumePerPeriodInCerUsd: BN[];
-      lastSqrtKValue: BN;
-      creditCerUsd: BN;
-    }[]
-  >;
+  ): Promise<{ balanceToken: BN; balanceCerUsd: BN }[]>;
 
   getSettings(
     txDetails?: Truffle.TransactionDetails
@@ -169,29 +150,10 @@ export interface CerbySwapV1GetFunctionsInstance
       txDetails?: Truffle.TransactionDetails
     ): Promise<BN>;
 
-    getPoolsByIds(
-      _ids: (number | BN | string)[],
-      txDetails?: Truffle.TransactionDetails
-    ): Promise<
-      {
-        vaultAddress: string;
-        tradeVolumePerPeriodInCerUsd: BN[];
-        lastSqrtKValue: BN;
-        creditCerUsd: BN;
-      }[]
-    >;
-
     getPoolsByTokens(
       _tokens: string[],
       txDetails?: Truffle.TransactionDetails
-    ): Promise<
-      {
-        vaultAddress: string;
-        tradeVolumePerPeriodInCerUsd: BN[];
-        lastSqrtKValue: BN;
-        creditCerUsd: BN;
-      }[]
-    >;
+    ): Promise<{ balanceToken: BN; balanceCerUsd: BN }[]>;
 
     getSettings(
       txDetails?: Truffle.TransactionDetails

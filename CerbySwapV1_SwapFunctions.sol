@@ -64,8 +64,7 @@ abstract contract CerbySwapV1_SwapFunctions is
                 revert CerbySwapV1_OutputCerUsdAmountIsLowerThanMinimumSpecified();
             }
 
-            // safely transferring tokens from sender to this contract
-            // or doing nothing if msg.value specified correctly
+            // safely transferring tokens from sender to the vault
             _safeTransferFromHelper(
                 _tokenIn,
                 msg.sender,
@@ -100,8 +99,7 @@ abstract contract CerbySwapV1_SwapFunctions is
                 revert CerbySwapV1_OutputTokensAmountIsLowerThanMinimumSpecified();
             }
 
-            // safely transferring tokens from sender to this contract
-            // or doing nothing if msg.value specified correctly
+            // safely transferring tokens from sender to the vault
             _safeTransferFromHelper(
                 _tokenIn,
                 msg.sender,
@@ -122,26 +120,26 @@ abstract contract CerbySwapV1_SwapFunctions is
             _tokenIn != _tokenOut
         ) {
             // getting pool balances before the swap
-            PoolBalances memory firstPoolBalancesBefore = _getPoolBalances(
+            PoolBalances memory poolInBalancesBefore = _getPoolBalances(
                 _tokenIn,
                 vaultAddressIn
             );
 
             // getting amountTokensOut=
             uint256 amountCerUsdOut = _getOutputExactTokensForCerUsd(
-                firstPoolBalancesBefore,
+                poolInBalancesBefore,
                 _tokenIn,
                 _amountTokensIn
             );
 
             // getting pool balances before the swap
-            PoolBalances memory secondPoolBalancesBefore = _getPoolBalances(
+            PoolBalances memory poolOutBalancesBefore = _getPoolBalances(
                 _tokenOut,
                 vaultAddressOut
             );
 
             amounts[1] = _getOutputExactCerUsdForTokens(
-                secondPoolBalancesBefore,
+                poolOutBalancesBefore,
                 _tokenOut,
                 amountCerUsdOut
             );
@@ -152,8 +150,7 @@ abstract contract CerbySwapV1_SwapFunctions is
                 revert CerbySwapV1_OutputTokensAmountIsLowerThanMinimumSpecified();
             }
 
-            // safely transferring tokens from sender to this contract
-            // or doing nothing if msg.value specified correctly
+            // safely transferring tokens from sender to the vault
             _safeTransferFromHelper(
                 _tokenIn,
                 msg.sender,
@@ -165,27 +162,14 @@ abstract contract CerbySwapV1_SwapFunctions is
             // keeping all output cerUSD in the contract without sending
             _swap(
                 _tokenIn,
-                firstPoolBalancesBefore,
+                poolInBalancesBefore,
                 0,
                 amountCerUsdOut,
-                address(this)
-            );
-
-            _safeTransferFromHelper(
-                cerUsdToken,
-                vaultAddressIn,
-                vaultAddressOut,
-                amountCerUsdOut
+                vaultAddressOut
             );
 
             // swapping cerUSD ---> YYY
-            _swap(
-                _tokenOut,
-                secondPoolBalancesBefore,
-                amounts[1],
-                0,
-                _transferTo
-            );
+            _swap(_tokenOut, poolOutBalancesBefore, amounts[1], 0, _transferTo);
 
             return amounts;
         }
@@ -244,8 +228,7 @@ abstract contract CerbySwapV1_SwapFunctions is
                 revert CerbySwapV1_AmountOfTokensMustBeLargerThanOne();
             }
 
-            // safely transferring tokens from sender to this contract
-            // or doing nothing if msg.value specified correctly
+            // safely transferring tokens from sender to the vault
             _safeTransferFromHelper(
                 _tokenIn,
                 msg.sender,
@@ -292,8 +275,7 @@ abstract contract CerbySwapV1_SwapFunctions is
                 revert CerbySwapV1_AmountOfCerUsdMustBeLargerThanOne();
             }
 
-            // safely transferring tokens from sender to this contract
-            // or doing nothing if msg.value specified correctly
+            // safely transferring tokens from sender to the vault
             _safeTransferFromHelper(
                 _tokenIn,
                 msg.sender,
@@ -320,14 +302,14 @@ abstract contract CerbySwapV1_SwapFunctions is
             _tokenIn != _tokenOut
         ) {
             // getting pool balances before the swap
-            PoolBalances memory firstPoolBalancesBefore = _getPoolBalances(
+            PoolBalances memory poolInBalancesBefore = _getPoolBalances(
                 _tokenIn,
                 vaultAddressIn
             );
 
             // getting amountTokensOut
             uint256 amountCerUsdOut = _getInputCerUsdForExactTokens(
-                firstPoolBalancesBefore,
+                poolInBalancesBefore,
                 _tokenIn,
                 _amountTokensOut
             );
@@ -339,13 +321,13 @@ abstract contract CerbySwapV1_SwapFunctions is
             }
 
             // getting pool balances before the swap
-            PoolBalances memory secondPoolBalancesBefore = _getPoolBalances(
+            PoolBalances memory poolOutBalancesBefore = _getPoolBalances(
                 _tokenOut,
                 vaultAddressOut
             );
 
             amounts[0] = _getInputTokensForExactCerUsd(
-                secondPoolBalancesBefore,
+                poolOutBalancesBefore,
                 _tokenOut,
                 amountCerUsdOut
             );
@@ -368,8 +350,7 @@ abstract contract CerbySwapV1_SwapFunctions is
                 revert CerbySwapV1_AmountOfTokensMustBeLargerThanOne();
             }
 
-            // safely transferring tokens from sender to this contract
-            // or doing nothing if msg.value specified correctly
+            // safely transferring tokens from sender to the vault
             _safeTransferFromHelper(
                 _tokenIn,
                 msg.sender,
@@ -380,23 +361,16 @@ abstract contract CerbySwapV1_SwapFunctions is
             // swapping XXX ---> cerUSD
             _swap(
                 _tokenIn,
-                firstPoolBalancesBefore,
+                poolInBalancesBefore,
                 0,
                 amountCerUsdOut,
-                address(this)
-            );
-
-            _safeTransferFromHelper(
-                cerUsdToken,
-                vaultAddressIn,
-                vaultAddressOut,
-                amountCerUsdOut
+                vaultAddressOut
             );
 
             // swapping cerUSD ---> YYY
             _swap(
                 _tokenOut,
-                secondPoolBalancesBefore,
+                poolOutBalancesBefore,
                 _amountTokensOut,
                 0,
                 _transferTo
@@ -449,16 +423,6 @@ abstract contract CerbySwapV1_SwapFunctions is
         uint256 beforeKValueDenormed = _poolBalancesBefore.balanceToken *
             _poolBalancesBefore.balanceCerUsd *
             FEE_DENORM_SQUARED;
-
-        // calculating new pool values
-        poolBalancesAfter.balanceToken =
-            poolBalancesAfter.balanceToken +
-            amountTokensIn -
-            _amountTokensOut;
-        poolBalancesAfter.balanceCerUsd =
-            poolBalancesAfter.balanceCerUsd +
-            amountCerUsdIn -
-            _amountCerUsdOut;
 
         // calculating fees
         // if swap is ANY --> cerUSD, fee is calculated
@@ -613,16 +577,12 @@ abstract contract CerbySwapV1_SwapFunctions is
         uint256 _creditCerUsd,
         address _transferTo
     ) internal tokenDoesNotExistInPool(_token) {
-        // using current contract as a vault for native tokens
-        address vaultAddress = address(this);
+        // creating vault contract to safely store tokens
+        address vaultAddress = address(
+            new CerbySwapV1_Vault(_token, cerUsdToken, _token == nativeToken)
+        );
 
-        // creating vault contract for non-native tokens
-        if (_token != nativeToken) {
-            vaultAddress = address(new CerbySwapV1_Vault(_token));
-        }
-
-        // safely transferring tokens from sender to this contract
-        // or doing nothing if msg.value specified correctly
+        // safely transferring tokens from sender to the vault
         _safeTransferFromHelper(
             _token,
             msg.sender,
@@ -637,7 +597,7 @@ abstract contract CerbySwapV1_SwapFunctions is
         );
 
         // finding out how many tokens received
-        _amountTokensIn = IERC20(_token).balanceOf(vaultAddress);
+        _amountTokensIn = _getTokenBalance(_token, vaultAddress);
         if (_amountTokensIn <= 1) {
             revert("F"); // TODO: remove this line on production
             revert CerbySwapV1_AmountOfTokensMustBeLargerThanOne();
@@ -669,8 +629,8 @@ abstract contract CerbySwapV1_SwapFunctions is
         uint256 lpAmount = newSqrtKValue - MINIMUM_LIQUIDITY;
         _mint(_transferTo, poolId, lpAmount, "");
 
-        // PairCreated event is needed to track new pairs created in the graph node
-        emit PairCreated(_token, poolId);
+        // PoolCreated event is needed to track new pairs created in the graph node
+        emit PoolCreated(_token, poolId);
 
         // LiquidityAdded event is needed to post in telegram channel
         emit LiquidityAdded(
@@ -709,8 +669,7 @@ abstract contract CerbySwapV1_SwapFunctions is
             pool.vaultAddress
         );
 
-        // safely transferring tokens from sender to this contract
-        // or doing nothing if msg.value specified correctly
+        // safely transferring tokens from sender to the vault
         _safeTransferFromHelper(
             _token,
             msg.sender,

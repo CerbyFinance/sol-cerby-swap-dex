@@ -40,8 +40,8 @@ export interface LiquidityRemoved {
   };
 }
 
-export interface PairCreated {
-  name: "PairCreated";
+export interface PoolCreated {
+  name: "PoolCreated";
   args: {
     _token: string;
     _poolId: BN;
@@ -86,7 +86,7 @@ export interface Sync {
   };
 }
 
-type AllEvents = LiquidityAdded | LiquidityRemoved | PairCreated | Swap | Sync;
+type AllEvents = LiquidityAdded | LiquidityRemoved | PoolCreated | Swap | Sync;
 
 export interface CerbySwapV1EventsAndErrorsInstance
   extends Truffle.ContractInstance {

@@ -64,22 +64,19 @@ abstract contract CerbySwapV1_GetFunctions is
             settings.tvlMultiplierMinimum) / TVL_MULTIPLIER_DENORM;
         uint256 tvlMax = (_poolBalances.balanceCerUsd *
             settings.tvlMultiplierMaximum) / TVL_MULTIPLIER_DENORM;
-        uint256 fee;
         if (volume <= tvlMin) {
-            fee = settings.feeMaximum; // 1.00%
+            return FEE_DENORM - settings.feeMaximum; // 1.00%
         } else if (tvlMin < volume && volume < tvlMax) {
-            fee =
+            return
+                FEE_DENORM -
                 settings.feeMaximum -
                 ((volume - tvlMin) *
                     (settings.feeMaximum - settings.feeMinimum)) /
                 (tvlMax - tvlMin); // between 1.00% and 0.01%
-        } else {
-            // if (volume > tvlMax)
-            fee = settings.feeMinimum; // 0.01%
         }
 
-        // returning oneMinusFee = 1 - fee for further calculations
-        return FEE_DENORM - fee;
+        // if (volume > tvlMax)
+        return FEE_DENORM - settings.feeMinimum; // 0.01%
     }
 
     function getOutputExactTokensForTokens(
@@ -268,26 +265,16 @@ abstract contract CerbySwapV1_GetFunctions is
         return amountIn;
     }
 
-    function getPoolsByIds(uint256[] calldata _ids)
-        public
-        view
-        returns (Pool[] memory)
-    {
-        Pool[] memory outputPools = new Pool[](_ids.length);
-        for (uint256 i; i < _ids.length; i++) {
-            outputPools[i] = pools[_ids[i]];
-        }
-        return outputPools;
-    }
-
     function getPoolsByTokens(address[] calldata _tokens)
         public
         view
-        returns (Pool[] memory)
+        returns (PoolBalances[] memory)
     {
-        Pool[] memory outputPools = new Pool[](_tokens.length);
+        PoolBalances[] memory outputPools = new PoolBalances[](_tokens.length);
         for (uint256 i; i < _tokens.length; i++) {
-            outputPools[i] = pools[tokenToPoolId[_tokens[i]]];
+            address token = _tokens[i];
+            Pool storage pool = pools[tokenToPoolId[token]];
+            outputPools[i] = _getPoolBalances(token, pool.vaultAddress);
         }
         return outputPools;
     }

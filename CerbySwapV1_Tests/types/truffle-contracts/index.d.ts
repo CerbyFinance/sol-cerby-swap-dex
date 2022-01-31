@@ -29,6 +29,7 @@ import { IAccessControlEnumerableContract } from "./IAccessControlEnumerable";
 import { ICerbyBotDetectionContract } from "./ICerbyBotDetection";
 import { ICerbyCronJobsContract } from "./ICerbyCronJobs";
 import { ICerbySwapLP1155V1Contract } from "./ICerbySwapLP1155V1";
+import { ICerbySwapV1VaultContract } from "./ICerbySwapV1Vault";
 import { ICerbyTokenContract } from "./ICerbyToken";
 import { ICerbyTokenMinterBurnerContract } from "./ICerbyTokenMinterBurner";
 import { IERC1155Contract } from "./IERC1155";
@@ -91,6 +92,7 @@ declare global {
       require(name: "ICerbyBotDetection"): ICerbyBotDetectionContract;
       require(name: "ICerbyCronJobs"): ICerbyCronJobsContract;
       require(name: "ICerbySwapLP1155V1"): ICerbySwapLP1155V1Contract;
+      require(name: "ICerbySwapV1_Vault"): ICerbySwapV1VaultContract;
       require(name: "ICerbyToken"): ICerbyTokenContract;
       require(name: "ICerbyTokenMinterBurner"): ICerbyTokenMinterBurnerContract;
       require(name: "IERC1155"): IERC1155Contract;
@@ -197,6 +199,10 @@ export {
   ICerbySwapLP1155V1Contract,
   ICerbySwapLP1155V1Instance,
 } from "./ICerbySwapLP1155V1";
+export {
+  ICerbySwapV1VaultContract,
+  ICerbySwapV1VaultInstance,
+} from "./ICerbySwapV1Vault";
 export { ICerbyTokenContract, ICerbyTokenInstance } from "./ICerbyToken";
 export {
   ICerbyTokenMinterBurnerContract,

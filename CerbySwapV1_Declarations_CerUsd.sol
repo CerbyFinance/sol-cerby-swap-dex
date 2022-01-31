@@ -4,5 +4,5 @@ pragma solidity ^0.8.11;
 
 abstract contract CerbySwapV1_Declarations_CerUsd {
     // TODO: make constant
-    address internal cerUsdToken = 0x0fC5025C764cE34df352757e82f7B5c4Df39A836;
+    address internal cerUsdToken = 0x46E8e0af862f636199af69aCd082b9963066Ed9C;
 }

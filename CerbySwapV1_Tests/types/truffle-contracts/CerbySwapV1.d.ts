@@ -60,8 +60,8 @@ export interface OwnershipTransferred {
   };
 }
 
-export interface PairCreated {
-  name: "PairCreated";
+export interface PoolCreated {
+  name: "PoolCreated";
   args: {
     _token: string;
     _poolId: BN;
@@ -153,7 +153,7 @@ type AllEvents =
   | LiquidityAdded
   | LiquidityRemoved
   | OwnershipTransferred
-  | PairCreated
+  | PoolCreated
   | Swap
   | Sync
   | TransferBatch
@@ -412,29 +412,10 @@ export interface CerbySwapV1Instance extends Truffle.ContractInstance {
     txDetails?: Truffle.TransactionDetails
   ): Promise<BN>;
 
-  getPoolsByIds(
-    _ids: (number | BN | string)[],
-    txDetails?: Truffle.TransactionDetails
-  ): Promise<
-    {
-      vaultAddress: string;
-      tradeVolumePerPeriodInCerUsd: BN[];
-      lastSqrtKValue: BN;
-      creditCerUsd: BN;
-    }[]
-  >;
-
   getPoolsByTokens(
     _tokens: string[],
     txDetails?: Truffle.TransactionDetails
-  ): Promise<
-    {
-      vaultAddress: string;
-      tradeVolumePerPeriodInCerUsd: BN[];
-      lastSqrtKValue: BN;
-      creditCerUsd: BN;
-    }[]
-  >;
+  ): Promise<{ balanceToken: BN; balanceCerUsd: BN }[]>;
 
   getSettings(
     txDetails?: Truffle.TransactionDetails
@@ -1027,29 +1008,10 @@ export interface CerbySwapV1Instance extends Truffle.ContractInstance {
       txDetails?: Truffle.TransactionDetails
     ): Promise<BN>;
 
-    getPoolsByIds(
-      _ids: (number | BN | string)[],
-      txDetails?: Truffle.TransactionDetails
-    ): Promise<
-      {
-        vaultAddress: string;
-        tradeVolumePerPeriodInCerUsd: BN[];
-        lastSqrtKValue: BN;
-        creditCerUsd: BN;
-      }[]
-    >;
-
     getPoolsByTokens(
       _tokens: string[],
       txDetails?: Truffle.TransactionDetails
-    ): Promise<
-      {
-        vaultAddress: string;
-        tradeVolumePerPeriodInCerUsd: BN[];
-        lastSqrtKValue: BN;
-        creditCerUsd: BN;
-      }[]
-    >;
+    ): Promise<{ balanceToken: BN; balanceCerUsd: BN }[]>;
 
     getSettings(
       txDetails?: Truffle.TransactionDetails

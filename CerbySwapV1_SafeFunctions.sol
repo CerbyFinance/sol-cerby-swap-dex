@@ -3,6 +3,7 @@
 pragma solidity ^0.8.11;
 
 import "./interfaces/IERC20.sol";
+import "./interfaces/ICerbySwapV1_Vault.sol";
 import "./CerbySwapV1_Declarations.sol";
 import "./CerbySwapV1_EventsAndErrors.sol";
 
@@ -46,39 +47,39 @@ abstract contract CerbySwapV1_SafeFunctions is
         address _to,
         uint256 _amountTokens
     ) internal {
-        // native tokens sender --> this
-        if (_token == nativeToken && _to == address(this)) {
+        if (_amountTokens <= 1) {
+            return;
+        }
+
+        // native tokens sender --> vault
+        if (_token == nativeToken && _from == msg.sender) {
             // sender must sent some native tokens
-            if (msg.value < _amountTokens) {
+            uint256 nativeBalance = address(this).balance;
+            if (nativeBalance < _amountTokens) {
+                revert("asd");
                 revert CerbySwapV1_MsgValueProvidedMustBeLargerThanAmountTokensIn();
             }
 
             // refunding excess of native tokens
-            // to make sure msg.value == amountTokensIn
-            if (msg.value > _amountTokens) {
-                _safeCoreTransferNative(msg.sender, msg.value - _amountTokens);
+            // to make sure nativeBalance == amountTokensIn
+            if (nativeBalance > _amountTokens) {
+                _safeCoreTransferNative(
+                    msg.sender,
+                    nativeBalance - _amountTokens
+                );
             }
 
-            // msg.value == amountTokensIn here
+            _safeCoreTransferNative(_to, _amountTokens);
             return;
         }
 
-        // native tokens this --> sender
-        if (
-            _token == nativeToken &&
-            _from == address(this) &&
-            _to != address(this)
-        ) {
-            _safeCoreTransferNative(_to, _amountTokens);
+        // native tokens vault --> sender
+        if (_token == nativeToken && _from != msg.sender) {
+            ICerbySwapV1_Vault(_from).withdrawEth(_to, _amountTokens);
+            return;
         }
 
         // token != nativeToken clause
-        // sender must not send any native tokens
-        if (msg.value > 0) {
-            revert("G"); // TODO: remove this line on production
-            revert CerbySwapV1_MsgValueProvidedMustBeZero();
-        }
-
         // _safeCoreTransferFrom does not require return value
         _safeCoreTransferFrom(_token, _from, _to, _amountTokens);
     }
