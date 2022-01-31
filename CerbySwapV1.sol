@@ -17,7 +17,7 @@ contract CerbySwapV1 is CerbySwapV1_AdminFunctions {
         uint256 tvlMultiplierMinimum = tvlMultiplier; // TVL * 0.1369863014
         uint256 tvlMultiplierMaximum = (tvlMultiplier * feeMaximum) /
             feeMinimum; // TVL * 27.397260274
-        uint256 sinceHowManyHoursAgoToTrackTradeVolume = 24; // tracking last 24 hours trade volume
+        uint256 sincePeriodAgoToTrackTradeVolume = 24; // tracking last 24 hours trade volume
         settings = Settings(
             mintFeeBeneficiary,
             mintFeeMultiplier,

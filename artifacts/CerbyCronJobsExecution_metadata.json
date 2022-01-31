@@ -58,11 +58,11 @@
 	},
 	"sources": {
 		"sol-cerby-swap-v1/CerbyCronJobsExecution.sol": {
-			"keccak256": "0xb433deb79e41673d75619dc006f75b4d2c00300b1fba2e03a0f34c3f596d9e37",
+			"keccak256": "0x9aab3889f6249416cdcc3a6a450b1819f137b6f533dfa476b8c840c35dea24d4",
 			"license": "BUSL-1.1",
 			"urls": [
-				"bzz-raw://815cc832c1a1212b8981b1a1836a5137f22a5f7d70db710136f1d210ffe783cc",
-				"dweb:/ipfs/QmdHu3MWRYNg5Vb8TDgWmk9g6wYkggX4PsRvWh5f5dAbjJ"
+				"bzz-raw://db297ff02e46abcbadc9fd74e373a7ceed8c2a51b15faf9d649215cf06880c5d",
+				"dweb:/ipfs/QmPsqKmmH3RNN4UbaH92nTS3iSFd1ZwAxb9FmSZohsybHf"
 			]
 		},
 		"sol-cerby-swap-v1/interfaces/ICerbyBotDetection.sol": {

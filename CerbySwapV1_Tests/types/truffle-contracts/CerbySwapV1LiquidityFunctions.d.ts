@@ -52,8 +52,8 @@ export interface LiquidityRemoved {
   };
 }
 
-export interface PairCreated {
-  name: "PairCreated";
+export interface PoolCreated {
+  name: "PoolCreated";
   args: {
     _token: string;
     _poolId: BN;
@@ -144,7 +144,7 @@ type AllEvents =
   | ApprovalForAll
   | LiquidityAdded
   | LiquidityRemoved
-  | PairCreated
+  | PoolCreated
   | Swap
   | Sync
   | TransferBatch
@@ -155,31 +155,31 @@ export interface CerbySwapV1LiquidityFunctionsInstance
   extends Truffle.ContractInstance {
   addTokenLiquidity: {
     (
-      token: string,
-      amountTokensIn: number | BN | string,
-      expireTimestamp: number | BN | string,
-      transferTo: string,
+      _token: string,
+      _amountTokensIn: number | BN | string,
+      _expireTimestamp: number | BN | string,
+      _transferTo: string,
       txDetails?: Truffle.TransactionDetails
     ): Promise<Truffle.TransactionResponse<AllEvents>>;
     call(
-      token: string,
-      amountTokensIn: number | BN | string,
-      expireTimestamp: number | BN | string,
-      transferTo: string,
+      _token: string,
+      _amountTokensIn: number | BN | string,
+      _expireTimestamp: number | BN | string,
+      _transferTo: string,
       txDetails?: Truffle.TransactionDetails
     ): Promise<BN>;
     sendTransaction(
-      token: string,
-      amountTokensIn: number | BN | string,
-      expireTimestamp: number | BN | string,
-      transferTo: string,
+      _token: string,
+      _amountTokensIn: number | BN | string,
+      _expireTimestamp: number | BN | string,
+      _transferTo: string,
       txDetails?: Truffle.TransactionDetails
     ): Promise<string>;
     estimateGas(
-      token: string,
-      amountTokensIn: number | BN | string,
-      expireTimestamp: number | BN | string,
-      transferTo: string,
+      _token: string,
+      _amountTokensIn: number | BN | string,
+      _expireTimestamp: number | BN | string,
+      _transferTo: string,
       txDetails?: Truffle.TransactionDetails
     ): Promise<number>;
   };
@@ -198,31 +198,31 @@ export interface CerbySwapV1LiquidityFunctionsInstance
 
   createPool: {
     (
-      token: string,
-      amountTokensIn: number | BN | string,
-      amountCerUsdToMint: number | BN | string,
-      transferTo: string,
+      _token: string,
+      _amountTokensIn: number | BN | string,
+      _amountCerUsdToMint: number | BN | string,
+      _transferTo: string,
       txDetails?: Truffle.TransactionDetails
     ): Promise<Truffle.TransactionResponse<AllEvents>>;
     call(
-      token: string,
-      amountTokensIn: number | BN | string,
-      amountCerUsdToMint: number | BN | string,
-      transferTo: string,
+      _token: string,
+      _amountTokensIn: number | BN | string,
+      _amountCerUsdToMint: number | BN | string,
+      _transferTo: string,
       txDetails?: Truffle.TransactionDetails
     ): Promise<void>;
     sendTransaction(
-      token: string,
-      amountTokensIn: number | BN | string,
-      amountCerUsdToMint: number | BN | string,
-      transferTo: string,
+      _token: string,
+      _amountTokensIn: number | BN | string,
+      _amountCerUsdToMint: number | BN | string,
+      _transferTo: string,
       txDetails?: Truffle.TransactionDetails
     ): Promise<string>;
     estimateGas(
-      token: string,
-      amountTokensIn: number | BN | string,
-      amountCerUsdToMint: number | BN | string,
-      transferTo: string,
+      _token: string,
+      _amountTokensIn: number | BN | string,
+      _amountCerUsdToMint: number | BN | string,
+      _transferTo: string,
       txDetails?: Truffle.TransactionDetails
     ): Promise<number>;
   };
@@ -233,6 +233,47 @@ export interface CerbySwapV1LiquidityFunctionsInstance
     _id: number | BN | string,
     txDetails?: Truffle.TransactionDetails
   ): Promise<boolean>;
+
+  getCurrentOneMinusFeeBasedOnTrades(
+    _token: string,
+    txDetails?: Truffle.TransactionDetails
+  ): Promise<BN>;
+
+  getInputTokensForExactTokens(
+    _tokenIn: string,
+    _tokenOut: string,
+    _amountTokensOut: number | BN | string,
+    txDetails?: Truffle.TransactionDetails
+  ): Promise<BN>;
+
+  getOutputExactTokensForTokens(
+    _tokenIn: string,
+    _tokenOut: string,
+    _amountTokensIn: number | BN | string,
+    txDetails?: Truffle.TransactionDetails
+  ): Promise<BN>;
+
+  getPoolsByTokens(
+    _tokens: string[],
+    txDetails?: Truffle.TransactionDetails
+  ): Promise<{ balanceToken: BN; balanceCerUsd: BN }[]>;
+
+  getSettings(
+    txDetails?: Truffle.TransactionDetails
+  ): Promise<{
+    mintFeeBeneficiary: string;
+    mintFeeMultiplier: BN;
+    feeMinimum: BN;
+    feeMaximum: BN;
+    tvlMultiplierMinimum: BN;
+    tvlMultiplierMaximum: BN;
+    sincePeriodAgoToTrackTradeVolume: BN;
+  }>;
+
+  getTokenToPoolId(
+    _token: string,
+    txDetails?: Truffle.TransactionDetails
+  ): Promise<BN>;
 
   getUtilsContractAtPos(
     _pos: number | BN | string,
@@ -272,31 +313,31 @@ export interface CerbySwapV1LiquidityFunctionsInstance
 
   removeTokenLiquidity: {
     (
-      token: string,
-      amountLpTokensBalanceToBurn: number | BN | string,
-      expireTimestamp: number | BN | string,
-      transferTo: string,
+      _token: string,
+      _amountLpTokensBalanceToBurn: number | BN | string,
+      _expireTimestamp: number | BN | string,
+      _transferTo: string,
       txDetails?: Truffle.TransactionDetails
     ): Promise<Truffle.TransactionResponse<AllEvents>>;
     call(
-      token: string,
-      amountLpTokensBalanceToBurn: number | BN | string,
-      expireTimestamp: number | BN | string,
-      transferTo: string,
+      _token: string,
+      _amountLpTokensBalanceToBurn: number | BN | string,
+      _expireTimestamp: number | BN | string,
+      _transferTo: string,
       txDetails?: Truffle.TransactionDetails
     ): Promise<BN>;
     sendTransaction(
-      token: string,
-      amountLpTokensBalanceToBurn: number | BN | string,
-      expireTimestamp: number | BN | string,
-      transferTo: string,
+      _token: string,
+      _amountLpTokensBalanceToBurn: number | BN | string,
+      _expireTimestamp: number | BN | string,
+      _transferTo: string,
       txDetails?: Truffle.TransactionDetails
     ): Promise<string>;
     estimateGas(
-      token: string,
-      amountLpTokensBalanceToBurn: number | BN | string,
-      expireTimestamp: number | BN | string,
-      transferTo: string,
+      _token: string,
+      _amountLpTokensBalanceToBurn: number | BN | string,
+      _expireTimestamp: number | BN | string,
+      _transferTo: string,
       txDetails?: Truffle.TransactionDetails
     ): Promise<number>;
   };
@@ -401,21 +442,6 @@ export interface CerbySwapV1LiquidityFunctionsInstance
 
   symbol(txDetails?: Truffle.TransactionDetails): Promise<string>;
 
-  syncPool: {
-    (token: string, txDetails?: Truffle.TransactionDetails): Promise<
-      Truffle.TransactionResponse<AllEvents>
-    >;
-    call(token: string, txDetails?: Truffle.TransactionDetails): Promise<void>;
-    sendTransaction(
-      token: string,
-      txDetails?: Truffle.TransactionDetails
-    ): Promise<string>;
-    estimateGas(
-      token: string,
-      txDetails?: Truffle.TransactionDetails
-    ): Promise<number>;
-  };
-
   uri(
     _id: number | BN | string,
     txDetails?: Truffle.TransactionDetails
@@ -424,31 +450,31 @@ export interface CerbySwapV1LiquidityFunctionsInstance
   methods: {
     addTokenLiquidity: {
       (
-        token: string,
-        amountTokensIn: number | BN | string,
-        expireTimestamp: number | BN | string,
-        transferTo: string,
+        _token: string,
+        _amountTokensIn: number | BN | string,
+        _expireTimestamp: number | BN | string,
+        _transferTo: string,
         txDetails?: Truffle.TransactionDetails
       ): Promise<Truffle.TransactionResponse<AllEvents>>;
       call(
-        token: string,
-        amountTokensIn: number | BN | string,
-        expireTimestamp: number | BN | string,
-        transferTo: string,
+        _token: string,
+        _amountTokensIn: number | BN | string,
+        _expireTimestamp: number | BN | string,
+        _transferTo: string,
         txDetails?: Truffle.TransactionDetails
       ): Promise<BN>;
       sendTransaction(
-        token: string,
-        amountTokensIn: number | BN | string,
-        expireTimestamp: number | BN | string,
-        transferTo: string,
+        _token: string,
+        _amountTokensIn: number | BN | string,
+        _expireTimestamp: number | BN | string,
+        _transferTo: string,
         txDetails?: Truffle.TransactionDetails
       ): Promise<string>;
       estimateGas(
-        token: string,
-        amountTokensIn: number | BN | string,
-        expireTimestamp: number | BN | string,
-        transferTo: string,
+        _token: string,
+        _amountTokensIn: number | BN | string,
+        _expireTimestamp: number | BN | string,
+        _transferTo: string,
         txDetails?: Truffle.TransactionDetails
       ): Promise<number>;
     };
@@ -467,31 +493,31 @@ export interface CerbySwapV1LiquidityFunctionsInstance
 
     createPool: {
       (
-        token: string,
-        amountTokensIn: number | BN | string,
-        amountCerUsdToMint: number | BN | string,
-        transferTo: string,
+        _token: string,
+        _amountTokensIn: number | BN | string,
+        _amountCerUsdToMint: number | BN | string,
+        _transferTo: string,
         txDetails?: Truffle.TransactionDetails
       ): Promise<Truffle.TransactionResponse<AllEvents>>;
       call(
-        token: string,
-        amountTokensIn: number | BN | string,
-        amountCerUsdToMint: number | BN | string,
-        transferTo: string,
+        _token: string,
+        _amountTokensIn: number | BN | string,
+        _amountCerUsdToMint: number | BN | string,
+        _transferTo: string,
         txDetails?: Truffle.TransactionDetails
       ): Promise<void>;
       sendTransaction(
-        token: string,
-        amountTokensIn: number | BN | string,
-        amountCerUsdToMint: number | BN | string,
-        transferTo: string,
+        _token: string,
+        _amountTokensIn: number | BN | string,
+        _amountCerUsdToMint: number | BN | string,
+        _transferTo: string,
         txDetails?: Truffle.TransactionDetails
       ): Promise<string>;
       estimateGas(
-        token: string,
-        amountTokensIn: number | BN | string,
-        amountCerUsdToMint: number | BN | string,
-        transferTo: string,
+        _token: string,
+        _amountTokensIn: number | BN | string,
+        _amountCerUsdToMint: number | BN | string,
+        _transferTo: string,
         txDetails?: Truffle.TransactionDetails
       ): Promise<number>;
     };
@@ -502,6 +528,47 @@ export interface CerbySwapV1LiquidityFunctionsInstance
       _id: number | BN | string,
       txDetails?: Truffle.TransactionDetails
     ): Promise<boolean>;
+
+    getCurrentOneMinusFeeBasedOnTrades(
+      _token: string,
+      txDetails?: Truffle.TransactionDetails
+    ): Promise<BN>;
+
+    getInputTokensForExactTokens(
+      _tokenIn: string,
+      _tokenOut: string,
+      _amountTokensOut: number | BN | string,
+      txDetails?: Truffle.TransactionDetails
+    ): Promise<BN>;
+
+    getOutputExactTokensForTokens(
+      _tokenIn: string,
+      _tokenOut: string,
+      _amountTokensIn: number | BN | string,
+      txDetails?: Truffle.TransactionDetails
+    ): Promise<BN>;
+
+    getPoolsByTokens(
+      _tokens: string[],
+      txDetails?: Truffle.TransactionDetails
+    ): Promise<{ balanceToken: BN; balanceCerUsd: BN }[]>;
+
+    getSettings(
+      txDetails?: Truffle.TransactionDetails
+    ): Promise<{
+      mintFeeBeneficiary: string;
+      mintFeeMultiplier: BN;
+      feeMinimum: BN;
+      feeMaximum: BN;
+      tvlMultiplierMinimum: BN;
+      tvlMultiplierMaximum: BN;
+      sincePeriodAgoToTrackTradeVolume: BN;
+    }>;
+
+    getTokenToPoolId(
+      _token: string,
+      txDetails?: Truffle.TransactionDetails
+    ): Promise<BN>;
 
     getUtilsContractAtPos(
       _pos: number | BN | string,
@@ -541,31 +608,31 @@ export interface CerbySwapV1LiquidityFunctionsInstance
 
     removeTokenLiquidity: {
       (
-        token: string,
-        amountLpTokensBalanceToBurn: number | BN | string,
-        expireTimestamp: number | BN | string,
-        transferTo: string,
+        _token: string,
+        _amountLpTokensBalanceToBurn: number | BN | string,
+        _expireTimestamp: number | BN | string,
+        _transferTo: string,
         txDetails?: Truffle.TransactionDetails
       ): Promise<Truffle.TransactionResponse<AllEvents>>;
       call(
-        token: string,
-        amountLpTokensBalanceToBurn: number | BN | string,
-        expireTimestamp: number | BN | string,
-        transferTo: string,
+        _token: string,
+        _amountLpTokensBalanceToBurn: number | BN | string,
+        _expireTimestamp: number | BN | string,
+        _transferTo: string,
         txDetails?: Truffle.TransactionDetails
       ): Promise<BN>;
       sendTransaction(
-        token: string,
-        amountLpTokensBalanceToBurn: number | BN | string,
-        expireTimestamp: number | BN | string,
-        transferTo: string,
+        _token: string,
+        _amountLpTokensBalanceToBurn: number | BN | string,
+        _expireTimestamp: number | BN | string,
+        _transferTo: string,
         txDetails?: Truffle.TransactionDetails
       ): Promise<string>;
       estimateGas(
-        token: string,
-        amountLpTokensBalanceToBurn: number | BN | string,
-        expireTimestamp: number | BN | string,
-        transferTo: string,
+        _token: string,
+        _amountLpTokensBalanceToBurn: number | BN | string,
+        _expireTimestamp: number | BN | string,
+        _transferTo: string,
         txDetails?: Truffle.TransactionDetails
       ): Promise<number>;
     };
@@ -669,24 +736,6 @@ export interface CerbySwapV1LiquidityFunctionsInstance
     ): Promise<boolean>;
 
     symbol(txDetails?: Truffle.TransactionDetails): Promise<string>;
-
-    syncPool: {
-      (token: string, txDetails?: Truffle.TransactionDetails): Promise<
-        Truffle.TransactionResponse<AllEvents>
-      >;
-      call(
-        token: string,
-        txDetails?: Truffle.TransactionDetails
-      ): Promise<void>;
-      sendTransaction(
-        token: string,
-        txDetails?: Truffle.TransactionDetails
-      ): Promise<string>;
-      estimateGas(
-        token: string,
-        txDetails?: Truffle.TransactionDetails
-      ): Promise<number>;
-    };
 
     uri(
       _id: number | BN | string,

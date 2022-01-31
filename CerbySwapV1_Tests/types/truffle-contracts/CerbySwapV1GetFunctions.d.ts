@@ -123,7 +123,7 @@ export interface CerbySwapV1GetFunctionsInstance
     feeMaximum: BN;
     tvlMultiplierMinimum: BN;
     tvlMultiplierMaximum: BN;
-    sinceHowManyHoursAgoToTrackTradeVolume: BN;
+    sincePeriodAgoToTrackTradeVolume: BN;
   }>;
 
   getTokenToPoolId(
@@ -165,7 +165,7 @@ export interface CerbySwapV1GetFunctionsInstance
       feeMaximum: BN;
       tvlMultiplierMinimum: BN;
       tvlMultiplierMaximum: BN;
-      sinceHowManyHoursAgoToTrackTradeVolume: BN;
+      sincePeriodAgoToTrackTradeVolume: BN;
     }>;
 
     getTokenToPoolId(

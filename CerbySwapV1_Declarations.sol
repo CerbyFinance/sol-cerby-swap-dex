@@ -43,7 +43,7 @@ abstract contract CerbySwapV1_Declarations is
         uint256 feeMaximum;
         uint256 tvlMultiplierMinimum;
         uint256 tvlMultiplierMaximum;
-        uint256 sinceHowManyHoursAgoToTrackTradeVolume;
+        uint256 sincePeriodAgoToTrackTradeVolume;
     }
 
     struct Pool {
