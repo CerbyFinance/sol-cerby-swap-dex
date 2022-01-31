@@ -69,7 +69,7 @@ abstract contract CerbySwapV1_GetFunctions is
         } else if (tvlMin < volume && volume < tvlMax) {
             return
                 FEE_DENORM -
-                settings.feeMaximum -
+                settings.feeMaximum +
                 ((volume - tvlMin) *
                     (settings.feeMaximum - settings.feeMinimum)) /
                 (tvlMax - tvlMin); // between 1.00% and 0.01%

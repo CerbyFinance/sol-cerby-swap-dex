@@ -1442,7 +1442,7 @@
 			"bytecodeHash": "ipfs"
 		},
 		"optimizer": {
-			"enabled": true,
+			"enabled": false,
 			"runs": 200
 		},
 		"remappings": []
@@ -1505,11 +1505,11 @@
 			]
 		},
 		"sol-cerby-swap-v1/CerbySwapV1_GetFunctions.sol": {
-			"keccak256": "0x5ba3a833ee16562135dd11f99b4ee2666e22a8b393f5f9f380119062166f93d4",
+			"keccak256": "0x3affe06ef811eaaa851d6fd9e9034905ea0f2408383510855ea947db05ed765d",
 			"license": "BUSL-1.1",
 			"urls": [
-				"bzz-raw://55627fe1973402d481c4d81e31f233b8d19a4529912456e96875f016bca1b971",
-				"dweb:/ipfs/QmY48AECsxm6MX8DoLziVK9D7TAuxG3m3iESbBWMSR9Emv"
+				"bzz-raw://b3522d93af4e2316e041ab2a7dcbe2ce1e9a4e64fd192b818bdacb1043754312",
+				"dweb:/ipfs/QmXGK2iVV9Eqcmi1CbxUcrdzPdekqRjaRYP82Ao63w3GBn"
 			]
 		},
 		"sol-cerby-swap-v1/CerbySwapV1_Math.sol": {
@@ -1529,27 +1529,27 @@
 			]
 		},
 		"sol-cerby-swap-v1/CerbySwapV1_SafeFunctions.sol": {
-			"keccak256": "0x3627026a17c3a02622d170a25c9f0d5968855698247a7283d5a06de06d863030",
+			"keccak256": "0x2cc0e6f240ad25e27816596605b6fd62ab13990552a3f274658896d74566d54c",
 			"license": "BUSL-1.1",
 			"urls": [
-				"bzz-raw://76fa94b5272b27830ffb5080d3db80b79982453f161c8e9a4271ad06359933e5",
-				"dweb:/ipfs/QmX6UmJRDwyWaSuZfJxjKwFakLz7YQx1BZrGtkS4aB4QxR"
+				"bzz-raw://b02845319e5098add439cecd09e89ab39f794742afe766db7b8b80d43f0eaccf",
+				"dweb:/ipfs/QmXUJvgkbQu4ShHUiXhCu4LjXgNerENvjKb4KaMp4sBYmu"
 			]
 		},
 		"sol-cerby-swap-v1/CerbySwapV1_SwapFunctions.sol": {
-			"keccak256": "0xf66260b80e317a6317bc5a140f3bdd4bf89819ca58c872b1a4305584dd9b5034",
+			"keccak256": "0x1f9db7811a6aa929962edbad6dcd39bce5709d767bdedcc6b56375ed0e4a4fde",
 			"license": "BUSL-1.1",
 			"urls": [
-				"bzz-raw://43c1982d9627232757e35e544bb1e925d1ed449f27df7442c3c8c4b282afa296",
-				"dweb:/ipfs/QmPC9oV5sxRRoVeC64caQKGkjsDjZGxhm6X7pgpkzZ8eG4"
+				"bzz-raw://51754403e6a802274fd1fba1e015d3b5aca34def706e40bf3a791a51569e9a97",
+				"dweb:/ipfs/QmU6kENnAvBMQNdqXNxq555GWfXcpNtTc1Cmm6sanSqWmq"
 			]
 		},
 		"sol-cerby-swap-v1/CerbySwapV1_Vault.sol": {
-			"keccak256": "0x25c27d540f6a85722261a07d41341b3db058597eb0f1ffdf203c84c135769e5d",
+			"keccak256": "0x9a3939c1c8644ad35f583103884b8cfc03519cf4dd3660b161fc90941cd472ca",
 			"license": "BUSL-1.1",
 			"urls": [
-				"bzz-raw://2a766b8a970369bbe4dcb02b7b0d25aa1052d66efac1d8cfcf5a391cb479d7f9",
-				"dweb:/ipfs/QmSeM9NCRuZgLr2hEqR5Cg9QKEKis7rU11DFzgCZCMv9aC"
+				"bzz-raw://70b1aa934ef3d0d5fe1d31b763e73a73d6ea6a542cc6288ea2c8a647728222d7",
+				"dweb:/ipfs/QmaEUw4W8nsruUatqpY3U6Tx7vmtanJJ3Dxem7VBMVKZfk"
 			]
 		},
 		"sol-cerby-swap-v1/interfaces/ICerbyBotDetection.sol": {
@@ -1558,6 +1558,14 @@
 			"urls": [
 				"bzz-raw://917931f683191dfc3d381fd70cde802fbd967fc691e727445bc2a33ec87e9fa8",
 				"dweb:/ipfs/QmZY9619gqezspATPKNGhFBgAcZA7dBmF4JADjf1xysEZs"
+			]
+		},
+		"sol-cerby-swap-v1/interfaces/ICerbySwapV1_Vault.sol": {
+			"keccak256": "0x55fa0c82995ebbfd67d86febf0af8d270f47ba2b3c91ffc0942fee9c80334e65",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://2d9fa61142358c9d8b8d7880b909813666d01fa3ed5fd3777c8bcb24c8587d05",
+				"dweb:/ipfs/QmbDD8guarU5j5PowiQZKj3hRZQZPDeaKaP5EpTDqr3BLM"
 			]
 		},
 		"sol-cerby-swap-v1/interfaces/ICerbyToken.sol": {
