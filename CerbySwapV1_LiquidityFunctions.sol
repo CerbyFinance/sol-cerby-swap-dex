@@ -70,17 +70,12 @@ abstract contract CerbySwapV1_LiquidityFunctions is
     ) internal tokenDoesNotExistInPool(_token) {
         // creating vault contract to safely store tokens
         address vaultAddress = address(
-            // TODO: remove cerUsdToken from parameters on production
             cloneVault(_token)
         );
-        address vaultAddressGenerated = getVaultCloneAddressByToken(_token);
-        if (vaultAddressGenerated != vaultAddress) {
-            revert("NOT MATCH!!!");
-        }
 
         ICerbySwapV1_VaultImplementation(vaultAddress).initialize(
             _token,
-            cerUsdToken,
+            cerUsdToken, // TODO: remove cerUsdToken from parameters on production            
             _token == nativeToken
         );
 
@@ -134,7 +129,7 @@ abstract contract CerbySwapV1_LiquidityFunctions is
         _mint(_transferTo, poolId, lpAmount, "");
 
         // PoolCreated event is needed to track new pairs created in the graph node
-        emit PoolCreated(_token, poolId);
+        emit PoolCreated(_token, vaultAddress, poolId);
 
         // LiquidityAdded event is needed to post in telegram channel
         emit LiquidityAdded(

@@ -3,7 +3,7 @@
 pragma solidity ^0.8.11;
 
 abstract contract CerbySwapV1_EventsAndErrors {
-    event PoolCreated(address _token, uint256 _poolId);
+    event PoolCreated(address _token, address _vaultAddress, uint256 _poolId);
     event LiquidityAdded(
         address _token,
         uint256 _amountTokensIn,

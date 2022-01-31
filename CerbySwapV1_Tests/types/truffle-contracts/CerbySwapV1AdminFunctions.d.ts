@@ -66,9 +66,11 @@ export interface PoolCreated {
   name: "PoolCreated";
   args: {
     _token: string;
+    _vaultAddress: string;
     _poolId: BN;
     0: string;
-    1: BN;
+    1: string;
+    2: BN;
   };
 }
 
