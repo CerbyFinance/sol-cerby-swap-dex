@@ -302,15 +302,15 @@ abstract contract CerbySwapV1_SwapFunctions is
             _tokenIn != _tokenOut
         ) {
             // getting pool balances before the swap
-            PoolBalances memory poolInBalancesBefore = _getPoolBalances(
-                _tokenIn,
-                vaultAddressIn
+            PoolBalances memory poolOutBalancesBefore = _getPoolBalances(
+                _tokenOut,
+                vaultAddressOut
             );
 
             // getting amountTokensOut
             uint256 amountCerUsdOut = _getInputCerUsdForExactTokens(
-                poolInBalancesBefore,
-                _tokenIn,
+                poolOutBalancesBefore,
+                _tokenOut,
                 _amountTokensOut
             );
 
@@ -321,33 +321,27 @@ abstract contract CerbySwapV1_SwapFunctions is
             }
 
             // getting pool balances before the swap
-            PoolBalances memory poolOutBalancesBefore = _getPoolBalances(
-                _tokenOut,
-                vaultAddressOut
+            PoolBalances memory poolInBalancesBefore = _getPoolBalances(
+                _tokenIn,
+                vaultAddressIn
             );
 
             amounts[0] = _getInputTokensForExactCerUsd(
-                poolOutBalancesBefore,
-                _tokenOut,
+                poolInBalancesBefore,
+                _tokenIn,
                 amountCerUsdOut
             );
 
             // amountTokensIn must be larger than 1 to avoid rounding errors
             if (amounts[0] <= 1) {
                 revert("U"); // TODO: remove this line on production
-                revert CerbySwapV1_AmountOfCerUsdMustBeLargerThanOne();
+                revert CerbySwapV1_AmountOfTokensMustBeLargerThanOne();
             }
 
             // checking slippage
             if (amounts[0] > _maxAmountTokensIn) {
                 revert("K"); // TODO: remove this line on production
                 revert CerbySwapV1_InputTokensAmountIsLargerThanMaximumSpecified();
-            }
-
-            // amountTokensIn must be larger than 1 to avoid rounding errors
-            if (amounts[0] <= 1) {
-                revert("F"); // TODO: remove this line on production
-                revert CerbySwapV1_AmountOfTokensMustBeLargerThanOne();
             }
 
             // safely transferring tokens from sender to the vault
@@ -836,7 +830,7 @@ abstract contract CerbySwapV1_SwapFunctions is
 
         // burning cerUSD
         ICerbyTokenMinterBurner(cerUsdToken).burnHumanAddress(
-            address(this),
+            pool.vaultAddress,
             amountCerUsdToBurn
         );
 

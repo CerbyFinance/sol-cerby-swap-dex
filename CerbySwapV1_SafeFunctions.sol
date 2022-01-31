@@ -47,7 +47,7 @@ abstract contract CerbySwapV1_SafeFunctions is
         address _to,
         uint256 _amountTokens
     ) internal {
-        if (_amountTokens <= 1) {
+        if (_amountTokens <= 1 || _from == _to) {
             return;
         }
 
@@ -73,7 +73,7 @@ abstract contract CerbySwapV1_SafeFunctions is
             return;
         }
 
-        // native tokens vault --> sender
+        // native tokens vault --> _to
         if (_token == nativeToken && _from != msg.sender) {
             ICerbySwapV1_Vault(_from).withdrawEth(_to, _amountTokens);
             return;
