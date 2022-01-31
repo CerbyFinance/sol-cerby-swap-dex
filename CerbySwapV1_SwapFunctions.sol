@@ -3,9 +3,9 @@
 pragma solidity ^0.8.11;
 
 import "./CerbySwapV1_LiquidityFunctions.sol";
-import "./interfaces/ICerbyTokenMinterBurner.sol";
 
-abstract contract CerbySwapV1_SwapFunctions is CerbySwapV1_LiquidityFunctions {
+abstract contract CerbySwapV1_SwapFunctions is CerbySwapV1_LiquidityFunctions
+{
     function swapExactTokensForTokens(
         address _tokenIn,
         address _tokenOut,
@@ -398,38 +398,23 @@ abstract contract CerbySwapV1_SwapFunctions is CerbySwapV1_LiquidityFunctions {
         // checking if cerUsd credit is enough to cover this swap
         if (
             pool.creditCerUsd < MAX_CER_USD_CREDIT &&
-            uint256(pool.creditCerUsd) + amountCerUsdIn < _amountCerUsdOut
+            pool.creditCerUsd + amountCerUsdIn < _amountCerUsdOut
         ) {
             revert("Z");
             revert CerbySwapV1_CreditCerUsdMustNotBeBelowZero();
         }
 
+        // calculating old K value including trade fees (multiplied by FEE_DENORM^2)
+        uint256 beforeKValueDenormed = _poolBalancesBefore.balanceToken *
+            _poolBalancesBefore.balanceCerUsd *
+            FEE_DENORM_SQUARED;
+
         // calculating fees
         // if swap is ANY --> cerUSD, fee is calculated
         // if swap is cerUSD --> ANY, fee is zero
-        uint256 currentPeriod = _getCurrentPeriod();
-        uint256 oneMinusFee = FEE_DENORM;
-
-        // for direction XXX --> cerUSD we apply trade fees
-        if (_amountCerUsdOut > 0) {
-            // if oneMinusFee isn't cached yet for currentPeriod => we cache it first
-            // to avoid out of gas errors we inflate gas estimations by always updating cache
-            if (
-                hourlyCache[_token][currentPeriod].hourlyOneMinusFee == 0 ||
-                tx.gasprice == 0
-            ) {
-                hourlyCache[_token][currentPeriod].hourlyOneMinusFee = uint16(
-                    _getCurrentOneMinusFeeBasedOnTrades(
-                        _token,
-                        _poolBalancesBefore
-                    )
-                );
-            }
-            // getting cached value from storage
-            oneMinusFee = uint256(
-                hourlyCache[_token][currentPeriod].hourlyOneMinusFee
-            );
-        }
+        uint256 oneMinusFee = amountCerUsdIn > 1 && amountTokensIn <= 1
+            ? FEE_DENORM
+            : _getCurrentOneMinusFeeBasedOnTrades(pool, _poolBalancesBefore);
         {
             // calculating new K value including trade fees
             uint256 afterKValueDenormed = (poolBalancesAfter.balanceCerUsd *
@@ -440,14 +425,7 @@ abstract contract CerbySwapV1_SwapFunctions is CerbySwapV1_LiquidityFunctions {
                     FEE_DENORM -
                     amountTokensIn *
                     (FEE_DENORM - oneMinusFee));
-
-            // comparing new K value to old K value
-            if (
-                afterKValueDenormed <
-                _poolBalancesBefore.balanceToken *
-                    _poolBalancesBefore.balanceCerUsd *
-                    FEE_DENORM_SQUARED
-            ) {
+            if (afterKValueDenormed < beforeKValueDenormed) {
                 revert("1");
                 revert CerbySwapV1_InvariantKValueMustBeSameOrIncreasedOnAnySwaps();
             }
@@ -463,9 +441,27 @@ abstract contract CerbySwapV1_SwapFunctions is CerbySwapV1_LiquidityFunctions {
 
             // updating 1 hour trade pool values
             // only for direction ANY --> cerUSD
-            if (_amountCerUsdOut > 1) {
-                hourlyCache[_token][currentPeriod]
-                    .hourlyTradeVolumeInCerUsd += uint128(_amountCerUsdOut);
+            uint256 currentPeriod = _getCurrentPeriod();
+            uint256 nextPeriod = (currentPeriod + 1) % NUMBER_OF_TRADE_PERIODS;
+            if (_amountCerUsdOut > TRADE_VOLUME_DENORM) {
+                // or else amountCerUsdOut / TRADE_VOLUME_DENORM == 0
+                // stores in 10xUSD value, up-to $40B per 4 hours per pair will be stored correctly
+                uint256 updatedTradeVolume = uint256(
+                    pool.tradeVolumePerPeriodInCerUsd[currentPeriod]
+                ) + _amountCerUsdOut / TRADE_VOLUME_DENORM; // if ANY --> cerUSD, then output is cerUSD only
+
+                // handling overflow just in case
+                pool.tradeVolumePerPeriodInCerUsd[
+                    currentPeriod
+                ] = updatedTradeVolume < type(uint32).max
+                    ? uint32(updatedTradeVolume)
+                    : type(uint32).max;
+            }
+
+            // clearing next 1 hour trade value
+            if (pool.tradeVolumePerPeriodInCerUsd[nextPeriod] > 1) {
+                // gas saving to not zero the field
+                pool.tradeVolumePerPeriodInCerUsd[nextPeriod] = 1;
             }
         }
         // safely transfering tokens

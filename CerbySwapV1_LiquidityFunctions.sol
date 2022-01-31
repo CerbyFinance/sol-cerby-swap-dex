@@ -102,8 +102,10 @@ abstract contract CerbySwapV1_LiquidityFunctions is
         uint256 newSqrtKValue = sqrt(_amountTokensIn * _amountCerUsdToMint);
 
         // preparing pool object to push into storage
+        uint32[NUMBER_OF_TRADE_PERIODS] memory tradeVolumePerPeriodInCerUsd;
         Pool memory pool = Pool(
             vaultAddress,
+            tradeVolumePerPeriodInCerUsd,
             uint128(newSqrtKValue),
             uint128(_creditCerUsd)
         );
