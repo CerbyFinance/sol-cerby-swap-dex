@@ -18,8 +18,9 @@ abstract contract CerbySwapV1_GetFunctions is
     }
 
     function _getCurrentPeriod() internal view returns (uint256) {
-        return
-            (block.timestamp / ONE_PERIOD_IN_SECONDS) % NUMBER_OF_TRADE_PERIODS;
+        return block.timestamp
+            / ONE_PERIOD_IN_SECONDS
+            % NUMBER_OF_TRADE_PERIODS;
     }
 
     function getCurrentOneMinusFeeBasedOnTrades(address _token)
@@ -46,11 +47,11 @@ abstract contract CerbySwapV1_GetFunctions is
         uint256 currentPeriod = _getCurrentPeriod();
         uint256 nextPeriod = (currentPeriod + 1) % NUMBER_OF_TRADE_PERIODS;
         uint256 volume;
+
         for (uint256 i; i < NUMBER_OF_TRADE_PERIODS; i++) {
             // skipping current and next period because those values are currently updating
             // and are incorrect
             if (i == currentPeriod || i == nextPeriod) continue;
-
             volume += _pool.tradeVolumePerPeriodInCerUsd[i];
         }
 
@@ -60,26 +61,27 @@ abstract contract CerbySwapV1_GetFunctions is
         // trades <= TVL * min              ---> fee = feeMaximum
         // TVL * min < trades < TVL * max   ---> fee is between feeMaximum and feeMinimum
         // trades >= TVL * max              ---> fee = feeMinimum
-        uint256 tvlMin = (_poolBalances.balanceCerUsd *
-            settings.tvlMultiplierMinimum) / TVL_MULTIPLIER_DENORM;
-        uint256 tvlMax = (_poolBalances.balanceCerUsd *
-            settings.tvlMultiplierMaximum) / TVL_MULTIPLIER_DENORM;
-        uint256 fee;
+
+        uint256 tvlMin = _poolBalances.balanceCerUsd
+            * settings.tvlMultiplierMinimum
+            / TVL_MULTIPLIER_DENORM;
+
+        uint256 tvlMax = _poolBalances.balanceCerUsd
+            * settings.tvlMultiplierMaximum
+            / TVL_MULTIPLIER_DENORM;
+
         if (volume <= tvlMin) {
-            fee = settings.feeMaximum; // 1.00%
-        } else if (tvlMin < volume && volume < tvlMax) {
-            fee =
-                settings.feeMaximum -
-                ((volume - tvlMin) *
-                    (settings.feeMaximum - settings.feeMinimum)) /
-                (tvlMax - tvlMin); // between 1.00% and 0.01%
-        } else {
-            // if (volume > tvlMax)
-            fee = settings.feeMinimum; // 0.01%
+            return FEE_DENORM - settings.feeMaximum;
         }
 
-        // returning oneMinusFee = 1 - fee for further calculations
-        return FEE_DENORM - fee;
+        if (volume > tvlMin && volume < tvlMax) { return FEE_DENORM - (
+            settings.feeMaximum - (
+                    (volume - tvlMin) * (settings.feeMaximum - settings.feeMinimum)
+                ) / (tvlMax - tvlMin)
+            )
+        }
+
+        return FEE_DENORM - settings.feeMinimum;
     }
 
     function getOutputExactTokensForTokens(
