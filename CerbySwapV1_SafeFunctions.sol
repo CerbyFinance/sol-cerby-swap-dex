@@ -3,7 +3,7 @@
 pragma solidity ^0.8.11;
 
 import "./interfaces/IERC20.sol";
-import "./interfaces/ICerbySwapV1_Vault.sol";
+import "./interfaces/ICerbySwapV1_VaultImplementation.sol";
 import "./CerbySwapV1_Declarations.sol";
 import "./CerbySwapV1_EventsAndErrors.sol";
 
@@ -75,7 +75,10 @@ abstract contract CerbySwapV1_SafeFunctions is
 
         // native tokens vault --> _to
         if (_token == nativeToken && _from != msg.sender) {
-            ICerbySwapV1_Vault(_from).withdrawEth(_to, _amountTokens);
+            ICerbySwapV1_VaultImplementation(_from).withdrawEth(
+                _to,
+                _amountTokens
+            );
             return;
         }
 

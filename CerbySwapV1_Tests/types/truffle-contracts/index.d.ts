@@ -18,6 +18,7 @@ import { CerbySwapV1ModifiersContract } from "./CerbySwapV1Modifiers";
 import { CerbySwapV1SafeFunctionsContract } from "./CerbySwapV1SafeFunctions";
 import { CerbySwapV1SwapFunctionsContract } from "./CerbySwapV1SwapFunctions";
 import { CerbySwapV1VaultContract } from "./CerbySwapV1Vault";
+import { CerbySwapV1VaultImplementationContract } from "./CerbySwapV1VaultImplementation";
 import { ERC1155Contract } from "./ERC1155";
 import { ERC1155HolderContract } from "./ERC1155Holder";
 import { ERC1155ReceiverContract } from "./ERC1155Receiver";
@@ -30,6 +31,7 @@ import { ICerbyBotDetectionContract } from "./ICerbyBotDetection";
 import { ICerbyCronJobsContract } from "./ICerbyCronJobs";
 import { ICerbySwapLP1155V1Contract } from "./ICerbySwapLP1155V1";
 import { ICerbySwapV1VaultContract } from "./ICerbySwapV1Vault";
+import { ICerbySwapV1VaultImplementationContract } from "./ICerbySwapV1VaultImplementation";
 import { ICerbyTokenContract } from "./ICerbyToken";
 import { ICerbyTokenMinterBurnerContract } from "./ICerbyTokenMinterBurner";
 import { IERC1155Contract } from "./IERC1155";
@@ -79,6 +81,9 @@ declare global {
         name: "CerbySwapV1_SwapFunctions"
       ): CerbySwapV1SwapFunctionsContract;
       require(name: "CerbySwapV1_Vault"): CerbySwapV1VaultContract;
+      require(
+        name: "CerbySwapV1_VaultImplementation"
+      ): CerbySwapV1VaultImplementationContract;
       require(name: "ERC1155"): ERC1155Contract;
       require(name: "ERC1155Holder"): ERC1155HolderContract;
       require(name: "ERC1155Receiver"): ERC1155ReceiverContract;
@@ -93,6 +98,9 @@ declare global {
       require(name: "ICerbyCronJobs"): ICerbyCronJobsContract;
       require(name: "ICerbySwapLP1155V1"): ICerbySwapLP1155V1Contract;
       require(name: "ICerbySwapV1_Vault"): ICerbySwapV1VaultContract;
+      require(
+        name: "ICerbySwapV1_VaultImplementation"
+      ): ICerbySwapV1VaultImplementationContract;
       require(name: "ICerbyToken"): ICerbyTokenContract;
       require(name: "ICerbyTokenMinterBurner"): ICerbyTokenMinterBurnerContract;
       require(name: "IERC1155"): IERC1155Contract;
@@ -170,6 +178,10 @@ export {
   CerbySwapV1VaultContract,
   CerbySwapV1VaultInstance,
 } from "./CerbySwapV1Vault";
+export {
+  CerbySwapV1VaultImplementationContract,
+  CerbySwapV1VaultImplementationInstance,
+} from "./CerbySwapV1VaultImplementation";
 export { ERC1155Contract, ERC1155Instance } from "./ERC1155";
 export { ERC1155HolderContract, ERC1155HolderInstance } from "./ERC1155Holder";
 export {
@@ -203,6 +215,10 @@ export {
   ICerbySwapV1VaultContract,
   ICerbySwapV1VaultInstance,
 } from "./ICerbySwapV1Vault";
+export {
+  ICerbySwapV1VaultImplementationContract,
+  ICerbySwapV1VaultImplementationInstance,
+} from "./ICerbySwapV1VaultImplementation";
 export { ICerbyTokenContract, ICerbyTokenInstance } from "./ICerbyToken";
 export {
   ICerbyTokenMinterBurnerContract,

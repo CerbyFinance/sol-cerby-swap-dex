@@ -6,14 +6,15 @@ import "./CerbySwapV1_GetFunctions.sol";
 import "./CerbySwapV1_Modifiers.sol";
 import "./CerbySwapV1_Math.sol";
 import "./CerbySwapV1_ERC1155.sol";
-import "./CerbySwapV1_Vault.sol";
+import "./CerbySwapV1_MinimalProxy.sol";
 import "./interfaces/ICerbyTokenMinterBurner.sol";
 
 abstract contract CerbySwapV1_LiquidityFunctions is
     CerbySwapV1_Modifiers,
     CerbySwapV1_Math,
     CerbySwapV1_ERC1155,
-    CerbySwapV1_GetFunctions
+    CerbySwapV1_GetFunctions,
+    CerbySwapV1_MinimalProxy
 {
     // user can increase cerUsd credit in the pool
     function increaseCerUsdCreditInPool(
@@ -74,7 +75,12 @@ abstract contract CerbySwapV1_LiquidityFunctions is
         // creating vault contract to safely store tokens
         address vaultAddress = address(
             // TODO: remove cerUsdToken from parameters on production
-            new CerbySwapV1_Vault(_token, cerUsdToken, _token == nativeToken)
+            cloneVault(vaultImplementation)
+        );
+        ICerbySwapV1_VaultImplementation(vaultAddress).initialize(
+            _token,
+            cerUsdToken,
+            _token == nativeToken
         );
 
         // safely transferring tokens from sender to the vault
@@ -103,14 +109,15 @@ abstract contract CerbySwapV1_LiquidityFunctions is
 
         // preparing pool object to push into storage
         uint32[NUMBER_OF_TRADE_PERIODS] memory tradeVolumePerPeriodInCerUsd;
-        Pool memory pool = Pool(
-            vaultAddress,
-            tradeVolumePerPeriodInCerUsd,
-            type(uint8).max, // lastCachedTradePeriod
-            uint16(FEE_DENORM - settings.feeMaximum), // lastCachedOneMinusFee
-            uint128(newSqrtKValue),
-            uint128(_creditCerUsd)
-        );
+
+        Pool memory pool = Pool({
+            vaultAddress: vaultAddress,
+            tradeVolumePerPeriodInCerUsd: tradeVolumePerPeriodInCerUsd,
+            lastCachedTradePeriod: 0,
+            lastCachedOneMinusFee: uint16(FEE_DENORM - settings.feeMaximum),
+            lastSqrtKValue: uint128(newSqrtKValue),
+            creditCerUsd: uint128(_creditCerUsd)
+        });
 
         // remembering the position where new pool will be pushed to
         uint256 poolId = pools.length;

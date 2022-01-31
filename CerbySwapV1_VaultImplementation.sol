@@ -2,29 +2,37 @@
 
 pragma solidity ^0.8.11;
 
-import "./CerbySwapV1_Declarations_CerUsd.sol";
 import "./interfaces/IERC20.sol";
 
-contract CerbySwapV1_Vault is CerbySwapV1_Declarations_CerUsd {
+contract CerbySwapV1_VaultImplementation {
     address token;
+    address cerUsdToken;
     address owner;
 
     error CerbySwapV1_Vault_SafeTransferNativeFailed();
     error CerbySwapV1_Vault_CallerIsNotOwner();
+    error CerbySwapV1_Vault_AlreadyInitialized();
 
-    constructor(
+    constructor() {}
+
+    function initialize(
         address _token,
-        address _cerUsd, // TODO: remove cerUsd update from here on production
-        bool isNativeToken
-    ) {
-        if (!isNativeToken) {
+        address _cerUsdToken, // TODO: remove cerUsd update from here on production
+        bool _isNativeToken
+    ) external {
+        if (owner != address(0)) {
+            revert CerbySwapV1_Vault_AlreadyInitialized();
+        }
+
+        if (!_isNativeToken) {
             IERC20(_token).approve(msg.sender, type(uint256).max);
         }
 
-        IERC20(_cerUsd).approve(msg.sender, type(uint256).max);
+        IERC20(_cerUsdToken).approve(msg.sender, type(uint256).max);
 
         token = _token;
-        cerUsdToken = _cerUsd;
+        cerUsdToken = _cerUsdToken;
+
         owner = msg.sender;
     }
 

@@ -4,6 +4,7 @@ pragma solidity ^0.8.11;
 
 import "./CerbySwapV1_AdminFunctions.sol";
 import "./CerbySwapV1_SwapFunctions.sol";
+import "./CerbySwapV1_VaultImplementation.sol";
 
 contract CerbySwapV1 is CerbySwapV1_AdminFunctions {
     constructor() {
@@ -18,19 +19,26 @@ contract CerbySwapV1 is CerbySwapV1_AdminFunctions {
         uint256 tvlMultiplierMaximum = (tvlMultiplier * feeMaximum) /
             feeMinimum; // TVL * 27.397260274
         uint256 sincePeriodAgoToTrackTradeVolume = 24; // tracking last 24 hours trade volume
-        settings = Settings(
-            mintFeeBeneficiary,
-            uint32(mintFeeMultiplier),
-            uint16(feeMinimum),
-            uint16(feeMaximum),
-            uint64(tvlMultiplierMinimum),
-            uint64(tvlMultiplierMaximum)
-        );
+        settings = Settings({
+            mintFeeBeneficiary: mintFeeBeneficiary,
+            mintFeeMultiplier: uint32(mintFeeMultiplier),
+            feeMinimum: uint16(feeMinimum),
+            feeMaximum: uint16(feeMaximum),
+            tvlMultiplierMinimum: uint64(tvlMultiplierMinimum),
+            tvlMultiplierMaximum: uint64(tvlMultiplierMaximum)
+        });
 
         // Filling with empty pool 0th id
         uint32[8] memory tradeVolumePerPeriodInCerUsd;
         pools.push(
-            Pool(BURN_ADDRESS, tradeVolumePerPeriodInCerUsd, 0, 0, 0, 0)
+            Pool({
+                vaultAddress: BURN_ADDRESS,
+                tradeVolumePerPeriodInCerUsd: tradeVolumePerPeriodInCerUsd,
+                lastCachedTradePeriod: 0,
+                lastCachedOneMinusFee: 0,
+                lastSqrtKValue: 0,
+                creditCerUsd: 0
+            })
         );
 
         if (block.chainid == 1) {
@@ -52,6 +60,8 @@ contract CerbySwapV1 is CerbySwapV1_AdminFunctions {
 
         // testnet native token
         nativeToken = 0x14769F96e57B80c66837701DE0B43686Fb4632De; // TODO: update
+
+        vaultImplementation = address(new CerbySwapV1_VaultImplementation());
     }
 
     receive() external payable {}

@@ -3,19 +3,17 @@
 pragma solidity ^0.8.11;
 
 import "./CerbySwapV1_EventsAndErrors.sol";
-import "./CerbySwapV1_Declarations_CerUsd.sol";
 
-abstract contract CerbySwapV1_Declarations is
-    CerbySwapV1_EventsAndErrors,
-    CerbySwapV1_Declarations_CerUsd
-{
+abstract contract CerbySwapV1_Declarations is CerbySwapV1_EventsAndErrors {
     Pool[] internal pools;
     mapping(address => uint256) internal tokenToPoolId;
+    address internal vaultImplementation;
 
     address internal testCerbyToken =
         0x527ea24a5917c452DBF402EdC9Da4190239bCcf1; // TODO: remove on production
     address internal testUsdcToken = 0x947Ef3df5B7D5EC37214Dd06C4042C8E7b0cEBd7; // TODO: remove on production
 
+    address internal cerUsdToken = 0x46E8e0af862f636199af69aCd082b9963066Ed9C;
     address internal nativeToken = 0x14769F96e57B80c66837701DE0B43686Fb4632De;
 
     uint256 internal constant MINT_FEE_DENORM = 10000;
