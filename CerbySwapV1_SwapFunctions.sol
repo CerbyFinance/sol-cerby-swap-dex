@@ -403,24 +403,28 @@ abstract contract CerbySwapV1_SwapFunctions is CerbySwapV1_LiquidityFunctions {
             revert CerbySwapV1_CreditCerUsdMustNotBeBelowZero();
         }
 
-        // calculating fees
-        // if swap is ANY --> cerUSD, fee is calculated
-        // if swap is cerUSD --> ANY, fee is zero
         uint256 currentPeriod = _getCurrentPeriod();
         uint256 oneMinusFee = FEE_DENORM;
-        if (amountCerUsdIn > 1 && amountTokensIn <= 1) {
-            if (currentPeriod != pool.lastCachedTradePeriod) {
-                pool.lastCachedTradePeriod = uint8(currentPeriod);
-                pool.lastCachedOneMinusFee = uint16(
-                    _getCurrentOneMinusFeeBasedOnTrades(
-                        pool,
-                        _poolBalancesBefore
-                    )
-                );
-            }
-            oneMinusFee = pool.lastCachedOneMinusFee;
-        }
         {
+            // calculating fees
+            // if swap is ANY --> cerUSD, fee is calculated
+            // if swap is cerUSD --> ANY, fee is zero (oneMinusFee = FEE_DENORM)
+            if (amountCerUsdIn > 1 && amountTokensIn <= 1) {
+
+                // updating cache in while gas estimations to avoid out of gas error
+                // caching it for whole current period
+                if (currentPeriod != pool.lastCachedTradePeriod || tx.gasprice == 0) {
+                    pool.lastCachedTradePeriod = uint8(currentPeriod);
+                    pool.lastCachedOneMinusFee = uint16(
+                        _getCurrentOneMinusFeeBasedOnTrades(
+                            pool,
+                            _poolBalancesBefore
+                        )
+                    );
+                }
+                oneMinusFee = pool.lastCachedOneMinusFee;
+            }
+
             // calculating old K value including trade fees (multiplied by FEE_DENORM^2)
             uint256 beforeKValueDenormed = _poolBalancesBefore.balanceToken *
                 _poolBalancesBefore.balanceCerUsd *
