@@ -17,7 +17,7 @@ abstract contract CerbySwapV1_Declarations is CerbySwapV1_EventsAndErrors {
     address internal nativeToken = 0x14769F96e57B80c66837701DE0B43686Fb4632De;
 
     uint256 internal constant MINT_FEE_DENORM = 10000;
-    uint256 internal constant MAX_CER_USD_CREDIT = type(uint128).max;
+    uint256 internal constant MAX_CER_USD_CREDIT = type(uint112).max;
 
     uint256 internal constant FEE_DENORM = 10000;
     uint256 internal constant FEE_DENORM_SQUARED = FEE_DENORM * FEE_DENORM;
@@ -44,12 +44,11 @@ abstract contract CerbySwapV1_Declarations is CerbySwapV1_EventsAndErrors {
     }
 
     struct Pool {
-        address vaultAddress;
         uint32[NUMBER_OF_TRADE_PERIODS] tradeVolumePerPeriodInCerUsd;
         uint8 lastCachedTradePeriod;
         uint16 lastCachedOneMinusFee;
-        uint128 lastSqrtKValue;
-        uint128 creditCerUsd;
+        uint112 lastSqrtKValue;
+        uint112 creditCerUsd;
     }
 
     struct PoolBalances {

@@ -4,10 +4,46 @@ pragma solidity ^0.8.10;
 // original code
 // https://github.com/optionality/clone-factory/blob/master/contracts/CloneFactory.sol
 
-contract CerbySwapV1_MinimalProxy {
-    function cloneVault(address target) internal returns (address result) {
+import "./CerbySwapV1_Declarations.sol";
+
+contract CerbySwapV1_MinimalProxy is CerbySwapV1_Declarations {
+    function getVaultCloneAddressByToken(address _token)
+        internal
+        view
+        returns (address)
+    {
+        bytes32 salt = keccak256(abi.encodePacked(_token));
+
+        address factory = address(this);
+
+        address _vaultImplementation = vaultImplementation;
+        address vaultCloneAddress;
+
+        assembly {
+            let ptr := mload(0x40)
+            mstore(
+                ptr,
+                0x3d602d80600a3d3981f3363d3d373d3d3d363d73000000000000000000000000
+            )
+            mstore(add(ptr, 0x14), shl(0x60, _vaultImplementation))
+            mstore(
+                add(ptr, 0x28),
+                0x5af43d82803e903d91602b57fd5bf3ff00000000000000000000000000000000
+            )
+            mstore(add(ptr, 0x38), shl(0x60, factory))
+            mstore(add(ptr, 0x4c), salt)
+            mstore(add(ptr, 0x6c), keccak256(ptr, 0x37))
+            vaultCloneAddress := keccak256(add(ptr, 0x37), 0x55)
+        }
+
+        return vaultCloneAddress;
+    }
+
+    function cloneVault(address _token) internal returns (address) {
+        bytes32 salt = keccak256(abi.encodePacked(_token));
+
         // convert address to 20 bytes
-        bytes20 targetBytes = bytes20(target);
+        bytes20 vaultImplementationBytes = bytes20(vaultImplementation);
 
         // actual code //
         // 3d602d80600a3d3981f3363d3d373d3d3d363d73bebebebebebebebebebebebebebebebebebebebe5af43d82803e903d91602b57fd5bf3
@@ -19,7 +55,7 @@ contract CerbySwapV1_MinimalProxy {
         // runtime code //
         // code to delegatecall to address
         // 363d3d373d3d3d363d73 address 5af43d82803e903d91602b57fd5bf3
-
+        address resultVaultAddress;
         assembly {
             /*
             reads the 32 bytes of memory starting at pointer stored in 0x40
@@ -42,7 +78,7 @@ contract CerbySwapV1_MinimalProxy {
             */
             // store 32 bytes to memory starting at "clone" + 20 bytes
             // 0x14 = 20
-            mstore(add(clone, 0x14), targetBytes)
+            mstore(add(clone, 0x14), vaultImplementationBytes)
 
             /*
               |               20 bytes               |                 20 bytes              |
@@ -65,7 +101,9 @@ contract CerbySwapV1_MinimalProxy {
             // send 0 Ether
             // code starts at pointer stored in "clone"
             // code size 0x37 (55 bytes)
-            result := create(0, clone, 0x37)
+            resultVaultAddress := create2(0, clone, 0x37, salt)
         }
+
+        return resultVaultAddress;
     }
 }

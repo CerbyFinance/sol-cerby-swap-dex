@@ -32,7 +32,6 @@ contract CerbySwapV1 is CerbySwapV1_AdminFunctions {
         uint32[8] memory tradeVolumePerPeriodInCerUsd;
         pools.push(
             Pool({
-                vaultAddress: BURN_ADDRESS,
                 tradeVolumePerPeriodInCerUsd: tradeVolumePerPeriodInCerUsd,
                 lastCachedTradePeriod: 0,
                 lastCachedOneMinusFee: 0,

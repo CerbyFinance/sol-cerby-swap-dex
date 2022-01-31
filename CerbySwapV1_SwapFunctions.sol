@@ -27,8 +27,8 @@ abstract contract CerbySwapV1_SwapFunctions is CerbySwapV1_LiquidityFunctions {
             revert CerbySwapV1_AmountOfTokensMustBeLargerThanOne();
         }
 
-        address vaultAddressIn = pools[tokenToPoolId[_tokenIn]].vaultAddress;
-        address vaultAddressOut = pools[tokenToPoolId[_tokenOut]].vaultAddress;
+        address vaultAddressIn = getVaultCloneAddressByToken(_tokenIn);
+        address vaultAddressOut = getVaultCloneAddressByToken(_tokenOut);
 
         uint256[] memory amounts = new uint256[](2);
         amounts[0] = _amountTokensIn;
@@ -37,8 +37,7 @@ abstract contract CerbySwapV1_SwapFunctions is CerbySwapV1_LiquidityFunctions {
         if (_tokenIn != cerUsdToken && _tokenOut == cerUsdToken) {
             // getting pool balances before the swap
             PoolBalances memory poolInBalancesBefore = _getPoolBalances(
-                _tokenIn,
-                vaultAddressIn
+                _tokenIn
             );
 
             // getting amountTokensOut
@@ -72,8 +71,7 @@ abstract contract CerbySwapV1_SwapFunctions is CerbySwapV1_LiquidityFunctions {
         if (_tokenIn == cerUsdToken && _tokenOut != cerUsdToken) {
             // getting pool balances before the swap
             PoolBalances memory poolOutBalancesBefore = _getPoolBalances(
-                _tokenOut,
-                vaultAddressOut
+                _tokenOut
             );
 
             // getting amountTokensOut
@@ -111,8 +109,7 @@ abstract contract CerbySwapV1_SwapFunctions is CerbySwapV1_LiquidityFunctions {
         ) {
             // getting pool balances before the swap
             PoolBalances memory poolInBalancesBefore = _getPoolBalances(
-                _tokenIn,
-                vaultAddressIn
+                _tokenIn
             );
 
             // getting amountTokensOut=
@@ -124,8 +121,7 @@ abstract contract CerbySwapV1_SwapFunctions is CerbySwapV1_LiquidityFunctions {
 
             // getting pool balances before the swap
             PoolBalances memory poolOutBalancesBefore = _getPoolBalances(
-                _tokenOut,
-                vaultAddressOut
+                _tokenOut
             );
 
             amounts[1] = _getOutputExactCerUsdForTokens(
@@ -185,8 +181,8 @@ abstract contract CerbySwapV1_SwapFunctions is CerbySwapV1_LiquidityFunctions {
             uint256[] memory
         )
     {
-        address vaultAddressIn = pools[tokenToPoolId[_tokenIn]].vaultAddress;
-        address vaultAddressOut = pools[tokenToPoolId[_tokenOut]].vaultAddress;
+        address vaultAddressIn = getVaultCloneAddressByToken(_tokenIn);
+        address vaultAddressOut = getVaultCloneAddressByToken(_tokenOut);
 
         uint256[] memory amounts = new uint256[](2);
         amounts[1] = _amountTokensOut;
@@ -195,8 +191,7 @@ abstract contract CerbySwapV1_SwapFunctions is CerbySwapV1_LiquidityFunctions {
         if (_tokenIn != cerUsdToken && _tokenOut == cerUsdToken) {
             // getting pool balances before the swap
             PoolBalances memory poolInBalancesBefore = _getPoolBalances(
-                _tokenIn,
-                vaultAddressIn
+                _tokenIn
             );
 
             // getting amountTokensOut
@@ -242,8 +237,7 @@ abstract contract CerbySwapV1_SwapFunctions is CerbySwapV1_LiquidityFunctions {
         if (_tokenIn == cerUsdToken && _tokenOut != cerUsdToken) {
             // getting pool balances before the swap
             PoolBalances memory poolOutBalancesBefore = _getPoolBalances(
-                _tokenOut,
-                vaultAddressOut
+                _tokenOut
             );
 
             // getting amountTokensOut
@@ -293,8 +287,7 @@ abstract contract CerbySwapV1_SwapFunctions is CerbySwapV1_LiquidityFunctions {
         ) {
             // getting pool balances before the swap
             PoolBalances memory poolOutBalancesBefore = _getPoolBalances(
-                _tokenOut,
-                vaultAddressOut
+                _tokenOut
             );
 
             // getting amountTokensOut
@@ -312,8 +305,7 @@ abstract contract CerbySwapV1_SwapFunctions is CerbySwapV1_LiquidityFunctions {
 
             // getting pool balances before the swap
             PoolBalances memory poolInBalancesBefore = _getPoolBalances(
-                _tokenIn,
-                vaultAddressIn
+                _tokenIn
             );
 
             amounts[0] = _getInputTokensForExactCerUsd(
@@ -377,10 +369,7 @@ abstract contract CerbySwapV1_SwapFunctions is CerbySwapV1_LiquidityFunctions {
     ) private tokenMustExistInPool(_token) {
         Pool storage pool = pools[tokenToPoolId[_token]];
 
-        PoolBalances memory poolBalancesAfter = _getPoolBalances(
-            _token,
-            pool.vaultAddress
-        );
+        PoolBalances memory poolBalancesAfter = _getPoolBalances(_token);
 
         // finding out how many amountCerUsdIn we received
         uint256 amountCerUsdIn = poolBalancesAfter.balanceCerUsd -
@@ -448,7 +437,7 @@ abstract contract CerbySwapV1_SwapFunctions is CerbySwapV1_LiquidityFunctions {
 
             // updating creditCerUsd only if pool is user-created
             if (pool.creditCerUsd < MAX_CER_USD_CREDIT) {
-                pool.creditCerUsd = uint128(
+                pool.creditCerUsd = uint112(
                     uint256(pool.creditCerUsd) +
                         amountCerUsdIn -
                         _amountCerUsdOut
@@ -483,7 +472,7 @@ abstract contract CerbySwapV1_SwapFunctions is CerbySwapV1_LiquidityFunctions {
         // and making sure exact amounts were actually transferred
         _safeTransferFromHelper(
             _token,
-            pool.vaultAddress,
+            getVaultCloneAddressByToken(_token),
             _transferTo,
             _amountTokensOut
         );
@@ -491,7 +480,7 @@ abstract contract CerbySwapV1_SwapFunctions is CerbySwapV1_LiquidityFunctions {
         // safely transfering cerUSD
         _safeTransferFromHelper(
             cerUsdToken,
-            pool.vaultAddress,
+            getVaultCloneAddressByToken(_token),
             _transferTo,
             _amountCerUsdOut
         );

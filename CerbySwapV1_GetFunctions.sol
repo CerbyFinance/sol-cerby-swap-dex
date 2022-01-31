@@ -25,8 +25,7 @@ abstract contract CerbySwapV1_GetFunctions is
         PoolBalances[] memory outputPools = new PoolBalances[](_tokens.length);
         for (uint256 i; i < _tokens.length; i++) {
             address token = _tokens[i];
-            Pool storage pool = pools[tokenToPoolId[token]];
-            outputPools[i] = _getPoolBalances(token, pool.vaultAddress);
+            outputPools[i] = _getPoolBalances(token);
         }
         return outputPools;
     }
@@ -39,10 +38,7 @@ abstract contract CerbySwapV1_GetFunctions is
         // getting pool storage link (saves gas compared to memory)
         Pool storage pool = pools[tokenToPoolId[_token]];
 
-        PoolBalances memory poolBalances = _getPoolBalances(
-            _token,
-            pool.vaultAddress
-        );
+        PoolBalances memory poolBalances = _getPoolBalances(_token);
 
         return _getCurrentOneMinusFeeBasedOnTrades(pool, poolBalances);
     }
@@ -54,14 +50,11 @@ abstract contract CerbySwapV1_GetFunctions is
     ) external view returns (uint256) {
         uint256 amountTokensOut;
 
-        address vaultAddressIn = pools[tokenToPoolId[_tokenIn]].vaultAddress;
-        address vaultAddressOut = pools[tokenToPoolId[_tokenOut]].vaultAddress;
-
         // direction XXX --> cerUSD
         if (_tokenIn != cerUsdToken && _tokenOut == cerUsdToken) {
             // getting amountTokensOut
             amountTokensOut = _getOutputExactTokensForCerUsd(
-                _getPoolBalances(_tokenIn, vaultAddressIn),
+                _getPoolBalances(_tokenIn),
                 _tokenIn,
                 _amountTokensIn
             );
@@ -72,7 +65,7 @@ abstract contract CerbySwapV1_GetFunctions is
         if (_tokenIn == cerUsdToken && _tokenOut != cerUsdToken) {
             // getting amountTokensOut
             amountTokensOut = _getOutputExactCerUsdForTokens(
-                _getPoolBalances(_tokenOut, vaultAddressOut),
+                _getPoolBalances(_tokenOut),
                 _tokenOut,
                 _amountTokensIn
             );
@@ -83,13 +76,13 @@ abstract contract CerbySwapV1_GetFunctions is
         // direction XXX --> cerUSD --> YYY (or XXX --> YYY)
         // getting amountTokensOut
         uint256 amountCerUsdOut = _getOutputExactTokensForCerUsd(
-            _getPoolBalances(_tokenIn, vaultAddressIn),
+            _getPoolBalances(_tokenIn),
             _tokenIn,
             _amountTokensIn
         );
 
         amountTokensOut = _getOutputExactCerUsdForTokens(
-            _getPoolBalances(_tokenOut, vaultAddressOut),
+            _getPoolBalances(_tokenOut),
             _tokenOut,
             amountCerUsdOut
         );
@@ -103,14 +96,11 @@ abstract contract CerbySwapV1_GetFunctions is
     ) external view returns (uint256) {
         uint256 amountTokensIn;
 
-        address vaultAddressIn = pools[tokenToPoolId[_tokenIn]].vaultAddress;
-        address vaultAddressOut = pools[tokenToPoolId[_tokenOut]].vaultAddress;
-
         // direction XXX --> cerUSD
         if (_tokenIn != cerUsdToken && _tokenOut == cerUsdToken) {
             // getting amountTokensOut
             amountTokensIn = _getInputTokensForExactCerUsd(
-                _getPoolBalances(_tokenIn, vaultAddressIn),
+                _getPoolBalances(_tokenIn),
                 _tokenIn,
                 _amountTokensOut
             );
@@ -121,7 +111,7 @@ abstract contract CerbySwapV1_GetFunctions is
         if (_tokenIn == cerUsdToken && _tokenOut != cerUsdToken) {
             // getting amountTokensOut
             amountTokensIn = _getInputCerUsdForExactTokens(
-                _getPoolBalances(_tokenOut, vaultAddressOut),
+                _getPoolBalances(_tokenOut),
                 _tokenOut,
                 _amountTokensOut
             );
@@ -132,13 +122,13 @@ abstract contract CerbySwapV1_GetFunctions is
         // direction XXX --> cerUSD --> YYY (or XXX --> YYY)
         // getting amountTokensOut
         uint256 amountCerUsdOut = _getInputCerUsdForExactTokens(
-            _getPoolBalances(_tokenIn, vaultAddressIn),
+            _getPoolBalances(_tokenIn),
             _tokenOut,
             _amountTokensOut
         );
 
         amountTokensIn = _getInputTokensForExactCerUsd(
-            _getPoolBalances(_tokenOut, vaultAddressOut),
+            _getPoolBalances(_tokenOut),
             _tokenIn,
             amountCerUsdOut
         );

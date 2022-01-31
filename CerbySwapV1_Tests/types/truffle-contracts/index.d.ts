@@ -14,6 +14,7 @@ import { CerbySwapV1ERC1155Contract } from "./CerbySwapV1ERC1155";
 import { CerbySwapV1EventsAndErrorsContract } from "./CerbySwapV1EventsAndErrors";
 import { CerbySwapV1GetFunctionsContract } from "./CerbySwapV1GetFunctions";
 import { CerbySwapV1LiquidityFunctionsContract } from "./CerbySwapV1LiquidityFunctions";
+import { CerbySwapV1MinimalProxyContract } from "./CerbySwapV1MinimalProxy";
 import { CerbySwapV1ModifiersContract } from "./CerbySwapV1Modifiers";
 import { CerbySwapV1SafeFunctionsContract } from "./CerbySwapV1SafeFunctions";
 import { CerbySwapV1SwapFunctionsContract } from "./CerbySwapV1SwapFunctions";
@@ -73,6 +74,9 @@ declare global {
       require(
         name: "CerbySwapV1_LiquidityFunctions"
       ): CerbySwapV1LiquidityFunctionsContract;
+      require(
+        name: "CerbySwapV1_MinimalProxy"
+      ): CerbySwapV1MinimalProxyContract;
       require(name: "CerbySwapV1_Modifiers"): CerbySwapV1ModifiersContract;
       require(
         name: "CerbySwapV1_SafeFunctions"
@@ -162,6 +166,10 @@ export {
   CerbySwapV1LiquidityFunctionsContract,
   CerbySwapV1LiquidityFunctionsInstance,
 } from "./CerbySwapV1LiquidityFunctions";
+export {
+  CerbySwapV1MinimalProxyContract,
+  CerbySwapV1MinimalProxyInstance,
+} from "./CerbySwapV1MinimalProxy";
 export {
   CerbySwapV1ModifiersContract,
   CerbySwapV1ModifiersInstance,

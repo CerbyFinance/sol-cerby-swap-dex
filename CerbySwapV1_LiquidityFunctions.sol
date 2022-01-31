@@ -13,8 +13,7 @@ abstract contract CerbySwapV1_LiquidityFunctions is
     CerbySwapV1_Modifiers,
     CerbySwapV1_Math,
     CerbySwapV1_ERC1155,
-    CerbySwapV1_GetFunctions,
-    CerbySwapV1_MinimalProxy
+    CerbySwapV1_GetFunctions
 {
     // user can increase cerUsd credit in the pool
     function increaseCerUsdCreditInPool(
@@ -24,14 +23,11 @@ abstract contract CerbySwapV1_LiquidityFunctions is
         // getting pool storage link (saves gas compared to memory)
         Pool storage pool = pools[tokenToPoolId[_token]];
 
-        PoolBalances memory poolBalances = _getPoolBalances(
-            _token,
-            pool.vaultAddress
-        );
+        PoolBalances memory poolBalances = _getPoolBalances(_token);
 
         if (pool.creditCerUsd < MAX_CER_USD_CREDIT) {
             // increasing credit for user-created pool
-            pool.creditCerUsd += uint128(_amountCerUsdCredit);
+            pool.creditCerUsd += uint112(_amountCerUsdCredit);
 
             // burning user's cerUsd tokens in order to increase the credit for given pool
             ICerbyTokenMinterBurner(cerUsdToken).burnHumanAddress(
@@ -75,8 +71,13 @@ abstract contract CerbySwapV1_LiquidityFunctions is
         // creating vault contract to safely store tokens
         address vaultAddress = address(
             // TODO: remove cerUsdToken from parameters on production
-            cloneVault(vaultImplementation)
+            cloneVault(_token)
         );
+        address vaultAddressGenerated = getVaultCloneAddressByToken(_token);
+        if (vaultAddressGenerated != vaultAddress) {
+            revert("NOT MATCH!!!");
+        }
+
         ICerbySwapV1_VaultImplementation(vaultAddress).initialize(
             _token,
             cerUsdToken,
@@ -111,12 +112,11 @@ abstract contract CerbySwapV1_LiquidityFunctions is
         uint32[NUMBER_OF_TRADE_PERIODS] memory tradeVolumePerPeriodInCerUsd;
 
         Pool memory pool = Pool({
-            vaultAddress: vaultAddress,
             tradeVolumePerPeriodInCerUsd: tradeVolumePerPeriodInCerUsd,
             lastCachedTradePeriod: 0,
             lastCachedOneMinusFee: uint16(FEE_DENORM - settings.feeMaximum),
-            lastSqrtKValue: uint128(newSqrtKValue),
-            creditCerUsd: uint128(_creditCerUsd)
+            lastSqrtKValue: uint112(newSqrtKValue),
+            creditCerUsd: uint112(_creditCerUsd)
         });
 
         // remembering the position where new pool will be pushed to
@@ -167,25 +167,21 @@ abstract contract CerbySwapV1_LiquidityFunctions is
         uint256 poolId = tokenToPoolId[_token];
         Pool storage pool = pools[poolId];
 
+        address vaultInAddress = getVaultCloneAddressByToken(_token);
+
         // remembering balance before the transfer
-        PoolBalances memory poolBalancesBefore = _getPoolBalances(
-            _token,
-            pool.vaultAddress
-        );
+        PoolBalances memory poolBalancesBefore = _getPoolBalances(_token);
 
         // safely transferring tokens from sender to the vault
         _safeTransferFromHelper(
             _token,
             msg.sender,
-            pool.vaultAddress,
+            vaultInAddress,
             _amountTokensIn
         );
 
         // remembering balance after the transfer
-        PoolBalances memory poolBalancesAfter = _getPoolBalances(
-            _token,
-            pool.vaultAddress
-        );
+        PoolBalances memory poolBalancesAfter = _getPoolBalances(_token);
 
         // finding out how many tokens we've actually received
         _amountTokensIn =
@@ -196,15 +192,13 @@ abstract contract CerbySwapV1_LiquidityFunctions is
             revert CerbySwapV1_AmountOfTokensMustBeLargerThanOne();
         }
 
-        // calculating new sqrt(k) value before updating pool
-        uint256 newSqrtKValue = sqrt(
-            poolBalancesBefore.balanceToken * poolBalancesBefore.balanceCerUsd
-        );
-
         // calculating and minting LP trade fees
         uint256 amountLpTokensToMintAsFee = _getMintFeeLiquidityAmount(
             pool.lastSqrtKValue,
-            newSqrtKValue,
+            sqrt(
+                poolBalancesBefore.balanceToken *
+                    poolBalancesBefore.balanceCerUsd
+            ), // calculating sqrt(k) value before updating pool
             contractTotalSupply[poolId]
         );
 
@@ -230,12 +224,12 @@ abstract contract CerbySwapV1_LiquidityFunctions is
 
         // minting cerUSD according to current pool
         ICerbyTokenMinterBurner(cerUsdToken).mintHumanAddress(
-            pool.vaultAddress,
+            vaultInAddress,
             amountCerUsdToMint
         );
 
         // updating pool variables
-        pool.lastSqrtKValue = uint128(
+        pool.lastSqrtKValue = uint112(
             sqrt(
                 poolBalancesAfter.balanceToken * poolBalancesAfter.balanceCerUsd
             )
@@ -291,10 +285,7 @@ abstract contract CerbySwapV1_LiquidityFunctions is
         uint256 poolId = tokenToPoolId[_token];
         Pool storage pool = pools[poolId];
 
-        PoolBalances memory poolBalancesBefore = _getPoolBalances(
-            _token,
-            pool.vaultAddress
-        );
+        PoolBalances memory poolBalancesBefore = _getPoolBalances(_token);
 
         // calculating amount of tokens to transfer
         uint256 totalLPSupply = contractTotalSupply[poolId];
@@ -305,15 +296,13 @@ abstract contract CerbySwapV1_LiquidityFunctions is
         uint256 amountCerUsdToBurn = (poolBalancesBefore.balanceCerUsd *
             _amountLpTokensBalanceToBurn) / totalLPSupply;
 
-        // storing sqrt(k) value before updating pool
-        uint256 newSqrtKValue = sqrt(
-            poolBalancesBefore.balanceToken * poolBalancesBefore.balanceCerUsd
-        );
-
         // minting trade fees
         uint256 amountLpTokensToMintAsFee = _getMintFeeLiquidityAmount(
             pool.lastSqrtKValue,
-            newSqrtKValue,
+            sqrt(
+                poolBalancesBefore.balanceToken *
+                    poolBalancesBefore.balanceCerUsd
+            ), // calculating sqrt(k) value before updating pool
             totalLPSupply
         );
 
@@ -329,7 +318,7 @@ abstract contract CerbySwapV1_LiquidityFunctions is
             poolBalancesBefore.balanceToken - amountTokensOut,
             poolBalancesBefore.balanceCerUsd - amountCerUsdToBurn
         );
-        pool.lastSqrtKValue = uint128(
+        pool.lastSqrtKValue = uint112(
             sqrt(
                 poolBalancesAfter.balanceToken * poolBalancesAfter.balanceCerUsd
             )
@@ -339,8 +328,9 @@ abstract contract CerbySwapV1_LiquidityFunctions is
         _burn(msg.sender, poolId, _amountLpTokensBalanceToBurn);
 
         // burning cerUSD
+        address vaultOutAddress = getVaultCloneAddressByToken(_token);
         ICerbyTokenMinterBurner(cerUsdToken).burnHumanAddress(
-            pool.vaultAddress,
+            vaultOutAddress,
             amountCerUsdToBurn
         );
 
@@ -348,7 +338,7 @@ abstract contract CerbySwapV1_LiquidityFunctions is
         // and making sure exact amounts were actually transferred
         _safeTransferFromHelper(
             _token,
-            pool.vaultAddress,
+            vaultOutAddress,
             _transferTo,
             amountTokensOut
         );

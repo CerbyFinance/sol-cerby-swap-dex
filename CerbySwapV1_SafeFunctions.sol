@@ -4,22 +4,23 @@ pragma solidity ^0.8.11;
 
 import "./interfaces/IERC20.sol";
 import "./interfaces/ICerbySwapV1_VaultImplementation.sol";
-import "./CerbySwapV1_Declarations.sol";
+import "./CerbySwapV1_MinimalProxy.sol";
 import "./CerbySwapV1_EventsAndErrors.sol";
 
 abstract contract CerbySwapV1_SafeFunctions is
     CerbySwapV1_EventsAndErrors,
-    CerbySwapV1_Declarations
+    CerbySwapV1_MinimalProxy
 {
-    function _getPoolBalances(address _token, address _vault)
+    function _getPoolBalances(address _token)
         internal
         view
         returns (PoolBalances memory)
     {
+        address vault = getVaultCloneAddressByToken(_token);
         return
             PoolBalances(
-                _getTokenBalance(_token, _vault),
-                _getTokenBalance(cerUsdToken, _vault)
+                _getTokenBalance(_token, vault),
+                _getTokenBalance(cerUsdToken, vault)
             );
     }
 
