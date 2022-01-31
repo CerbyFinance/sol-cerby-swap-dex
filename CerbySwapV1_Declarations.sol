@@ -19,6 +19,7 @@ abstract contract CerbySwapV1_Declarations is
     address internal nativeToken = 0x14769F96e57B80c66837701DE0B43686Fb4632De;
 
     uint256 internal constant MINT_FEE_DENORM = 100;
+    uint256 internal constant MAX_CER_USD_CREDIT = type(uint128).max;
 
     uint256 internal constant FEE_DENORM = 10000;
     uint256 internal constant FEE_DENORM_SQUARED = FEE_DENORM * FEE_DENORM;

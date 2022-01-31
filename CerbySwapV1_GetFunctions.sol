@@ -9,21 +9,30 @@ abstract contract CerbySwapV1_GetFunctions is
     CerbySwapV1_Modifiers,
     CerbySwapV1_SafeFunctions
 {
-    function getTokenToPoolId(address _token) public view returns (uint256) {
+    function getTokenToPoolId(address _token) external view returns (uint256) {
         return tokenToPoolId[_token];
     }
 
-    function getSettings() public view returns (Settings memory) {
+    function getSettings() external view returns (Settings memory) {
         return settings;
     }
 
-    function _getCurrentPeriod() internal view returns (uint256) {
-        return
-            (block.timestamp / ONE_PERIOD_IN_SECONDS) % NUMBER_OF_TRADE_PERIODS;
+    function getPoolsByTokens(address[] calldata _tokens)
+        external
+        view
+        returns (PoolBalances[] memory)
+    {
+        PoolBalances[] memory outputPools = new PoolBalances[](_tokens.length);
+        for (uint256 i; i < _tokens.length; i++) {
+            address token = _tokens[i];
+            Pool storage pool = pools[tokenToPoolId[token]];
+            outputPools[i] = _getPoolBalances(token, pool.vaultAddress);
+        }
+        return outputPools;
     }
 
     function getCurrentOneMinusFeeBasedOnTrades(address _token)
-        public
+        external
         view
         returns (uint256 fee)
     {
@@ -38,52 +47,11 @@ abstract contract CerbySwapV1_GetFunctions is
         return _getCurrentOneMinusFeeBasedOnTrades(pool, poolBalances);
     }
 
-    function _getCurrentOneMinusFeeBasedOnTrades(
-        Pool storage _pool,
-        PoolBalances memory _poolBalances
-    ) internal view returns (uint256) {
-        // getting last 24 hours trade volume in USD
-        uint256 currentPeriod = _getCurrentPeriod();
-        uint256 nextPeriod = (currentPeriod + 1) % NUMBER_OF_TRADE_PERIODS;
-        uint256 volume;
-        for (uint256 i; i < NUMBER_OF_TRADE_PERIODS; i++) {
-            // skipping current and next period because those values are currently updating
-            // and are incorrect
-            if (i == currentPeriod || i == nextPeriod) continue;
-
-            volume += _pool.tradeVolumePerPeriodInCerUsd[i];
-        }
-
-        // multiplying it to make wei dimention
-        volume = volume * TRADE_VOLUME_DENORM;
-
-        // trades <= TVL * min              ---> fee = feeMaximum
-        // TVL * min < trades < TVL * max   ---> fee is between feeMaximum and feeMinimum
-        // trades >= TVL * max              ---> fee = feeMinimum
-        uint256 tvlMin = (_poolBalances.balanceCerUsd *
-            settings.tvlMultiplierMinimum) / TVL_MULTIPLIER_DENORM;
-        uint256 tvlMax = (_poolBalances.balanceCerUsd *
-            settings.tvlMultiplierMaximum) / TVL_MULTIPLIER_DENORM;
-        if (volume <= tvlMin) {
-            return FEE_DENORM - settings.feeMaximum; // 1.00%
-        } else if (tvlMin < volume && volume < tvlMax) {
-            return
-                FEE_DENORM -
-                settings.feeMaximum +
-                ((volume - tvlMin) *
-                    (settings.feeMaximum - settings.feeMinimum)) /
-                (tvlMax - tvlMin); // between 1.00% and 0.01%
-        }
-
-        // if (volume > tvlMax)
-        return FEE_DENORM - settings.feeMinimum; // 0.01%
-    }
-
     function getOutputExactTokensForTokens(
         address _tokenIn,
         address _tokenOut,
         uint256 _amountTokensIn
-    ) public view returns (uint256) {
+    ) external view returns (uint256) {
         uint256 amountTokensOut;
 
         address vaultAddressIn = pools[tokenToPoolId[_tokenIn]].vaultAddress;
@@ -132,7 +100,7 @@ abstract contract CerbySwapV1_GetFunctions is
         address _tokenIn,
         address _tokenOut,
         uint256 _amountTokensOut
-    ) public view returns (uint256) {
+    ) external view returns (uint256) {
         uint256 amountTokensIn;
 
         address vaultAddressIn = pools[tokenToPoolId[_tokenIn]].vaultAddress;
@@ -175,6 +143,53 @@ abstract contract CerbySwapV1_GetFunctions is
             amountCerUsdOut
         );
         return amountTokensIn;
+    }
+
+    function _getCurrentPeriod() internal view returns (uint256) {
+        return
+            (block.timestamp / ONE_PERIOD_IN_SECONDS) % NUMBER_OF_TRADE_PERIODS;
+    }
+
+    function _getCurrentOneMinusFeeBasedOnTrades(
+        Pool storage _pool,
+        PoolBalances memory _poolBalances
+    ) internal view returns (uint256) {
+        // getting last 24 hours trade volume in USD
+        uint256 currentPeriod = _getCurrentPeriod();
+        uint256 nextPeriod = (currentPeriod + 1) % NUMBER_OF_TRADE_PERIODS;
+        uint256 volume;
+        for (uint256 i; i < NUMBER_OF_TRADE_PERIODS; i++) {
+            // skipping current and next period because those values are currently updating
+            // and are incorrect
+            if (i == currentPeriod || i == nextPeriod) continue;
+
+            volume += _pool.tradeVolumePerPeriodInCerUsd[i];
+        }
+
+        // multiplying it to make wei dimention
+        volume = volume * TRADE_VOLUME_DENORM;
+
+        // trades <= TVL * min              ---> fee = feeMaximum
+        // TVL * min < trades < TVL * max   ---> fee is between feeMaximum and feeMinimum
+        // trades >= TVL * max              ---> fee = feeMinimum
+        uint256 tvlMin = (_poolBalances.balanceCerUsd *
+            settings.tvlMultiplierMinimum) / TVL_MULTIPLIER_DENORM;
+        uint256 tvlMax = (_poolBalances.balanceCerUsd *
+            settings.tvlMultiplierMaximum) / TVL_MULTIPLIER_DENORM;
+        if (volume <= tvlMin) {
+            return FEE_DENORM - settings.feeMaximum; // fee is maximum
+        }
+        
+        if (volume >= tvlMax) {
+            return FEE_DENORM - settings.feeMinimum; // fee is minimum
+        }
+        
+        return
+            FEE_DENORM -
+            settings.feeMaximum +
+            ((volume - tvlMin) *
+                (settings.feeMaximum - settings.feeMinimum)) /
+            (tvlMax - tvlMin); // fee is between minimum and maximum
     }
 
     function _getOutputExactTokensForCerUsd(
@@ -263,19 +278,5 @@ abstract contract CerbySwapV1_GetFunctions is
             (_oneMinusFee * (_reservesOut - _amountOut)) +
             1; // adding +1 for any rounding trims
         return amountIn;
-    }
-
-    function getPoolsByTokens(address[] calldata _tokens)
-        public
-        view
-        returns (PoolBalances[] memory)
-    {
-        PoolBalances[] memory outputPools = new PoolBalances[](_tokens.length);
-        for (uint256 i; i < _tokens.length; i++) {
-            address token = _tokens[i];
-            Pool storage pool = pools[tokenToPoolId[token]];
-            outputPools[i] = _getPoolBalances(token, pool.vaultAddress);
-        }
-        return outputPools;
     }
 }
