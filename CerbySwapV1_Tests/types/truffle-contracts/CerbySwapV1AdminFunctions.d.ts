@@ -446,6 +446,12 @@ export interface CerbySwapV1AdminFunctionsInstance
     txDetails?: Truffle.TransactionDetails
   ): Promise<string>;
 
+  hourlyTradeVolumeInCerUsd(
+    arg0: string,
+    arg1: number | BN | string,
+    txDetails?: Truffle.TransactionDetails
+  ): Promise<BN>;
+
   increaseCerUsdCreditInPool: {
     (
       _token: string,
@@ -476,6 +482,12 @@ export interface CerbySwapV1AdminFunctionsInstance
   ): Promise<boolean>;
 
   name(txDetails?: Truffle.TransactionDetails): Promise<string>;
+
+  oneMinusFeeCached(
+    arg0: string,
+    arg1: number | BN | string,
+    txDetails?: Truffle.TransactionDetails
+  ): Promise<BN>;
 
   owner(txDetails?: Truffle.TransactionDetails): Promise<string>;
 
@@ -1047,6 +1059,12 @@ export interface CerbySwapV1AdminFunctionsInstance
       txDetails?: Truffle.TransactionDetails
     ): Promise<string>;
 
+    hourlyTradeVolumeInCerUsd(
+      arg0: string,
+      arg1: number | BN | string,
+      txDetails?: Truffle.TransactionDetails
+    ): Promise<BN>;
+
     increaseCerUsdCreditInPool: {
       (
         _token: string,
@@ -1077,6 +1095,12 @@ export interface CerbySwapV1AdminFunctionsInstance
     ): Promise<boolean>;
 
     name(txDetails?: Truffle.TransactionDetails): Promise<string>;
+
+    oneMinusFeeCached(
+      arg0: string,
+      arg1: number | BN | string,
+      txDetails?: Truffle.TransactionDetails
+    ): Promise<BN>;
 
     owner(txDetails?: Truffle.TransactionDetails): Promise<string>;
 

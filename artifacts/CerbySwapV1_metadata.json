@@ -985,6 +985,30 @@
 				"inputs": [
 					{
 						"internalType": "address",
+						"name": "",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"name": "hourlyTradeVolumeInCerUsd",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
 						"name": "_token",
 						"type": "address"
 					},
@@ -1031,6 +1055,30 @@
 						"internalType": "string",
 						"name": "",
 						"type": "string"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"name": "oneMinusFeeCached",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
 					}
 				],
 				"stateMutability": "view",
@@ -1295,6 +1343,24 @@
 				"type": "function"
 			},
 			{
+				"inputs": [
+					{
+						"internalType": "bool",
+						"name": "_calcFee",
+						"type": "bool"
+					},
+					{
+						"internalType": "address",
+						"name": "_token",
+						"type": "address"
+					}
+				],
+				"name": "testCheck",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
 				"inputs": [],
 				"name": "testInit",
 				"outputs": [],
@@ -1483,11 +1549,11 @@
 			]
 		},
 		"sol-cerby-swap-v1/CerbySwapV1_Declarations.sol": {
-			"keccak256": "0x1edb528cb87daa34122977cea304682752e4981f1d0c0c35f89e2f4cf8294d84",
+			"keccak256": "0xcdfac5f63f710e828261c3a51b773798f7a1beb943d9cabfb4183fe981a46a39",
 			"license": "BUSL-1.1",
 			"urls": [
-				"bzz-raw://5b5b04fdb7c6e7f61414d8b8beb0cf62dc1f83c168323bc140b696647a2cfd74",
-				"dweb:/ipfs/QmXn91tSYgw4pm1wbQcJ3w9pacspmRwPNdARLZGHp2RKYT"
+				"bzz-raw://d935bce57ada59650ad275ec564e2689f4443195ac0071b99dcfc915b209544f",
+				"dweb:/ipfs/QmZoEGiBFnL74BYyWJvt8VSXiLsstGtDcK2SuyBB9kh7VP"
 			]
 		},
 		"sol-cerby-swap-v1/CerbySwapV1_Declarations_CerUsd.sol": {
@@ -1515,19 +1581,19 @@
 			]
 		},
 		"sol-cerby-swap-v1/CerbySwapV1_GetFunctions.sol": {
-			"keccak256": "0x0f9d9d879b0c99450e7e96ef9359c495217e7f2a1ed105b281c296e91d7f6152",
+			"keccak256": "0x1dd0d274fd44a3c181279f412cbc041de96cc5f781e2fa5bbb6c64b07f435b06",
 			"license": "BUSL-1.1",
 			"urls": [
-				"bzz-raw://698c9a1e1c35f34fd1445cc21e40a22da5d6e1e35e2ef5a531a78ce40709805d",
-				"dweb:/ipfs/QmaqjDp7jeP1Yis8w5W7TzGhSmaEwuBvGsdazhSPqnh7dj"
+				"bzz-raw://838d8df77c79c79295cd5eced37ac84e6f836080fa320a6ddc948c63f278a642",
+				"dweb:/ipfs/QmSd9GGcpttXm9oJxu6JGDNSuzgauhmA2hH3C9awuywCdu"
 			]
 		},
 		"sol-cerby-swap-v1/CerbySwapV1_LiquidityFunctions.sol": {
-			"keccak256": "0x960ee9c72ecd192f46f133da54f5fb4cadd92e311d17b00231a8f9528f12123a",
+			"keccak256": "0x032aab8ae1dc0b97497dd9343d2baa3640b6874404f3bdc3e2aa7c6e54922b89",
 			"license": "BUSL-1.1",
 			"urls": [
-				"bzz-raw://98a17c622e1842fae7bac624feef850cb528c11663f250d478271ff2e1c56ee7",
-				"dweb:/ipfs/QmX15djKmiW93Kz4KZhNiNSRLCoNaEES9GQQoFMTdNXAnw"
+				"bzz-raw://ea7e9152c75c1c3ba88c4b1369c97ff33c766548d19fd36a6ac9b68a0d0e48a8",
+				"dweb:/ipfs/Qmcc3UzZCXGyrE67B78ykjcndvk8a9XeVAAMA2P3HWenJb"
 			]
 		},
 		"sol-cerby-swap-v1/CerbySwapV1_Math.sol": {
@@ -1555,11 +1621,11 @@
 			]
 		},
 		"sol-cerby-swap-v1/CerbySwapV1_SwapFunctions.sol": {
-			"keccak256": "0x1d31e4dd362848da49b59d2261edd4819e58e0b7f8d1f0292f79c9d49f385325",
+			"keccak256": "0x30e4d06271157483912ebfd93954c7ecd51657ddbb0e6b72e7d8cf78ec2acbf0",
 			"license": "BUSL-1.1",
 			"urls": [
-				"bzz-raw://600880fc54b4d289d091c70d4c49058b5af0095cee0a5d35a45fbd2968964f25",
-				"dweb:/ipfs/QmSyEFVNZWmcvfZn16kJ1ieVtSnDhhET1Dg851yxvAS8Xg"
+				"bzz-raw://5e4600f98212a87300035207b6a6e418b0ce1af5e9a751a97a39678565f93570",
+				"dweb:/ipfs/Qmav6goZC4yT6Adi1jhsrVv5uriCJRvzfswXgsjg4iELvh"
 			]
 		},
 		"sol-cerby-swap-v1/CerbySwapV1_Vault.sol": {

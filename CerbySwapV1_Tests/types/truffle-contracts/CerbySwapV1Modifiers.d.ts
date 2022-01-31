@@ -89,7 +89,31 @@ export interface Sync {
 type AllEvents = LiquidityAdded | LiquidityRemoved | PoolCreated | Swap | Sync;
 
 export interface CerbySwapV1ModifiersInstance extends Truffle.ContractInstance {
-  methods: {};
+  hourlyTradeVolumeInCerUsd(
+    arg0: string,
+    arg1: number | BN | string,
+    txDetails?: Truffle.TransactionDetails
+  ): Promise<BN>;
+
+  oneMinusFeeCached(
+    arg0: string,
+    arg1: number | BN | string,
+    txDetails?: Truffle.TransactionDetails
+  ): Promise<BN>;
+
+  methods: {
+    hourlyTradeVolumeInCerUsd(
+      arg0: string,
+      arg1: number | BN | string,
+      txDetails?: Truffle.TransactionDetails
+    ): Promise<BN>;
+
+    oneMinusFeeCached(
+      arg0: string,
+      arg1: number | BN | string,
+      txDetails?: Truffle.TransactionDetails
+    ): Promise<BN>;
+  };
 
   getPastEvents(event: string): Promise<EventData[]>;
   getPastEvents(

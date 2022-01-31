@@ -131,6 +131,18 @@ export interface CerbySwapV1GetFunctionsInstance
     txDetails?: Truffle.TransactionDetails
   ): Promise<BN>;
 
+  hourlyTradeVolumeInCerUsd(
+    arg0: string,
+    arg1: number | BN | string,
+    txDetails?: Truffle.TransactionDetails
+  ): Promise<BN>;
+
+  oneMinusFeeCached(
+    arg0: string,
+    arg1: number | BN | string,
+    txDetails?: Truffle.TransactionDetails
+  ): Promise<BN>;
+
   methods: {
     getCurrentOneMinusFeeBasedOnTrades(
       _token: string,
@@ -170,6 +182,18 @@ export interface CerbySwapV1GetFunctionsInstance
 
     getTokenToPoolId(
       _token: string,
+      txDetails?: Truffle.TransactionDetails
+    ): Promise<BN>;
+
+    hourlyTradeVolumeInCerUsd(
+      arg0: string,
+      arg1: number | BN | string,
+      txDetails?: Truffle.TransactionDetails
+    ): Promise<BN>;
+
+    oneMinusFeeCached(
+      arg0: string,
+      arg1: number | BN | string,
       txDetails?: Truffle.TransactionDetails
     ): Promise<BN>;
   };

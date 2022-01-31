@@ -12,7 +12,8 @@ abstract contract CerbySwapV1_Declarations is
     Pool[] internal pools;
     mapping(address => uint256) internal tokenToPoolId;
     mapping(address => mapping(uint256 => uint256))
-        internal hourlyTradeVolumeInCerUsd;
+        public hourlyTradeVolumeInCerUsd;
+    mapping(address => mapping(uint256 => uint256)) public oneMinusFeeCached;
 
     address internal testCerbyToken =
         0x527ea24a5917c452DBF402EdC9Da4190239bCcf1; // TODO: remove on production
