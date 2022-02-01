@@ -40,7 +40,7 @@ contract CerbySwapV1_MinimalProxy is CerbySwapV1_Declarations {
     }
 
     function cloneVault(address _token) internal returns (address) {
-        bytes32 salt = keccak256(abi.encodePacked(_token));
+        bytes32 salt = keccak256(abi.encodePacked(_token, HASH_SEPARATOR));
 
         // convert address to 20 bytes
         bytes20 vaultImplementationBytes = bytes20(vaultImplementation);
