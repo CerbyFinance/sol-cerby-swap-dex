@@ -48,7 +48,9 @@ Thumbs.db
 *.mov
 *.wmv
 
+# binary files after compilation
 *.abi
 *.bin
-*.json
-*.json
+
+# solidity artifacts
+artifacts/
