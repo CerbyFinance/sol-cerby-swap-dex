@@ -1,0 +1,1691 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for contracts/CerbySwapV1_SwapFunctions.sol</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../prettify.css" />
+    <link rel="stylesheet" href="../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../index.html">all files</a> / <a href="index.html">contracts/</a> CerbySwapV1_SwapFunctions.sol
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">93.33% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>98/105</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">86% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>43/50</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>3/3</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">81.15% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>99/122</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line high'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
+234
+235
+236
+237
+238
+239
+240
+241
+242
+243
+244
+245
+246
+247
+248
+249
+250
+251
+252
+253
+254
+255
+256
+257
+258
+259
+260
+261
+262
+263
+264
+265
+266
+267
+268
+269
+270
+271
+272
+273
+274
+275
+276
+277
+278
+279
+280
+281
+282
+283
+284
+285
+286
+287
+288
+289
+290
+291
+292
+293
+294
+295
+296
+297
+298
+299
+300
+301
+302
+303
+304
+305
+306
+307
+308
+309
+310
+311
+312
+313
+314
+315
+316
+317
+318
+319
+320
+321
+322
+323
+324
+325
+326
+327
+328
+329
+330
+331
+332
+333
+334
+335
+336
+337
+338
+339
+340
+341
+342
+343
+344
+345
+346
+347
+348
+349
+350
+351
+352
+353
+354
+355
+356
+357
+358
+359
+360
+361
+362
+363
+364
+365
+366
+367
+368
+369
+370
+371
+372
+373
+374
+375
+376
+377
+378
+379
+380
+381
+382
+383
+384
+385
+386
+387
+388
+389
+390
+391
+392
+393
+394
+395
+396
+397
+398
+399
+400
+401
+402
+403
+404
+405
+406
+407
+408
+409
+410
+411
+412
+413
+414
+415
+416
+417
+418
+419
+420
+421
+422
+423
+424
+425
+426
+427
+428
+429
+430
+431
+432
+433
+434
+435
+436
+437
+438
+439
+440
+441
+442
+443
+444
+445
+446
+447
+448
+449
+450
+451
+452
+453
+454
+455
+456
+457
+458
+459
+460
+461
+462
+463
+464
+465
+466
+467
+468
+469
+470
+471
+472
+473
+474
+475
+476
+477
+478
+479
+480
+481
+482
+483
+484
+485
+486
+487
+488
+489
+490
+491
+492
+493
+494
+495
+496
+497
+498
+499
+500
+501
+502
+503
+504
+505
+506
+507
+508
+509
+510
+511
+512
+513
+514
+515
+516
+517
+518
+519
+520
+521
+522
+523
+524
+525
+526
+527
+528
+529
+530
+531
+532
+533
+534
+535
+536
+537
+538
+539
+540
+541
+542
+543</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">58×</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">52×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">52×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">52×</span>
+<span class="cline-any cline-yes">52×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">52×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">22×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">22×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">22×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">20×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">20×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">16×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">30×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">20×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">20×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">18×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">16×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">16×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">16×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">10×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">42×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">42×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">42×</span>
+<span class="cline-any cline-yes">42×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">42×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">14×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">14×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">14×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">10×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">10×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">10×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">28×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">16×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">16×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">14×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">10×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">10×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">10×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">10×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">10×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">10×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">84×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">84×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">84×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">84×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">84×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">84×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">80×</span>
+<span class="cline-any cline-yes">80×</span>
+<span class="cline-any cline-yes">80×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">80×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">40×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">40×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">80×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">80×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">80×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">80×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">80×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">25×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">25×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">80×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">80×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">80×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">80×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">80×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">80×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">// SPDX-License-Identifier: BUSL-1.1
+&nbsp;
+pragma solidity ^0.8.11;
+&nbsp;
+import "./CerbySwapV1_LiquidityFunctions.sol";
+&nbsp;
+abstract contract CerbySwapV1_SwapFunctions is CerbySwapV1_LiquidityFunctions {
+&nbsp;
+    // Q: ifs - simplify, throw unnecessary stuff
+    function swapExactTokensForTokens(
+        address _tokenIn,
+        address _tokenOut,
+        uint256 _amountTokensIn,
+        uint256 _minAmountTokensOut,
+        uint256 _expireTimestamp,
+        address _transferTo
+    )
+        external
+        payable
+        transactionIsNotExpired(_expireTimestamp)
+        // checkForBots(msg.sender) // TODO: enable on production
+        returns (uint256[] memory)
+    {
+        // amountTokensIn must be larger than 1 to avoid rounding errors
+        if (_amountTokensIn &lt;= 1) {
+            revert("F"); // TODO: remove this line on production
+            revert CerbySwapV1_AmountOfTokensMustBeLargerThanOne();
+        }
+&nbsp;
+        address vaultAddressIn = getVaultCloneAddressByToken(
+            _tokenIn
+        );
+&nbsp;
+        address vaultAddressOut = getVaultCloneAddressByToken(
+            _tokenOut
+        );
+&nbsp;
+        uint256[] memory amounts = new uint256[](2);
+        amounts[0] = _amountTokensIn;
+&nbsp;
+        // swaping XXX --&gt; cerUSD
+        if (_tokenIn != cerUsdToken &amp;&amp; _tokenOut == cerUsdToken) {
+            // getting pool balances before the swap
+            PoolBalances memory poolInBalancesBefore = _getPoolBalances(
+                _tokenIn
+            );
+&nbsp;
+            // getting amountTokensOut
+            amounts[1] = _getOutputExactTokensForCerUsd(
+                poolInBalancesBefore,
+                _tokenIn,
+                _amountTokensIn
+            );
+&nbsp;
+            // checking slippage
+            if (amounts[1] &lt; _minAmountTokensOut) {
+                revert("H"); // TODO: remove this line on production
+                revert CerbySwapV1_OutputCerUsdAmountIsLowerThanMinimumSpecified();
+            }
+&nbsp;
+            // safely transferring tokens from sender to the vault
+            _safeTransferFromHelper(
+                _tokenIn,
+                msg.sender,
+                vaultAddressIn,
+                _amountTokensIn
+            );
+&nbsp;
+            // swapping XXX ---&gt; cerUSD
+            _swap(
+                _tokenIn,
+                poolInBalancesBefore,
+                0,
+                amounts[1],
+                _transferTo
+            );
+&nbsp;
+            return amounts;
+        }
+&nbsp;
+        // swaping cerUSD --&gt; YYY
+        if (_tokenIn == cerUsdToken &amp;&amp; _tokenOut != cerUsdToken) {
+            // getting pool balances before the swap
+            PoolBalances memory poolOutBalancesBefore = _getPoolBalances(
+                _tokenOut
+            );
+&nbsp;
+            // getting amountTokensOut
+            amounts[1] = _getOutputExactCerUsdForTokens(
+                poolOutBalancesBefore,
+                _tokenOut,
+                _amountTokensIn
+            );
+&nbsp;
+            // checking slippage
+            if (amounts[1] &lt; _minAmountTokensOut) {
+                revert("i"); // TODO: remove this line on production
+                revert CerbySwapV1_OutputTokensAmountIsLowerThanMinimumSpecified();
+            }
+&nbsp;
+            // safely transferring tokens from sender to the vault
+            _safeTransferFromHelper(
+                _tokenIn,
+                msg.sender,
+                vaultAddressOut,
+                _amountTokensIn
+            );
+&nbsp;
+            // swapping cerUSD ---&gt; YYY
+            _swap(
+                _tokenOut,
+                poolOutBalancesBefore,
+                amounts[1],
+                0,
+                _transferTo
+            );
+&nbsp;
+            return amounts;
+        }
+&nbsp;
+        // swaping XXX --&gt; cerUsd --&gt; YYY (or XXX --&gt; YYY)
+        if (
+            _tokenIn != cerUsdToken &amp;&amp;
+            _tokenOut != cerUsdToken &amp;&amp;
+            _tokenIn != _tokenOut
+        ) {
+            // getting pool balances before the swap
+            PoolBalances memory poolInBalancesBefore = _getPoolBalances(
+                _tokenIn
+            );
+&nbsp;
+            // getting amountTokensOut=
+            uint256 amountCerUsdOut = _getOutputExactTokensForCerUsd(
+                poolInBalancesBefore,
+                _tokenIn,
+                _amountTokensIn
+            );
+&nbsp;
+            // getting pool balances before the swap
+            PoolBalances memory poolOutBalancesBefore = _getPoolBalances(
+                _tokenOut
+            );
+&nbsp;
+            amounts[1] = _getOutputExactCerUsdForTokens(
+                poolOutBalancesBefore,
+                _tokenOut,
+                amountCerUsdOut
+            );
+&nbsp;
+            // checking slippage
+            <span class="missing-if-branch" title="if path not taken" >I</span>if (amounts[1] &lt; _minAmountTokensOut) {
+<span class="cstat-no" title="statement not covered" >                revert("i")</span>; // TODO: remove this line on production
+                revert CerbySwapV1_OutputTokensAmountIsLowerThanMinimumSpecified();
+            }
+&nbsp;
+            // safely transferring tokens from sender to the vault
+            _safeTransferFromHelper(
+                _tokenIn,
+                msg.sender,
+                vaultAddressIn,
+                _amountTokensIn
+            );
+&nbsp;
+            // swapping XXX ---&gt; cerUSD
+            // keeping all output cerUSD in the contract without sending
+            _swap(
+                _tokenIn,
+                poolInBalancesBefore,
+                0,
+                amountCerUsdOut,
+                vaultAddressOut
+            );
+&nbsp;
+            // swapping cerUSD ---&gt; YYY
+            _swap(
+                _tokenOut, 
+                poolOutBalancesBefore,
+                amounts[1],
+                0,
+                _transferTo
+            );
+&nbsp;
+            return amounts;
+        }
+&nbsp;
+        // tokenIn == tokenOut clause
+        revert("L"); // TODO: remove this line on production
+        revert CerbySwapV1_SwappingTokenToSameTokenIsForbidden();
+    }
+&nbsp;
+    // Q: ifs - simplify, throw unnecessary stuff
+    function swapTokensForExactTokens(
+        address _tokenIn,
+        address _tokenOut,
+        uint256 _amountTokensOut,
+        uint256 _maxAmountTokensIn,
+        uint256 _expireTimestamp,
+        address _transferTo
+    )
+        external
+        payable // Q: where is msg.value used?
+        transactionIsNotExpired(_expireTimestamp)
+        // checkForBots(msg.sender) // TODO: enable on production
+        returns (uint256[] memory)
+    {
+        address vaultAddressIn = getVaultCloneAddressByToken(
+            _tokenIn
+        );
+&nbsp;
+        address vaultAddressOut = getVaultCloneAddressByToken(
+            _tokenOut
+        );
+&nbsp;
+        uint256[] memory amounts = new uint256[](2);
+        amounts[1] = _amountTokensOut;
+&nbsp;
+        // swapping XXX --&gt; cerUSD
+        if (_tokenIn != cerUsdToken &amp;&amp; _tokenOut == cerUsdToken) {
+            // getting pool balances before the swap
+            PoolBalances memory poolInBalancesBefore = _getPoolBalances(
+                _tokenIn
+            );
+&nbsp;
+            // getting amountTokensOut
+            amounts[0] = _getInputTokensForExactCerUsd(
+                poolInBalancesBefore,
+                _tokenIn,
+                _amountTokensOut
+            );
+&nbsp;
+            // checking slippage
+            if (amounts[0] &gt; _maxAmountTokensIn) {
+                revert("K"); // TODO: remove this line on production
+                revert CerbySwapV1_InputTokensAmountIsLargerThanMaximumSpecified();
+            }
+&nbsp;
+            // amountTokensIn must be larger than 1 to avoid rounding errors
+            if (amounts[0] &lt;= 1) {
+                revert("F"); // TODO: remove this line on production
+                revert CerbySwapV1_AmountOfTokensMustBeLargerThanOne();
+            }
+&nbsp;
+            // safely transferring tokens from sender to the vault
+            _safeTransferFromHelper(
+                _tokenIn,
+                msg.sender,
+                vaultAddressIn,
+                amounts[0]
+            );
+&nbsp;
+            // swapping XXX ---&gt; cerUSD
+            _swap(
+                _tokenIn,
+                poolInBalancesBefore,
+                0,
+                _amountTokensOut,
+                _transferTo
+            );
+&nbsp;
+            return amounts;
+        }
+&nbsp;
+        // swapping cerUSD --&gt; YYY
+        if (_tokenIn == cerUsdToken &amp;&amp; _tokenOut != cerUsdToken) {
+            // getting pool balances before the swap
+            PoolBalances memory poolOutBalancesBefore = _getPoolBalances(
+                _tokenOut
+            );
+&nbsp;
+            // getting amountTokensOut
+            amounts[0] = _getInputCerUsdForExactTokens(
+                poolOutBalancesBefore,
+                _tokenOut,
+                _amountTokensOut
+            );
+&nbsp;
+            // checking slippage
+            if (amounts[0] &gt; _maxAmountTokensIn) {
+                revert("J"); // TODO: remove this line on production
+                revert CerbySwapV1_InputCerUsdAmountIsLargerThanMaximumSpecified();
+            }
+&nbsp;
+            // amountTokensIn must be larger than 1 to avoid rounding errors
+            if (amounts[0] &lt;= 1) {
+                revert("U"); // TODO: remove this line on production
+                revert CerbySwapV1_AmountOfCerUsdMustBeLargerThanOne();
+            }
+&nbsp;
+            // safely transferring tokens from sender to the vault
+            _safeTransferFromHelper(
+                _tokenIn,
+                msg.sender,
+                vaultAddressOut,
+                amounts[0]
+            );
+&nbsp;
+            // swapping cerUSD ---&gt; YYY
+            _swap(
+                _tokenOut,
+                poolOutBalancesBefore,
+                _amountTokensOut,
+                0,
+                _transferTo
+            );
+&nbsp;
+            return amounts;
+        }
+&nbsp;
+        // swaping XXX --&gt; cerUsd --&gt; YYY (or XXX --&gt; YYY)
+        if (
+            _tokenIn != cerUsdToken &amp;&amp;
+            _tokenOut != cerUsdToken &amp;&amp;
+            _tokenIn != _tokenOut
+        ) {
+            // getting pool balances before the swap
+            PoolBalances memory poolOutBalancesBefore = _getPoolBalances(
+                _tokenOut
+            );
+&nbsp;
+            // getting amountTokensOut
+            uint256 amountCerUsdOut = _getInputCerUsdForExactTokens(
+                poolOutBalancesBefore,
+                _tokenOut,
+                _amountTokensOut
+            );
+&nbsp;
+            // amountCerUsdOut must be larger than 1 to avoid rounding errors
+            if (amountCerUsdOut &lt;= 1) {
+                revert("U"); // TODO: remove this line on production
+                revert CerbySwapV1_AmountOfCerUsdMustBeLargerThanOne();
+            }
+&nbsp;
+            // getting pool balances before the swap
+            PoolBalances memory poolInBalancesBefore = _getPoolBalances(
+                _tokenIn
+            );
+&nbsp;
+            amounts[0] = _getInputTokensForExactCerUsd(
+                poolInBalancesBefore,
+                _tokenIn,
+                amountCerUsdOut
+            );
+&nbsp;
+            // amountTokensIn must be larger than 1 to avoid rounding errors
+            <span class="missing-if-branch" title="if path not taken" >I</span>if (amounts[0] &lt;= 1) {
+<span class="cstat-no" title="statement not covered" >                revert("U")</span>; // TODO: remove this line on production
+                revert CerbySwapV1_AmountOfTokensMustBeLargerThanOne();
+            }
+&nbsp;
+            // checking slippage
+            <span class="missing-if-branch" title="if path not taken" >I</span>if (amounts[0] &gt; _maxAmountTokensIn) {
+<span class="cstat-no" title="statement not covered" >                revert("K")</span>; // TODO: remove this line on production
+                revert CerbySwapV1_InputTokensAmountIsLargerThanMaximumSpecified();
+            }
+&nbsp;
+            // safely transferring tokens from sender to the vault
+            _safeTransferFromHelper(
+                _tokenIn,
+                msg.sender,
+                vaultAddressIn,
+                amounts[0]
+            );
+&nbsp;
+            // swapping XXX ---&gt; cerUSD
+            _swap(
+                _tokenIn,
+                poolInBalancesBefore,
+                0,
+                amountCerUsdOut,
+                vaultAddressOut
+            );
+&nbsp;
+            // swapping cerUSD ---&gt; YYY
+            _swap(
+                _tokenOut,
+                poolOutBalancesBefore,
+                _amountTokensOut,
+                0,
+                _transferTo
+            );
+&nbsp;
+            return amounts;
+        }
+&nbsp;
+        // tokenIn == tokenOut clause
+        revert("L"); // TODO: remove this line on production
+        revert CerbySwapV1_SwappingTokenToSameTokenIsForbidden();
+    }
+&nbsp;
+    function _swap(
+        address _token,
+        PoolBalances memory _poolBalancesBefore,
+        uint256 _amountTokensOut,
+        uint256 _amountCerUsdOut,
+        address _transferTo
+    )
+        private
+        tokenMustExistInPool(_token)
+    {
+        PoolBalances memory poolBalancesAfter = _getPoolBalances(
+            _token
+        );
+&nbsp;
+        // finding out how many amountCerUsdIn we received
+        uint256 amountCerUsdIn = poolBalancesAfter.balanceCerUsd
+            - _poolBalancesBefore.balanceCerUsd;
+&nbsp;
+        // finding out how many amountTokensIn we received
+        uint256 amountTokensIn = poolBalancesAfter.balanceToken
+            - _poolBalancesBefore.balanceToken;
+&nbsp;
+        <span class="missing-if-branch" title="if path not taken" >I</span>if (amountTokensIn + amountCerUsdIn &lt;= 1) {
+<span class="cstat-no" title="statement not covered" >            revert("2")</span>;
+            revert CerbySwapV1_AmountOfCerUsdOrTokensInMustBeLargerThanOne();
+        }
+&nbsp;
+        Pool storage pool = pools[tokenToPoolId[_token]];
+&nbsp;
+        // checking if cerUsd credit is enough to cover this swap
+        if (
+            pool.creditCerUsd &lt; MAX_CER_USD_CREDIT &amp;&amp;
+            pool.creditCerUsd + amountCerUsdIn &lt; _amountCerUsdOut
+        ) {
+            revert("Z");
+            revert CerbySwapV1_CreditCerUsdMustNotBeBelowZero();
+        }
+&nbsp;
+        uint256 currentPeriod = _getCurrentPeriod();
+        uint256 oneMinusFee = FEE_DENORM;
+        {
+            // calculating fees
+            // if swap is ANY --&gt; cerUSD, fee is calculated
+            // if swap is cerUSD --&gt; ANY, fee is zero (oneMinusFee = FEE_DENORM)
+            if (amountCerUsdIn &gt; 1 &amp;&amp; amountTokensIn &lt;= 1) {
+                // updating cache in while gas estimations to avoid out of gas error
+                // caching it for whole current period
+                if (
+                    currentPeriod != pool.lastCachedTradePeriod ||
+                    tx.gasprice == 0
+                ) {
+                    pool.lastCachedTradePeriod = uint8(currentPeriod);
+                    pool.lastCachedOneMinusFee = uint16(
+                        _getCurrentOneMinusFeeBasedOnTrades(
+                            pool,
+                            _poolBalancesBefore
+                        )
+                    );
+                }
+                oneMinusFee = pool.lastCachedOneMinusFee;
+            }
+&nbsp;
+            // calculating old K value including trade fees (multiplied by FEE_DENORM^2)
+            uint256 beforeKValueDenormed = _poolBalancesBefore.balanceToken
+                * _poolBalancesBefore.balanceCerUsd
+                * FEE_DENORM_SQUARED;
+&nbsp;
+            // calculating new K value including trade fees
+            uint256 afterKValueDenormed = (poolBalancesAfter.balanceCerUsd *
+                FEE_DENORM -
+                amountCerUsdIn *
+                (FEE_DENORM - oneMinusFee)) *
+                (poolBalancesAfter.balanceToken *
+                    FEE_DENORM -
+                    amountTokensIn *
+                    (FEE_DENORM - oneMinusFee));
+&nbsp;
+            <span class="missing-if-branch" title="if path not taken" >I</span>if (afterKValueDenormed &lt; beforeKValueDenormed) {
+<span class="cstat-no" title="statement not covered" >                revert("1")</span>;
+                revert CerbySwapV1_InvariantKValueMustBeSameOrIncreasedOnAnySwaps();
+            }
+&nbsp;
+            // updating creditCerUsd only if pool is user-created
+            <span class="missing-if-branch" title="if path not taken" >I</span>if (pool.creditCerUsd &lt; MAX_CER_USD_CREDIT) {
+<span class="cstat-no" title="statement not covered" >                pool.creditCerUsd = uint112(</span>
+                    uint256(pool.creditCerUsd)
+                        + amountCerUsdIn
+                        - _amountCerUsdOut
+                );
+            }
+&nbsp;
+            // updating 1 hour trade pool values
+            // only for direction ANY --&gt; cerUSD
+&nbsp;
+            if (_amountCerUsdOut &gt; TRADE_VOLUME_DENORM) {
+                // or else amountCerUsdOut / TRADE_VOLUME_DENORM == 0
+                // stores in 10xUSD value, up-to $40B per 4 hours per pair will be stored correctly
+                uint256 updatedTradeVolume = uint256( // Q: is order correct here?
+                    pool.tradeVolumePerPeriodInCerUsd[currentPeriod]
+                ) + _amountCerUsdOut / TRADE_VOLUME_DENORM; // if ANY --&gt; cerUSD, then output is cerUSD only
+&nbsp;
+                // handling overflow just in case
+                pool.tradeVolumePerPeriodInCerUsd[currentPeriod] = updatedTradeVolume &lt; type(uint32).max
+                    ? uint32(updatedTradeVolume)
+                    : type(uint32).max;
+            }
+&nbsp;
+            uint256 nextPeriod = currentPeriod + 1;
+&nbsp;
+            // clearing next 1 hour trade value
+            <span class="missing-if-branch" title="if path not taken" >I</span>if (pool.tradeVolumePerPeriodInCerUsd[nextPeriod] &gt; 1) {
+                // gas saving to not zero the field
+<span class="cstat-no" title="statement not covered" >                pool.tradeVolumePerPeriodInCerUsd[nextPeriod] = 1</span>;
+            }
+        }
+        // safely transfering tokens
+        // and making sure exact amounts were actually transferred
+        _safeTransferFromHelper(
+            _token,
+            getVaultCloneAddressByToken(_token),
+            _transferTo,
+            _amountTokensOut
+        );
+&nbsp;
+        // safely transfering cerUSD
+        _safeTransferFromHelper(
+            cerUsdToken,
+            getVaultCloneAddressByToken(_token),
+            _transferTo,
+            _amountCerUsdOut
+        );
+&nbsp;
+        // Swap event is needed to post in telegram channel
+        emit Swap(
+            _token,
+            msg.sender,
+            amountTokensIn,
+            amountCerUsdIn,
+            _amountTokensOut,
+            _amountCerUsdOut,
+            FEE_DENORM - oneMinusFee, // = fee * FEE_DENORM
+            _transferTo
+        );
+&nbsp;
+        // Sync event to update pool variables in the graph node
+        emit Sync(
+            _token,
+            poolBalancesAfter.balanceToken,
+            poolBalancesAfter.balanceCerUsd,
+            pool.creditCerUsd
+        );
+    }
+}
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Fri Feb 04 2022 20:15:40 GMT+0700 (Indochina Time)
+</div>
+</div>
+<script src="../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../sorter.js"></script>
+</body>
+</html>

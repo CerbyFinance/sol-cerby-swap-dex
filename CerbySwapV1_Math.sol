@@ -3,7 +3,25 @@
 pragma solidity ^0.8.11;
 
 abstract contract CerbySwapV1_Math {
-    function sqrt(uint256 _y) internal pure returns (uint256 z) {
+
+    function diff(
+        uint256 _a,
+        uint256 _b
+    )
+        internal
+        pure
+        returns (uint256 c)
+    {
+        return _a - _b;
+    }
+
+    function sqrt(
+        uint256 _y
+    )
+        internal
+        pure
+        returns (uint256 z)
+    {
         if (_y > 3) {
             z = _y;
             uint256 x = _y / 2 + 1;

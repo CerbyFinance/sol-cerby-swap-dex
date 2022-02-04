@@ -6,9 +6,12 @@ import "./interfaces/ICerbyToken.sol";
 import "./interfaces/ICerbyBotDetection.sol";
 
 abstract contract CerbyCronJobsExecution {
+
     uint256 internal constant CERBY_BOT_DETECTION_CONTRACT_ID = 3;
-    ICerbyToken internal constant CERBY_TOKEN_INSTANCE =
-        ICerbyToken(0xdef1fac7Bf08f173D286BbBDcBeeADe695129840);
+
+    ICerbyToken internal constant CERBY_TOKEN_INSTANCE = ICerbyToken(
+        0xdef1fac7Bf08f173D286BbBDcBeeADe695129840
+    );
 
     error CerbyCronJobsExecution_TransactionsAreTemporarilyDisabled();
 
@@ -46,13 +49,17 @@ abstract contract CerbyCronJobsExecution {
                 CERBY_BOT_DETECTION_CONTRACT_ID
             )
         );
+
         if (iCerbyBotDetection.isBotAddress(_addr)) {
             revert CerbyCronJobsExecution_TransactionsAreTemporarilyDisabled();
         }
         _;
     }
 
-    modifier checkTransactionAndExecuteCron(address _tokenAddr, address _addr) {
+    modifier checkTransactionAndExecuteCron(
+        address _tokenAddr,
+        address _addr
+    ) {
         ICerbyBotDetection iCerbyBotDetection = ICerbyBotDetection(
             CERBY_TOKEN_INSTANCE.getUtilsContractAtPos(
                 CERBY_BOT_DETECTION_CONTRACT_ID
@@ -69,22 +76,27 @@ abstract contract CerbyCronJobsExecution {
         address _token,
         address _from,
         address _to
-    ) internal {
+    )
+        internal
+    {
         // before sending the token to user even if it is internal transfer of cerUSD
         // we are making sure that sender is not bot by calling checkTransaction
+
         ICerbyBotDetection iCerbyBotDetection = ICerbyBotDetection(
             CERBY_TOKEN_INSTANCE.getUtilsContractAtPos(
                 CERBY_BOT_DETECTION_CONTRACT_ID
             )
         );
+
         if (iCerbyBotDetection.detectBotTransaction(_token, _from)) {
             revert CerbyCronJobsExecution_TransactionsAreTemporarilyDisabled();
         }
 
-        // if it is external transfer to user
-        // we register this transaction as successful
-        if (_to != address(this)) {
-            iCerbyBotDetection.registerTransaction(_token, _to);
-        }
+        if (_to == address(this)) return;
+
+        iCerbyBotDetection.registerTransaction(
+            _token,
+            _to
+        );
     }
 }

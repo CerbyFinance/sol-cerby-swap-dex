@@ -11,12 +11,14 @@ abstract contract CerbySwapV1_AdminFunctions is
 {
     // TODO: remove on production
     function testSetupTokens(
-        address,
+        address, // Q: empty?
         address _testCerbyToken,
         address _cerUsdToken,
         address _testUsdcToken,
         address
-    ) external {
+    )
+        external
+    {
         //testCerbyBotDetectionContract = _testCerbyBotDetectionContract;
         testCerbyToken = _testCerbyToken;
         cerUsdToken = _cerUsdToken;
@@ -56,34 +58,43 @@ abstract contract CerbySwapV1_AdminFunctions is
         _createPool(
             nativeToken,
             1e15,
-            1e18 * 1e6,
+            1e18 * 1e6, // Q: combine
             MAX_CER_USD_CREDIT,
             msg.sender
         );
     }
 
-    function adminSetURI(string calldata _newUrlPrefix) external onlyOwner {
+    function adminSetURI(
+        string calldata _newUrlPrefix
+    )
+        external
+        onlyOwner
+    {
         _setURI(string(abi.encodePacked(_newUrlPrefix, "{id}.json")));
-
         urlPrefix = _newUrlPrefix;
     }
 
     function adminUpdateNameAndSymbol(
         string memory _newContractName,
         string memory _newContractSymbol
-    ) external onlyOwner {
+    )
+        external
+        onlyOwner
+    {
         contractName = _newContractName;
         contractSymbol = _newContractSymbol;
     }
 
-    function adminUpdateFeesAndTvlMultipliers(Settings calldata _settings)
+    function adminUpdateFeesAndTvlMultipliers(
+        Settings calldata _settings
+    )
         external
         onlyOwner
     {
         if (
-            0 == _settings.feeMinimum ||
+            _settings.feeMinimum == 0 ||
             _settings.feeMinimum > _settings.feeMaximum ||
-            _settings.feeMaximum > 500 // 5.00% is hard limit on updating fee
+            _settings.feeMaximum > 500 // 5.00% is hard limit on updating fee // put as constant
         ) {
             revert CerbySwapV1_FeeIsWrong();
         }
@@ -106,7 +117,11 @@ abstract contract CerbySwapV1_AdminFunctions is
         uint256 _amountTokensIn,
         uint256 _amountCerUsdToMint,
         address _transferTo
-    ) external payable onlyOwner {
+    )
+        external
+        payable
+        onlyOwner
+    {
         _createPool(
             _token,
             _amountTokensIn,
@@ -124,14 +139,22 @@ abstract contract CerbySwapV1_AdminFunctions is
     function adminChangeCerUsdCreditInPool(
         address _token,
         uint256 _amountCerUsdCredit
-    ) external onlyOwner tokenMustExistInPool(_token) {
+    )
+        external
+        onlyOwner
+        tokenMustExistInPool(_token)
+    {
+        PoolBalances memory poolBalances = _getPoolBalances(
+            _token
+        );
+
         // getting pool storage link (saves gas compared to memory)
         Pool storage pool = pools[tokenToPoolId[_token]];
 
-        PoolBalances memory poolBalances = _getPoolBalances(_token);
-
         // changing credit for user-created pool
-        pool.creditCerUsd = uint112(_amountCerUsdCredit);
+        pool.creditCerUsd = uint112(
+            _amountCerUsdCredit
+        );
 
         // Sync event to update pool variables in the graph node
         emit Sync(

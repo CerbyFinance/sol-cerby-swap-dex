@@ -1,0 +1,1403 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for contracts/CerbySwapV1_LiquidityFunctions.sol</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../prettify.css" />
+    <link rel="stylesheet" href="../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../index.html">all files</a> / <a href="index.html">contracts/</a> CerbySwapV1_LiquidityFunctions.sol
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">86.96% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>60/69</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">50% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>5/10</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">71.43% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>5/7</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">83.33% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>60/72</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line high'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
+234
+235
+236
+237
+238
+239
+240
+241
+242
+243
+244
+245
+246
+247
+248
+249
+250
+251
+252
+253
+254
+255
+256
+257
+258
+259
+260
+261
+262
+263
+264
+265
+266
+267
+268
+269
+270
+271
+272
+273
+274
+275
+276
+277
+278
+279
+280
+281
+282
+283
+284
+285
+286
+287
+288
+289
+290
+291
+292
+293
+294
+295
+296
+297
+298
+299
+300
+301
+302
+303
+304
+305
+306
+307
+308
+309
+310
+311
+312
+313
+314
+315
+316
+317
+318
+319
+320
+321
+322
+323
+324
+325
+326
+327
+328
+329
+330
+331
+332
+333
+334
+335
+336
+337
+338
+339
+340
+341
+342
+343
+344
+345
+346
+347
+348
+349
+350
+351
+352
+353
+354
+355
+356
+357
+358
+359
+360
+361
+362
+363
+364
+365
+366
+367
+368
+369
+370
+371
+372
+373
+374
+375
+376
+377
+378
+379
+380
+381
+382
+383
+384
+385
+386
+387
+388
+389
+390
+391
+392
+393
+394
+395
+396
+397
+398
+399
+400
+401
+402
+403
+404
+405
+406
+407
+408
+409
+410
+411
+412
+413
+414
+415
+416
+417
+418
+419
+420
+421
+422
+423
+424
+425
+426
+427
+428
+429
+430
+431
+432
+433
+434
+435
+436
+437
+438
+439
+440
+441
+442
+443
+444
+445
+446
+447</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5×</span>
+<span class="cline-any cline-yes">5×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7×</span>
+<span class="cline-any cline-yes">7×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12×</span>
+<span class="cline-any cline-yes">12×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">// SPDX-License-Identifier: BUSL-1.1
+&nbsp;
+pragma solidity ^0.8.11;
+&nbsp;
+import "./CerbySwapV1_GetFunctions.sol";
+import "./CerbySwapV1_Modifiers.sol";
+import "./CerbySwapV1_Math.sol";
+import "./CerbySwapV1_ERC1155.sol";
+import "./CerbySwapV1_MinimalProxy.sol";
+import "./interfaces/ICerbyTokenMinterBurner.sol";
+&nbsp;
+abstract contract CerbySwapV1_LiquidityFunctions is
+    CerbySwapV1_Modifiers,
+    CerbySwapV1_Math,
+    CerbySwapV1_ERC1155,
+    CerbySwapV1_GetFunctions
+{
+    // user can increase cerUsd credit in the pool
+<span class="fstat-no" title="function not covered" >    function increaseCerUsdCreditInPool(</span>
+        address _token,
+        uint256 _amountCerUsdCredit
+    )
+        external
+    {
+        // getting pool storage link (saves gas compared to memory)
+<span class="cstat-no" title="statement not covered" >        Pool storage pool = pools[tokenToPoolId[_token]];</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        PoolBalances memory poolBalances = _getPoolBalances(</span>
+            _token
+        );
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        if (pool.creditCerUsd &lt; MAX_CER_USD_CREDIT) {</span>
+            // increasing credit for user-created pool
+<span class="cstat-no" title="statement not covered" >            pool.creditCerUsd += uint112(_amountCerUsdCredit)</span>;
+&nbsp;
+            // burning user's cerUsd tokens in order to increase the credit for given pool
+<span class="cstat-no" title="statement not covered" >            ICerbyTokenMinterBurner(cerUsdToken).burnHumanAddress(</span>
+                msg.sender,
+                _amountCerUsdCredit
+            );
+        }
+&nbsp;
+        // Sync event to update pool variables in the graph node
+<span class="cstat-no" title="statement not covered" >        emit Sync(</span>
+            _token,
+            poolBalances.balanceToken,
+            poolBalances.balanceCerUsd,
+            pool.creditCerUsd
+        );
+    }
+&nbsp;
+    // only users (Q:? looks like no restricton) are allowed to create new pools with creditCerUsd = 0
+<span class="fstat-no" title="function not covered" >    function createPool(</span>
+        address _token,
+        uint256 _amountTokensIn,
+        uint256 _amountCerUsdToMint,
+        address _transferTo
+    )
+        external
+        payable
+    {
+<span class="cstat-no" title="statement not covered" >        _createPool(</span>
+            _token,
+            _amountTokensIn,
+            _amountCerUsdToMint,
+            0, // creditCerUsd
+            _transferTo
+        );
+    }
+&nbsp;
+    function _createPool(
+        address _token,
+        uint256 _amountTokensIn,
+        uint256 _amountCerUsdToMint,
+        uint256 _creditCerUsd,
+        address _transferTo
+    )
+        internal
+        tokenDoesNotExistInPool(_token)
+    {
+        // creating vault contract to safely store tokens
+        address vaultAddress = address( // Q: does this really need to be wrapped in address() ??
+            cloneVault(_token)
+        );
+&nbsp;
+        ICerbySwapV1_VaultImplementation(vaultAddress).initialize(
+            _token,
+            cerUsdToken, // TODO: remove cerUsdToken from parameters on production
+            _token == nativeToken
+        );
+&nbsp;
+        // safely transferring tokens from sender to the vault
+        _safeTransferFromHelper(
+            _token,
+            msg.sender,
+            vaultAddress,
+            _amountTokensIn
+        );
+&nbsp;
+        // minting requested amount of cerUSD tokens to this contract
+        ICerbyTokenMinterBurner(cerUsdToken).mintHumanAddress(
+            vaultAddress,
+            _amountCerUsdToMint
+        );
+&nbsp;
+        // finding out how many tokens received
+        _amountTokensIn = _getTokenBalance(
+            _token,
+            vaultAddress
+        );
+&nbsp;
+        <span class="missing-if-branch" title="if path not taken" >I</span>if (_amountTokensIn &lt;= 1) {
+<span class="cstat-no" title="statement not covered" >            revert("F")</span>; // TODO: remove this line on production
+            revert CerbySwapV1_AmountOfTokensMustBeLargerThanOne();
+        }
+&nbsp;
+        // create new pool record ??
+        uint256 newSqrtKValue = sqrt( // used only once
+            _amountTokensIn * _amountCerUsdToMint
+        );
+&nbsp;
+        // preparing pool object to push into storage
+        uint32[NUMBER_OF_TRADE_PERIODS] memory tradeVolumePerPeriodInCerUsd;
+&nbsp;
+        Pool memory pool = Pool({
+            tradeVolumePerPeriodInCerUsd: tradeVolumePerPeriodInCerUsd,
+            lastCachedTradePeriod: 0,
+            lastCachedOneMinusFee: uint16(FEE_DENORM - settings.feeMaximum),
+            lastSqrtKValue: uint112(newSqrtKValue),
+            creditCerUsd: uint112(_creditCerUsd)
+        });
+&nbsp;
+        // remembering the position where new pool will be pushed to
+        uint256 poolId = pools.length;
+        pools.push(pool);
+&nbsp;
+        // remembering poolId in the mapping
+        tokenToPoolId[_token] = poolId;
+&nbsp;
+        // minting 1000 lp tokens to prevent attack
+        _mint(
+            DEAD_ADDRESS,
+            poolId,
+            MINIMUM_LIQUIDITY,
+            "" // Q: super weird, i'd get rid of this
+        );
+&nbsp;
+        // minting initial lp tokens
+        uint256 lpAmount = newSqrtKValue
+            - MINIMUM_LIQUIDITY;
+&nbsp;
+        _mint(
+            _transferTo,
+            poolId,
+            lpAmount,
+            "" // Q: super weird, i'd get rid of this
+        );
+&nbsp;
+        // PoolCreated event is needed to track new pairs created in the graph node
+        emit PoolCreated(
+            _token,
+            vaultAddress,
+            poolId
+        );
+&nbsp;
+        // LiquidityAdded event is needed to post in telegram channel
+        emit LiquidityAdded(
+            _token,
+            _amountTokensIn,
+            _amountCerUsdToMint,
+            lpAmount
+        );
+&nbsp;
+        // Sync event to update pool variables in the graph node
+        emit Sync(
+            _token,
+            _amountTokensIn,
+            _amountCerUsdToMint,
+            _creditCerUsd
+        );
+    }
+&nbsp;
+    function addTokenLiquidity(
+        address _token,
+        uint256 _amountTokensIn,
+        uint256 _expireTimestamp,
+        address _transferTo
+    )
+        external
+        payable
+        tokenMustExistInPool(_token)
+        transactionIsNotExpired(_expireTimestamp)
+        // checkForBots(msg.sender) // TODO: enable on production
+        returns (uint256)
+    {
+        // getting pool storage link (saves gas compared to memory)
+        uint256 poolId = tokenToPoolId[_token];
+        Pool storage pool = pools[poolId];
+&nbsp;
+        address vaultInAddress = getVaultCloneAddressByToken(
+            _token
+        );
+&nbsp;
+        // remembering balance before the transfer
+        PoolBalances memory poolBalancesBefore = _getPoolBalances(
+            _token
+        );
+&nbsp;
+        // safely transferring tokens from sender to the vault
+        _safeTransferFromHelper(
+            _token,
+            msg.sender,
+            vaultInAddress,
+            _amountTokensIn
+        );
+&nbsp;
+        // remembering balance after the transfer
+        PoolBalances memory poolBalancesAfter = _getPoolBalances(
+            _token
+        );
+&nbsp;
+        // finding out how many tokens we've actually received
+        _amountTokensIn = poolBalancesAfter.balanceToken
+            - poolBalancesBefore.balanceToken;
+&nbsp;
+        <span class="missing-if-branch" title="if path not taken" >I</span>if (_amountTokensIn &lt;= 1) {
+<span class="cstat-no" title="statement not covered" >            revert("F")</span>; // TODO: remove this line on production
+            revert CerbySwapV1_AmountOfTokensMustBeLargerThanOne();
+        }
+&nbsp;
+        // calculating and minting LP trade fees (memory slot, used only once)
+        uint256 amountLpTokensToMintAsFee = _getMintFeeLiquidityAmount(
+            pool.lastSqrtKValue,
+            // calculating sqrt(k) value before updating pool
+            sqrt(poolBalancesBefore.balanceToken * poolBalancesBefore.balanceCerUsd),
+            contractTotalSupply[poolId]
+        );
+&nbsp;
+        _mint(
+            settings.mintFeeBeneficiary,
+            poolId,
+            amountLpTokensToMintAsFee,
+            "" // Q: super weird, i'd get rid of this
+        );
+&nbsp;
+        // minting LP tokens
+        uint256 lpAmount = _amountTokensIn
+            * contractTotalSupply[poolId]
+            / poolBalancesBefore.balanceToken;
+&nbsp;
+        _mint(
+            _transferTo,
+            poolId,
+            lpAmount,
+            "" // Q: super weird, i'd get rid of this
+        );
+&nbsp;
+        // scope to avoid stack to deep error
+        // calculating amount of cerUSD to mint according to current price
+        uint256 amountCerUsdToMint = _amountTokensIn
+            * poolBalancesBefore.balanceCerUsd
+            / poolBalancesBefore.balanceToken;
+&nbsp;
+        <span class="missing-if-branch" title="if path not taken" >I</span>if (amountCerUsdToMint &lt;= 1) {
+            revert CerbySwapV1_AmountOfCerUsdMustBeLargerThanOne();
+        }
+&nbsp;
+        // minting cerUSD according to current pool
+        ICerbyTokenMinterBurner(cerUsdToken).mintHumanAddress(
+            vaultInAddress,
+            amountCerUsdToMint
+        );
+&nbsp;
+        // updating pool variables
+        pool.lastSqrtKValue = uint112(
+            sqrt(poolBalancesAfter.balanceToken * poolBalancesAfter.balanceCerUsd)
+        );
+&nbsp;
+        // LiquidityAdded event is needed to post in telegram channel
+        emit LiquidityAdded(
+            _token,
+            _amountTokensIn,
+            amountCerUsdToMint,
+            lpAmount
+        );
+&nbsp;
+        // Sync event to update pool variables in the graph node
+        emit Sync(
+            _token,
+            poolBalancesAfter.balanceToken,
+            poolBalancesAfter.balanceCerUsd,
+            pool.creditCerUsd
+        );
+&nbsp;
+        return lpAmount;
+    }
+&nbsp;
+    function removeTokenLiquidity(
+        address _token,
+        uint256 _amountLpTokensBalanceToBurn,
+        uint256 _expireTimestamp,
+        address _transferTo
+    )
+        external
+        tokenMustExistInPool(_token)
+        transactionIsNotExpired(_expireTimestamp)
+        // checkForBots(msg.sender) // TODO: enable on production
+        returns (uint256)
+    {
+        return _removeTokenLiquidity(
+            _token,
+            _amountLpTokensBalanceToBurn,
+            _transferTo
+        );
+    }
+&nbsp;
+    function _removeTokenLiquidity(
+        address _token,
+        uint256 _amountLpTokensBalanceToBurn,
+        address _transferTo
+    )
+        private
+        returns (uint256)
+    {
+        // getting pool storage link (saves gas compared to memory)
+        uint256 poolId = tokenToPoolId[_token];
+        Pool storage pool = pools[poolId];
+&nbsp;
+        PoolBalances memory poolBalancesBefore = _getPoolBalances(
+            _token
+        );
+&nbsp;
+        // calculating amount of tokens to transfer
+        uint256 totalLPSupply = contractTotalSupply[poolId];
+&nbsp;
+        uint256 amountTokensOut = poolBalancesBefore.balanceToken
+            * _amountLpTokensBalanceToBurn
+            / totalLPSupply;
+&nbsp;
+        // calculating amount of cerUSD to burn
+        uint256 amountCerUsdToBurn = poolBalancesBefore.balanceCerUsd
+            * _amountLpTokensBalanceToBurn
+            / totalLPSupply;
+&nbsp;
+        // minting trade fees
+        uint256 amountLpTokensToMintAsFee = _getMintFeeLiquidityAmount(
+            pool.lastSqrtKValue,
+            // calculating sqrt(k) value before updating pool
+            sqrt(poolBalancesBefore.balanceToken * poolBalancesBefore.balanceCerUsd),
+            totalLPSupply
+        );
+&nbsp;
+        _mint(
+            settings.mintFeeBeneficiary,
+            poolId,
+            amountLpTokensToMintAsFee,
+            "" // Q: super weird, i'd get rid of this
+        );
+&nbsp;
+        // updating pool variables
+        PoolBalances memory poolBalancesAfter = PoolBalances(
+            poolBalancesBefore.balanceToken - amountTokensOut,
+            poolBalancesBefore.balanceCerUsd - amountCerUsdToBurn
+        );
+&nbsp;
+        pool.lastSqrtKValue = uint112(
+            sqrt(poolBalancesAfter.balanceToken * poolBalancesAfter.balanceCerUsd)
+        );
+&nbsp;
+        // burning LP tokens from sender (without approval)
+        _burn(
+            msg.sender,
+            poolId,
+            _amountLpTokensBalanceToBurn
+        );
+&nbsp;
+        // burning cerUSD
+        address vaultOutAddress = getVaultCloneAddressByToken(
+            _token
+        );
+&nbsp;
+        ICerbyTokenMinterBurner(cerUsdToken).burnHumanAddress(
+            vaultOutAddress,
+            amountCerUsdToBurn
+        );
+&nbsp;
+        // safely transfering tokens
+        // and making sure exact amounts were actually transferred
+        _safeTransferFromHelper(
+            _token,
+            vaultOutAddress,
+            _transferTo,
+            amountTokensOut
+        );
+&nbsp;
+        // LiquidityRemoved event is needed to post in telegram channel
+        emit LiquidityRemoved(
+            _token,
+            amountTokensOut,
+            amountCerUsdToBurn,
+            _amountLpTokensBalanceToBurn
+        );
+&nbsp;
+        // Sync event to update pool variables in the graph node
+        emit Sync(
+            _token,
+            poolBalancesAfter.balanceToken,
+            poolBalancesAfter.balanceCerUsd,
+            pool.creditCerUsd
+        );
+&nbsp;
+        return amountTokensOut;
+    }
+&nbsp;
+    function _getMintFeeLiquidityAmount( // Q: unnecessary item
+        uint256 _lastSqrtKValue,
+        uint256 _newSqrtKValue,
+        uint256 _totalLPSupply
+    )
+        private
+        view
+        returns (uint256)
+    {
+        uint256 amountLpTokensToMintAsFee; // Q: review this (remove this)
+        uint256 mintFeeMultiplier = uint256(
+            settings.mintFeeMultiplier
+        );
+&nbsp;
+        if (
+            _newSqrtKValue &gt; _lastSqrtKValue &amp;&amp;
+            _lastSqrtKValue &gt; 0 &amp;&amp;
+            mintFeeMultiplier &gt; 0
+        ) {
+            amountLpTokensToMintAsFee =
+                (_totalLPSupply *
+                    mintFeeMultiplier *
+                    (_newSqrtKValue - _lastSqrtKValue)) /
+                (_newSqrtKValue *
+                    (MINT_FEE_DENORM - mintFeeMultiplier) +
+                    _lastSqrtKValue *
+                    mintFeeMultiplier);
+        }
+&nbsp;
+        return amountLpTokensToMintAsFee;
+    }
+}
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Fri Feb 04 2022 20:15:40 GMT+0700 (Indochina Time)
+</div>
+</div>
+<script src="../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../sorter.js"></script>
+</body>
+</html>
