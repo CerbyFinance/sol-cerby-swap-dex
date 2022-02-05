@@ -5,7 +5,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const bn_js_1 = __importDefault(require("bn.js"));
 const crypto_1 = __importDefault(require("crypto"));
-const utils_1 = require("./utils");
 const truffleAssert = require("truffle-assertions");
 const TestCerbyToken = artifacts.require("TestCerbyToken");
 const TestCerUsdToken = artifacts.require("TestCerUsdToken");
@@ -467,14 +466,6 @@ contract("Cerby", (accounts) => {
             await truffleAssert.reverts(cerbySwap.swapExactTokensForTokens(tokenIn1, tokenOut1, amountTokensIn1, minAmountTokensOut1, expireTimestamp1, transferTo1, {
                 gas: 6700000,
             }), OUTPUT_TOKENS_AMOUNT_IS_LESS_THAN_MINIMUM_SPECIFIED_i);
-            const TOKEN_DOES_NOT_EXIST_C = "C";
-            tokenIn1 = TestCerUsdToken.address;
-            tokenOut1 = (await (0, utils_1.TestCerbyToken2)()).address;
-            amountTokensIn1 = new bn_js_1.default(1010).mul(bn1e18);
-            minAmountTokensOut1 = new bn_js_1.default(0);
-            expireTimestamp1 = now() + 86400;
-            transferTo1 = firstAccount;
-            await truffleAssert.reverts(cerbySwap.swapExactTokensForTokens(tokenIn1, tokenOut1, amountTokensIn1, minAmountTokensOut1, expireTimestamp1, transferTo1), TOKEN_DOES_NOT_EXIST_C);
             const TRANSACTION_IS_EXPIRED_D = "D";
             tokenIn1 = TestCerbyToken.address;
             tokenOut1 = TestCerUsdToken.address;
@@ -874,14 +865,6 @@ contract("Cerby", (accounts) => {
             expireTimestamp1 = now() + 86400;
             transferTo1 = firstAccount;
             await truffleAssert.reverts(cerbySwap.swapTokensForExactTokens(tokenIn1, tokenOut1, amountTokensOut1, maxAmountTokensIn1, expireTimestamp1, transferTo1), OUTPUT_CERUSD_AMOUNT_IS_MORE_THAN_MAXIMUM_SPECIFIED_J);
-            const TOKEN_DOES_NOT_EXIST_C = "C";
-            tokenIn1 = TestCerUsdToken.address;
-            tokenOut1 = (await (0, utils_1.TestCerbyToken2)()).address;
-            amountTokensOut1 = new bn_js_1.default(1020).mul(bn1e18);
-            maxAmountTokensIn1 = new bn_js_1.default(1000000).mul(bn1e18);
-            expireTimestamp1 = now() + 86400;
-            transferTo1 = firstAccount;
-            await truffleAssert.reverts(cerbySwap.swapTokensForExactTokens(tokenIn1, tokenOut1, amountTokensOut1, maxAmountTokensIn1, expireTimestamp1, transferTo1), TOKEN_DOES_NOT_EXIST_C);
             const TRANSACTION_IS_EXPIRED_D = "D";
             tokenIn1 = TestCerbyToken.address;
             tokenOut1 = TestCerUsdToken.address;
