@@ -415,7 +415,7 @@ abstract contract CerbySwapV1_SwapFunctions is CerbySwapV1_LiquidityFunctions {
         Pool storage pool = pools[tokenToPoolId[_token]];
         if (
             pool.creditCerUsd < MAX_CER_USD_CREDIT &&
-            pool.creditCerUsd + amountCerUsdIn < _amountCerUsdOut
+            uint256(pool.creditCerUsd) + amountCerUsdIn < _amountCerUsdOut
         ) {
             revert("Z");
             revert CerbySwapV1_CreditCerUsdMustNotBeBelowZero();
