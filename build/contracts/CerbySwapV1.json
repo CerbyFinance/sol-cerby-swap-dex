@@ -513,7 +513,8 @@
         }
       ],
       "stateMutability": "payable",
-      "type": "function"
+      "type": "function",
+      "payable": true
     },
     {
       "inputs": [
@@ -559,14 +560,16 @@
       "name": "adminCreatePool",
       "outputs": [],
       "stateMutability": "payable",
-      "type": "function"
+      "type": "function",
+      "payable": true
     },
     {
       "inputs": [],
       "name": "adminInitialize",
       "outputs": [],
       "stateMutability": "payable",
-      "type": "function"
+      "type": "function",
+      "payable": true
     },
     {
       "inputs": [
@@ -666,7 +669,8 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function"
+      "type": "function",
+      "constant": true
     },
     {
       "inputs": [
@@ -690,7 +694,8 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function"
+      "type": "function",
+      "constant": true
     },
     {
       "inputs": [
@@ -718,7 +723,8 @@
       "name": "createPool",
       "outputs": [],
       "stateMutability": "payable",
-      "type": "function"
+      "type": "function",
+      "payable": true
     },
     {
       "inputs": [],
@@ -731,7 +737,8 @@
         }
       ],
       "stateMutability": "pure",
-      "type": "function"
+      "type": "function",
+      "constant": true
     },
     {
       "inputs": [
@@ -750,7 +757,8 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function"
+      "type": "function",
+      "constant": true
     },
     {
       "inputs": [
@@ -769,7 +777,8 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function"
+      "type": "function",
+      "constant": true
     },
     {
       "inputs": [
@@ -798,7 +807,8 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function"
+      "type": "function",
+      "constant": true
     },
     {
       "inputs": [
@@ -827,7 +837,8 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function"
+      "type": "function",
+      "constant": true
     },
     {
       "inputs": [
@@ -858,7 +869,8 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function"
+      "type": "function",
+      "constant": true
     },
     {
       "inputs": [],
@@ -903,7 +915,8 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function"
+      "type": "function",
+      "constant": true
     },
     {
       "inputs": [
@@ -922,7 +935,8 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function"
+      "type": "function",
+      "constant": true
     },
     {
       "inputs": [
@@ -941,7 +955,8 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function"
+      "type": "function",
+      "constant": true
     },
     {
       "inputs": [
@@ -983,7 +998,8 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function"
+      "type": "function",
+      "constant": true
     },
     {
       "inputs": [],
@@ -996,7 +1012,8 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function"
+      "type": "function",
+      "constant": true
     },
     {
       "inputs": [],
@@ -1009,7 +1026,8 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function"
+      "type": "function",
+      "constant": true
     },
     {
       "inputs": [
@@ -1120,7 +1138,8 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function"
+      "type": "function",
+      "constant": true
     },
     {
       "inputs": [
@@ -1164,7 +1183,8 @@
         }
       ],
       "stateMutability": "payable",
-      "type": "function"
+      "type": "function",
+      "payable": true
     },
     {
       "inputs": [
@@ -1208,7 +1228,8 @@
         }
       ],
       "stateMutability": "payable",
-      "type": "function"
+      "type": "function",
+      "payable": true
     },
     {
       "inputs": [],
@@ -1221,7 +1242,8 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function"
+      "type": "function",
+      "constant": true
     },
     {
       "inputs": [],
@@ -1274,7 +1296,8 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function"
+      "type": "function",
+      "constant": true
     },
     {
       "inputs": [
@@ -1293,7 +1316,8 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function"
+      "type": "function",
+      "constant": true
     },
     {
       "inputs": [
@@ -1325,11 +1349,13 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function"
+      "type": "function",
+      "constant": true
     },
     {
       "stateMutability": "payable",
-      "type": "receive"
+      "type": "receive",
+      "payable": true
     }
   ],
   "metadata": "{\"compiler\":{\"version\":\"0.8.11+commit.d7f03943\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"inputs\":[],\"name\":\"CerbyCronJobsExecution_TransactionsAreTemporarilyDisabled\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"CerbySwapLP1155V1_CallerIsNotOwnerNorApproved\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"CerbySwapLP1155V1_TransactionsAreTemporarilyDisabled\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"CerbySwapV1_AmountOfCerUsdMustBeLargerThanOne\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"CerbySwapV1_AmountOfCerUsdOrTokensInMustBeLargerThanOne\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"CerbySwapV1_AmountOfTokensMustBeLargerThanOne\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"CerbySwapV1_CreditCerUsdMustNotBeBelowZero\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"CerbySwapV1_FeeIsWrong\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"CerbySwapV1_InputCerUsdAmountIsLargerThanMaximumSpecified\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"CerbySwapV1_InputTokensAmountIsLargerThanMaximumSpecified\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"CerbySwapV1_InvariantKValueMustBeSameOrIncreasedOnAnySwaps\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"CerbySwapV1_MintFeeMultiplierMustNotBeLargerThan50Percent\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"CerbySwapV1_MsgValueProvidedMustBeLargerThanAmountTokensIn\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"CerbySwapV1_OutputCerUsdAmountIsLowerThanMinimumSpecified\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"CerbySwapV1_OutputTokensAmountIsLowerThanMinimumSpecified\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"CerbySwapV1_SafeTransferFromFailed\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"CerbySwapV1_SafeTransferNativeFailed\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"CerbySwapV1_SafeTransferTokensFailed\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"CerbySwapV1_SwappingTokenToSameTokenIsForbidden\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"CerbySwapV1_TokenAlreadyExists\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"CerbySwapV1_TokenDoesNotExist\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"CerbySwapV1_TransactionIsExpired\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"CerbySwapV1_TvlMultiplierIsWrong\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"ERC1155_AddressMustNotBeZeroAddress\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"ERC1155_BurnAmountExceedsBalance\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"ERC1155_CallerIsNotOwnerNorApproved\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"ERC1155_ERC1155ReceiverRejectsTokens\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"ERC1155_IdsLengthMismatch\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"ERC1155_InsufficientBalanceForTransfer\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"ERC1155_SettingApprovalStatusForSelf\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"ERC1155_TransferToNonERC1155ReceiverImplementer\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"Ownable_CallerIsNotOwner\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"Ownable_NewOwnerIsNotTheZeroAddress\",\"type\":\"error\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"operator\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"bool\",\"name\":\"approved\",\"type\":\"bool\"}],\"name\":\"ApprovalForAll\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_token\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_amountTokensIn\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_amountCerUsdToMint\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_lpAmount\",\"type\":\"uint256\"}],\"name\":\"LiquidityAdded\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_token\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_amountTokensOut\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_amountCerUsdToBurn\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_amountLpTokensBalanceToBurn\",\"type\":\"uint256\"}],\"name\":\"LiquidityRemoved\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"previousOwner\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"OwnershipTransferred\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_token\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_vaultAddress\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_poolId\",\"type\":\"uint256\"}],\"name\":\"PoolCreated\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_token\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_sender\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_amountTokensIn\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_amountCerUsdIn\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"__amountTokensOut\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"amountCerUsdOut\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_currentFee\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_transferTo\",\"type\":\"address\"}],\"name\":\"Swap\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_token\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_newBalanceToken\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_newBalanceCerUsd\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_newCreditCerUsd\",\"type\":\"uint256\"}],\"name\":\"Sync\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"operator\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"from\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256[]\",\"name\":\"ids\",\"type\":\"uint256[]\"},{\"indexed\":false,\"internalType\":\"uint256[]\",\"name\":\"values\",\"type\":\"uint256[]\"}],\"name\":\"TransferBatch\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"operator\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"from\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"id\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"}],\"name\":\"TransferSingle\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"string\",\"name\":\"value\",\"type\":\"string\"},{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"id\",\"type\":\"uint256\"}],\"name\":\"URI\",\"type\":\"event\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_token\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"_amountTokensIn\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"_expireTimestamp\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"_transferTo\",\"type\":\"address\"}],\"name\":\"addTokenLiquidity\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"payable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_token\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"_amountCerUsdCredit\",\"type\":\"uint256\"}],\"name\":\"adminChangeCerUsdCreditInPool\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_token\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"_amountTokensIn\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"_amountCerUsdToMint\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"_transferTo\",\"type\":\"address\"}],\"name\":\"adminCreatePool\",\"outputs\":[],\"stateMutability\":\"payable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"adminInitialize\",\"outputs\":[],\"stateMutability\":\"payable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"string\",\"name\":\"_newUrlPrefix\",\"type\":\"string\"}],\"name\":\"adminSetURI\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"components\":[{\"internalType\":\"address\",\"name\":\"mintFeeBeneficiary\",\"type\":\"address\"},{\"internalType\":\"uint32\",\"name\":\"mintFeeMultiplier\",\"type\":\"uint32\"},{\"internalType\":\"uint16\",\"name\":\"feeMinimum\",\"type\":\"uint16\"},{\"internalType\":\"uint16\",\"name\":\"feeMaximum\",\"type\":\"uint16\"},{\"internalType\":\"uint64\",\"name\":\"tvlMultiplierMinimum\",\"type\":\"uint64\"},{\"internalType\":\"uint64\",\"name\":\"tvlMultiplierMaximum\",\"type\":\"uint64\"}],\"internalType\":\"struct CerbySwapV1_Declarations.Settings\",\"name\":\"_settings\",\"type\":\"tuple\"}],\"name\":\"adminUpdateFeesAndTvlMultipliers\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"string\",\"name\":\"_newContractName\",\"type\":\"string\"},{\"internalType\":\"string\",\"name\":\"_newContractSymbol\",\"type\":\"string\"}],\"name\":\"adminUpdateNameAndSymbol\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_account\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"_id\",\"type\":\"uint256\"}],\"name\":\"balanceOf\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address[]\",\"name\":\"_accounts\",\"type\":\"address[]\"},{\"internalType\":\"uint256[]\",\"name\":\"_ids\",\"type\":\"uint256[]\"}],\"name\":\"balanceOfBatch\",\"outputs\":[{\"internalType\":\"uint256[]\",\"name\":\"\",\"type\":\"uint256[]\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_token\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"_amountTokensIn\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"_amountCerUsdToMint\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"_transferTo\",\"type\":\"address\"}],\"name\":\"createPool\",\"outputs\":[],\"stateMutability\":\"payable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"decimals\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"pure\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_id\",\"type\":\"uint256\"}],\"name\":\"exists\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_token\",\"type\":\"address\"}],\"name\":\"getCurrentOneMinusFeeBasedOnTrades\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"fee\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_tokenIn\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"_tokenOut\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"_amountTokensOut\",\"type\":\"uint256\"}],\"name\":\"getInputTokensForExactTokens\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_tokenIn\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"_tokenOut\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"_amountTokensIn\",\"type\":\"uint256\"}],\"name\":\"getOutputExactTokensForTokens\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address[]\",\"name\":\"_tokens\",\"type\":\"address[]\"}],\"name\":\"getPoolsByTokens\",\"outputs\":[{\"components\":[{\"internalType\":\"uint256\",\"name\":\"balanceToken\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"balanceCerUsd\",\"type\":\"uint256\"}],\"internalType\":\"struct CerbySwapV1_Declarations.PoolBalances[]\",\"name\":\"\",\"type\":\"tuple[]\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getSettings\",\"outputs\":[{\"components\":[{\"internalType\":\"address\",\"name\":\"mintFeeBeneficiary\",\"type\":\"address\"},{\"internalType\":\"uint32\",\"name\":\"mintFeeMultiplier\",\"type\":\"uint32\"},{\"internalType\":\"uint16\",\"name\":\"feeMinimum\",\"type\":\"uint16\"},{\"internalType\":\"uint16\",\"name\":\"feeMaximum\",\"type\":\"uint16\"},{\"internalType\":\"uint64\",\"name\":\"tvlMultiplierMinimum\",\"type\":\"uint64\"},{\"internalType\":\"uint64\",\"name\":\"tvlMultiplierMaximum\",\"type\":\"uint64\"}],\"internalType\":\"struct CerbySwapV1_Declarations.Settings\",\"name\":\"\",\"type\":\"tuple\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_token\",\"type\":\"address\"}],\"name\":\"getTokenToPoolId\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_pos\",\"type\":\"uint256\"}],\"name\":\"getUtilsContractAtPos\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_token\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"_amountCerUsdCredit\",\"type\":\"uint256\"}],\"name\":\"increaseCerUsdCreditInPool\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_account\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"_operator\",\"type\":\"address\"}],\"name\":\"isApprovedForAll\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"name\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"owner\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_token\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"_amountLpTokensBalanceToBurn\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"_expireTimestamp\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"_transferTo\",\"type\":\"address\"}],\"name\":\"removeTokenLiquidity\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"renounceOwnership\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_from\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"_to\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"_id\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"_amount\",\"type\":\"uint256\"},{\"internalType\":\"bytes\",\"name\":\"_data\",\"type\":\"bytes\"}],\"name\":\"safeTransferFrom\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_operator\",\"type\":\"address\"},{\"internalType\":\"bool\",\"name\":\"_approved\",\"type\":\"bool\"}],\"name\":\"setApprovalForAll\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes4\",\"name\":\"interfaceId\",\"type\":\"bytes4\"}],\"name\":\"supportsInterface\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_tokenIn\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"_tokenOut\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"_amountTokensIn\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"_minAmountTokensOut\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"_expireTimestamp\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"_transferTo\",\"type\":\"address\"}],\"name\":\"swapExactTokensForTokens\",\"outputs\":[{\"internalType\":\"uint256[]\",\"name\":\"\",\"type\":\"uint256[]\"}],\"stateMutability\":\"payable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_tokenIn\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"_tokenOut\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"_amountTokensOut\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"_maxAmountTokensIn\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"_expireTimestamp\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"_transferTo\",\"type\":\"address\"}],\"name\":\"swapTokensForExactTokens\",\"outputs\":[{\"internalType\":\"uint256[]\",\"name\":\"\",\"type\":\"uint256[]\"}],\"stateMutability\":\"payable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"symbol\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"testInit\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"_testCerbyToken\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"_cerUsdToken\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"_testUsdcToken\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"name\":\"testSetupTokens\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"totalSupply\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_id\",\"type\":\"uint256\"}],\"name\":\"totalSupply\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_newOwner\",\"type\":\"address\"}],\"name\":\"transferOwnership\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_id\",\"type\":\"uint256\"}],\"name\":\"uri\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"stateMutability\":\"payable\",\"type\":\"receive\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{\"balanceOf(address,uint256)\":{\"details\":\"See {IERC1155-balanceOf}. Requirements: - `account` cannot be the zero address.\"},\"balanceOfBatch(address[],uint256[])\":{\"details\":\"See {IERC1155-balanceOfBatch}. Requirements: - `accounts` and `ids` must have the same length.\"},\"exists(uint256)\":{\"details\":\"Indicates whether any token exist with a given id, or not.\"},\"isApprovedForAll(address,address)\":{\"details\":\"See {IERC1155-isApprovedForAll}.\"},\"owner()\":{\"details\":\"Returns the address of the current owner.\"},\"renounceOwnership()\":{\"details\":\"Leaves the contract without owner. It will not be possible to call `onlyOwner` functions anymore. Can only be called by the current owner. NOTE: Renouncing ownership will leave the contract without an owner, thereby removing any functionality that is only available to the owner.\"},\"supportsInterface(bytes4)\":{\"details\":\"See {IERC165-supportsInterface}.\"},\"totalSupply(uint256)\":{\"details\":\"Total amount of tokens in with a given id.\"},\"transferOwnership(address)\":{\"details\":\"Transfers ownership of the contract to a new account (`newOwner`). Can only be called by the current owner.\"}},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"/Users/numwan/Documents/Remix/bitbucket/sol-cerby-swap-v1/contracts/CerbySwapV1.sol\":\"CerbySwapV1\"},\"evmVersion\":\"london\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[]},\"sources\":{\"/Users/numwan/Documents/Remix/bitbucket/sol-cerby-swap-v1/contracts/CerbyCronJobsExecution.sol\":{\"keccak256\":\"0xc7159882b84f72eb78c6b27ccda491efda455ff1abc2b3baaeb28c118a739dbd\",\"license\":\"BUSL-1.1\",\"urls\":[\"bzz-raw://0e02f14796cccb64ff4cef2a257046875e5a14182323244606d17c3eff37b9cc\",\"dweb:/ipfs/QmQCqX2H4e6j5EtCvPvZCZeCJULwWHZoL9KtVEMfgMdW2C\"]},\"/Users/numwan/Documents/Remix/bitbucket/sol-cerby-swap-v1/contracts/CerbySwapV1.sol\":{\"keccak256\":\"0x28bff0ed56d7b372e1272c39ff4d0d509aca2fa9c2364eb996372584aee9967f\",\"license\":\"BUSL-1.1\",\"urls\":[\"bzz-raw://1734b8b447fa3994b4818ecf7536162d145d7d34ce95868031c9625140aa50a8\",\"dweb:/ipfs/QmVL8j3Aivfdu8hHvEt5RmWXzeAi2johN1QSsbGuZqAuny\"]},\"/Users/numwan/Documents/Remix/bitbucket/sol-cerby-swap-v1/contracts/CerbySwapV1_AdminFunctions.sol\":{\"keccak256\":\"0x851995fdeda601eae0f049ac9feb645055735839aa8f9ec6a2e67f3ab59704bb\",\"license\":\"BUSL-1.1\",\"urls\":[\"bzz-raw://689f4c38bd679a81a446ec09996d732e4dfa090e3f33ffcf43abca12f537a8cb\",\"dweb:/ipfs/Qmcuftu7MfZHDgPPXutnYWYdnLX7oa7oXccT4vYmqT7WhP\"]},\"/Users/numwan/Documents/Remix/bitbucket/sol-cerby-swap-v1/contracts/CerbySwapV1_Declarations.sol\":{\"keccak256\":\"0x69b8d9b3b4881a001d906d6058a5276e3a3b895e7bc334876c9316587a96f4da\",\"license\":\"BUSL-1.1\",\"urls\":[\"bzz-raw://c86313169a8258f6b75f390b137cd2cb5ea818fb6126e0f00f64c581255f08b1\",\"dweb:/ipfs/QmSib5VmbLrrb272YnzdBZ3cJTsexiMK8XyYx12ZwKYDDZ\"]},\"/Users/numwan/Documents/Remix/bitbucket/sol-cerby-swap-v1/contracts/CerbySwapV1_ERC1155.sol\":{\"keccak256\":\"0x26e2f694725a43cd637caf2d7c2fd4f5291b2f23da329850fde9ded2c6f87e3a\",\"license\":\"BUSL-1.1\",\"urls\":[\"bzz-raw://184eed61c17605275fc6ed6ce624205f1146a7ed34548c5679b69518345e1c6b\",\"dweb:/ipfs/QmZYt25jTBX9CMjnEYJARS9rHnYNjRwXsYAejuLx1fH6Eo\"]},\"/Users/numwan/Documents/Remix/bitbucket/sol-cerby-swap-v1/contracts/CerbySwapV1_EventsAndErrors.sol\":{\"keccak256\":\"0xb9de44d6a7a397a4e7082213ae65ced74fdd6fe9ccdb44eb69427d093eae66a2\",\"license\":\"BUSL-1.1\",\"urls\":[\"bzz-raw://63df674bc0e80c246ac01d447d70e55b35c488d72e15e935a11809cf77567db6\",\"dweb:/ipfs/QmcC2EKNMkdCYXmP4bQsUndz2sGzBfiJshHtSTNub3XNV8\"]},\"/Users/numwan/Documents/Remix/bitbucket/sol-cerby-swap-v1/contracts/CerbySwapV1_GetFunctions.sol\":{\"keccak256\":\"0x108e4e1a248fc1c0fd218e00fd10d1b1f6716b332a6bae357f25028bb1a90ea0\",\"license\":\"BUSL-1.1\",\"urls\":[\"bzz-raw://51f811cef6ef5b75038e6bcb44a328cb426e94f12862f21521498be3dbe6583d\",\"dweb:/ipfs/Qmcm9n1vsuqStRX7xj8W2Ki9zkG9NESo7tpYnMn4cecamU\"]},\"/Users/numwan/Documents/Remix/bitbucket/sol-cerby-swap-v1/contracts/CerbySwapV1_LiquidityFunctions.sol\":{\"keccak256\":\"0xbd444277fc4bf72c6bfafbf68be4b06d4a8e7327060a1de2a5316b6e1f2af1c5\",\"license\":\"BUSL-1.1\",\"urls\":[\"bzz-raw://af28fd99dd2bee40abac6adb0e8e7f88e75e682e7080a74a0a6e58dad926816f\",\"dweb:/ipfs/QmVUFc5kftL3rgZbUnKHZDhG54FTiDn2Gq7pvKW1tootmG\"]},\"/Users/numwan/Documents/Remix/bitbucket/sol-cerby-swap-v1/contracts/CerbySwapV1_Math.sol\":{\"keccak256\":\"0x882aab1d88d1013bc6149ece45c805fe37a81268bf592fe80f90cc7aff1070a0\",\"license\":\"BUSL-1.1\",\"urls\":[\"bzz-raw://ffa4a39ed33eca81db0e2be7e8417c8bee72b4e637cf991cae303fc882783871\",\"dweb:/ipfs/QmW4PTCcj2XXgGbuuCbJjwk1Jv2Mw6PQSBxJcdYhntCJk2\"]},\"/Users/numwan/Documents/Remix/bitbucket/sol-cerby-swap-v1/contracts/CerbySwapV1_MinimalProxy.sol\":{\"keccak256\":\"0x879dfdb2d1a50f35a6239320ea7aee1a75514ea506dbdea9b5a7076348a66f7a\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://5e138fbaff29842e9b9fe3e7943414723a88a0be5acf94bdf79dcac045f8d1b7\",\"dweb:/ipfs/QmcFYMQSrNd12PaFFtuBDN98PSu3GpS78AvLZAhjP5F1UD\"]},\"/Users/numwan/Documents/Remix/bitbucket/sol-cerby-swap-v1/contracts/CerbySwapV1_Modifiers.sol\":{\"keccak256\":\"0x27bcb516d1bb07b85bb8b7341fe3c5981313e19d8b7d9c3befff36513a74f785\",\"license\":\"BUSL-1.1\",\"urls\":[\"bzz-raw://ea6e5227f9f2eb537cd4292347c14fdb20f04a576ea8b71f5bf6da32dbb01dfe\",\"dweb:/ipfs/QmceWyxZmYCFVLYxSpVB7NrBFmCLgYRXRbFq9tb2KucWRk\"]},\"/Users/numwan/Documents/Remix/bitbucket/sol-cerby-swap-v1/contracts/CerbySwapV1_SafeFunctions.sol\":{\"keccak256\":\"0xb68e6ab6c88019d871e86c4ffa30cffadec48cc56405600e4d76edf9fddff8d1\",\"license\":\"BUSL-1.1\",\"urls\":[\"bzz-raw://b98cc891b97f61b2b7469b1a64f33e429ce8bea1e0424345fa5c50e43b509575\",\"dweb:/ipfs/QmbqhSrvYjiZWAoqZykpxpgw7UYSaG3FQA4ahFWwVEvjap\"]},\"/Users/numwan/Documents/Remix/bitbucket/sol-cerby-swap-v1/contracts/CerbySwapV1_SwapFunctions.sol\":{\"keccak256\":\"0x47929c765db3f593082e610cc5bd990e06e5ec2c9cc346e759095af54a6c7346\",\"license\":\"BUSL-1.1\",\"urls\":[\"bzz-raw://6bcea3109cd89a137aadc7e01cf5e0bf41d8711ef293d8fef7785624b01f2876\",\"dweb:/ipfs/QmR6JvHrnzD9PvkuC6gSW5KVgRoX8hoYE2iJzXqSCFKqxG\"]},\"/Users/numwan/Documents/Remix/bitbucket/sol-cerby-swap-v1/contracts/CerbySwapV1_VaultImplementation.sol\":{\"keccak256\":\"0x786e40b9338dfb8600b41c0d98a868d377b6a030aa0f3f62e56f0fa2f4f6dfdc\",\"license\":\"BUSL-1.1\",\"urls\":[\"bzz-raw://9517315bac2e1f4a809023daf115be0bb37bf5f75f98b2d0622cfa7e8287d128\",\"dweb:/ipfs/QmNuzvipiCNwJhf5GjafhC16f3xLkssCw8oXKFWy92jRJh\"]},\"/Users/numwan/Documents/Remix/bitbucket/sol-cerby-swap-v1/contracts/interfaces/IBasicERC20.sol\":{\"keccak256\":\"0x73fba13773e07a1fecfcd9cf1afd27ea5c0f79d5f13f5f15bc6ddec4d6820dcf\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://b437be3037874fcc23f5e2a94fa824a0e8a4f2f7dc76ea3d286ba536ccf12bf7\",\"dweb:/ipfs/QmXWwPmNPt2FiYELWRJtqexWCkymWJsMsXVJxfMikHDy36\"]},\"/Users/numwan/Documents/Remix/bitbucket/sol-cerby-swap-v1/contracts/interfaces/ICerbyBotDetection.sol\":{\"keccak256\":\"0xbc95b2664c6eba1c562504b57a6a8c384104b29d516d7a50adc88bc7690f7838\",\"license\":\"BUSL-1.1\",\"urls\":[\"bzz-raw://5766813310ea6a93f250416a9047fbfbfaff52e2fcd136c9b8ad74c3b195553b\",\"dweb:/ipfs/QmSEutKMBmwTsmJjTa3M6MrtXhi4VbLTzizrRmPuuvcx4e\"]},\"/Users/numwan/Documents/Remix/bitbucket/sol-cerby-swap-v1/contracts/interfaces/ICerbySwapV1_VaultImplementation.sol\":{\"keccak256\":\"0x51bb5e7ad86437911df70d51462bb9739077d9ccd4f5ad60f58a93d86727df29\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://ed542fb8f5d40c4f35d8bc9909fa8f121f2b81131e1760171467a63af74a9925\",\"dweb:/ipfs/QmVbdiBjqSXKMDx9EF3uDG5msv6aU55C5ALBoddVjimwVn\"]},\"/Users/numwan/Documents/Remix/bitbucket/sol-cerby-swap-v1/contracts/interfaces/ICerbyToken.sol\":{\"keccak256\":\"0x3ddbd9e279dd16038e700b5e47ee89dc8127bca86aa05bb237194b49f21908f5\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://c5aa13fd55b3881ab3d4fb0df0b0b9aff01eb8dd36620a093c9bd1d164be6b51\",\"dweb:/ipfs/QmeA9f9E4z7BysW64W1pju3ipTRELVjaVL9sEMN22j7vA8\"]},\"/Users/numwan/Documents/Remix/bitbucket/sol-cerby-swap-v1/contracts/interfaces/ICerbyTokenMinterBurner.sol\":{\"keccak256\":\"0x89fd351c41604517629a39a85449643cd342768c36edc319069f564edc8a2866\",\"license\":\"BSD-2-Clause\",\"urls\":[\"bzz-raw://a57fcef8c026eeac77196a954df700e232d2491e7ded08807c1a1b0ff3f20591\",\"dweb:/ipfs/QmcS2yVjmd9cG7YZRXMhXPfg7QjgooMuuMGwZK4r3R6qJq\"]},\"/Users/numwan/Documents/Remix/bitbucket/sol-cerby-swap-v1/openzeppelin/access/Ownable.sol\":{\"keccak256\":\"0xad82ebf927970e319c1bdb67d37c521732c550b87d9aff07a26cb8c8cd6e6819\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://8f3fadaee719e438607454e6f4983e9ca6db40a10154d47980899580ad2cb6b9\",\"dweb:/ipfs/QmbEKGDEMZQ7rafp2xgBPiqJXppNtWNJAJMoZ6CdZGBvEo\"]},\"/Users/numwan/Documents/Remix/bitbucket/sol-cerby-swap-v1/openzeppelin/token/ERC1155/ERC1155.sol\":{\"keccak256\":\"0xee8befe80cb3a71281ff8e85d79071bdee8cd853f93f98757632c938547d59f9\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://4a3c5bb06bd8ca8dbab0c131a58caa663feb9044a4343c3ce6551dc06a2e736c\",\"dweb:/ipfs/QmZKdfAbYXVJLot3wNE1HhWWgkjT3fXzB1HC8Px4xwt7WU\"]},\"/Users/numwan/Documents/Remix/bitbucket/sol-cerby-swap-v1/openzeppelin/token/ERC1155/IERC1155.sol\":{\"keccak256\":\"0xe3902a350c3562b17daad046f58b70f9dfc9740a71f84cc7ec0e661a8c1abc8c\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://ce329f355c855313c453538862b1c2768cf0cde460e24cdfe180bc15aec396e7\",\"dweb:/ipfs/QmdqQNyiPMDHPmAFsUwMoKKEWQtDQ8FeSWyiPGCvQwvSVE\"]},\"/Users/numwan/Documents/Remix/bitbucket/sol-cerby-swap-v1/openzeppelin/token/ERC1155/IERC1155Receiver.sol\":{\"keccak256\":\"0xc743d2235b8854045c308d2f8f1ed88efed6c2bebf2b7a4a51ea42480c82e566\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://05e54e397a053f319187999ef4d65446a7f15f693ddd66dfaed4d856f67dac4e\",\"dweb:/ipfs/QmbGTFVdZxShg76UPcuLAXm6HBjZx3Vn6CL1eaBhV9rST1\"]},\"/Users/numwan/Documents/Remix/bitbucket/sol-cerby-swap-v1/openzeppelin/utils/introspection/ERC165.sol\":{\"keccak256\":\"0x80cff4f25810ab85caa3f5839b7cb5b7683a9540da82268e2b9f422e0d4d58e6\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://1858a5438e273c2f48db04bfa9e49e5a5bbf5ccb36b1c666756647aacfca2a04\",\"dweb:/ipfs/QmR1bYQhYWtRLLXMyRJYtZRaEmXkbFGWHcd6a59VKrFgMR\"]},\"/Users/numwan/Documents/Remix/bitbucket/sol-cerby-swap-v1/openzeppelin/utils/introspection/IERC165.sol\":{\"keccak256\":\"0x447a5f3ddc18419d41ff92b3773fb86471b1db25773e07f877f548918a185bf1\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://be161e54f24e5c6fae81a12db1a8ae87bc5ae1b0ddc805d82a1440a68455088f\",\"dweb:/ipfs/QmP7C3CHdY9urF4dEMb9wmsp1wMxHF6nhA2yQE5SKiPAdy\"]}},\"version\":1}",
@@ -28951,11 +28977,12 @@
       },
       "links": {},
       "address": "0xA84d62F776606B9eEbd761E2d31F65442eCc437E",
-      "transactionHash": "0x17378c408207caf42401842ef08c5876b7115c0a62ed14312793f37d5473d110"
+      "transactionHash": "0x7ab7e0a800955237b13150445739b5469336294762c19ab3d1167d6362e72592"
     }
   },
   "schemaVersion": "3.3.4",
-  "updatedAt": "2022-02-05T13:12:41.021Z",
+  "updatedAt": "2022-02-05T13:22:41.972Z",
+  "networkType": "ethereum",
   "devdoc": {
     "kind": "dev",
     "methods": {
