@@ -10,7 +10,7 @@ interface IAccessControl {
     /**
      * @dev Emitted when `newAdminRole` is set as ``role``'s admin role, replacing `previousAdminRole`
      *
-     * `DEFAULT_ADMIN_ROLE` is the starting admin for all roles, despite
+     * `ROLE_ADMIN` is the starting admin for all roles, despite
      * {RoleAdminChanged} not being emitted signaling this.
      *
      * _Available since v3.1._

@@ -1,0 +1,30 @@
+{
+  "contractName": "CerbyCronJobsExecution",
+  "abi": [
+    {
+      "inputs": [],
+      "name": "CerbyCronJobsExecution_TransactionsAreTemporarilyDisabled",
+      "type": "error"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_pos",
+          "type": "uint256"
+        }
+      ],
+      "name": "getUtilsContractAtPos",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ],
+  "bytecode": ""
+}

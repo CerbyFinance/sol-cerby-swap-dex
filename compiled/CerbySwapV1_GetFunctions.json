@@ -1,0 +1,451 @@
+{
+  "contractName": "CerbySwapV1_GetFunctions",
+  "abi": [
+    {
+      "inputs": [],
+      "name": "CerbySwapV1_AmountOfCerUsdMustBeLargerThanOne",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "CerbySwapV1_AmountOfCerUsdOrTokensInMustBeLargerThanOne",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "CerbySwapV1_AmountOfTokensMustBeLargerThanOne",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "CerbySwapV1_CreditCerUsdMustNotBeBelowZero",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "CerbySwapV1_FeeIsWrong",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "CerbySwapV1_InputCerUsdAmountIsLargerThanMaximumSpecified",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "CerbySwapV1_InputTokensAmountIsLargerThanMaximumSpecified",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "CerbySwapV1_InvariantKValueMustBeSameOrIncreasedOnAnySwaps",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "CerbySwapV1_MintFeeMultiplierMustNotBeLargerThan50Percent",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "CerbySwapV1_MsgValueProvidedMustBeLargerThanAmountTokensIn",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "CerbySwapV1_OutputCerUsdAmountIsLowerThanMinimumSpecified",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "CerbySwapV1_OutputTokensAmountIsLowerThanMinimumSpecified",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "CerbySwapV1_SafeTransferFromFailed",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "CerbySwapV1_SafeTransferNativeFailed",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "CerbySwapV1_SafeTransferTokensFailed",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "CerbySwapV1_SwappingTokenToSameTokenIsForbidden",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "CerbySwapV1_TokenAlreadyExists",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "CerbySwapV1_TokenDoesNotExist",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "CerbySwapV1_TransactionIsExpired",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "CerbySwapV1_TvlMultiplierIsWrong",
+      "type": "error"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "_token",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "_amountTokensIn",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "_amountCerUsdToMint",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "_lpAmount",
+          "type": "uint256"
+        }
+      ],
+      "name": "LiquidityAdded",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "_token",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "_amountTokensOut",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "_amountCerUsdToBurn",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "_amountLpTokensBalanceToBurn",
+          "type": "uint256"
+        }
+      ],
+      "name": "LiquidityRemoved",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "_token",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "_vaultAddress",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "_poolId",
+          "type": "uint256"
+        }
+      ],
+      "name": "PoolCreated",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "_token",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "_sender",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "_amountTokensIn",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "_amountCerUsdIn",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "__amountTokensOut",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "amountCerUsdOut",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "_currentFee",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "_transferTo",
+          "type": "address"
+        }
+      ],
+      "name": "Swap",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "_token",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "_newBalanceToken",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "_newBalanceCerUsd",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "_newCreditCerUsd",
+          "type": "uint256"
+        }
+      ],
+      "name": "Sync",
+      "type": "event"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_token",
+          "type": "address"
+        }
+      ],
+      "name": "getCurrentOneMinusFeeBasedOnTrades",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "fee",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_tokenIn",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "_tokenOut",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_amountTokensOut",
+          "type": "uint256"
+        }
+      ],
+      "name": "getInputTokensForExactTokens",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_tokenIn",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "_tokenOut",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_amountTokensIn",
+          "type": "uint256"
+        }
+      ],
+      "name": "getOutputExactTokensForTokens",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address[]",
+          "name": "_tokens",
+          "type": "address[]"
+        }
+      ],
+      "name": "getPoolsByTokens",
+      "outputs": [
+        {
+          "components": [
+            {
+              "internalType": "uint256",
+              "name": "balanceToken",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "balanceCerUsd",
+              "type": "uint256"
+            }
+          ],
+          "internalType": "struct CerbySwapV1_Declarations.PoolBalances[]",
+          "name": "",
+          "type": "tuple[]"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "getSettings",
+      "outputs": [
+        {
+          "components": [
+            {
+              "internalType": "address",
+              "name": "mintFeeBeneficiary",
+              "type": "address"
+            },
+            {
+              "internalType": "uint32",
+              "name": "mintFeeMultiplier",
+              "type": "uint32"
+            },
+            {
+              "internalType": "uint16",
+              "name": "feeMinimum",
+              "type": "uint16"
+            },
+            {
+              "internalType": "uint16",
+              "name": "feeMaximum",
+              "type": "uint16"
+            },
+            {
+              "internalType": "uint64",
+              "name": "tvlMultiplierMinimum",
+              "type": "uint64"
+            },
+            {
+              "internalType": "uint64",
+              "name": "tvlMultiplierMaximum",
+              "type": "uint64"
+            }
+          ],
+          "internalType": "struct CerbySwapV1_Declarations.Settings",
+          "name": "",
+          "type": "tuple"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_token",
+          "type": "address"
+        }
+      ],
+      "name": "getTokenToPoolId",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ],
+  "bytecode": ""
+}
