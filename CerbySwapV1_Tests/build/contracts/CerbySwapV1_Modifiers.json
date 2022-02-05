@@ -18,22 +18,12 @@
     },
     {
       "inputs": [],
-      "name": "CerbySwapV1_CreditCerUsdIsOverflown",
-      "type": "error"
-    },
-    {
-      "inputs": [],
       "name": "CerbySwapV1_CreditCerUsdMustNotBeBelowZero",
       "type": "error"
     },
     {
       "inputs": [],
       "name": "CerbySwapV1_FeeIsWrong",
-      "type": "error"
-    },
-    {
-      "inputs": [],
-      "name": "CerbySwapV1_FeeOnTransferTokensArentSupported",
       "type": "error"
     },
     {
@@ -59,11 +49,6 @@
     {
       "inputs": [],
       "name": "CerbySwapV1_MsgValueProvidedMustBeLargerThanAmountTokensIn",
-      "type": "error"
-    },
-    {
-      "inputs": [],
-      "name": "CerbySwapV1_MsgValueProvidedMustBeZero",
       "type": "error"
     },
     {
@@ -290,7 +275,7 @@
       "type": "event"
     }
   ],
-  "metadata": "{\"compiler\":{\"version\":\"0.8.11+commit.d7f03943\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[],\"name\":\"CerbySwapV1_AmountOfCerUsdMustBeLargerThanOne\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"CerbySwapV1_AmountOfCerUsdOrTokensInMustBeLargerThanOne\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"CerbySwapV1_AmountOfTokensMustBeLargerThanOne\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"CerbySwapV1_CreditCerUsdIsOverflown\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"CerbySwapV1_CreditCerUsdMustNotBeBelowZero\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"CerbySwapV1_FeeIsWrong\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"CerbySwapV1_FeeOnTransferTokensArentSupported\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"CerbySwapV1_InputCerUsdAmountIsLargerThanMaximumSpecified\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"CerbySwapV1_InputTokensAmountIsLargerThanMaximumSpecified\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"CerbySwapV1_InvariantKValueMustBeSameOrIncreasedOnAnySwaps\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"CerbySwapV1_MintFeeMultiplierMustNotBeLargerThan50Percent\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"CerbySwapV1_MsgValueProvidedMustBeLargerThanAmountTokensIn\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"CerbySwapV1_MsgValueProvidedMustBeZero\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"CerbySwapV1_OutputCerUsdAmountIsLowerThanMinimumSpecified\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"CerbySwapV1_OutputTokensAmountIsLowerThanMinimumSpecified\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"CerbySwapV1_SafeTransferFromFailed\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"CerbySwapV1_SafeTransferNativeFailed\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"CerbySwapV1_SafeTransferTokensFailed\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"CerbySwapV1_SwappingTokenToSameTokenIsForbidden\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"CerbySwapV1_TokenAlreadyExists\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"CerbySwapV1_TokenDoesNotExist\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"CerbySwapV1_TransactionIsExpired\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"CerbySwapV1_TvlMultiplierIsWrong\",\"type\":\"error\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_token\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_amountTokensIn\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_amountCerUsdToMint\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_lpAmount\",\"type\":\"uint256\"}],\"name\":\"LiquidityAdded\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_token\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_amountTokensOut\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_amountCerUsdToBurn\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_amountLpTokensBalanceToBurn\",\"type\":\"uint256\"}],\"name\":\"LiquidityRemoved\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_token\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_vaultAddress\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_poolId\",\"type\":\"uint256\"}],\"name\":\"PoolCreated\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_token\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_sender\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_amountTokensIn\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_amountCerUsdIn\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"__amountTokensOut\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"amountCerUsdOut\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_currentFee\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_transferTo\",\"type\":\"address\"}],\"name\":\"Swap\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_token\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_newBalanceToken\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_newBalanceCerUsd\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_newCreditCerUsd\",\"type\":\"uint256\"}],\"name\":\"Sync\",\"type\":\"event\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"project:/contracts/CerbySwapV1_Modifiers.sol\":\"CerbySwapV1_Modifiers\"},\"evmVersion\":\"london\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[]},\"sources\":{\"project:/contracts/CerbySwapV1_Declarations.sol\":{\"keccak256\":\"0x03a14be8590958f688a2cea60c1b2113dce4704f5f2753292bd4dc3440008e57\",\"license\":\"BUSL-1.1\",\"urls\":[\"bzz-raw://df891302ecf29b7c5aaf0296bb09f9d0ef6030c618114e06338c0d7881215b63\",\"dweb:/ipfs/QmWgY5KUffgWjkCNRGPvC92Yj6rta4hNLy5pkNLmHWGYtC\"]},\"project:/contracts/CerbySwapV1_EventsAndErrors.sol\":{\"keccak256\":\"0x03ea06d55c9a31eded1ce09f954e2c5ff298b74df7c9c41a2fd6e249a64c539e\",\"license\":\"BUSL-1.1\",\"urls\":[\"bzz-raw://e14466b7918be006e2646eee4440012e621add0a4cafd3f56bc439f2315510bb\",\"dweb:/ipfs/QmPuvryyV1RsZhdRnhpGCC5HSyRJNmycRjC6SsfiYPkPph\"]},\"project:/contracts/CerbySwapV1_Modifiers.sol\":{\"keccak256\":\"0x27bcb516d1bb07b85bb8b7341fe3c5981313e19d8b7d9c3befff36513a74f785\",\"license\":\"BUSL-1.1\",\"urls\":[\"bzz-raw://ea6e5227f9f2eb537cd4292347c14fdb20f04a576ea8b71f5bf6da32dbb01dfe\",\"dweb:/ipfs/QmceWyxZmYCFVLYxSpVB7NrBFmCLgYRXRbFq9tb2KucWRk\"]}},\"version\":1}",
+  "metadata": "{\"compiler\":{\"version\":\"0.8.11+commit.d7f03943\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[],\"name\":\"CerbySwapV1_AmountOfCerUsdMustBeLargerThanOne\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"CerbySwapV1_AmountOfCerUsdOrTokensInMustBeLargerThanOne\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"CerbySwapV1_AmountOfTokensMustBeLargerThanOne\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"CerbySwapV1_CreditCerUsdMustNotBeBelowZero\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"CerbySwapV1_FeeIsWrong\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"CerbySwapV1_InputCerUsdAmountIsLargerThanMaximumSpecified\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"CerbySwapV1_InputTokensAmountIsLargerThanMaximumSpecified\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"CerbySwapV1_InvariantKValueMustBeSameOrIncreasedOnAnySwaps\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"CerbySwapV1_MintFeeMultiplierMustNotBeLargerThan50Percent\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"CerbySwapV1_MsgValueProvidedMustBeLargerThanAmountTokensIn\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"CerbySwapV1_OutputCerUsdAmountIsLowerThanMinimumSpecified\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"CerbySwapV1_OutputTokensAmountIsLowerThanMinimumSpecified\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"CerbySwapV1_SafeTransferFromFailed\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"CerbySwapV1_SafeTransferNativeFailed\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"CerbySwapV1_SafeTransferTokensFailed\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"CerbySwapV1_SwappingTokenToSameTokenIsForbidden\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"CerbySwapV1_TokenAlreadyExists\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"CerbySwapV1_TokenDoesNotExist\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"CerbySwapV1_TransactionIsExpired\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"CerbySwapV1_TvlMultiplierIsWrong\",\"type\":\"error\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_token\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_amountTokensIn\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_amountCerUsdToMint\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_lpAmount\",\"type\":\"uint256\"}],\"name\":\"LiquidityAdded\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_token\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_amountTokensOut\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_amountCerUsdToBurn\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_amountLpTokensBalanceToBurn\",\"type\":\"uint256\"}],\"name\":\"LiquidityRemoved\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_token\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_vaultAddress\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_poolId\",\"type\":\"uint256\"}],\"name\":\"PoolCreated\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_token\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_sender\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_amountTokensIn\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_amountCerUsdIn\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"__amountTokensOut\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"amountCerUsdOut\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_currentFee\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_transferTo\",\"type\":\"address\"}],\"name\":\"Swap\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_token\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_newBalanceToken\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_newBalanceCerUsd\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_newCreditCerUsd\",\"type\":\"uint256\"}],\"name\":\"Sync\",\"type\":\"event\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"/Users/numwan/Documents/Remix/bitbucket/sol-cerby-swap-v1/CerbySwapV1_Tests/contracts/CerbySwapV1_Modifiers.sol\":\"CerbySwapV1_Modifiers\"},\"evmVersion\":\"london\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[]},\"sources\":{\"/Users/numwan/Documents/Remix/bitbucket/sol-cerby-swap-v1/CerbySwapV1_Tests/contracts/CerbySwapV1_Declarations.sol\":{\"keccak256\":\"0x69b8d9b3b4881a001d906d6058a5276e3a3b895e7bc334876c9316587a96f4da\",\"license\":\"BUSL-1.1\",\"urls\":[\"bzz-raw://c86313169a8258f6b75f390b137cd2cb5ea818fb6126e0f00f64c581255f08b1\",\"dweb:/ipfs/QmSib5VmbLrrb272YnzdBZ3cJTsexiMK8XyYx12ZwKYDDZ\"]},\"/Users/numwan/Documents/Remix/bitbucket/sol-cerby-swap-v1/CerbySwapV1_Tests/contracts/CerbySwapV1_EventsAndErrors.sol\":{\"keccak256\":\"0xb9de44d6a7a397a4e7082213ae65ced74fdd6fe9ccdb44eb69427d093eae66a2\",\"license\":\"BUSL-1.1\",\"urls\":[\"bzz-raw://63df674bc0e80c246ac01d447d70e55b35c488d72e15e935a11809cf77567db6\",\"dweb:/ipfs/QmcC2EKNMkdCYXmP4bQsUndz2sGzBfiJshHtSTNub3XNV8\"]},\"/Users/numwan/Documents/Remix/bitbucket/sol-cerby-swap-v1/CerbySwapV1_Tests/contracts/CerbySwapV1_Modifiers.sol\":{\"keccak256\":\"0x27bcb516d1bb07b85bb8b7341fe3c5981313e19d8b7d9c3befff36513a74f785\",\"license\":\"BUSL-1.1\",\"urls\":[\"bzz-raw://ea6e5227f9f2eb537cd4292347c14fdb20f04a576ea8b71f5bf6da32dbb01dfe\",\"dweb:/ipfs/QmceWyxZmYCFVLYxSpVB7NrBFmCLgYRXRbFq9tb2KucWRk\"]}},\"version\":1}",
   "bytecode": "0x",
   "deployedBytecode": "0x",
   "immutableReferences": {},
@@ -299,26 +284,26 @@
   "sourceMap": "",
   "deployedSourceMap": "",
   "source": "// SPDX-License-Identifier: BUSL-1.1\n\npragma solidity ^0.8.11;\n\nimport \"./CerbySwapV1_Declarations.sol\";\n\nabstract contract CerbySwapV1_Modifiers is CerbySwapV1_Declarations {\n\n    modifier tokenMustExistInPool(address _token) {\n        if (tokenToPoolId[_token] == 0 || _token == cerUsdToken) {\n            revert(\"C\"); // TODO: remove this line on production\n            revert CerbySwapV1_TokenDoesNotExist();\n        }\n        _;\n    }\n\n    modifier tokenDoesNotExistInPool(address _token) {\n        if (tokenToPoolId[_token] > 0) {\n            revert CerbySwapV1_TokenAlreadyExists();\n        }\n        _;\n    }\n\n    modifier transactionIsNotExpired(uint256 _expireTimestamp) {\n        if (block.timestamp > _expireTimestamp) {\n            revert(\"D\"); // TODO: remove this line on production\n            revert CerbySwapV1_TransactionIsExpired();\n        }\n        _;\n    }\n}\n",
-  "sourcePath": "/Users/vm06007/Development/sol-cerby-swap-v1/CerbySwapV1_Tests/contracts/CerbySwapV1_Modifiers.sol",
+  "sourcePath": "/Users/numwan/Documents/Remix/bitbucket/sol-cerby-swap-v1/CerbySwapV1_Tests/contracts/CerbySwapV1_Modifiers.sol",
   "ast": {
-    "absolutePath": "project:/contracts/CerbySwapV1_Modifiers.sol",
+    "absolutePath": "/Users/numwan/Documents/Remix/bitbucket/sol-cerby-swap-v1/CerbySwapV1_Tests/contracts/CerbySwapV1_Modifiers.sol",
     "exportedSymbols": {
       "CerbySwapV1_Declarations": [
-        700
+        699
       ],
       "CerbySwapV1_EventsAndErrors": [
-        1021
+        951
       ],
       "CerbySwapV1_Modifiers": [
-        2560
+        2438
       ]
     },
-    "id": 2561,
+    "id": 2439,
     "license": "BUSL-1.1",
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 2497,
+        "id": 2375,
         "literals": [
           "solidity",
           "^",
@@ -329,13 +314,13 @@
         "src": "38:24:10"
       },
       {
-        "absolutePath": "project:/contracts/CerbySwapV1_Declarations.sol",
+        "absolutePath": "/Users/numwan/Documents/Remix/bitbucket/sol-cerby-swap-v1/CerbySwapV1_Tests/contracts/CerbySwapV1_Declarations.sol",
         "file": "./CerbySwapV1_Declarations.sol",
-        "id": 2498,
+        "id": 2376,
         "nameLocation": "-1:-1:-1",
         "nodeType": "ImportDirective",
-        "scope": 2561,
-        "sourceUnit": 701,
+        "scope": 2439,
+        "sourceUnit": 700,
         "src": "64:40:10",
         "symbolAliases": [],
         "unitAlias": ""
@@ -345,13 +330,13 @@
         "baseContracts": [
           {
             "baseName": {
-              "id": 2499,
+              "id": 2377,
               "name": "CerbySwapV1_Declarations",
               "nodeType": "IdentifierPath",
-              "referencedDeclaration": 700,
+              "referencedDeclaration": 699,
               "src": "149:24:10"
             },
-            "id": 2500,
+            "id": 2378,
             "nodeType": "InheritanceSpecifier",
             "src": "149:24:10"
           }
@@ -360,11 +345,11 @@
         "contractDependencies": [],
         "contractKind": "contract",
         "fullyImplemented": true,
-        "id": 2560,
+        "id": 2438,
         "linearizedBaseContracts": [
-          2560,
-          700,
-          1021
+          2438,
+          699,
+          951
         ],
         "name": "CerbySwapV1_Modifiers",
         "nameLocation": "124:21:10",
@@ -372,7 +357,7 @@
         "nodes": [
           {
             "body": {
-              "id": 2523,
+              "id": 2401,
               "nodeType": "Block",
               "src": "227:212:10",
               "statements": [
@@ -382,7 +367,7 @@
                       "typeIdentifier": "t_bool",
                       "typeString": "bool"
                     },
-                    "id": 2512,
+                    "id": 2390,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -392,31 +377,31 @@
                         "typeIdentifier": "t_uint256",
                         "typeString": "uint256"
                       },
-                      "id": 2508,
+                      "id": 2386,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": false,
                       "lValueRequested": false,
                       "leftExpression": {
                         "baseExpression": {
-                          "id": 2504,
+                          "id": 2382,
                           "name": "tokenToPoolId",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 610,
+                          "referencedDeclaration": 606,
                           "src": "241:13:10",
                           "typeDescriptions": {
                             "typeIdentifier": "t_mapping$_t_address_$_t_uint256_$",
                             "typeString": "mapping(address => uint256)"
                           }
                         },
-                        "id": 2506,
+                        "id": 2384,
                         "indexExpression": {
-                          "id": 2505,
+                          "id": 2383,
                           "name": "_token",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 2502,
+                          "referencedDeclaration": 2380,
                           "src": "255:6:10",
                           "typeDescriptions": {
                             "typeIdentifier": "t_address",
@@ -438,7 +423,7 @@
                       "operator": "==",
                       "rightExpression": {
                         "hexValue": "30",
-                        "id": 2507,
+                        "id": 2385,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": true,
@@ -465,17 +450,17 @@
                         "typeIdentifier": "t_address",
                         "typeString": "address"
                       },
-                      "id": 2511,
+                      "id": 2389,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": false,
                       "lValueRequested": false,
                       "leftExpression": {
-                        "id": 2509,
+                        "id": 2387,
                         "name": "_token",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 2502,
+                        "referencedDeclaration": 2380,
                         "src": "271:6:10",
                         "typeDescriptions": {
                           "typeIdentifier": "t_address",
@@ -485,11 +470,11 @@
                       "nodeType": "BinaryOperation",
                       "operator": "==",
                       "rightExpression": {
-                        "id": 2510,
+                        "id": 2388,
                         "name": "cerUsdToken",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 621,
+                        "referencedDeclaration": 617,
                         "src": "281:11:10",
                         "typeDescriptions": {
                           "typeIdentifier": "t_address",
@@ -508,11 +493,11 @@
                       "typeString": "bool"
                     }
                   },
-                  "id": 2521,
+                  "id": 2399,
                   "nodeType": "IfStatement",
                   "src": "237:185:10",
                   "trueBody": {
-                    "id": 2520,
+                    "id": 2398,
                     "nodeType": "Block",
                     "src": "294:128:10",
                     "statements": [
@@ -521,7 +506,7 @@
                           "arguments": [
                             {
                               "hexValue": "43",
-                              "id": 2514,
+                              "id": 2392,
                               "isConstant": false,
                               "isLValue": false,
                               "isPure": true,
@@ -543,7 +528,7 @@
                                 "typeString": "literal_string \"C\""
                               }
                             ],
-                            "id": 2513,
+                            "id": 2391,
                             "name": "revert",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [
@@ -557,7 +542,7 @@
                               "typeString": "function (string memory) pure"
                             }
                           },
-                          "id": 2515,
+                          "id": 2393,
                           "isConstant": false,
                           "isLValue": false,
                           "isPure": false,
@@ -572,7 +557,7 @@
                             "typeString": "tuple()"
                           }
                         },
-                        "id": 2516,
+                        "id": 2394,
                         "nodeType": "ExpressionStatement",
                         "src": "308:11:10"
                       },
@@ -581,18 +566,18 @@
                           "arguments": [],
                           "expression": {
                             "argumentTypes": [],
-                            "id": 2517,
+                            "id": 2395,
                             "name": "CerbySwapV1_TokenDoesNotExist",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 978,
+                            "referencedDeclaration": 914,
                             "src": "380:29:10",
                             "typeDescriptions": {
                               "typeIdentifier": "t_function_error_pure$__$returns$__$",
                               "typeString": "function () pure"
                             }
                           },
-                          "id": 2518,
+                          "id": 2396,
                           "isConstant": false,
                           "isLValue": false,
                           "isPure": false,
@@ -607,7 +592,7 @@
                             "typeString": "tuple()"
                           }
                         },
-                        "id": 2519,
+                        "id": 2397,
                         "nodeType": "RevertStatement",
                         "src": "373:38:10"
                       }
@@ -615,28 +600,28 @@
                   }
                 },
                 {
-                  "id": 2522,
+                  "id": 2400,
                   "nodeType": "PlaceholderStatement",
                   "src": "431:1:10"
                 }
               ]
             },
-            "id": 2524,
+            "id": 2402,
             "name": "tokenMustExistInPool",
             "nameLocation": "190:20:10",
             "nodeType": "ModifierDefinition",
             "parameters": {
-              "id": 2503,
+              "id": 2381,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 2502,
+                  "id": 2380,
                   "mutability": "mutable",
                   "name": "_token",
                   "nameLocation": "219:6:10",
                   "nodeType": "VariableDeclaration",
-                  "scope": 2524,
+                  "scope": 2402,
                   "src": "211:14:10",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -645,7 +630,7 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 2501,
+                    "id": 2379,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "211:7:10",
@@ -666,7 +651,7 @@
           },
           {
             "body": {
-              "id": 2539,
+              "id": 2417,
               "nodeType": "Block",
               "src": "494:122:10",
               "statements": [
@@ -676,31 +661,31 @@
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
                     },
-                    "id": 2532,
+                    "id": 2410,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
                     "lValueRequested": false,
                     "leftExpression": {
                       "baseExpression": {
-                        "id": 2528,
+                        "id": 2406,
                         "name": "tokenToPoolId",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 610,
+                        "referencedDeclaration": 606,
                         "src": "508:13:10",
                         "typeDescriptions": {
                           "typeIdentifier": "t_mapping$_t_address_$_t_uint256_$",
                           "typeString": "mapping(address => uint256)"
                         }
                       },
-                      "id": 2530,
+                      "id": 2408,
                       "indexExpression": {
-                        "id": 2529,
+                        "id": 2407,
                         "name": "_token",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 2526,
+                        "referencedDeclaration": 2404,
                         "src": "522:6:10",
                         "typeDescriptions": {
                           "typeIdentifier": "t_address",
@@ -722,7 +707,7 @@
                     "operator": ">",
                     "rightExpression": {
                       "hexValue": "30",
-                      "id": 2531,
+                      "id": 2409,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": true,
@@ -742,11 +727,11 @@
                       "typeString": "bool"
                     }
                   },
-                  "id": 2537,
+                  "id": 2415,
                   "nodeType": "IfStatement",
                   "src": "504:95:10",
                   "trueBody": {
-                    "id": 2536,
+                    "id": 2414,
                     "nodeType": "Block",
                     "src": "535:64:10",
                     "statements": [
@@ -755,18 +740,18 @@
                           "arguments": [],
                           "expression": {
                             "argumentTypes": [],
-                            "id": 2533,
+                            "id": 2411,
                             "name": "CerbySwapV1_TokenAlreadyExists",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 976,
+                            "referencedDeclaration": 912,
                             "src": "556:30:10",
                             "typeDescriptions": {
                               "typeIdentifier": "t_function_error_pure$__$returns$__$",
                               "typeString": "function () pure"
                             }
                           },
-                          "id": 2534,
+                          "id": 2412,
                           "isConstant": false,
                           "isLValue": false,
                           "isPure": false,
@@ -781,7 +766,7 @@
                             "typeString": "tuple()"
                           }
                         },
-                        "id": 2535,
+                        "id": 2413,
                         "nodeType": "RevertStatement",
                         "src": "549:39:10"
                       }
@@ -789,28 +774,28 @@
                   }
                 },
                 {
-                  "id": 2538,
+                  "id": 2416,
                   "nodeType": "PlaceholderStatement",
                   "src": "608:1:10"
                 }
               ]
             },
-            "id": 2540,
+            "id": 2418,
             "name": "tokenDoesNotExistInPool",
             "nameLocation": "454:23:10",
             "nodeType": "ModifierDefinition",
             "parameters": {
-              "id": 2527,
+              "id": 2405,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 2526,
+                  "id": 2404,
                   "mutability": "mutable",
                   "name": "_token",
                   "nameLocation": "486:6:10",
                   "nodeType": "VariableDeclaration",
-                  "scope": 2540,
+                  "scope": 2418,
                   "src": "478:14:10",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -819,7 +804,7 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 2525,
+                    "id": 2403,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "478:7:10",
@@ -840,7 +825,7 @@
           },
           {
             "body": {
-              "id": 2558,
+              "id": 2436,
               "nodeType": "Block",
               "src": "681:198:10",
               "statements": [
@@ -850,14 +835,14 @@
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
                     },
-                    "id": 2547,
+                    "id": 2425,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
                     "lValueRequested": false,
                     "leftExpression": {
                       "expression": {
-                        "id": 2544,
+                        "id": 2422,
                         "name": "block",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
@@ -868,7 +853,7 @@
                           "typeString": "block"
                         }
                       },
-                      "id": 2545,
+                      "id": 2423,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": false,
@@ -884,11 +869,11 @@
                     "nodeType": "BinaryOperation",
                     "operator": ">",
                     "rightExpression": {
-                      "id": 2546,
+                      "id": 2424,
                       "name": "_expireTimestamp",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 2542,
+                      "referencedDeclaration": 2420,
                       "src": "713:16:10",
                       "typeDescriptions": {
                         "typeIdentifier": "t_uint256",
@@ -901,11 +886,11 @@
                       "typeString": "bool"
                     }
                   },
-                  "id": 2556,
+                  "id": 2434,
                   "nodeType": "IfStatement",
                   "src": "691:171:10",
                   "trueBody": {
-                    "id": 2555,
+                    "id": 2433,
                     "nodeType": "Block",
                     "src": "731:131:10",
                     "statements": [
@@ -914,7 +899,7 @@
                           "arguments": [
                             {
                               "hexValue": "44",
-                              "id": 2549,
+                              "id": 2427,
                               "isConstant": false,
                               "isLValue": false,
                               "isPure": true,
@@ -936,7 +921,7 @@
                                 "typeString": "literal_string \"D\""
                               }
                             ],
-                            "id": 2548,
+                            "id": 2426,
                             "name": "revert",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [
@@ -950,7 +935,7 @@
                               "typeString": "function (string memory) pure"
                             }
                           },
-                          "id": 2550,
+                          "id": 2428,
                           "isConstant": false,
                           "isLValue": false,
                           "isPure": false,
@@ -965,7 +950,7 @@
                             "typeString": "tuple()"
                           }
                         },
-                        "id": 2551,
+                        "id": 2429,
                         "nodeType": "ExpressionStatement",
                         "src": "745:11:10"
                       },
@@ -974,18 +959,18 @@
                           "arguments": [],
                           "expression": {
                             "argumentTypes": [],
-                            "id": 2552,
+                            "id": 2430,
                             "name": "CerbySwapV1_TransactionIsExpired",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 980,
+                            "referencedDeclaration": 916,
                             "src": "817:32:10",
                             "typeDescriptions": {
                               "typeIdentifier": "t_function_error_pure$__$returns$__$",
                               "typeString": "function () pure"
                             }
                           },
-                          "id": 2553,
+                          "id": 2431,
                           "isConstant": false,
                           "isLValue": false,
                           "isPure": false,
@@ -1000,7 +985,7 @@
                             "typeString": "tuple()"
                           }
                         },
-                        "id": 2554,
+                        "id": 2432,
                         "nodeType": "RevertStatement",
                         "src": "810:41:10"
                       }
@@ -1008,28 +993,28 @@
                   }
                 },
                 {
-                  "id": 2557,
+                  "id": 2435,
                   "nodeType": "PlaceholderStatement",
                   "src": "871:1:10"
                 }
               ]
             },
-            "id": 2559,
+            "id": 2437,
             "name": "transactionIsNotExpired",
             "nameLocation": "631:23:10",
             "nodeType": "ModifierDefinition",
             "parameters": {
-              "id": 2543,
+              "id": 2421,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 2542,
+                  "id": 2420,
                   "mutability": "mutable",
                   "name": "_expireTimestamp",
                   "nameLocation": "663:16:10",
                   "nodeType": "VariableDeclaration",
-                  "scope": 2559,
+                  "scope": 2437,
                   "src": "655:24:10",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -1038,7 +1023,7 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 2541,
+                    "id": 2419,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
                     "src": "655:7:10",
@@ -1057,56 +1042,53 @@
             "visibility": "internal"
           }
         ],
-        "scope": 2561,
+        "scope": 2439,
         "src": "106:775:10",
         "usedErrors": [
-          976,
-          978,
-          980,
-          982,
-          984,
-          986,
-          988,
-          990,
-          992,
-          994,
-          996,
-          998,
-          1000,
-          1002,
-          1004,
-          1006,
-          1008,
-          1010,
-          1012,
-          1014,
-          1016,
-          1018,
-          1020
+          912,
+          914,
+          916,
+          918,
+          920,
+          922,
+          924,
+          926,
+          928,
+          930,
+          932,
+          934,
+          936,
+          938,
+          940,
+          942,
+          944,
+          946,
+          948,
+          950
         ]
       }
     ],
     "src": "38:844:10"
   },
   "legacyAST": {
-    "absolutePath": "project:/contracts/CerbySwapV1_Modifiers.sol",
+    "absolutePath": "/Users/numwan/Documents/Remix/bitbucket/sol-cerby-swap-v1/CerbySwapV1_Tests/contracts/CerbySwapV1_Modifiers.sol",
     "exportedSymbols": {
       "CerbySwapV1_Declarations": [
-        700
+        699
       ],
       "CerbySwapV1_EventsAndErrors": [
-        1021
+        951
       ],
       "CerbySwapV1_Modifiers": [
-        2560
+        2438
       ]
     },
-    "id": 2561,
+    "id": 2439,
     "license": "BUSL-1.1",
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 2497,
+        "id": 2375,
         "literals": [
           "solidity",
           "^",
@@ -1117,13 +1099,13 @@
         "src": "38:24:10"
       },
       {
-        "absolutePath": "project:/contracts/CerbySwapV1_Declarations.sol",
+        "absolutePath": "/Users/numwan/Documents/Remix/bitbucket/sol-cerby-swap-v1/CerbySwapV1_Tests/contracts/CerbySwapV1_Declarations.sol",
         "file": "./CerbySwapV1_Declarations.sol",
-        "id": 2498,
+        "id": 2376,
         "nameLocation": "-1:-1:-1",
         "nodeType": "ImportDirective",
-        "scope": 2561,
-        "sourceUnit": 701,
+        "scope": 2439,
+        "sourceUnit": 700,
         "src": "64:40:10",
         "symbolAliases": [],
         "unitAlias": ""
@@ -1133,13 +1115,13 @@
         "baseContracts": [
           {
             "baseName": {
-              "id": 2499,
+              "id": 2377,
               "name": "CerbySwapV1_Declarations",
               "nodeType": "IdentifierPath",
-              "referencedDeclaration": 700,
+              "referencedDeclaration": 699,
               "src": "149:24:10"
             },
-            "id": 2500,
+            "id": 2378,
             "nodeType": "InheritanceSpecifier",
             "src": "149:24:10"
           }
@@ -1148,11 +1130,11 @@
         "contractDependencies": [],
         "contractKind": "contract",
         "fullyImplemented": true,
-        "id": 2560,
+        "id": 2438,
         "linearizedBaseContracts": [
-          2560,
-          700,
-          1021
+          2438,
+          699,
+          951
         ],
         "name": "CerbySwapV1_Modifiers",
         "nameLocation": "124:21:10",
@@ -1160,7 +1142,7 @@
         "nodes": [
           {
             "body": {
-              "id": 2523,
+              "id": 2401,
               "nodeType": "Block",
               "src": "227:212:10",
               "statements": [
@@ -1170,7 +1152,7 @@
                       "typeIdentifier": "t_bool",
                       "typeString": "bool"
                     },
-                    "id": 2512,
+                    "id": 2390,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -1180,31 +1162,31 @@
                         "typeIdentifier": "t_uint256",
                         "typeString": "uint256"
                       },
-                      "id": 2508,
+                      "id": 2386,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": false,
                       "lValueRequested": false,
                       "leftExpression": {
                         "baseExpression": {
-                          "id": 2504,
+                          "id": 2382,
                           "name": "tokenToPoolId",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 610,
+                          "referencedDeclaration": 606,
                           "src": "241:13:10",
                           "typeDescriptions": {
                             "typeIdentifier": "t_mapping$_t_address_$_t_uint256_$",
                             "typeString": "mapping(address => uint256)"
                           }
                         },
-                        "id": 2506,
+                        "id": 2384,
                         "indexExpression": {
-                          "id": 2505,
+                          "id": 2383,
                           "name": "_token",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 2502,
+                          "referencedDeclaration": 2380,
                           "src": "255:6:10",
                           "typeDescriptions": {
                             "typeIdentifier": "t_address",
@@ -1226,7 +1208,7 @@
                       "operator": "==",
                       "rightExpression": {
                         "hexValue": "30",
-                        "id": 2507,
+                        "id": 2385,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": true,
@@ -1253,17 +1235,17 @@
                         "typeIdentifier": "t_address",
                         "typeString": "address"
                       },
-                      "id": 2511,
+                      "id": 2389,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": false,
                       "lValueRequested": false,
                       "leftExpression": {
-                        "id": 2509,
+                        "id": 2387,
                         "name": "_token",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 2502,
+                        "referencedDeclaration": 2380,
                         "src": "271:6:10",
                         "typeDescriptions": {
                           "typeIdentifier": "t_address",
@@ -1273,11 +1255,11 @@
                       "nodeType": "BinaryOperation",
                       "operator": "==",
                       "rightExpression": {
-                        "id": 2510,
+                        "id": 2388,
                         "name": "cerUsdToken",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 621,
+                        "referencedDeclaration": 617,
                         "src": "281:11:10",
                         "typeDescriptions": {
                           "typeIdentifier": "t_address",
@@ -1296,11 +1278,11 @@
                       "typeString": "bool"
                     }
                   },
-                  "id": 2521,
+                  "id": 2399,
                   "nodeType": "IfStatement",
                   "src": "237:185:10",
                   "trueBody": {
-                    "id": 2520,
+                    "id": 2398,
                     "nodeType": "Block",
                     "src": "294:128:10",
                     "statements": [
@@ -1309,7 +1291,7 @@
                           "arguments": [
                             {
                               "hexValue": "43",
-                              "id": 2514,
+                              "id": 2392,
                               "isConstant": false,
                               "isLValue": false,
                               "isPure": true,
@@ -1331,7 +1313,7 @@
                                 "typeString": "literal_string \"C\""
                               }
                             ],
-                            "id": 2513,
+                            "id": 2391,
                             "name": "revert",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [
@@ -1345,7 +1327,7 @@
                               "typeString": "function (string memory) pure"
                             }
                           },
-                          "id": 2515,
+                          "id": 2393,
                           "isConstant": false,
                           "isLValue": false,
                           "isPure": false,
@@ -1360,7 +1342,7 @@
                             "typeString": "tuple()"
                           }
                         },
-                        "id": 2516,
+                        "id": 2394,
                         "nodeType": "ExpressionStatement",
                         "src": "308:11:10"
                       },
@@ -1369,18 +1351,18 @@
                           "arguments": [],
                           "expression": {
                             "argumentTypes": [],
-                            "id": 2517,
+                            "id": 2395,
                             "name": "CerbySwapV1_TokenDoesNotExist",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 978,
+                            "referencedDeclaration": 914,
                             "src": "380:29:10",
                             "typeDescriptions": {
                               "typeIdentifier": "t_function_error_pure$__$returns$__$",
                               "typeString": "function () pure"
                             }
                           },
-                          "id": 2518,
+                          "id": 2396,
                           "isConstant": false,
                           "isLValue": false,
                           "isPure": false,
@@ -1395,7 +1377,7 @@
                             "typeString": "tuple()"
                           }
                         },
-                        "id": 2519,
+                        "id": 2397,
                         "nodeType": "RevertStatement",
                         "src": "373:38:10"
                       }
@@ -1403,28 +1385,28 @@
                   }
                 },
                 {
-                  "id": 2522,
+                  "id": 2400,
                   "nodeType": "PlaceholderStatement",
                   "src": "431:1:10"
                 }
               ]
             },
-            "id": 2524,
+            "id": 2402,
             "name": "tokenMustExistInPool",
             "nameLocation": "190:20:10",
             "nodeType": "ModifierDefinition",
             "parameters": {
-              "id": 2503,
+              "id": 2381,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 2502,
+                  "id": 2380,
                   "mutability": "mutable",
                   "name": "_token",
                   "nameLocation": "219:6:10",
                   "nodeType": "VariableDeclaration",
-                  "scope": 2524,
+                  "scope": 2402,
                   "src": "211:14:10",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -1433,7 +1415,7 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 2501,
+                    "id": 2379,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "211:7:10",
@@ -1454,7 +1436,7 @@
           },
           {
             "body": {
-              "id": 2539,
+              "id": 2417,
               "nodeType": "Block",
               "src": "494:122:10",
               "statements": [
@@ -1464,31 +1446,31 @@
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
                     },
-                    "id": 2532,
+                    "id": 2410,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
                     "lValueRequested": false,
                     "leftExpression": {
                       "baseExpression": {
-                        "id": 2528,
+                        "id": 2406,
                         "name": "tokenToPoolId",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 610,
+                        "referencedDeclaration": 606,
                         "src": "508:13:10",
                         "typeDescriptions": {
                           "typeIdentifier": "t_mapping$_t_address_$_t_uint256_$",
                           "typeString": "mapping(address => uint256)"
                         }
                       },
-                      "id": 2530,
+                      "id": 2408,
                       "indexExpression": {
-                        "id": 2529,
+                        "id": 2407,
                         "name": "_token",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 2526,
+                        "referencedDeclaration": 2404,
                         "src": "522:6:10",
                         "typeDescriptions": {
                           "typeIdentifier": "t_address",
@@ -1510,7 +1492,7 @@
                     "operator": ">",
                     "rightExpression": {
                       "hexValue": "30",
-                      "id": 2531,
+                      "id": 2409,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": true,
@@ -1530,11 +1512,11 @@
                       "typeString": "bool"
                     }
                   },
-                  "id": 2537,
+                  "id": 2415,
                   "nodeType": "IfStatement",
                   "src": "504:95:10",
                   "trueBody": {
-                    "id": 2536,
+                    "id": 2414,
                     "nodeType": "Block",
                     "src": "535:64:10",
                     "statements": [
@@ -1543,18 +1525,18 @@
                           "arguments": [],
                           "expression": {
                             "argumentTypes": [],
-                            "id": 2533,
+                            "id": 2411,
                             "name": "CerbySwapV1_TokenAlreadyExists",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 976,
+                            "referencedDeclaration": 912,
                             "src": "556:30:10",
                             "typeDescriptions": {
                               "typeIdentifier": "t_function_error_pure$__$returns$__$",
                               "typeString": "function () pure"
                             }
                           },
-                          "id": 2534,
+                          "id": 2412,
                           "isConstant": false,
                           "isLValue": false,
                           "isPure": false,
@@ -1569,7 +1551,7 @@
                             "typeString": "tuple()"
                           }
                         },
-                        "id": 2535,
+                        "id": 2413,
                         "nodeType": "RevertStatement",
                         "src": "549:39:10"
                       }
@@ -1577,28 +1559,28 @@
                   }
                 },
                 {
-                  "id": 2538,
+                  "id": 2416,
                   "nodeType": "PlaceholderStatement",
                   "src": "608:1:10"
                 }
               ]
             },
-            "id": 2540,
+            "id": 2418,
             "name": "tokenDoesNotExistInPool",
             "nameLocation": "454:23:10",
             "nodeType": "ModifierDefinition",
             "parameters": {
-              "id": 2527,
+              "id": 2405,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 2526,
+                  "id": 2404,
                   "mutability": "mutable",
                   "name": "_token",
                   "nameLocation": "486:6:10",
                   "nodeType": "VariableDeclaration",
-                  "scope": 2540,
+                  "scope": 2418,
                   "src": "478:14:10",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -1607,7 +1589,7 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 2525,
+                    "id": 2403,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "478:7:10",
@@ -1628,7 +1610,7 @@
           },
           {
             "body": {
-              "id": 2558,
+              "id": 2436,
               "nodeType": "Block",
               "src": "681:198:10",
               "statements": [
@@ -1638,14 +1620,14 @@
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
                     },
-                    "id": 2547,
+                    "id": 2425,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
                     "lValueRequested": false,
                     "leftExpression": {
                       "expression": {
-                        "id": 2544,
+                        "id": 2422,
                         "name": "block",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
@@ -1656,7 +1638,7 @@
                           "typeString": "block"
                         }
                       },
-                      "id": 2545,
+                      "id": 2423,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": false,
@@ -1672,11 +1654,11 @@
                     "nodeType": "BinaryOperation",
                     "operator": ">",
                     "rightExpression": {
-                      "id": 2546,
+                      "id": 2424,
                       "name": "_expireTimestamp",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 2542,
+                      "referencedDeclaration": 2420,
                       "src": "713:16:10",
                       "typeDescriptions": {
                         "typeIdentifier": "t_uint256",
@@ -1689,11 +1671,11 @@
                       "typeString": "bool"
                     }
                   },
-                  "id": 2556,
+                  "id": 2434,
                   "nodeType": "IfStatement",
                   "src": "691:171:10",
                   "trueBody": {
-                    "id": 2555,
+                    "id": 2433,
                     "nodeType": "Block",
                     "src": "731:131:10",
                     "statements": [
@@ -1702,7 +1684,7 @@
                           "arguments": [
                             {
                               "hexValue": "44",
-                              "id": 2549,
+                              "id": 2427,
                               "isConstant": false,
                               "isLValue": false,
                               "isPure": true,
@@ -1724,7 +1706,7 @@
                                 "typeString": "literal_string \"D\""
                               }
                             ],
-                            "id": 2548,
+                            "id": 2426,
                             "name": "revert",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [
@@ -1738,7 +1720,7 @@
                               "typeString": "function (string memory) pure"
                             }
                           },
-                          "id": 2550,
+                          "id": 2428,
                           "isConstant": false,
                           "isLValue": false,
                           "isPure": false,
@@ -1753,7 +1735,7 @@
                             "typeString": "tuple()"
                           }
                         },
-                        "id": 2551,
+                        "id": 2429,
                         "nodeType": "ExpressionStatement",
                         "src": "745:11:10"
                       },
@@ -1762,18 +1744,18 @@
                           "arguments": [],
                           "expression": {
                             "argumentTypes": [],
-                            "id": 2552,
+                            "id": 2430,
                             "name": "CerbySwapV1_TransactionIsExpired",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 980,
+                            "referencedDeclaration": 916,
                             "src": "817:32:10",
                             "typeDescriptions": {
                               "typeIdentifier": "t_function_error_pure$__$returns$__$",
                               "typeString": "function () pure"
                             }
                           },
-                          "id": 2553,
+                          "id": 2431,
                           "isConstant": false,
                           "isLValue": false,
                           "isPure": false,
@@ -1788,7 +1770,7 @@
                             "typeString": "tuple()"
                           }
                         },
-                        "id": 2554,
+                        "id": 2432,
                         "nodeType": "RevertStatement",
                         "src": "810:41:10"
                       }
@@ -1796,28 +1778,28 @@
                   }
                 },
                 {
-                  "id": 2557,
+                  "id": 2435,
                   "nodeType": "PlaceholderStatement",
                   "src": "871:1:10"
                 }
               ]
             },
-            "id": 2559,
+            "id": 2437,
             "name": "transactionIsNotExpired",
             "nameLocation": "631:23:10",
             "nodeType": "ModifierDefinition",
             "parameters": {
-              "id": 2543,
+              "id": 2421,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 2542,
+                  "id": 2420,
                   "mutability": "mutable",
                   "name": "_expireTimestamp",
                   "nameLocation": "663:16:10",
                   "nodeType": "VariableDeclaration",
-                  "scope": 2559,
+                  "scope": 2437,
                   "src": "655:24:10",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -1826,7 +1808,7 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 2541,
+                    "id": 2419,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
                     "src": "655:7:10",
@@ -1845,32 +1827,29 @@
             "visibility": "internal"
           }
         ],
-        "scope": 2561,
+        "scope": 2439,
         "src": "106:775:10",
         "usedErrors": [
-          976,
-          978,
-          980,
-          982,
-          984,
-          986,
-          988,
-          990,
-          992,
-          994,
-          996,
-          998,
-          1000,
-          1002,
-          1004,
-          1006,
-          1008,
-          1010,
-          1012,
-          1014,
-          1016,
-          1018,
-          1020
+          912,
+          914,
+          916,
+          918,
+          920,
+          922,
+          924,
+          926,
+          928,
+          930,
+          932,
+          934,
+          936,
+          938,
+          940,
+          942,
+          944,
+          946,
+          948,
+          950
         ]
       }
     ],
@@ -1881,8 +1860,8 @@
     "version": "0.8.11+commit.d7f03943.Emscripten.clang"
   },
   "networks": {},
-  "schemaVersion": "3.4.4",
-  "updatedAt": "2022-02-04T07:49:35.428Z",
+  "schemaVersion": "3.3.4",
+  "updatedAt": "2022-02-05T12:25:43.308Z",
   "devdoc": {
     "kind": "dev",
     "methods": {},

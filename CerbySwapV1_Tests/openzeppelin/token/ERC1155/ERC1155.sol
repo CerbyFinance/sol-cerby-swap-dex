@@ -5,7 +5,6 @@ pragma solidity ^0.8.0;
 
 import "./IERC1155.sol";
 import "./IERC1155Receiver.sol";
-import "./extensions/IERC1155MetadataURI.sol";
 import "../../utils/introspection/ERC165.sol";
 
 /**
@@ -15,7 +14,7 @@ import "../../utils/introspection/ERC165.sol";
  *
  * _Available since v3.1._
  */
-abstract contract ERC1155 is ERC165, IERC1155, IERC1155MetadataURI {
+abstract contract ERC1155 is ERC165, IERC1155 {
     // Mapping from token ID to account balances
     mapping(uint256 => mapping(address => uint256)) internal balances;
 
@@ -29,13 +28,10 @@ abstract contract ERC1155 is ERC165, IERC1155, IERC1155MetadataURI {
 
     address internal constant BURN_ADDRESS = address(0);
 
-    error ERC1155_BalanceQueryForTheZeroAddress();
-    error ERC1155_AccountsAndIdsLengthMismatch();
-    error ERC1155_TransferToZeroAddress();
-    error ERC1155_IdsAndAmountsLengthMismatch();
-    error ERC1155_MintToZeroAddress();
+    error ERC1155_CallerIsNotOwnerNorApproved();
+    error ERC1155_AddressMustNotBeZeroAddress();
+    error ERC1155_IdsLengthMismatch();
     error ERC1155_InsufficientBalanceForTransfer();
-    error ERC1155_BurnFromZeroAddress();
     error ERC1155_BurnAmountExceedsBalance();
     error ERC1155_SettingApprovalStatusForSelf();
     error ERC1155_ERC1155ReceiverRejectsTokens();
@@ -46,6 +42,27 @@ abstract contract ERC1155 is ERC165, IERC1155, IERC1155MetadataURI {
      */
     constructor(string memory _uri) {
         _setURI(_uri);
+    }
+
+    modifier addressIsApproved(address _addr) {
+        if (_addr == msg.sender && isApprovedForAll(_addr, msg.sender)) {
+            revert ERC1155_CallerIsNotOwnerNorApproved();
+        }
+        _;
+    }
+
+    modifier addressIsNotBurnAddress(address _addr) {        
+        if (_addr == BURN_ADDRESS) {
+            revert ERC1155_AddressMustNotBeZeroAddress();
+        }
+        _;
+    }
+
+    modifier idsLengthMismatch(uint256 _idsLength, uint256 _accountsLength) {
+        if (_idsLength != _accountsLength) {
+            revert ERC1155_IdsLengthMismatch();
+        }
+        _;
     }
 
     /**
@@ -88,7 +105,6 @@ abstract contract ERC1155 is ERC165, IERC1155, IERC1155MetadataURI {
         external
         view
         virtual
-        override
         returns (string memory)
     {
         return contractUri;
@@ -106,12 +122,9 @@ abstract contract ERC1155 is ERC165, IERC1155, IERC1155MetadataURI {
         view
         virtual
         override
+        addressIsNotBurnAddress(_account)
         returns (uint256)
     {
-        if (_account == BURN_ADDRESS) {
-            revert ERC1155_BalanceQueryForTheZeroAddress();
-        }
-
         return balances[_id][_account];
     }
 
@@ -127,16 +140,12 @@ abstract contract ERC1155 is ERC165, IERC1155, IERC1155MetadataURI {
         view
         virtual
         override
+        idsLengthMismatch(_ids.length, _accounts.length)
         returns (uint256[] memory)
     {
-        uint256 idsLength = _ids.length;
-        if (_accounts.length != idsLength) {
-            revert ERC1155_AccountsAndIdsLengthMismatch();
-        }
-
         uint256[] memory batchBalances = new uint256[](_accounts.length);
 
-        for (uint256 i = 0; i < idsLength; ++i) {
+        for (uint256 i = 0; i < _ids.length; ++i) {
             batchBalances[i] = balanceOf(_accounts[i], _ids[i]);
         }
 
@@ -174,11 +183,11 @@ abstract contract ERC1155 is ERC165, IERC1155, IERC1155MetadataURI {
         uint256 _id,
         uint256 _amount,
         bytes calldata _data
-    ) internal virtual {
-        if (_to == BURN_ADDRESS) {
-            revert ERC1155_TransferToZeroAddress();
-        }
-
+    ) 
+        internal 
+        virtual
+        addressIsNotBurnAddress(_to)
+    {
         address operator = msg.sender;
 
         uint256 fromBalance = balances[_id][_from];
@@ -197,63 +206,6 @@ abstract contract ERC1155 is ERC165, IERC1155, IERC1155MetadataURI {
         emit TransferSingle(operator, _from, _to, _id, _amount);
 
         _doSafeTransferAcceptanceCheck(operator, _from, _to, _id, _amount, _data);
-    }
-
-    /**
-     * @dev xref:ROOT:erc1155.adoc#batch-operations[Batched] version of {_safeTransferFrom}.
-     *
-     * Emits a {TransferBatch} event.
-     *
-     * Requirements:
-     *
-     * - If `to` refers to a smart contract, it must implement {IERC1155Receiver-onERC1155BatchReceived} and return the
-     * acceptance magic value.
-     */
-    function _safeBatchTransferFrom(
-        address _from,
-        address _to,
-        uint256[] calldata _ids,
-        uint256[] calldata _amounts,
-        bytes calldata _data
-    ) internal virtual {
-        uint256 idsLength = _ids.length;
-        if (idsLength != _amounts.length) {
-            revert ERC1155_IdsAndAmountsLengthMismatch();
-        }
-
-        if (_to == BURN_ADDRESS) {
-            revert ERC1155_TransferToZeroAddress();
-        }
-
-        address operator = msg.sender;
-
-        for (uint256 i = 0; i < idsLength; ++i) {
-            uint256 amount = _amounts[i];
-
-            uint256 fromBalance = balances[_ids[i]][_from];
-            if (fromBalance < amount) {
-                revert ERC1155_InsufficientBalanceForTransfer();
-            }
-
-            unchecked {
-                balances[_ids[i]][_from] = fromBalance - amount;
-            }
-            balances[_ids[i]][_to] += amount;
-            unchecked {
-                contractTotalSupply[_ids[i]] += amount;
-            }
-        }
-
-        emit TransferBatch(operator, _from, _to, _ids, _amounts);
-
-        _doSafeBatchTransferAcceptanceCheck(
-            operator,
-            _from,
-            _to,
-            _ids,
-            _amounts,
-            _data
-        );
     }
 
     /**
@@ -293,13 +245,12 @@ abstract contract ERC1155 is ERC165, IERC1155, IERC1155MetadataURI {
     function _mint(
         address _to,
         uint256 _id,
-        uint256 _amount,
-        bytes memory _data
-    ) internal virtual {
-        if (_to == BURN_ADDRESS) {
-            revert ERC1155_MintToZeroAddress();
-        }
-
+        uint256 _amount
+    ) 
+        internal 
+        virtual 
+        addressIsNotBurnAddress(_to)
+    {
         if (_amount == 0) {
             return;
         }
@@ -320,53 +271,7 @@ abstract contract ERC1155 is ERC165, IERC1155, IERC1155MetadataURI {
             _to,
             _id,
             _amount,
-            _data
-        );
-    }
-
-    /**
-     * @dev xref:ROOT:erc1155.adoc#batch-operations[Batched] version of {_mint}.
-     *
-     * Requirements:
-     *
-     * - `ids` and `amounts` must have the same length.
-     * - If `to` refers to a smart contract, it must implement {IERC1155Receiver-onERC1155BatchReceived} and return the
-     * acceptance magic value.
-     */
-    function _mintBatch(
-        address _to,
-        uint256[] calldata _ids,
-        uint256[] calldata _amounts,
-        bytes memory _data
-    ) internal virtual {
-        if (_to == BURN_ADDRESS) {
-            revert ERC1155_MintToZeroAddress();
-        }
-
-        uint256 idsLength = _ids.length;
-        if (idsLength != _amounts.length) {
-            revert ERC1155_IdsAndAmountsLengthMismatch();
-        }
-
-        address operator = msg.sender;
-
-        for (uint256 i = 0; i < idsLength; i++) {
-            contractTotalSupply[_ids[i]] += _amounts[i];
-
-            unchecked {
-                balances[_ids[i]][_to] += _amounts[i];
-            }
-        }
-
-        emit TransferBatch(operator, BURN_ADDRESS, _to, _ids, _amounts);
-
-        _doSafeBatchTransferAcceptanceCheck(
-            operator,
-            BURN_ADDRESS,
-            _to,
-            _ids,
-            _amounts,
-            _data
+            ""
         );
     }
 
@@ -382,11 +287,11 @@ abstract contract ERC1155 is ERC165, IERC1155, IERC1155MetadataURI {
         address _from,
         uint256 _id,
         uint256 _amount
-    ) internal virtual {
-        if (_from == BURN_ADDRESS) {
-            revert ERC1155_BurnFromZeroAddress();
-        }
-
+    ) 
+        internal 
+        virtual 
+        addressIsNotBurnAddress(_from)
+    {
         address operator = msg.sender;
 
         uint256 fromBalance = balances[_id][_from];
@@ -399,45 +304,6 @@ abstract contract ERC1155 is ERC165, IERC1155, IERC1155MetadataURI {
         }
 
         emit TransferSingle(operator, _from, BURN_ADDRESS, _id, _amount);
-    }
-
-    /**
-     * @dev xref:ROOT:erc1155.adoc#batch-operations[Batched] version of {_burn}.
-     *
-     * Requirements:
-     *
-     * - `ids` and `amounts` must have the same length.
-     */
-    function _burnBatch(
-        address _from,
-        uint256[] calldata _ids,
-        uint256[] calldata _amounts
-    ) internal virtual {
-        if (_from == BURN_ADDRESS) {
-            revert ERC1155_BurnFromZeroAddress();
-        }
-        if (_ids.length != _amounts.length) {
-            revert ERC1155_IdsAndAmountsLengthMismatch();
-        }
-
-        address operator = msg.sender;
-
-        for (uint256 i = 0; i < _ids.length; i++) {
-            uint256 id = _ids[i];
-            uint256 amount = _amounts[i];
-
-            uint256 fromBalance = balances[id][_from];
-            if (fromBalance < amount) {
-                revert ERC1155_BurnAmountExceedsBalance();
-            }
-
-            unchecked {
-                balances[id][_from] = fromBalance - amount;
-                contractTotalSupply[id] -= amount;
-            }
-        }
-
-        emit TransferBatch(operator, _from, BURN_ADDRESS, _ids, _amounts);
     }
 
     /**
@@ -477,35 +343,6 @@ abstract contract ERC1155 is ERC165, IERC1155, IERC1155MetadataURI {
                 )
             returns (bytes4 response) {
                 if (response != IERC1155Receiver.onERC1155Received.selector) {
-                    revert ERC1155_ERC1155ReceiverRejectsTokens();
-                }
-            } catch {
-                revert ERC1155_TransferToNonERC1155ReceiverImplementer();
-            }
-        }
-    }
-
-    function _doSafeBatchTransferAcceptanceCheck(
-        address _operator,
-        address _from,
-        address _to,
-        uint256[] calldata _ids,
-        uint256[] calldata _amounts,
-        bytes memory _data
-    ) private {
-        if (isContract(_to)) {
-            try
-                IERC1155Receiver(_to).onERC1155BatchReceived(
-                    _operator,
-                    _from,
-                    _ids,
-                    _amounts,
-                    _data
-                )
-            returns (bytes4 response) {
-                if (
-                    response != IERC1155Receiver.onERC1155BatchReceived.selector
-                ) {
                     revert ERC1155_ERC1155ReceiverRejectsTokens();
                 }
             } catch {

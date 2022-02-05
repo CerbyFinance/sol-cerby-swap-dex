@@ -4,7 +4,6 @@
 
 import { AccessControlContract } from "./AccessControl";
 import { AccessControlEnumerableContract } from "./AccessControlEnumerable";
-import { CerbyBotDetectionContract } from "./CerbyBotDetection";
 import { CerbyCronJobsExecutionContract } from "./CerbyCronJobsExecution";
 import { CerbySwapLP1155V1Contract } from "./CerbySwapLP1155V1";
 import { CerbySwapV1Contract } from "./CerbySwapV1";
@@ -21,16 +20,13 @@ import { CerbySwapV1SwapFunctionsContract } from "./CerbySwapV1SwapFunctions";
 import { CerbySwapV1VaultContract } from "./CerbySwapV1Vault";
 import { CerbySwapV1VaultImplementationContract } from "./CerbySwapV1VaultImplementation";
 import { ERC1155Contract } from "./ERC1155";
-import { ERC1155HolderContract } from "./ERC1155Holder";
-import { ERC1155ReceiverContract } from "./ERC1155Receiver";
 import { ERC1155SupplyContract } from "./ERC1155Supply";
 import { ERC165Contract } from "./ERC165";
 import { ERC20Contract } from "./ERC20";
 import { IAccessControlContract } from "./IAccessControl";
 import { IAccessControlEnumerableContract } from "./IAccessControlEnumerable";
+import { IBasicERC20Contract } from "./IBasicERC20";
 import { ICerbyBotDetectionContract } from "./ICerbyBotDetection";
-import { ICerbyCronJobsContract } from "./ICerbyCronJobs";
-import { ICerbySwapLP1155V1Contract } from "./ICerbySwapLP1155V1";
 import { ICerbySwapV1VaultContract } from "./ICerbySwapV1Vault";
 import { ICerbySwapV1VaultImplementationContract } from "./ICerbySwapV1VaultImplementation";
 import { ICerbyTokenContract } from "./ICerbyToken";
@@ -41,20 +37,17 @@ import { IERC1155ReceiverContract } from "./IERC1155Receiver";
 import { IERC165Contract } from "./IERC165";
 import { IERC20Contract } from "./IERC20";
 import { IERC20MetadataContract } from "./IERC20Metadata";
-import { IWethContract } from "./IWeth";
 import { MigrationsContract } from "./Migrations";
 import { OwnableContract } from "./Ownable";
 import { TestCerUsdTokenContract } from "./TestCerUsdToken";
 import { TestCerbyTokenContract } from "./TestCerbyToken";
 import { TestUsdcTokenContract } from "./TestUsdcToken";
-import { WETH9Contract } from "./WETH9";
 
 declare global {
   namespace Truffle {
     interface Artifacts {
       require(name: "AccessControl"): AccessControlContract;
       require(name: "AccessControlEnumerable"): AccessControlEnumerableContract;
-      require(name: "CerbyBotDetection"): CerbyBotDetectionContract;
       require(name: "CerbyCronJobsExecution"): CerbyCronJobsExecutionContract;
       require(name: "CerbySwapLP1155V1"): CerbySwapLP1155V1Contract;
       require(name: "CerbySwapV1"): CerbySwapV1Contract;
@@ -89,8 +82,6 @@ declare global {
         name: "CerbySwapV1_VaultImplementation"
       ): CerbySwapV1VaultImplementationContract;
       require(name: "ERC1155"): ERC1155Contract;
-      require(name: "ERC1155Holder"): ERC1155HolderContract;
-      require(name: "ERC1155Receiver"): ERC1155ReceiverContract;
       require(name: "ERC1155Supply"): ERC1155SupplyContract;
       require(name: "ERC165"): ERC165Contract;
       require(name: "ERC20"): ERC20Contract;
@@ -98,9 +89,8 @@ declare global {
       require(
         name: "IAccessControlEnumerable"
       ): IAccessControlEnumerableContract;
+      require(name: "IBasicERC20"): IBasicERC20Contract;
       require(name: "ICerbyBotDetection"): ICerbyBotDetectionContract;
-      require(name: "ICerbyCronJobs"): ICerbyCronJobsContract;
-      require(name: "ICerbySwapLP1155V1"): ICerbySwapLP1155V1Contract;
       require(name: "ICerbySwapV1_Vault"): ICerbySwapV1VaultContract;
       require(
         name: "ICerbySwapV1_VaultImplementation"
@@ -113,13 +103,11 @@ declare global {
       require(name: "IERC165"): IERC165Contract;
       require(name: "IERC20"): IERC20Contract;
       require(name: "IERC20Metadata"): IERC20MetadataContract;
-      require(name: "IWeth"): IWethContract;
       require(name: "Migrations"): MigrationsContract;
       require(name: "Ownable"): OwnableContract;
       require(name: "TestCerUsdToken"): TestCerUsdTokenContract;
       require(name: "TestCerbyToken"): TestCerbyTokenContract;
       require(name: "TestUsdcToken"): TestUsdcTokenContract;
-      require(name: "WETH9"): WETH9Contract;
     }
   }
 }
@@ -129,10 +117,6 @@ export {
   AccessControlEnumerableContract,
   AccessControlEnumerableInstance,
 } from "./AccessControlEnumerable";
-export {
-  CerbyBotDetectionContract,
-  CerbyBotDetectionInstance,
-} from "./CerbyBotDetection";
 export {
   CerbyCronJobsExecutionContract,
   CerbyCronJobsExecutionInstance,
@@ -191,11 +175,6 @@ export {
   CerbySwapV1VaultImplementationInstance,
 } from "./CerbySwapV1VaultImplementation";
 export { ERC1155Contract, ERC1155Instance } from "./ERC1155";
-export { ERC1155HolderContract, ERC1155HolderInstance } from "./ERC1155Holder";
-export {
-  ERC1155ReceiverContract,
-  ERC1155ReceiverInstance,
-} from "./ERC1155Receiver";
 export { ERC1155SupplyContract, ERC1155SupplyInstance } from "./ERC1155Supply";
 export { ERC165Contract, ERC165Instance } from "./ERC165";
 export { ERC20Contract, ERC20Instance } from "./ERC20";
@@ -207,18 +186,11 @@ export {
   IAccessControlEnumerableContract,
   IAccessControlEnumerableInstance,
 } from "./IAccessControlEnumerable";
+export { IBasicERC20Contract, IBasicERC20Instance } from "./IBasicERC20";
 export {
   ICerbyBotDetectionContract,
   ICerbyBotDetectionInstance,
 } from "./ICerbyBotDetection";
-export {
-  ICerbyCronJobsContract,
-  ICerbyCronJobsInstance,
-} from "./ICerbyCronJobs";
-export {
-  ICerbySwapLP1155V1Contract,
-  ICerbySwapLP1155V1Instance,
-} from "./ICerbySwapLP1155V1";
 export {
   ICerbySwapV1VaultContract,
   ICerbySwapV1VaultInstance,
@@ -247,7 +219,6 @@ export {
   IERC20MetadataContract,
   IERC20MetadataInstance,
 } from "./IERC20Metadata";
-export { IWethContract, IWethInstance } from "./IWeth";
 export { MigrationsContract, MigrationsInstance } from "./Migrations";
 export { OwnableContract, OwnableInstance } from "./Ownable";
 export {
@@ -259,4 +230,3 @@ export {
   TestCerbyTokenInstance,
 } from "./TestCerbyToken";
 export { TestUsdcTokenContract, TestUsdcTokenInstance } from "./TestUsdcToken";
-export { WETH9Contract, WETH9Instance } from "./WETH9";

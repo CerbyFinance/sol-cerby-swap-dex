@@ -11,11 +11,11 @@ abstract contract CerbySwapV1_AdminFunctions is
 {
     // TODO: remove on production
     function testSetupTokens(
-        address, // Q: empty?
+        address, 
         address _testCerbyToken,
         address _cerUsdToken,
         address _testUsdcToken,
-        address // Q: empty?
+        address
     )
         external
     {
@@ -58,7 +58,7 @@ abstract contract CerbySwapV1_AdminFunctions is
         _createPool(
             nativeToken,
             1e15,
-            1e18 * 1e6, // Q: combine
+            1e18 * 1e6,
             MAX_CER_USD_CREDIT,
             msg.sender
         );
@@ -152,7 +152,7 @@ abstract contract CerbySwapV1_AdminFunctions is
         Pool storage pool = pools[tokenToPoolId[_token]];
 
         // changing credit for user-created pool
-        pool.creditCerUsd = uint112(
+        pool.creditCerUsd = uint120(
             _amountCerUsdCredit
         );
 

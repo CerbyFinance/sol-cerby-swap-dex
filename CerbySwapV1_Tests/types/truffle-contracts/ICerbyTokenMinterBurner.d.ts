@@ -17,29 +17,29 @@ type AllEvents = never;
 export interface ICerbyTokenMinterBurnerInstance
   extends Truffle.ContractInstance {
   balanceOf(
-    account: string,
+    _account: string,
     txDetails?: Truffle.TransactionDetails
   ): Promise<BN>;
 
   burnHumanAddress: {
     (
-      from: string,
-      desiredAmountToBurn: number | BN | string,
+      _from: string,
+      _desiredAmountToBurn: number | BN | string,
       txDetails?: Truffle.TransactionDetails
     ): Promise<Truffle.TransactionResponse<AllEvents>>;
     call(
-      from: string,
-      desiredAmountToBurn: number | BN | string,
+      _from: string,
+      _desiredAmountToBurn: number | BN | string,
       txDetails?: Truffle.TransactionDetails
     ): Promise<void>;
     sendTransaction(
-      from: string,
-      desiredAmountToBurn: number | BN | string,
+      _from: string,
+      _desiredAmountToBurn: number | BN | string,
       txDetails?: Truffle.TransactionDetails
     ): Promise<string>;
     estimateGas(
-      from: string,
-      desiredAmountToBurn: number | BN | string,
+      _from: string,
+      _desiredAmountToBurn: number | BN | string,
       txDetails?: Truffle.TransactionDetails
     ): Promise<number>;
   };
@@ -51,23 +51,23 @@ export interface ICerbyTokenMinterBurnerInstance
 
   mintHumanAddress: {
     (
-      to: string,
-      desiredAmountToMint: number | BN | string,
+      _to: string,
+      _desiredAmountToMint: number | BN | string,
       txDetails?: Truffle.TransactionDetails
     ): Promise<Truffle.TransactionResponse<AllEvents>>;
     call(
-      to: string,
-      desiredAmountToMint: number | BN | string,
+      _to: string,
+      _desiredAmountToMint: number | BN | string,
       txDetails?: Truffle.TransactionDetails
     ): Promise<void>;
     sendTransaction(
-      to: string,
-      desiredAmountToMint: number | BN | string,
+      _to: string,
+      _desiredAmountToMint: number | BN | string,
       txDetails?: Truffle.TransactionDetails
     ): Promise<string>;
     estimateGas(
-      to: string,
-      desiredAmountToMint: number | BN | string,
+      _to: string,
+      _desiredAmountToMint: number | BN | string,
       txDetails?: Truffle.TransactionDetails
     ): Promise<number>;
   };
@@ -76,56 +76,56 @@ export interface ICerbyTokenMinterBurnerInstance
 
   transferCustom: {
     (
-      sender: string,
-      recipient: string,
-      amount: number | BN | string,
+      _sender: string,
+      _recipient: string,
+      _amount: number | BN | string,
       txDetails?: Truffle.TransactionDetails
     ): Promise<Truffle.TransactionResponse<AllEvents>>;
     call(
-      sender: string,
-      recipient: string,
-      amount: number | BN | string,
+      _sender: string,
+      _recipient: string,
+      _amount: number | BN | string,
       txDetails?: Truffle.TransactionDetails
     ): Promise<void>;
     sendTransaction(
-      sender: string,
-      recipient: string,
-      amount: number | BN | string,
+      _sender: string,
+      _recipient: string,
+      _amount: number | BN | string,
       txDetails?: Truffle.TransactionDetails
     ): Promise<string>;
     estimateGas(
-      sender: string,
-      recipient: string,
-      amount: number | BN | string,
+      _sender: string,
+      _recipient: string,
+      _amount: number | BN | string,
       txDetails?: Truffle.TransactionDetails
     ): Promise<number>;
   };
 
   methods: {
     balanceOf(
-      account: string,
+      _account: string,
       txDetails?: Truffle.TransactionDetails
     ): Promise<BN>;
 
     burnHumanAddress: {
       (
-        from: string,
-        desiredAmountToBurn: number | BN | string,
+        _from: string,
+        _desiredAmountToBurn: number | BN | string,
         txDetails?: Truffle.TransactionDetails
       ): Promise<Truffle.TransactionResponse<AllEvents>>;
       call(
-        from: string,
-        desiredAmountToBurn: number | BN | string,
+        _from: string,
+        _desiredAmountToBurn: number | BN | string,
         txDetails?: Truffle.TransactionDetails
       ): Promise<void>;
       sendTransaction(
-        from: string,
-        desiredAmountToBurn: number | BN | string,
+        _from: string,
+        _desiredAmountToBurn: number | BN | string,
         txDetails?: Truffle.TransactionDetails
       ): Promise<string>;
       estimateGas(
-        from: string,
-        desiredAmountToBurn: number | BN | string,
+        _from: string,
+        _desiredAmountToBurn: number | BN | string,
         txDetails?: Truffle.TransactionDetails
       ): Promise<number>;
     };
@@ -137,23 +137,23 @@ export interface ICerbyTokenMinterBurnerInstance
 
     mintHumanAddress: {
       (
-        to: string,
-        desiredAmountToMint: number | BN | string,
+        _to: string,
+        _desiredAmountToMint: number | BN | string,
         txDetails?: Truffle.TransactionDetails
       ): Promise<Truffle.TransactionResponse<AllEvents>>;
       call(
-        to: string,
-        desiredAmountToMint: number | BN | string,
+        _to: string,
+        _desiredAmountToMint: number | BN | string,
         txDetails?: Truffle.TransactionDetails
       ): Promise<void>;
       sendTransaction(
-        to: string,
-        desiredAmountToMint: number | BN | string,
+        _to: string,
+        _desiredAmountToMint: number | BN | string,
         txDetails?: Truffle.TransactionDetails
       ): Promise<string>;
       estimateGas(
-        to: string,
-        desiredAmountToMint: number | BN | string,
+        _to: string,
+        _desiredAmountToMint: number | BN | string,
         txDetails?: Truffle.TransactionDetails
       ): Promise<number>;
     };
@@ -162,27 +162,27 @@ export interface ICerbyTokenMinterBurnerInstance
 
     transferCustom: {
       (
-        sender: string,
-        recipient: string,
-        amount: number | BN | string,
+        _sender: string,
+        _recipient: string,
+        _amount: number | BN | string,
         txDetails?: Truffle.TransactionDetails
       ): Promise<Truffle.TransactionResponse<AllEvents>>;
       call(
-        sender: string,
-        recipient: string,
-        amount: number | BN | string,
+        _sender: string,
+        _recipient: string,
+        _amount: number | BN | string,
         txDetails?: Truffle.TransactionDetails
       ): Promise<void>;
       sendTransaction(
-        sender: string,
-        recipient: string,
-        amount: number | BN | string,
+        _sender: string,
+        _recipient: string,
+        _amount: number | BN | string,
         txDetails?: Truffle.TransactionDetails
       ): Promise<string>;
       estimateGas(
-        sender: string,
-        recipient: string,
-        amount: number | BN | string,
+        _sender: string,
+        _recipient: string,
+        _amount: number | BN | string,
         txDetails?: Truffle.TransactionDetails
       ): Promise<number>;
     };

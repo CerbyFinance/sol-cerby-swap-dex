@@ -85,15 +85,6 @@ abstract contract CerbySwapV1_ERC1155 is ERC1155, CerbyCronJobsExecution {
         );
     }
 
-    function _notOwnerNotApproved(
-        address _from
-    )
-        internal
-        view
-        returns (bool)
-    {
-        return _from == msg.sender && isApprovedForAll(_from, msg.sender);
-    }
 
     function safeTransferFrom(
         address _from,
@@ -105,44 +96,14 @@ abstract contract CerbySwapV1_ERC1155 is ERC1155, CerbyCronJobsExecution {
         external
         virtual // why?
         override
+        addressIsApproved(_from)
         executeCronJobs
     {
-        // Q: duplicate
-        if (_notOwnerNotApproved(_from) == true) {
-            revert CerbySwapLP1155V1_CallerIsNotOwnerNorApproved();
-        }
-
         _safeTransferFrom(
             _from,
             _to,
             _id,
             _amount,
-            _data
-        );
-    }
-
-    function safeBatchTransferFrom(
-        address _from,
-        address _to,
-        uint256[] calldata _ids,
-        uint256[] calldata _amounts,
-        bytes calldata _data
-    )
-        external
-        virtual // why?
-        override
-        executeCronJobs
-    {
-        // Q: duplicate (created function)
-        if (_notOwnerNotApproved(_from) == true) {
-            revert CerbySwapLP1155V1_CallerIsNotOwnerNorApproved();
-        }
-
-        _safeBatchTransferFrom(
-            _from,
-            _to,
-            _ids,
-            _amounts,
             _data
         );
     }

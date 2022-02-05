@@ -6,7 +6,6 @@ import "./CerbySwapV1_LiquidityFunctions.sol";
 
 abstract contract CerbySwapV1_SwapFunctions is CerbySwapV1_LiquidityFunctions {
 
-    // Q: ifs - simplify, throw unnecessary stuff
     function swapExactTokensForTokens(
         address _tokenIn,
         address _tokenOut,
@@ -21,6 +20,12 @@ abstract contract CerbySwapV1_SwapFunctions is CerbySwapV1_LiquidityFunctions {
         // checkForBots(msg.sender) // TODO: enable on production
         returns (uint256[] memory)
     {
+        // does not make sense to do the swap ANY --> ANY
+        if (_tokenIn == _tokenOut) {
+            revert("L"); // TODO: remove this line on production
+            revert CerbySwapV1_SwappingTokenToSameTokenIsForbidden();
+        }
+
         // amountTokensIn must be larger than 1 to avoid rounding errors
         if (_amountTokensIn <= 1) {
             revert("F"); // TODO: remove this line on production
@@ -31,17 +36,15 @@ abstract contract CerbySwapV1_SwapFunctions is CerbySwapV1_LiquidityFunctions {
             _tokenIn
         );
 
-        address vaultAddressOut = getVaultCloneAddressByToken(
-            _tokenOut
-        );
-
         uint256[] memory amounts = new uint256[](2);
         amounts[0] = _amountTokensIn;
 
+        PoolBalances memory poolInBalancesBefore;
+
         // swaping XXX --> cerUSD
-        if (_tokenIn != cerUsdToken && _tokenOut == cerUsdToken) {
+        if (_tokenOut == cerUsdToken) {
             // getting pool balances before the swap
-            PoolBalances memory poolInBalancesBefore = _getPoolBalances(
+            poolInBalancesBefore = _getPoolBalances(
                 _tokenIn
             );
 
@@ -79,16 +82,21 @@ abstract contract CerbySwapV1_SwapFunctions is CerbySwapV1_LiquidityFunctions {
         }
 
         // swaping cerUSD --> YYY
-        if (_tokenIn == cerUsdToken && _tokenOut != cerUsdToken) {
+        address vaultAddressOut = getVaultCloneAddressByToken(
+            _tokenOut
+        );
+
+        PoolBalances memory poolOutBalancesBefore;
+
+        if (_tokenIn == cerUsdToken) {
             // getting pool balances before the swap
-            PoolBalances memory poolOutBalancesBefore = _getPoolBalances(
+            poolOutBalancesBefore = _getPoolBalances(
                 _tokenOut
             );
 
             // getting amountTokensOut
             amounts[1] = _getOutputExactCerUsdForTokens(
                 poolOutBalancesBefore,
-                _tokenOut,
                 _amountTokensIn
             );
 
@@ -118,74 +126,65 @@ abstract contract CerbySwapV1_SwapFunctions is CerbySwapV1_LiquidityFunctions {
             return amounts;
         }
 
+        // if (tokenIn != tokenOut && tokenIn != cerUsdToken && tokenOut != cerUsdToken)
         // swaping XXX --> cerUsd --> YYY (or XXX --> YYY)
-        if (
-            _tokenIn != cerUsdToken &&
-            _tokenOut != cerUsdToken &&
-            _tokenIn != _tokenOut
-        ) {
-            // getting pool balances before the swap
-            PoolBalances memory poolInBalancesBefore = _getPoolBalances(
-                _tokenIn
-            );
+    
+        // getting pool balances before the swap
+        poolInBalancesBefore = _getPoolBalances(
+            _tokenIn
+        );
 
-            // getting amountTokensOut=
-            uint256 amountCerUsdOut = _getOutputExactTokensForCerUsd(
-                poolInBalancesBefore,
-                _tokenIn,
-                _amountTokensIn
-            );
+        // getting amountTokensOut=
+        uint256 amountCerUsdOut = _getOutputExactTokensForCerUsd(
+            poolInBalancesBefore,
+            _tokenIn,
+            _amountTokensIn
+        );
 
-            // getting pool balances before the swap
-            PoolBalances memory poolOutBalancesBefore = _getPoolBalances(
-                _tokenOut
-            );
+        // getting pool balances before the swap
+        poolOutBalancesBefore = _getPoolBalances(
+            _tokenOut
+        );
 
-            amounts[1] = _getOutputExactCerUsdForTokens(
-                poolOutBalancesBefore,
-                _tokenOut,
-                amountCerUsdOut
-            );
+        amounts[1] = _getOutputExactCerUsdForTokens(
+            poolOutBalancesBefore,
+            amountCerUsdOut
+        );
 
-            // checking slippage
-            if (amounts[1] < _minAmountTokensOut) {
-                revert("i"); // TODO: remove this line on production
-                revert CerbySwapV1_OutputTokensAmountIsLowerThanMinimumSpecified();
-            }
-
-            // safely transferring tokens from sender to the vault
-            _safeTransferFromHelper(
-                _tokenIn,
-                msg.sender,
-                vaultAddressIn,
-                _amountTokensIn
-            );
-
-            // swapping XXX ---> cerUSD
-            // keeping all output cerUSD in the contract without sending
-            _swap(
-                _tokenIn,
-                poolInBalancesBefore,
-                0,
-                amountCerUsdOut,
-                vaultAddressOut
-            );
-
-            // swapping cerUSD ---> YYY
-            _swap(
-                _tokenOut, 
-                poolOutBalancesBefore,
-                amounts[1],
-                0,
-                _transferTo
-            );
-
-            return amounts;
+        // checking slippage
+        if (amounts[1] < _minAmountTokensOut) {
+            revert("i"); // TODO: remove this line on production
+            revert CerbySwapV1_OutputTokensAmountIsLowerThanMinimumSpecified();
         }
 
-        // tokenIn == tokenOut clause
-        revert("L"); // TODO: remove this line on production
-        revert CerbySwapV1_SwappingTokenToSameTokenIsForbidden();
+        // safely transferring tokens from sender to the vault
+        _safeTransferFromHelper(
+            _tokenIn,
+            msg.sender,
+            vaultAddressIn,
+            _amountTokensIn
+        );
+
+        // swapping XXX ---> cerUSD
+        // keeping all output cerUSD in the contract without sending
+        _swap(
+            _tokenIn,
+            poolInBalancesBefore,
+            0,
+            amountCerUsdOut,
+            vaultAddressOut
+        );
+
+        // swapping cerUSD ---> YYY
+        _swap(
+            _tokenOut, 
+            poolOutBalancesBefore,
+            amounts[1],
+            0,
+            _transferTo
+        );
+
+        return amounts;
     }
 
     // Q: ifs - simplify, throw unnecessary stuff
@@ -203,21 +202,24 @@ abstract contract CerbySwapV1_SwapFunctions is CerbySwapV1_LiquidityFunctions {
         // checkForBots(msg.sender) // TODO: enable on production
         returns (uint256[] memory)
     {
+        if (_tokenIn == _tokenOut) {
+            revert("L"); // TODO: remove this line on production
+            revert CerbySwapV1_SwappingTokenToSameTokenIsForbidden();
+        }
+
         address vaultAddressIn = getVaultCloneAddressByToken(
             _tokenIn
-        );
-
-        address vaultAddressOut = getVaultCloneAddressByToken(
-            _tokenOut
         );
 
         uint256[] memory amounts = new uint256[](2);
         amounts[1] = _amountTokensOut;
 
+        PoolBalances memory poolInBalancesBefore;
+
         // swapping XXX --> cerUSD
-        if (_tokenIn != cerUsdToken && _tokenOut == cerUsdToken) {
+        if (_tokenOut == cerUsdToken) {
             // getting pool balances before the swap
-            PoolBalances memory poolInBalancesBefore = _getPoolBalances(
+            poolInBalancesBefore = _getPoolBalances(
                 _tokenIn
             );
 
@@ -261,16 +263,21 @@ abstract contract CerbySwapV1_SwapFunctions is CerbySwapV1_LiquidityFunctions {
         }
 
         // swapping cerUSD --> YYY
-        if (_tokenIn == cerUsdToken && _tokenOut != cerUsdToken) {
+        address vaultAddressOut = getVaultCloneAddressByToken(
+            _tokenOut
+        );
+
+        PoolBalances memory poolOutBalancesBefore;
+
+        if (_tokenIn == cerUsdToken) {
             // getting pool balances before the swap
-            PoolBalances memory poolOutBalancesBefore = _getPoolBalances(
+            poolOutBalancesBefore = _getPoolBalances(
                 _tokenOut
             );
 
             // getting amountTokensOut
             amounts[0] = _getInputCerUsdForExactTokens(
                 poolOutBalancesBefore,
-                _tokenOut,
                 _amountTokensOut
             );
 
@@ -306,85 +313,76 @@ abstract contract CerbySwapV1_SwapFunctions is CerbySwapV1_LiquidityFunctions {
             return amounts;
         }
 
+        // if (_tokenIn != cerUsdToken && _tokenOut != cerUsdToken && _tokenIn != _tokenOut)
         // swaping XXX --> cerUsd --> YYY (or XXX --> YYY)
-        if (
-            _tokenIn != cerUsdToken &&
-            _tokenOut != cerUsdToken &&
-            _tokenIn != _tokenOut
-        ) {
-            // getting pool balances before the swap
-            PoolBalances memory poolOutBalancesBefore = _getPoolBalances(
-                _tokenOut
-            );
+    
+        // getting pool balances before the swap
+        poolOutBalancesBefore = _getPoolBalances(
+            _tokenOut
+        );
 
-            // getting amountTokensOut
-            uint256 amountCerUsdOut = _getInputCerUsdForExactTokens(
-                poolOutBalancesBefore,
-                _tokenOut,
-                _amountTokensOut
-            );
+        // getting amountTokensOut
+        uint256 amountCerUsdOut = _getInputCerUsdForExactTokens(
+            poolOutBalancesBefore,
+            _amountTokensOut
+        );
 
-            // amountCerUsdOut must be larger than 1 to avoid rounding errors
-            if (amountCerUsdOut <= 1) {
-                revert("U"); // TODO: remove this line on production
-                revert CerbySwapV1_AmountOfCerUsdMustBeLargerThanOne();
-            }
-
-            // getting pool balances before the swap
-            PoolBalances memory poolInBalancesBefore = _getPoolBalances(
-                _tokenIn
-            );
-
-            amounts[0] = _getInputTokensForExactCerUsd(
-                poolInBalancesBefore,
-                _tokenIn,
-                amountCerUsdOut
-            );
-
-            // amountTokensIn must be larger than 1 to avoid rounding errors
-            if (amounts[0] <= 1) {
-                revert("U"); // TODO: remove this line on production
-                revert CerbySwapV1_AmountOfTokensMustBeLargerThanOne();
-            }
-
-            // checking slippage
-            if (amounts[0] > _maxAmountTokensIn) {
-                revert("K"); // TODO: remove this line on production
-                revert CerbySwapV1_InputTokensAmountIsLargerThanMaximumSpecified();
-            }
-
-            // safely transferring tokens from sender to the vault
-            _safeTransferFromHelper(
-                _tokenIn,
-                msg.sender,
-                vaultAddressIn,
-                amounts[0]
-            );
-
-            // swapping XXX ---> cerUSD
-            _swap(
-                _tokenIn,
-                poolInBalancesBefore,
-                0,
-                amountCerUsdOut,
-                vaultAddressOut
-            );
-
-            // swapping cerUSD ---> YYY
-            _swap(
-                _tokenOut,
-                poolOutBalancesBefore,
-                _amountTokensOut,
-                0,
-                _transferTo
-            );
-
-            return amounts;
+        // amountCerUsdOut must be larger than 1 to avoid rounding errors
+        if (amountCerUsdOut <= 1) {
+            revert("U"); // TODO: remove this line on production
+            revert CerbySwapV1_AmountOfCerUsdMustBeLargerThanOne();
         }
 
-        // tokenIn == tokenOut clause
-        revert("L"); // TODO: remove this line on production
-        revert CerbySwapV1_SwappingTokenToSameTokenIsForbidden();
+        // getting pool balances before the swap
+        poolInBalancesBefore = _getPoolBalances(
+            _tokenIn
+        );
+
+        amounts[0] = _getInputTokensForExactCerUsd(
+            poolInBalancesBefore,
+            _tokenIn,
+            amountCerUsdOut
+        );
+
+        // amountTokensIn must be larger than 1 to avoid rounding errors
+        if (amounts[0] <= 1) {
+            revert("U"); // TODO: remove this line on production
+            revert CerbySwapV1_AmountOfTokensMustBeLargerThanOne();
+        }
+
+        // checking slippage
+        if (amounts[0] > _maxAmountTokensIn) {
+            revert("K"); // TODO: remove this line on production
+            revert CerbySwapV1_InputTokensAmountIsLargerThanMaximumSpecified();
+        }
+
+        // safely transferring tokens from sender to the vault
+        _safeTransferFromHelper(
+            _tokenIn,
+            msg.sender,
+            vaultAddressIn,
+            amounts[0]
+        );
+
+        // swapping XXX ---> cerUSD
+        _swap(
+            _tokenIn,
+            poolInBalancesBefore,
+            0,
+            amountCerUsdOut,
+            vaultAddressOut
+        );
+
+        // swapping cerUSD ---> YYY
+        _swap(
+            _tokenOut,
+            poolOutBalancesBefore,
+            _amountTokensOut,
+            0,
+            _transferTo
+        );
+
+        return amounts;
     }
 
     function _swap(
@@ -395,7 +393,6 @@ abstract contract CerbySwapV1_SwapFunctions is CerbySwapV1_LiquidityFunctions {
         address _transferTo
     )
         private
-        tokenMustExistInPool(_token)
     {
         PoolBalances memory poolBalancesAfter = _getPoolBalances(
             _token
@@ -414,9 +411,8 @@ abstract contract CerbySwapV1_SwapFunctions is CerbySwapV1_LiquidityFunctions {
             revert CerbySwapV1_AmountOfCerUsdOrTokensInMustBeLargerThanOne();
         }
 
-        Pool storage pool = pools[tokenToPoolId[_token]];
-
         // checking if cerUsd credit is enough to cover this swap
+        Pool storage pool = pools[tokenToPoolId[_token]];
         if (
             pool.creditCerUsd < MAX_CER_USD_CREDIT &&
             pool.creditCerUsd + amountCerUsdIn < _amountCerUsdOut
@@ -430,21 +426,35 @@ abstract contract CerbySwapV1_SwapFunctions is CerbySwapV1_LiquidityFunctions {
         {
             // calculating fees
             // if swap is ANY --> cerUSD, fee is calculated
-            // if swap is cerUSD --> ANY, fee is zero (oneMinusFee = FEE_DENORM)
+            // else swap is cerUSD --> ANY, fee is zero (oneMinusFee = FEE_DENORM)
             if (amountCerUsdIn > 1 && amountTokensIn <= 1) {
-                // updating cache in while gas estimations to avoid out of gas error
+
+                // updating cache while gas estimations to avoid out of gas error by artificially inflating gas limit
                 // caching it for whole current period
+                uint256 lastPeriodI = uint256(pool.lastCachedTradePeriod);
                 if (
-                    currentPeriod != pool.lastCachedTradePeriod ||
+                    lastPeriodI != currentPeriod  ||
                     tx.gasprice == 0
                 ) {
-                    pool.lastCachedTradePeriod = uint8(currentPeriod);
+
+                    // setting trade volume periods to 1
+                    // iterating from (lastCachedTradePeriod+1) to currentPeriod (inclusive)
+                    uint256 endPeriod = currentPeriod < lastPeriodI
+                        ? currentPeriod + NUMBER_OF_TRADE_PERIODS
+                        : currentPeriod;
+                    while(++lastPeriodI <= endPeriod) {
+                        pool.tradeVolumePerPeriodInCerUsd[lastPeriodI % NUMBER_OF_TRADE_PERIODS] = 1; 
+                    }
+
+                    // caching oneMinusFee
                     pool.lastCachedOneMinusFee = uint16(
                         _getCurrentOneMinusFeeBasedOnTrades(
                             pool,
                             _poolBalancesBefore
                         )
                     );
+
+                    pool.lastCachedTradePeriod = uint8(currentPeriod);
                 }
                 oneMinusFee = pool.lastCachedOneMinusFee;
             }
@@ -471,7 +481,7 @@ abstract contract CerbySwapV1_SwapFunctions is CerbySwapV1_LiquidityFunctions {
 
             // updating creditCerUsd only if pool is user-created
             if (pool.creditCerUsd < MAX_CER_USD_CREDIT) {
-                pool.creditCerUsd = uint112(
+                pool.creditCerUsd = uint120(
                     uint256(pool.creditCerUsd)
                         + amountCerUsdIn
                         - _amountCerUsdOut
@@ -480,7 +490,6 @@ abstract contract CerbySwapV1_SwapFunctions is CerbySwapV1_LiquidityFunctions {
 
             // updating 1 hour trade pool values
             // only for direction ANY --> cerUSD
-
             if (_amountCerUsdOut > TRADE_VOLUME_DENORM) {
                 // or else amountCerUsdOut / TRADE_VOLUME_DENORM == 0
                 // stores in 10xUSD value, up-to $40B per 4 hours per pair will be stored correctly
@@ -493,23 +502,7 @@ abstract contract CerbySwapV1_SwapFunctions is CerbySwapV1_LiquidityFunctions {
                     ? uint32(updatedTradeVolume)
                     : type(uint32).max;
             }
-
-            uint256 nextPeriod = currentPeriod + 1;
-
-            // clearing next 1 hour trade value
-            if (pool.tradeVolumePerPeriodInCerUsd[nextPeriod] > 1) {
-                // gas saving to not zero the field
-                pool.tradeVolumePerPeriodInCerUsd[nextPeriod] = 1;
-            }
         }
-        // safely transfering tokens
-        // and making sure exact amounts were actually transferred
-        _safeTransferFromHelper(
-            _token,
-            getVaultCloneAddressByToken(_token),
-            _transferTo,
-            _amountTokensOut
-        );
 
         // safely transfering cerUSD
         _safeTransferFromHelper(
@@ -517,6 +510,15 @@ abstract contract CerbySwapV1_SwapFunctions is CerbySwapV1_LiquidityFunctions {
             getVaultCloneAddressByToken(_token),
             _transferTo,
             _amountCerUsdOut
+        );
+
+        // safely transfering tokens
+        // and making sure exact amounts were actually transferred
+        _safeTransferFromHelper(
+            _token,
+            getVaultCloneAddressByToken(_token),
+            _transferTo,
+            _amountTokensOut
         );
 
         // Swap event is needed to post in telegram channel

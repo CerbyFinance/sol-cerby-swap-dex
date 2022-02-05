@@ -51,7 +51,7 @@ abstract contract CerbySwapV1_GetFunctions is
     {
         // getting pool storage link (saves gas compared to memory)
         Pool storage pool = pools[tokenToPoolId[_token]];
-        // Q: // should then here be also storage?
+        
         PoolBalances memory poolBalances = _getPoolBalances(
             _token
         );
@@ -71,10 +71,13 @@ abstract contract CerbySwapV1_GetFunctions is
         view
         returns (uint256)
     {
+        // caller responsibility to provide
+        // _tokenIn != _tokenOut
+
         uint256 amountTokensOut;
 
         // direction XXX --> cerUSD
-        if (_tokenIn != cerUsdToken && _tokenOut == cerUsdToken) {
+        if (_tokenOut == cerUsdToken) {
             // getting amountTokensOut
             amountTokensOut = _getOutputExactTokensForCerUsd(
                 _getPoolBalances(_tokenIn),
@@ -85,11 +88,10 @@ abstract contract CerbySwapV1_GetFunctions is
         }
 
         // direction cerUSD --> YYY
-        if (_tokenIn == cerUsdToken && _tokenOut != cerUsdToken) {
+        if (_tokenIn == cerUsdToken) {
             // getting amountTokensOut
             amountTokensOut = _getOutputExactCerUsdForTokens(
                 _getPoolBalances(_tokenOut),
-                _tokenOut,
                 _amountTokensIn
             );
             return amountTokensOut;
@@ -106,7 +108,6 @@ abstract contract CerbySwapV1_GetFunctions is
 
         amountTokensOut = _getOutputExactCerUsdForTokens(
             _getPoolBalances(_tokenOut),
-            _tokenOut,
             amountCerUsdOut
         );
 
@@ -122,10 +123,13 @@ abstract contract CerbySwapV1_GetFunctions is
         view
         returns (uint256)
     {
+        // caller responsibility to provide
+        // _tokenIn != _tokenOut
+
         uint256 amountTokensIn;
 
         // direction XXX --> cerUSD
-        if (_tokenIn != cerUsdToken && _tokenOut == cerUsdToken) {
+        if (_tokenOut == cerUsdToken) {
             // getting amountTokensOut
             amountTokensIn = _getInputTokensForExactCerUsd(
                 _getPoolBalances(_tokenIn),
@@ -137,11 +141,10 @@ abstract contract CerbySwapV1_GetFunctions is
         }
 
         // direction cerUSD --> YYY
-        if (_tokenIn == cerUsdToken && _tokenOut != cerUsdToken) {
+        if (_tokenIn == cerUsdToken) {
             // getting amountTokensOut
             amountTokensIn = _getInputCerUsdForExactTokens(
                 _getPoolBalances(_tokenOut),
-                _tokenOut,
                 _amountTokensOut
             );
 
@@ -153,7 +156,6 @@ abstract contract CerbySwapV1_GetFunctions is
         // getting amountTokensOut
         uint256 amountCerUsdOut = _getInputCerUsdForExactTokens(
             _getPoolBalances(_tokenIn),
-            _tokenOut,
             _amountTokensOut
         );
 
@@ -186,18 +188,19 @@ abstract contract CerbySwapV1_GetFunctions is
     {
         // getting last 24 hours trade volume in USD
         uint256 currentPeriod = _getCurrentPeriod();
-        uint256 nextPeriod = (currentPeriod + 1) % NUMBER_OF_TRADE_PERIODS;
         uint256 volume;
 
         for (uint256 i; i < NUMBER_OF_TRADE_PERIODS; i++) {
-            // skipping current and next period because those values are currently updating
-            // and are incorrect
-            if (i == currentPeriod || i == nextPeriod) continue;
+            // skipping current because this value is currently updating
+            // and must be skipped
+            if (i == currentPeriod) continue;
             volume += _pool.tradeVolumePerPeriodInCerUsd[i];
         }
 
+        // substracting 5 because in _swap function 
+        // because if there are no trades we fill values with 1
         // multiplying it to make wei dimention
-        volume = volume * TRADE_VOLUME_DENORM;
+        volume = (volume - NUMBER_OF_TRADE_PERIODS_MINUS_ONE) * TRADE_VOLUME_DENORM;
 
         // trades <= TVL * min              ---> fee = feeMaximum
         // TVL * min < trades < TVL * max   ---> fee is between feeMaximum and feeMinimum
@@ -230,7 +233,6 @@ abstract contract CerbySwapV1_GetFunctions is
     )
         internal
         view
-        tokenMustExistInPool(_token)
         returns (uint256)
     {
         // getting pool storage link (saves gas compared to memory)
@@ -249,12 +251,10 @@ abstract contract CerbySwapV1_GetFunctions is
 
     function _getOutputExactCerUsdForTokens(
         PoolBalances memory poolBalances,
-        address _token,
         uint256 _amountCerUsdIn
     )
         internal
-        view
-        tokenMustExistInPool(_token)
+        pure
         returns (uint256)
     {
         return _getOutput(
@@ -293,7 +293,6 @@ abstract contract CerbySwapV1_GetFunctions is
     )
         internal
         view
-        tokenMustExistInPool(_token)
         returns (uint256)
     {
         // getting pool storage link (saves gas compared to memory)
@@ -312,12 +311,10 @@ abstract contract CerbySwapV1_GetFunctions is
 
     function _getInputCerUsdForExactTokens(
         PoolBalances memory poolBalances,
-        address _token,
         uint256 _amountTokensOut
     )
         internal
-        view
-        tokenMustExistInPool(_token) // Q: is it really needed?
+        pure
         returns (uint256)
     {
         return _getInput(

@@ -2,46 +2,46 @@
 
 pragma solidity ^0.8.11;
 
-import "./interfaces/IERC20.sol";
+import "./interfaces/IBasicERC20.sol";
 
 contract CerbySwapV1_VaultImplementation {
 
     address token;
-    address cerUsdToken;
-    address owner; // Q: would this mean owner is always the same?
+    address cerUsdToken; // TODO: make constant on production
+    address owner; // TODO: make constant on production
 
     error CerbySwapV1_Vault_SafeTransferNativeFailed();
     error CerbySwapV1_Vault_CallerIsNotOwner();
-    error CerbySwapV1_Vault_AlreadyInitialized();
-
-    constructor() {} // Q: why?
+    error CerbySwapV1_Vault_AlreadyInitialized(); // TODO: remove on production
 
     function initialize(
         address _token,
-        address _cerUsdToken, // TODO: remove cerUsd update from here on production
+        address _cerUsdToken, // TODO: remove on production
         bool _isNativeToken
     )
         external
+        //onlyOwner // TODO: make onlyOwner here because owner will be predefined in the constant on production
     {
-        if (owner != address(0)) {
+        // initialize contract only once
+        if (owner != address(0)) { // TODO: remove on production
             revert CerbySwapV1_Vault_AlreadyInitialized();
         }
 
-        if (_isNativeToken == false) {
-            IERC20(_token).approve( // re-entrancy problem
-                msg.sender,
-                type(uint256).max
-            );
-        }
+        token = _token;
+        cerUsdToken = _cerUsdToken; // TODO: remove on production
+        owner = msg.sender; // TODO: remove on production
 
-        IERC20(_cerUsdToken).approve(
+        IBasicERC20(_cerUsdToken).approve(
             msg.sender,
             type(uint256).max
         );
 
-        token = _token;
-        cerUsdToken = _cerUsdToken;
-        owner = msg.sender; // Q: this address is main contract then?
+        if (!_isNativeToken) {
+            IBasicERC20(_token).approve(
+                msg.sender,
+                type(uint256).max
+            );
+        }
     }
 
     receive() external payable {}
@@ -68,7 +68,7 @@ contract CerbySwapV1_VaultImplementation {
     )
         external
     {
-        if (msg.sender != owner) { // Q: who will be calling?
+        if (owner != msg.sender) {
             revert CerbySwapV1_Vault_CallerIsNotOwner();
         }
 

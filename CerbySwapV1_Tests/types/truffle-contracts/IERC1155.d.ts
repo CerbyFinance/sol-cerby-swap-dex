@@ -84,41 +84,6 @@ export interface IERC1155Instance extends Truffle.ContractInstance {
     txDetails?: Truffle.TransactionDetails
   ): Promise<boolean>;
 
-  safeBatchTransferFrom: {
-    (
-      from: string,
-      to: string,
-      ids: (number | BN | string)[],
-      amounts: (number | BN | string)[],
-      data: string,
-      txDetails?: Truffle.TransactionDetails
-    ): Promise<Truffle.TransactionResponse<AllEvents>>;
-    call(
-      from: string,
-      to: string,
-      ids: (number | BN | string)[],
-      amounts: (number | BN | string)[],
-      data: string,
-      txDetails?: Truffle.TransactionDetails
-    ): Promise<void>;
-    sendTransaction(
-      from: string,
-      to: string,
-      ids: (number | BN | string)[],
-      amounts: (number | BN | string)[],
-      data: string,
-      txDetails?: Truffle.TransactionDetails
-    ): Promise<string>;
-    estimateGas(
-      from: string,
-      to: string,
-      ids: (number | BN | string)[],
-      amounts: (number | BN | string)[],
-      data: string,
-      txDetails?: Truffle.TransactionDetails
-    ): Promise<number>;
-  };
-
   safeTransferFrom: {
     (
       from: string,
@@ -200,41 +165,6 @@ export interface IERC1155Instance extends Truffle.ContractInstance {
       operator: string,
       txDetails?: Truffle.TransactionDetails
     ): Promise<boolean>;
-
-    safeBatchTransferFrom: {
-      (
-        from: string,
-        to: string,
-        ids: (number | BN | string)[],
-        amounts: (number | BN | string)[],
-        data: string,
-        txDetails?: Truffle.TransactionDetails
-      ): Promise<Truffle.TransactionResponse<AllEvents>>;
-      call(
-        from: string,
-        to: string,
-        ids: (number | BN | string)[],
-        amounts: (number | BN | string)[],
-        data: string,
-        txDetails?: Truffle.TransactionDetails
-      ): Promise<void>;
-      sendTransaction(
-        from: string,
-        to: string,
-        ids: (number | BN | string)[],
-        amounts: (number | BN | string)[],
-        data: string,
-        txDetails?: Truffle.TransactionDetails
-      ): Promise<string>;
-      estimateGas(
-        from: string,
-        to: string,
-        ids: (number | BN | string)[],
-        amounts: (number | BN | string)[],
-        data: string,
-        txDetails?: Truffle.TransactionDetails
-      ): Promise<number>;
-    };
 
     safeTransferFrom: {
       (

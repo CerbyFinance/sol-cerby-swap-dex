@@ -343,41 +343,6 @@ export interface CerbySwapV1LiquidityFunctionsInstance
     ): Promise<number>;
   };
 
-  safeBatchTransferFrom: {
-    (
-      _from: string,
-      _to: string,
-      _ids: (number | BN | string)[],
-      _amounts: (number | BN | string)[],
-      _data: string,
-      txDetails?: Truffle.TransactionDetails
-    ): Promise<Truffle.TransactionResponse<AllEvents>>;
-    call(
-      _from: string,
-      _to: string,
-      _ids: (number | BN | string)[],
-      _amounts: (number | BN | string)[],
-      _data: string,
-      txDetails?: Truffle.TransactionDetails
-    ): Promise<void>;
-    sendTransaction(
-      _from: string,
-      _to: string,
-      _ids: (number | BN | string)[],
-      _amounts: (number | BN | string)[],
-      _data: string,
-      txDetails?: Truffle.TransactionDetails
-    ): Promise<string>;
-    estimateGas(
-      _from: string,
-      _to: string,
-      _ids: (number | BN | string)[],
-      _amounts: (number | BN | string)[],
-      _data: string,
-      txDetails?: Truffle.TransactionDetails
-    ): Promise<number>;
-  };
-
   safeTransferFrom: {
     (
       _from: string,
@@ -633,41 +598,6 @@ export interface CerbySwapV1LiquidityFunctionsInstance
         _amountLpTokensBalanceToBurn: number | BN | string,
         _expireTimestamp: number | BN | string,
         _transferTo: string,
-        txDetails?: Truffle.TransactionDetails
-      ): Promise<number>;
-    };
-
-    safeBatchTransferFrom: {
-      (
-        _from: string,
-        _to: string,
-        _ids: (number | BN | string)[],
-        _amounts: (number | BN | string)[],
-        _data: string,
-        txDetails?: Truffle.TransactionDetails
-      ): Promise<Truffle.TransactionResponse<AllEvents>>;
-      call(
-        _from: string,
-        _to: string,
-        _ids: (number | BN | string)[],
-        _amounts: (number | BN | string)[],
-        _data: string,
-        txDetails?: Truffle.TransactionDetails
-      ): Promise<void>;
-      sendTransaction(
-        _from: string,
-        _to: string,
-        _ids: (number | BN | string)[],
-        _amounts: (number | BN | string)[],
-        _data: string,
-        txDetails?: Truffle.TransactionDetails
-      ): Promise<string>;
-      estimateGas(
-        _from: string,
-        _to: string,
-        _ids: (number | BN | string)[],
-        _amounts: (number | BN | string)[],
-        _data: string,
         txDetails?: Truffle.TransactionDetails
       ): Promise<number>;
     };

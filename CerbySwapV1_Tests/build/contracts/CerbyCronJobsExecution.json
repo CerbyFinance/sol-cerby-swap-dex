@@ -26,7 +26,7 @@
       "type": "function"
     }
   ],
-  "metadata": "{\"compiler\":{\"version\":\"0.8.11+commit.d7f03943\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[],\"name\":\"CerbyCronJobsExecution_TransactionsAreTemporarilyDisabled\",\"type\":\"error\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_pos\",\"type\":\"uint256\"}],\"name\":\"getUtilsContractAtPos\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"project:/contracts/CerbyCronJobsExecution.sol\":\"CerbyCronJobsExecution\"},\"evmVersion\":\"london\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[]},\"sources\":{\"project:/contracts/CerbyCronJobsExecution.sol\":{\"keccak256\":\"0xc7159882b84f72eb78c6b27ccda491efda455ff1abc2b3baaeb28c118a739dbd\",\"license\":\"BUSL-1.1\",\"urls\":[\"bzz-raw://0e02f14796cccb64ff4cef2a257046875e5a14182323244606d17c3eff37b9cc\",\"dweb:/ipfs/QmQCqX2H4e6j5EtCvPvZCZeCJULwWHZoL9KtVEMfgMdW2C\"]},\"project:/contracts/interfaces/ICerbyBotDetection.sol\":{\"keccak256\":\"0xbc95b2664c6eba1c562504b57a6a8c384104b29d516d7a50adc88bc7690f7838\",\"license\":\"BUSL-1.1\",\"urls\":[\"bzz-raw://5766813310ea6a93f250416a9047fbfbfaff52e2fcd136c9b8ad74c3b195553b\",\"dweb:/ipfs/QmSEutKMBmwTsmJjTa3M6MrtXhi4VbLTzizrRmPuuvcx4e\"]},\"project:/contracts/interfaces/ICerbyToken.sol\":{\"keccak256\":\"0x3ddbd9e279dd16038e700b5e47ee89dc8127bca86aa05bb237194b49f21908f5\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://c5aa13fd55b3881ab3d4fb0df0b0b9aff01eb8dd36620a093c9bd1d164be6b51\",\"dweb:/ipfs/QmeA9f9E4z7BysW64W1pju3ipTRELVjaVL9sEMN22j7vA8\"]}},\"version\":1}",
+  "metadata": "{\"compiler\":{\"version\":\"0.8.11+commit.d7f03943\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[],\"name\":\"CerbyCronJobsExecution_TransactionsAreTemporarilyDisabled\",\"type\":\"error\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_pos\",\"type\":\"uint256\"}],\"name\":\"getUtilsContractAtPos\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"/Users/numwan/Documents/Remix/bitbucket/sol-cerby-swap-v1/CerbySwapV1_Tests/contracts/CerbyCronJobsExecution.sol\":\"CerbyCronJobsExecution\"},\"evmVersion\":\"london\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[]},\"sources\":{\"/Users/numwan/Documents/Remix/bitbucket/sol-cerby-swap-v1/CerbySwapV1_Tests/contracts/CerbyCronJobsExecution.sol\":{\"keccak256\":\"0xc7159882b84f72eb78c6b27ccda491efda455ff1abc2b3baaeb28c118a739dbd\",\"license\":\"BUSL-1.1\",\"urls\":[\"bzz-raw://0e02f14796cccb64ff4cef2a257046875e5a14182323244606d17c3eff37b9cc\",\"dweb:/ipfs/QmQCqX2H4e6j5EtCvPvZCZeCJULwWHZoL9KtVEMfgMdW2C\"]},\"/Users/numwan/Documents/Remix/bitbucket/sol-cerby-swap-v1/CerbySwapV1_Tests/contracts/interfaces/ICerbyBotDetection.sol\":{\"keccak256\":\"0xbc95b2664c6eba1c562504b57a6a8c384104b29d516d7a50adc88bc7690f7838\",\"license\":\"BUSL-1.1\",\"urls\":[\"bzz-raw://5766813310ea6a93f250416a9047fbfbfaff52e2fcd136c9b8ad74c3b195553b\",\"dweb:/ipfs/QmSEutKMBmwTsmJjTa3M6MrtXhi4VbLTzizrRmPuuvcx4e\"]},\"/Users/numwan/Documents/Remix/bitbucket/sol-cerby-swap-v1/CerbySwapV1_Tests/contracts/interfaces/ICerbyToken.sol\":{\"keccak256\":\"0x3ddbd9e279dd16038e700b5e47ee89dc8127bca86aa05bb237194b49f21908f5\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://c5aa13fd55b3881ab3d4fb0df0b0b9aff01eb8dd36620a093c9bd1d164be6b51\",\"dweb:/ipfs/QmeA9f9E4z7BysW64W1pju3ipTRELVjaVL9sEMN22j7vA8\"]}},\"version\":1}",
   "bytecode": "0x",
   "deployedBytecode": "0x",
   "immutableReferences": {},
@@ -35,24 +35,24 @@
   "sourceMap": "",
   "deployedSourceMap": "",
   "source": "// SPDX-License-Identifier: BUSL-1.1\n\npragma solidity ^0.8.11;\n\nimport \"./interfaces/ICerbyToken.sol\";\nimport \"./interfaces/ICerbyBotDetection.sol\";\n\nabstract contract CerbyCronJobsExecution {\n\n    uint256 constant CERBY_BOT_DETECTION_CONTRACT_ID = 3;\n    ICerbyToken constant CERBY_TOKEN_INSTANCE = ICerbyToken(\n        0xdef1fac7Bf08f173D286BbBDcBeeADe695129840\n    );\n\n    error CerbyCronJobsExecution_TransactionsAreTemporarilyDisabled();\n\n    modifier checkForBotsAndExecuteCronJobs(address _addr) {\n        ICerbyBotDetection iCerbyBotDetection = ICerbyBotDetection(\n            getUtilsContractAtPos(CERBY_BOT_DETECTION_CONTRACT_ID)\n        );\n        if (iCerbyBotDetection.isBotAddress(_addr)) {\n            revert CerbyCronJobsExecution_TransactionsAreTemporarilyDisabled();\n        }\n        iCerbyBotDetection.executeCronJobs();\n        _;\n    }\n\n    modifier executeCronJobs() {\n        ICerbyBotDetection iCerbyBotDetection = ICerbyBotDetection(\n            getUtilsContractAtPos(CERBY_BOT_DETECTION_CONTRACT_ID)\n        );\n        iCerbyBotDetection.executeCronJobs();\n        _;\n    }\n\n    function getUtilsContractAtPos(uint256 _pos)\n        public\n        view\n        virtual\n        returns (address)\n    {\n        return CERBY_TOKEN_INSTANCE.getUtilsContractAtPos(_pos);\n    }\n\n    modifier checkForBots(address _addr) {\n        ICerbyBotDetection iCerbyBotDetection = ICerbyBotDetection(\n            CERBY_TOKEN_INSTANCE.getUtilsContractAtPos(\n                CERBY_BOT_DETECTION_CONTRACT_ID\n            )\n        );\n\n        if (iCerbyBotDetection.isBotAddress(_addr)) {\n            revert CerbyCronJobsExecution_TransactionsAreTemporarilyDisabled();\n        }\n\n        _;\n    }\n\n    modifier checkTransactionAndExecuteCron(\n        address _tokenAddr,\n        address _addr\n    ) {\n        ICerbyBotDetection iCerbyBotDetection = ICerbyBotDetection(\n            CERBY_TOKEN_INSTANCE.getUtilsContractAtPos(\n                CERBY_BOT_DETECTION_CONTRACT_ID\n            )\n        );\n\n        if (iCerbyBotDetection.detectBotTransaction(_tokenAddr, _addr)) {\n            revert CerbyCronJobsExecution_TransactionsAreTemporarilyDisabled();\n        }\n\n        iCerbyBotDetection.executeCronJobs();\n        _;\n    }\n\n    function checkTransactionForBots(\n        address _token,\n        address _from,\n        address _to\n    )\n        internal\n    {\n        ICerbyBotDetection iCerbyBotDetection = ICerbyBotDetection(\n            CERBY_TOKEN_INSTANCE.getUtilsContractAtPos(\n                CERBY_BOT_DETECTION_CONTRACT_ID\n            )\n        );\n\n        if (iCerbyBotDetection.detectBotTransaction(_token, _from)) {\n            revert CerbyCronJobsExecution_TransactionsAreTemporarilyDisabled();\n        }\n\n        if (_to == address(this)) return;\n\n        iCerbyBotDetection.registerTransaction(\n            _token,\n            _to\n        );\n    }\n}\n",
-  "sourcePath": "/Users/vm06007/Development/sol-cerby-swap-v1/CerbySwapV1_Tests/contracts/CerbyCronJobsExecution.sol",
+  "sourcePath": "/Users/numwan/Documents/Remix/bitbucket/sol-cerby-swap-v1/CerbySwapV1_Tests/contracts/CerbyCronJobsExecution.sol",
   "ast": {
-    "absolutePath": "project:/contracts/CerbyCronJobsExecution.sol",
+    "absolutePath": "/Users/numwan/Documents/Remix/bitbucket/sol-cerby-swap-v1/CerbySwapV1_Tests/contracts/CerbyCronJobsExecution.sol",
     "exportedSymbols": {
       "AccessSettings": [
-        4441
+        4281
       ],
       "CerbyCronJobsExecution": [
         178
       ],
       "ICerbyBotDetection": [
-        4385
+        4225
       ],
       "ICerbyToken": [
-        4543
+        4383
       ],
       "TransactionInfo": [
-        4342
+        4182
       ]
     },
     "id": 179,
@@ -71,25 +71,25 @@
         "src": "38:24:0"
       },
       {
-        "absolutePath": "project:/contracts/interfaces/ICerbyToken.sol",
+        "absolutePath": "/Users/numwan/Documents/Remix/bitbucket/sol-cerby-swap-v1/CerbySwapV1_Tests/contracts/interfaces/ICerbyToken.sol",
         "file": "./interfaces/ICerbyToken.sol",
         "id": 2,
         "nameLocation": "-1:-1:-1",
         "nodeType": "ImportDirective",
         "scope": 179,
-        "sourceUnit": 4544,
+        "sourceUnit": 4384,
         "src": "64:38:0",
         "symbolAliases": [],
         "unitAlias": ""
       },
       {
-        "absolutePath": "project:/contracts/interfaces/ICerbyBotDetection.sol",
+        "absolutePath": "/Users/numwan/Documents/Remix/bitbucket/sol-cerby-swap-v1/CerbySwapV1_Tests/contracts/interfaces/ICerbyBotDetection.sol",
         "file": "./interfaces/ICerbyBotDetection.sol",
         "id": 3,
         "nameLocation": "-1:-1:-1",
         "nodeType": "ImportDirective",
         "scope": 179,
-        "sourceUnit": 4386,
+        "sourceUnit": 4226,
         "src": "103:45:0",
         "symbolAliases": [],
         "unitAlias": ""
@@ -164,7 +164,7 @@
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
-              "typeIdentifier": "t_contract$_ICerbyToken_$4543",
+              "typeIdentifier": "t_contract$_ICerbyToken_$4383",
               "typeString": "contract ICerbyToken"
             },
             "typeName": {
@@ -174,13 +174,13 @@
                 "id": 7,
                 "name": "ICerbyToken",
                 "nodeType": "IdentifierPath",
-                "referencedDeclaration": 4543,
+                "referencedDeclaration": 4383,
                 "src": "256:11:0"
               },
-              "referencedDeclaration": 4543,
+              "referencedDeclaration": 4383,
               "src": "256:11:0",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_ICerbyToken_$4543",
+                "typeIdentifier": "t_contract$_ICerbyToken_$4383",
                 "typeString": "contract ICerbyToken"
               }
             },
@@ -214,10 +214,10 @@
                 "name": "ICerbyToken",
                 "nodeType": "Identifier",
                 "overloadedDeclarations": [],
-                "referencedDeclaration": 4543,
+                "referencedDeclaration": 4383,
                 "src": "300:11:0",
                 "typeDescriptions": {
-                  "typeIdentifier": "t_type$_t_contract$_ICerbyToken_$4543_$",
+                  "typeIdentifier": "t_type$_t_contract$_ICerbyToken_$4383_$",
                   "typeString": "type(contract ICerbyToken)"
                 }
               },
@@ -232,7 +232,7 @@
               "src": "300:69:0",
               "tryCall": false,
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_ICerbyToken_$4543",
+                "typeIdentifier": "t_contract$_ICerbyToken_$4383",
                 "typeString": "contract ICerbyToken"
               }
             },
@@ -274,7 +274,7 @@
                       "stateVariable": false,
                       "storageLocation": "default",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_contract$_ICerbyBotDetection_$4385",
+                        "typeIdentifier": "t_contract$_ICerbyBotDetection_$4225",
                         "typeString": "contract ICerbyBotDetection"
                       },
                       "typeName": {
@@ -284,13 +284,13 @@
                           "id": 18,
                           "name": "ICerbyBotDetection",
                           "nodeType": "IdentifierPath",
-                          "referencedDeclaration": 4385,
+                          "referencedDeclaration": 4225,
                           "src": "513:18:0"
                         },
-                        "referencedDeclaration": 4385,
+                        "referencedDeclaration": 4225,
                         "src": "513:18:0",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_contract$_ICerbyBotDetection_$4385",
+                          "typeIdentifier": "t_contract$_ICerbyBotDetection_$4225",
                           "typeString": "contract ICerbyBotDetection"
                         }
                       },
@@ -360,10 +360,10 @@
                       "name": "ICerbyBotDetection",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 4385,
+                      "referencedDeclaration": 4225,
                       "src": "553:18:0",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_type$_t_contract$_ICerbyBotDetection_$4385_$",
+                        "typeIdentifier": "t_type$_t_contract$_ICerbyBotDetection_$4225_$",
                         "typeString": "type(contract ICerbyBotDetection)"
                       }
                     },
@@ -378,7 +378,7 @@
                     "src": "553:96:0",
                     "tryCall": false,
                     "typeDescriptions": {
-                      "typeIdentifier": "t_contract$_ICerbyBotDetection_$4385",
+                      "typeIdentifier": "t_contract$_ICerbyBotDetection_$4225",
                       "typeString": "contract ICerbyBotDetection"
                     }
                   },
@@ -416,7 +416,7 @@
                         "referencedDeclaration": 20,
                         "src": "663:18:0",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_contract$_ICerbyBotDetection_$4385",
+                          "typeIdentifier": "t_contract$_ICerbyBotDetection_$4225",
                           "typeString": "contract ICerbyBotDetection"
                         }
                       },
@@ -427,7 +427,7 @@
                       "lValueRequested": false,
                       "memberName": "isBotAddress",
                       "nodeType": "MemberAccess",
-                      "referencedDeclaration": 4365,
+                      "referencedDeclaration": 4205,
                       "src": "663:31:0",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_external_view$_t_address_$returns$_t_bool_$",
@@ -508,7 +508,7 @@
                         "referencedDeclaration": 20,
                         "src": "803:18:0",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_contract$_ICerbyBotDetection_$4385",
+                          "typeIdentifier": "t_contract$_ICerbyBotDetection_$4225",
                           "typeString": "contract ICerbyBotDetection"
                         }
                       },
@@ -519,7 +519,7 @@
                       "lValueRequested": false,
                       "memberName": "executeCronJobs",
                       "nodeType": "MemberAccess",
-                      "referencedDeclaration": 4368,
+                      "referencedDeclaration": 4208,
                       "src": "803:34:0",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_external_nonpayable$__$returns$__$",
@@ -618,7 +618,7 @@
                       "stateVariable": false,
                       "storageLocation": "default",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_contract$_ICerbyBotDetection_$4385",
+                        "typeIdentifier": "t_contract$_ICerbyBotDetection_$4225",
                         "typeString": "contract ICerbyBotDetection"
                       },
                       "typeName": {
@@ -628,13 +628,13 @@
                           "id": 45,
                           "name": "ICerbyBotDetection",
                           "nodeType": "IdentifierPath",
-                          "referencedDeclaration": 4385,
+                          "referencedDeclaration": 4225,
                           "src": "900:18:0"
                         },
-                        "referencedDeclaration": 4385,
+                        "referencedDeclaration": 4225,
                         "src": "900:18:0",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_contract$_ICerbyBotDetection_$4385",
+                          "typeIdentifier": "t_contract$_ICerbyBotDetection_$4225",
                           "typeString": "contract ICerbyBotDetection"
                         }
                       },
@@ -704,10 +704,10 @@
                       "name": "ICerbyBotDetection",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 4385,
+                      "referencedDeclaration": 4225,
                       "src": "940:18:0",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_type$_t_contract$_ICerbyBotDetection_$4385_$",
+                        "typeIdentifier": "t_type$_t_contract$_ICerbyBotDetection_$4225_$",
                         "typeString": "type(contract ICerbyBotDetection)"
                       }
                     },
@@ -722,7 +722,7 @@
                     "src": "940:96:0",
                     "tryCall": false,
                     "typeDescriptions": {
-                      "typeIdentifier": "t_contract$_ICerbyBotDetection_$4385",
+                      "typeIdentifier": "t_contract$_ICerbyBotDetection_$4225",
                       "typeString": "contract ICerbyBotDetection"
                     }
                   },
@@ -742,7 +742,7 @@
                         "referencedDeclaration": 47,
                         "src": "1046:18:0",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_contract$_ICerbyBotDetection_$4385",
+                          "typeIdentifier": "t_contract$_ICerbyBotDetection_$4225",
                           "typeString": "contract ICerbyBotDetection"
                         }
                       },
@@ -753,7 +753,7 @@
                       "lValueRequested": false,
                       "memberName": "executeCronJobs",
                       "nodeType": "MemberAccess",
-                      "referencedDeclaration": 4368,
+                      "referencedDeclaration": 4208,
                       "src": "1046:34:0",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_external_nonpayable$__$returns$__$",
@@ -837,7 +837,7 @@
                         "referencedDeclaration": 12,
                         "src": "1242:20:0",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_contract$_ICerbyToken_$4543",
+                          "typeIdentifier": "t_contract$_ICerbyToken_$4383",
                           "typeString": "contract ICerbyToken"
                         }
                       },
@@ -848,7 +848,7 @@
                       "lValueRequested": false,
                       "memberName": "getUtilsContractAtPos",
                       "nodeType": "MemberAccess",
-                      "referencedDeclaration": 4526,
+                      "referencedDeclaration": 4366,
                       "src": "1242:42:0",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_external_view$_t_uint256_$returns$_t_address_$",
@@ -983,7 +983,7 @@
                       "stateVariable": false,
                       "storageLocation": "default",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_contract$_ICerbyBotDetection_$4385",
+                        "typeIdentifier": "t_contract$_ICerbyBotDetection_$4225",
                         "typeString": "contract ICerbyBotDetection"
                       },
                       "typeName": {
@@ -993,13 +993,13 @@
                           "id": 78,
                           "name": "ICerbyBotDetection",
                           "nodeType": "IdentifierPath",
-                          "referencedDeclaration": 4385,
+                          "referencedDeclaration": 4225,
                           "src": "1350:18:0"
                         },
-                        "referencedDeclaration": 4385,
+                        "referencedDeclaration": 4225,
                         "src": "1350:18:0",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_contract$_ICerbyBotDetection_$4385",
+                          "typeIdentifier": "t_contract$_ICerbyBotDetection_$4225",
                           "typeString": "contract ICerbyBotDetection"
                         }
                       },
@@ -1039,7 +1039,7 @@
                             "referencedDeclaration": 12,
                             "src": "1422:20:0",
                             "typeDescriptions": {
-                              "typeIdentifier": "t_contract$_ICerbyToken_$4543",
+                              "typeIdentifier": "t_contract$_ICerbyToken_$4383",
                               "typeString": "contract ICerbyToken"
                             }
                           },
@@ -1050,7 +1050,7 @@
                           "lValueRequested": false,
                           "memberName": "getUtilsContractAtPos",
                           "nodeType": "MemberAccess",
-                          "referencedDeclaration": 4526,
+                          "referencedDeclaration": 4366,
                           "src": "1422:42:0",
                           "typeDescriptions": {
                             "typeIdentifier": "t_function_external_view$_t_uint256_$returns$_t_address_$",
@@ -1084,10 +1084,10 @@
                       "name": "ICerbyBotDetection",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 4385,
+                      "referencedDeclaration": 4225,
                       "src": "1390:18:0",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_type$_t_contract$_ICerbyBotDetection_$4385_$",
+                        "typeIdentifier": "t_type$_t_contract$_ICerbyBotDetection_$4225_$",
                         "typeString": "type(contract ICerbyBotDetection)"
                       }
                     },
@@ -1102,7 +1102,7 @@
                     "src": "1390:147:0",
                     "tryCall": false,
                     "typeDescriptions": {
-                      "typeIdentifier": "t_contract$_ICerbyBotDetection_$4385",
+                      "typeIdentifier": "t_contract$_ICerbyBotDetection_$4225",
                       "typeString": "contract ICerbyBotDetection"
                     }
                   },
@@ -1140,7 +1140,7 @@
                         "referencedDeclaration": 80,
                         "src": "1552:18:0",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_contract$_ICerbyBotDetection_$4385",
+                          "typeIdentifier": "t_contract$_ICerbyBotDetection_$4225",
                           "typeString": "contract ICerbyBotDetection"
                         }
                       },
@@ -1151,7 +1151,7 @@
                       "lValueRequested": false,
                       "memberName": "isBotAddress",
                       "nodeType": "MemberAccess",
-                      "referencedDeclaration": 4365,
+                      "referencedDeclaration": 4205,
                       "src": "1552:31:0",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_external_view$_t_address_$returns$_t_bool_$",
@@ -1292,7 +1292,7 @@
                       "stateVariable": false,
                       "storageLocation": "default",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_contract$_ICerbyBotDetection_$4385",
+                        "typeIdentifier": "t_contract$_ICerbyBotDetection_$4225",
                         "typeString": "contract ICerbyBotDetection"
                       },
                       "typeName": {
@@ -1302,13 +1302,13 @@
                           "id": 105,
                           "name": "ICerbyBotDetection",
                           "nodeType": "IdentifierPath",
-                          "referencedDeclaration": 4385,
+                          "referencedDeclaration": 4225,
                           "src": "1814:18:0"
                         },
-                        "referencedDeclaration": 4385,
+                        "referencedDeclaration": 4225,
                         "src": "1814:18:0",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_contract$_ICerbyBotDetection_$4385",
+                          "typeIdentifier": "t_contract$_ICerbyBotDetection_$4225",
                           "typeString": "contract ICerbyBotDetection"
                         }
                       },
@@ -1348,7 +1348,7 @@
                             "referencedDeclaration": 12,
                             "src": "1886:20:0",
                             "typeDescriptions": {
-                              "typeIdentifier": "t_contract$_ICerbyToken_$4543",
+                              "typeIdentifier": "t_contract$_ICerbyToken_$4383",
                               "typeString": "contract ICerbyToken"
                             }
                           },
@@ -1359,7 +1359,7 @@
                           "lValueRequested": false,
                           "memberName": "getUtilsContractAtPos",
                           "nodeType": "MemberAccess",
-                          "referencedDeclaration": 4526,
+                          "referencedDeclaration": 4366,
                           "src": "1886:42:0",
                           "typeDescriptions": {
                             "typeIdentifier": "t_function_external_view$_t_uint256_$returns$_t_address_$",
@@ -1393,10 +1393,10 @@
                       "name": "ICerbyBotDetection",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 4385,
+                      "referencedDeclaration": 4225,
                       "src": "1854:18:0",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_type$_t_contract$_ICerbyBotDetection_$4385_$",
+                        "typeIdentifier": "t_type$_t_contract$_ICerbyBotDetection_$4225_$",
                         "typeString": "type(contract ICerbyBotDetection)"
                       }
                     },
@@ -1411,7 +1411,7 @@
                     "src": "1854:147:0",
                     "tryCall": false,
                     "typeDescriptions": {
-                      "typeIdentifier": "t_contract$_ICerbyBotDetection_$4385",
+                      "typeIdentifier": "t_contract$_ICerbyBotDetection_$4225",
                       "typeString": "contract ICerbyBotDetection"
                     }
                   },
@@ -1465,7 +1465,7 @@
                         "referencedDeclaration": 107,
                         "src": "2016:18:0",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_contract$_ICerbyBotDetection_$4385",
+                          "typeIdentifier": "t_contract$_ICerbyBotDetection_$4225",
                           "typeString": "contract ICerbyBotDetection"
                         }
                       },
@@ -1476,7 +1476,7 @@
                       "lValueRequested": false,
                       "memberName": "detectBotTransaction",
                       "nodeType": "MemberAccess",
-                      "referencedDeclaration": 4377,
+                      "referencedDeclaration": 4217,
                       "src": "2016:39:0",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_external_nonpayable$_t_address_$_t_address_$returns$_t_bool_$",
@@ -1557,7 +1557,7 @@
                         "referencedDeclaration": 107,
                         "src": "2177:18:0",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_contract$_ICerbyBotDetection_$4385",
+                          "typeIdentifier": "t_contract$_ICerbyBotDetection_$4225",
                           "typeString": "contract ICerbyBotDetection"
                         }
                       },
@@ -1568,7 +1568,7 @@
                       "lValueRequested": false,
                       "memberName": "executeCronJobs",
                       "nodeType": "MemberAccess",
-                      "referencedDeclaration": 4368,
+                      "referencedDeclaration": 4208,
                       "src": "2177:34:0",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_external_nonpayable$__$returns$__$",
@@ -1695,7 +1695,7 @@
                       "stateVariable": false,
                       "storageLocation": "default",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_contract$_ICerbyBotDetection_$4385",
+                        "typeIdentifier": "t_contract$_ICerbyBotDetection_$4225",
                         "typeString": "contract ICerbyBotDetection"
                       },
                       "typeName": {
@@ -1705,13 +1705,13 @@
                           "id": 141,
                           "name": "ICerbyBotDetection",
                           "nodeType": "IdentifierPath",
-                          "referencedDeclaration": 4385,
+                          "referencedDeclaration": 4225,
                           "src": "2375:18:0"
                         },
-                        "referencedDeclaration": 4385,
+                        "referencedDeclaration": 4225,
                         "src": "2375:18:0",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_contract$_ICerbyBotDetection_$4385",
+                          "typeIdentifier": "t_contract$_ICerbyBotDetection_$4225",
                           "typeString": "contract ICerbyBotDetection"
                         }
                       },
@@ -1751,7 +1751,7 @@
                             "referencedDeclaration": 12,
                             "src": "2447:20:0",
                             "typeDescriptions": {
-                              "typeIdentifier": "t_contract$_ICerbyToken_$4543",
+                              "typeIdentifier": "t_contract$_ICerbyToken_$4383",
                               "typeString": "contract ICerbyToken"
                             }
                           },
@@ -1762,7 +1762,7 @@
                           "lValueRequested": false,
                           "memberName": "getUtilsContractAtPos",
                           "nodeType": "MemberAccess",
-                          "referencedDeclaration": 4526,
+                          "referencedDeclaration": 4366,
                           "src": "2447:42:0",
                           "typeDescriptions": {
                             "typeIdentifier": "t_function_external_view$_t_uint256_$returns$_t_address_$",
@@ -1796,10 +1796,10 @@
                       "name": "ICerbyBotDetection",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 4385,
+                      "referencedDeclaration": 4225,
                       "src": "2415:18:0",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_type$_t_contract$_ICerbyBotDetection_$4385_$",
+                        "typeIdentifier": "t_type$_t_contract$_ICerbyBotDetection_$4225_$",
                         "typeString": "type(contract ICerbyBotDetection)"
                       }
                     },
@@ -1814,7 +1814,7 @@
                     "src": "2415:147:0",
                     "tryCall": false,
                     "typeDescriptions": {
-                      "typeIdentifier": "t_contract$_ICerbyBotDetection_$4385",
+                      "typeIdentifier": "t_contract$_ICerbyBotDetection_$4225",
                       "typeString": "contract ICerbyBotDetection"
                     }
                   },
@@ -1868,7 +1868,7 @@
                         "referencedDeclaration": 143,
                         "src": "2577:18:0",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_contract$_ICerbyBotDetection_$4385",
+                          "typeIdentifier": "t_contract$_ICerbyBotDetection_$4225",
                           "typeString": "contract ICerbyBotDetection"
                         }
                       },
@@ -1879,7 +1879,7 @@
                       "lValueRequested": false,
                       "memberName": "detectBotTransaction",
                       "nodeType": "MemberAccess",
-                      "referencedDeclaration": 4377,
+                      "referencedDeclaration": 4217,
                       "src": "2577:39:0",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_external_nonpayable$_t_address_$_t_address_$returns$_t_bool_$",
@@ -2091,7 +2091,7 @@
                         "referencedDeclaration": 143,
                         "src": "2777:18:0",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_contract$_ICerbyBotDetection_$4385",
+                          "typeIdentifier": "t_contract$_ICerbyBotDetection_$4225",
                           "typeString": "contract ICerbyBotDetection"
                         }
                       },
@@ -2102,7 +2102,7 @@
                       "lValueRequested": false,
                       "memberName": "registerTransaction",
                       "nodeType": "MemberAccess",
-                      "referencedDeclaration": 4384,
+                      "referencedDeclaration": 4224,
                       "src": "2777:38:0",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_external_nonpayable$_t_address_$_t_address_$returns$__$",
@@ -2251,22 +2251,22 @@
     "src": "38:2834:0"
   },
   "legacyAST": {
-    "absolutePath": "project:/contracts/CerbyCronJobsExecution.sol",
+    "absolutePath": "/Users/numwan/Documents/Remix/bitbucket/sol-cerby-swap-v1/CerbySwapV1_Tests/contracts/CerbyCronJobsExecution.sol",
     "exportedSymbols": {
       "AccessSettings": [
-        4441
+        4281
       ],
       "CerbyCronJobsExecution": [
         178
       ],
       "ICerbyBotDetection": [
-        4385
+        4225
       ],
       "ICerbyToken": [
-        4543
+        4383
       ],
       "TransactionInfo": [
-        4342
+        4182
       ]
     },
     "id": 179,
@@ -2285,25 +2285,25 @@
         "src": "38:24:0"
       },
       {
-        "absolutePath": "project:/contracts/interfaces/ICerbyToken.sol",
+        "absolutePath": "/Users/numwan/Documents/Remix/bitbucket/sol-cerby-swap-v1/CerbySwapV1_Tests/contracts/interfaces/ICerbyToken.sol",
         "file": "./interfaces/ICerbyToken.sol",
         "id": 2,
         "nameLocation": "-1:-1:-1",
         "nodeType": "ImportDirective",
         "scope": 179,
-        "sourceUnit": 4544,
+        "sourceUnit": 4384,
         "src": "64:38:0",
         "symbolAliases": [],
         "unitAlias": ""
       },
       {
-        "absolutePath": "project:/contracts/interfaces/ICerbyBotDetection.sol",
+        "absolutePath": "/Users/numwan/Documents/Remix/bitbucket/sol-cerby-swap-v1/CerbySwapV1_Tests/contracts/interfaces/ICerbyBotDetection.sol",
         "file": "./interfaces/ICerbyBotDetection.sol",
         "id": 3,
         "nameLocation": "-1:-1:-1",
         "nodeType": "ImportDirective",
         "scope": 179,
-        "sourceUnit": 4386,
+        "sourceUnit": 4226,
         "src": "103:45:0",
         "symbolAliases": [],
         "unitAlias": ""
@@ -2378,7 +2378,7 @@
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
-              "typeIdentifier": "t_contract$_ICerbyToken_$4543",
+              "typeIdentifier": "t_contract$_ICerbyToken_$4383",
               "typeString": "contract ICerbyToken"
             },
             "typeName": {
@@ -2388,13 +2388,13 @@
                 "id": 7,
                 "name": "ICerbyToken",
                 "nodeType": "IdentifierPath",
-                "referencedDeclaration": 4543,
+                "referencedDeclaration": 4383,
                 "src": "256:11:0"
               },
-              "referencedDeclaration": 4543,
+              "referencedDeclaration": 4383,
               "src": "256:11:0",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_ICerbyToken_$4543",
+                "typeIdentifier": "t_contract$_ICerbyToken_$4383",
                 "typeString": "contract ICerbyToken"
               }
             },
@@ -2428,10 +2428,10 @@
                 "name": "ICerbyToken",
                 "nodeType": "Identifier",
                 "overloadedDeclarations": [],
-                "referencedDeclaration": 4543,
+                "referencedDeclaration": 4383,
                 "src": "300:11:0",
                 "typeDescriptions": {
-                  "typeIdentifier": "t_type$_t_contract$_ICerbyToken_$4543_$",
+                  "typeIdentifier": "t_type$_t_contract$_ICerbyToken_$4383_$",
                   "typeString": "type(contract ICerbyToken)"
                 }
               },
@@ -2446,7 +2446,7 @@
               "src": "300:69:0",
               "tryCall": false,
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_ICerbyToken_$4543",
+                "typeIdentifier": "t_contract$_ICerbyToken_$4383",
                 "typeString": "contract ICerbyToken"
               }
             },
@@ -2488,7 +2488,7 @@
                       "stateVariable": false,
                       "storageLocation": "default",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_contract$_ICerbyBotDetection_$4385",
+                        "typeIdentifier": "t_contract$_ICerbyBotDetection_$4225",
                         "typeString": "contract ICerbyBotDetection"
                       },
                       "typeName": {
@@ -2498,13 +2498,13 @@
                           "id": 18,
                           "name": "ICerbyBotDetection",
                           "nodeType": "IdentifierPath",
-                          "referencedDeclaration": 4385,
+                          "referencedDeclaration": 4225,
                           "src": "513:18:0"
                         },
-                        "referencedDeclaration": 4385,
+                        "referencedDeclaration": 4225,
                         "src": "513:18:0",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_contract$_ICerbyBotDetection_$4385",
+                          "typeIdentifier": "t_contract$_ICerbyBotDetection_$4225",
                           "typeString": "contract ICerbyBotDetection"
                         }
                       },
@@ -2574,10 +2574,10 @@
                       "name": "ICerbyBotDetection",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 4385,
+                      "referencedDeclaration": 4225,
                       "src": "553:18:0",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_type$_t_contract$_ICerbyBotDetection_$4385_$",
+                        "typeIdentifier": "t_type$_t_contract$_ICerbyBotDetection_$4225_$",
                         "typeString": "type(contract ICerbyBotDetection)"
                       }
                     },
@@ -2592,7 +2592,7 @@
                     "src": "553:96:0",
                     "tryCall": false,
                     "typeDescriptions": {
-                      "typeIdentifier": "t_contract$_ICerbyBotDetection_$4385",
+                      "typeIdentifier": "t_contract$_ICerbyBotDetection_$4225",
                       "typeString": "contract ICerbyBotDetection"
                     }
                   },
@@ -2630,7 +2630,7 @@
                         "referencedDeclaration": 20,
                         "src": "663:18:0",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_contract$_ICerbyBotDetection_$4385",
+                          "typeIdentifier": "t_contract$_ICerbyBotDetection_$4225",
                           "typeString": "contract ICerbyBotDetection"
                         }
                       },
@@ -2641,7 +2641,7 @@
                       "lValueRequested": false,
                       "memberName": "isBotAddress",
                       "nodeType": "MemberAccess",
-                      "referencedDeclaration": 4365,
+                      "referencedDeclaration": 4205,
                       "src": "663:31:0",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_external_view$_t_address_$returns$_t_bool_$",
@@ -2722,7 +2722,7 @@
                         "referencedDeclaration": 20,
                         "src": "803:18:0",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_contract$_ICerbyBotDetection_$4385",
+                          "typeIdentifier": "t_contract$_ICerbyBotDetection_$4225",
                           "typeString": "contract ICerbyBotDetection"
                         }
                       },
@@ -2733,7 +2733,7 @@
                       "lValueRequested": false,
                       "memberName": "executeCronJobs",
                       "nodeType": "MemberAccess",
-                      "referencedDeclaration": 4368,
+                      "referencedDeclaration": 4208,
                       "src": "803:34:0",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_external_nonpayable$__$returns$__$",
@@ -2832,7 +2832,7 @@
                       "stateVariable": false,
                       "storageLocation": "default",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_contract$_ICerbyBotDetection_$4385",
+                        "typeIdentifier": "t_contract$_ICerbyBotDetection_$4225",
                         "typeString": "contract ICerbyBotDetection"
                       },
                       "typeName": {
@@ -2842,13 +2842,13 @@
                           "id": 45,
                           "name": "ICerbyBotDetection",
                           "nodeType": "IdentifierPath",
-                          "referencedDeclaration": 4385,
+                          "referencedDeclaration": 4225,
                           "src": "900:18:0"
                         },
-                        "referencedDeclaration": 4385,
+                        "referencedDeclaration": 4225,
                         "src": "900:18:0",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_contract$_ICerbyBotDetection_$4385",
+                          "typeIdentifier": "t_contract$_ICerbyBotDetection_$4225",
                           "typeString": "contract ICerbyBotDetection"
                         }
                       },
@@ -2918,10 +2918,10 @@
                       "name": "ICerbyBotDetection",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 4385,
+                      "referencedDeclaration": 4225,
                       "src": "940:18:0",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_type$_t_contract$_ICerbyBotDetection_$4385_$",
+                        "typeIdentifier": "t_type$_t_contract$_ICerbyBotDetection_$4225_$",
                         "typeString": "type(contract ICerbyBotDetection)"
                       }
                     },
@@ -2936,7 +2936,7 @@
                     "src": "940:96:0",
                     "tryCall": false,
                     "typeDescriptions": {
-                      "typeIdentifier": "t_contract$_ICerbyBotDetection_$4385",
+                      "typeIdentifier": "t_contract$_ICerbyBotDetection_$4225",
                       "typeString": "contract ICerbyBotDetection"
                     }
                   },
@@ -2956,7 +2956,7 @@
                         "referencedDeclaration": 47,
                         "src": "1046:18:0",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_contract$_ICerbyBotDetection_$4385",
+                          "typeIdentifier": "t_contract$_ICerbyBotDetection_$4225",
                           "typeString": "contract ICerbyBotDetection"
                         }
                       },
@@ -2967,7 +2967,7 @@
                       "lValueRequested": false,
                       "memberName": "executeCronJobs",
                       "nodeType": "MemberAccess",
-                      "referencedDeclaration": 4368,
+                      "referencedDeclaration": 4208,
                       "src": "1046:34:0",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_external_nonpayable$__$returns$__$",
@@ -3051,7 +3051,7 @@
                         "referencedDeclaration": 12,
                         "src": "1242:20:0",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_contract$_ICerbyToken_$4543",
+                          "typeIdentifier": "t_contract$_ICerbyToken_$4383",
                           "typeString": "contract ICerbyToken"
                         }
                       },
@@ -3062,7 +3062,7 @@
                       "lValueRequested": false,
                       "memberName": "getUtilsContractAtPos",
                       "nodeType": "MemberAccess",
-                      "referencedDeclaration": 4526,
+                      "referencedDeclaration": 4366,
                       "src": "1242:42:0",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_external_view$_t_uint256_$returns$_t_address_$",
@@ -3197,7 +3197,7 @@
                       "stateVariable": false,
                       "storageLocation": "default",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_contract$_ICerbyBotDetection_$4385",
+                        "typeIdentifier": "t_contract$_ICerbyBotDetection_$4225",
                         "typeString": "contract ICerbyBotDetection"
                       },
                       "typeName": {
@@ -3207,13 +3207,13 @@
                           "id": 78,
                           "name": "ICerbyBotDetection",
                           "nodeType": "IdentifierPath",
-                          "referencedDeclaration": 4385,
+                          "referencedDeclaration": 4225,
                           "src": "1350:18:0"
                         },
-                        "referencedDeclaration": 4385,
+                        "referencedDeclaration": 4225,
                         "src": "1350:18:0",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_contract$_ICerbyBotDetection_$4385",
+                          "typeIdentifier": "t_contract$_ICerbyBotDetection_$4225",
                           "typeString": "contract ICerbyBotDetection"
                         }
                       },
@@ -3253,7 +3253,7 @@
                             "referencedDeclaration": 12,
                             "src": "1422:20:0",
                             "typeDescriptions": {
-                              "typeIdentifier": "t_contract$_ICerbyToken_$4543",
+                              "typeIdentifier": "t_contract$_ICerbyToken_$4383",
                               "typeString": "contract ICerbyToken"
                             }
                           },
@@ -3264,7 +3264,7 @@
                           "lValueRequested": false,
                           "memberName": "getUtilsContractAtPos",
                           "nodeType": "MemberAccess",
-                          "referencedDeclaration": 4526,
+                          "referencedDeclaration": 4366,
                           "src": "1422:42:0",
                           "typeDescriptions": {
                             "typeIdentifier": "t_function_external_view$_t_uint256_$returns$_t_address_$",
@@ -3298,10 +3298,10 @@
                       "name": "ICerbyBotDetection",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 4385,
+                      "referencedDeclaration": 4225,
                       "src": "1390:18:0",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_type$_t_contract$_ICerbyBotDetection_$4385_$",
+                        "typeIdentifier": "t_type$_t_contract$_ICerbyBotDetection_$4225_$",
                         "typeString": "type(contract ICerbyBotDetection)"
                       }
                     },
@@ -3316,7 +3316,7 @@
                     "src": "1390:147:0",
                     "tryCall": false,
                     "typeDescriptions": {
-                      "typeIdentifier": "t_contract$_ICerbyBotDetection_$4385",
+                      "typeIdentifier": "t_contract$_ICerbyBotDetection_$4225",
                       "typeString": "contract ICerbyBotDetection"
                     }
                   },
@@ -3354,7 +3354,7 @@
                         "referencedDeclaration": 80,
                         "src": "1552:18:0",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_contract$_ICerbyBotDetection_$4385",
+                          "typeIdentifier": "t_contract$_ICerbyBotDetection_$4225",
                           "typeString": "contract ICerbyBotDetection"
                         }
                       },
@@ -3365,7 +3365,7 @@
                       "lValueRequested": false,
                       "memberName": "isBotAddress",
                       "nodeType": "MemberAccess",
-                      "referencedDeclaration": 4365,
+                      "referencedDeclaration": 4205,
                       "src": "1552:31:0",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_external_view$_t_address_$returns$_t_bool_$",
@@ -3506,7 +3506,7 @@
                       "stateVariable": false,
                       "storageLocation": "default",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_contract$_ICerbyBotDetection_$4385",
+                        "typeIdentifier": "t_contract$_ICerbyBotDetection_$4225",
                         "typeString": "contract ICerbyBotDetection"
                       },
                       "typeName": {
@@ -3516,13 +3516,13 @@
                           "id": 105,
                           "name": "ICerbyBotDetection",
                           "nodeType": "IdentifierPath",
-                          "referencedDeclaration": 4385,
+                          "referencedDeclaration": 4225,
                           "src": "1814:18:0"
                         },
-                        "referencedDeclaration": 4385,
+                        "referencedDeclaration": 4225,
                         "src": "1814:18:0",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_contract$_ICerbyBotDetection_$4385",
+                          "typeIdentifier": "t_contract$_ICerbyBotDetection_$4225",
                           "typeString": "contract ICerbyBotDetection"
                         }
                       },
@@ -3562,7 +3562,7 @@
                             "referencedDeclaration": 12,
                             "src": "1886:20:0",
                             "typeDescriptions": {
-                              "typeIdentifier": "t_contract$_ICerbyToken_$4543",
+                              "typeIdentifier": "t_contract$_ICerbyToken_$4383",
                               "typeString": "contract ICerbyToken"
                             }
                           },
@@ -3573,7 +3573,7 @@
                           "lValueRequested": false,
                           "memberName": "getUtilsContractAtPos",
                           "nodeType": "MemberAccess",
-                          "referencedDeclaration": 4526,
+                          "referencedDeclaration": 4366,
                           "src": "1886:42:0",
                           "typeDescriptions": {
                             "typeIdentifier": "t_function_external_view$_t_uint256_$returns$_t_address_$",
@@ -3607,10 +3607,10 @@
                       "name": "ICerbyBotDetection",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 4385,
+                      "referencedDeclaration": 4225,
                       "src": "1854:18:0",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_type$_t_contract$_ICerbyBotDetection_$4385_$",
+                        "typeIdentifier": "t_type$_t_contract$_ICerbyBotDetection_$4225_$",
                         "typeString": "type(contract ICerbyBotDetection)"
                       }
                     },
@@ -3625,7 +3625,7 @@
                     "src": "1854:147:0",
                     "tryCall": false,
                     "typeDescriptions": {
-                      "typeIdentifier": "t_contract$_ICerbyBotDetection_$4385",
+                      "typeIdentifier": "t_contract$_ICerbyBotDetection_$4225",
                       "typeString": "contract ICerbyBotDetection"
                     }
                   },
@@ -3679,7 +3679,7 @@
                         "referencedDeclaration": 107,
                         "src": "2016:18:0",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_contract$_ICerbyBotDetection_$4385",
+                          "typeIdentifier": "t_contract$_ICerbyBotDetection_$4225",
                           "typeString": "contract ICerbyBotDetection"
                         }
                       },
@@ -3690,7 +3690,7 @@
                       "lValueRequested": false,
                       "memberName": "detectBotTransaction",
                       "nodeType": "MemberAccess",
-                      "referencedDeclaration": 4377,
+                      "referencedDeclaration": 4217,
                       "src": "2016:39:0",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_external_nonpayable$_t_address_$_t_address_$returns$_t_bool_$",
@@ -3771,7 +3771,7 @@
                         "referencedDeclaration": 107,
                         "src": "2177:18:0",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_contract$_ICerbyBotDetection_$4385",
+                          "typeIdentifier": "t_contract$_ICerbyBotDetection_$4225",
                           "typeString": "contract ICerbyBotDetection"
                         }
                       },
@@ -3782,7 +3782,7 @@
                       "lValueRequested": false,
                       "memberName": "executeCronJobs",
                       "nodeType": "MemberAccess",
-                      "referencedDeclaration": 4368,
+                      "referencedDeclaration": 4208,
                       "src": "2177:34:0",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_external_nonpayable$__$returns$__$",
@@ -3909,7 +3909,7 @@
                       "stateVariable": false,
                       "storageLocation": "default",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_contract$_ICerbyBotDetection_$4385",
+                        "typeIdentifier": "t_contract$_ICerbyBotDetection_$4225",
                         "typeString": "contract ICerbyBotDetection"
                       },
                       "typeName": {
@@ -3919,13 +3919,13 @@
                           "id": 141,
                           "name": "ICerbyBotDetection",
                           "nodeType": "IdentifierPath",
-                          "referencedDeclaration": 4385,
+                          "referencedDeclaration": 4225,
                           "src": "2375:18:0"
                         },
-                        "referencedDeclaration": 4385,
+                        "referencedDeclaration": 4225,
                         "src": "2375:18:0",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_contract$_ICerbyBotDetection_$4385",
+                          "typeIdentifier": "t_contract$_ICerbyBotDetection_$4225",
                           "typeString": "contract ICerbyBotDetection"
                         }
                       },
@@ -3965,7 +3965,7 @@
                             "referencedDeclaration": 12,
                             "src": "2447:20:0",
                             "typeDescriptions": {
-                              "typeIdentifier": "t_contract$_ICerbyToken_$4543",
+                              "typeIdentifier": "t_contract$_ICerbyToken_$4383",
                               "typeString": "contract ICerbyToken"
                             }
                           },
@@ -3976,7 +3976,7 @@
                           "lValueRequested": false,
                           "memberName": "getUtilsContractAtPos",
                           "nodeType": "MemberAccess",
-                          "referencedDeclaration": 4526,
+                          "referencedDeclaration": 4366,
                           "src": "2447:42:0",
                           "typeDescriptions": {
                             "typeIdentifier": "t_function_external_view$_t_uint256_$returns$_t_address_$",
@@ -4010,10 +4010,10 @@
                       "name": "ICerbyBotDetection",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 4385,
+                      "referencedDeclaration": 4225,
                       "src": "2415:18:0",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_type$_t_contract$_ICerbyBotDetection_$4385_$",
+                        "typeIdentifier": "t_type$_t_contract$_ICerbyBotDetection_$4225_$",
                         "typeString": "type(contract ICerbyBotDetection)"
                       }
                     },
@@ -4028,7 +4028,7 @@
                     "src": "2415:147:0",
                     "tryCall": false,
                     "typeDescriptions": {
-                      "typeIdentifier": "t_contract$_ICerbyBotDetection_$4385",
+                      "typeIdentifier": "t_contract$_ICerbyBotDetection_$4225",
                       "typeString": "contract ICerbyBotDetection"
                     }
                   },
@@ -4082,7 +4082,7 @@
                         "referencedDeclaration": 143,
                         "src": "2577:18:0",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_contract$_ICerbyBotDetection_$4385",
+                          "typeIdentifier": "t_contract$_ICerbyBotDetection_$4225",
                           "typeString": "contract ICerbyBotDetection"
                         }
                       },
@@ -4093,7 +4093,7 @@
                       "lValueRequested": false,
                       "memberName": "detectBotTransaction",
                       "nodeType": "MemberAccess",
-                      "referencedDeclaration": 4377,
+                      "referencedDeclaration": 4217,
                       "src": "2577:39:0",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_external_nonpayable$_t_address_$_t_address_$returns$_t_bool_$",
@@ -4305,7 +4305,7 @@
                         "referencedDeclaration": 143,
                         "src": "2777:18:0",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_contract$_ICerbyBotDetection_$4385",
+                          "typeIdentifier": "t_contract$_ICerbyBotDetection_$4225",
                           "typeString": "contract ICerbyBotDetection"
                         }
                       },
@@ -4316,7 +4316,7 @@
                       "lValueRequested": false,
                       "memberName": "registerTransaction",
                       "nodeType": "MemberAccess",
-                      "referencedDeclaration": 4384,
+                      "referencedDeclaration": 4224,
                       "src": "2777:38:0",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_external_nonpayable$_t_address_$_t_address_$returns$__$",
@@ -4469,8 +4469,8 @@
     "version": "0.8.11+commit.d7f03943.Emscripten.clang"
   },
   "networks": {},
-  "schemaVersion": "3.4.4",
-  "updatedAt": "2022-02-04T07:49:35.387Z",
+  "schemaVersion": "3.3.4",
+  "updatedAt": "2022-02-05T11:52:39.161Z",
   "devdoc": {
     "kind": "dev",
     "methods": {},

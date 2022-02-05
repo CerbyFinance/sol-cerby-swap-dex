@@ -6,9 +6,7 @@ import "./CerbySwapV1_EventsAndErrors.sol";
 
 abstract contract CerbySwapV1_Declarations is CerbySwapV1_EventsAndErrors {
 
-    // Q: internal?
-
-    Pool[] pools; // Q: everything by default is
+    Pool[] pools;
 
     mapping(address => uint256) tokenToPoolId;
 
@@ -17,24 +15,25 @@ abstract contract CerbySwapV1_Declarations is CerbySwapV1_EventsAndErrors {
     address testCerbyToken = 0x527ea24a5917c452DBF402EdC9Da4190239bCcf1; // TODO: remove on production
     address testUsdcToken = 0x947Ef3df5B7D5EC37214Dd06C4042C8E7b0cEBd7; // TODO: remove on production
 
-    address cerUsdToken = 0x46E8e0af862f636199af69aCd082b9963066Ed9C; // Q: is this upgradable? (use constant or immutable)
-    address nativeToken = 0x14769F96e57B80c66837701DE0B43686Fb4632De; // Q: is this upgradable? (use constant or immutable)
+    address cerUsdToken = 0x46E8e0af862f636199af69aCd082b9963066Ed9C;
+    address nativeToken = 0x14769F96e57B80c66837701DE0B43686Fb4632De;
 
     uint256 constant MINT_FEE_DENORM = 10000;
-    uint256 constant MAX_CER_USD_CREDIT = type(uint112).max;
+    uint256 constant MAX_CER_USD_CREDIT = type(uint120).max;
 
     uint256 constant FEE_DENORM = 10000;
     uint256 constant FEE_DENORM_SQUARED = FEE_DENORM * FEE_DENORM;
-    uint256 constant TRADE_VOLUME_DENORM = 10 * 1e18;
+    uint256 constant TRADE_VOLUME_DENORM = 1e18;
 
     uint256 constant TVL_MULTIPLIER_DENORM = 1e10;
 
-    // 6 4hours + 1 current 4hour + 1 next 4hour = 8 hours
-    uint256 constant NUMBER_OF_TRADE_PERIODS = 8;
-    uint256 constant ONE_PERIOD_IN_SECONDS = 4 hours; // 4 hours
+    // 6 x 4.8hours + 1 x current 4.8hour = 7 x periods
+    uint256 constant NUMBER_OF_TRADE_PERIODS = 6;
+    uint256 constant NUMBER_OF_TRADE_PERIODS_MINUS_ONE = NUMBER_OF_TRADE_PERIODS - 1; // equals 5 which is exactly how many periods in 24 hours = 5 * 4.8 hours
+    uint256 constant ONE_PERIOD_IN_SECONDS = 288 minutes; // 4.8 hours
 
     uint256 constant MINIMUM_LIQUIDITY = 1000;
-    address constant DEAD_ADDRESS = address(0xdead); // why not address(0)?
+    address constant DEAD_ADDRESS = address(0xdead);
 
     Settings settings;
 
@@ -48,11 +47,11 @@ abstract contract CerbySwapV1_Declarations is CerbySwapV1_EventsAndErrors {
     }
 
     struct Pool {
-        uint32[NUMBER_OF_TRADE_PERIODS] tradeVolumePerPeriodInCerUsd;
-        uint8 lastCachedTradePeriod;
+        uint40[NUMBER_OF_TRADE_PERIODS] tradeVolumePerPeriodInCerUsd;
         uint16 lastCachedOneMinusFee;
-        uint112 lastSqrtKValue;
-        uint112 creditCerUsd;
+        uint8 lastCachedTradePeriod;
+        uint120 lastSqrtKValue;
+        uint120 creditCerUsd;
     }
 
     struct PoolBalances {

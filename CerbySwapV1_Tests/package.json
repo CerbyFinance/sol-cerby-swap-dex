@@ -1,15 +1,16 @@
 {
 	"private": true,
-	"name": "VIM-Development",
+	"name": "Cerby-Development",
 	"description": "Secure Smart Contract Development",
 	"version": "1.0.0",
 	"scripts": {
-		"chain": "ganache-cli --gasLimit 30000000 --defaultBalanceEther 10000000 -i 5777 -p 8545 -m \"urban prevent meadow draft involve security curtain robot brick question try scatter\"",
+		"chain": "ganache-cli --gasLimit 30000000 --defaultBalanceEther 10000000 -i 5777 -p 8545  --account \"0xf7afd68a815edf7b87a772ef96dc942ca816cf26978954c52c96398cf4c15e4c,1000000000000000000000\"",
 		"generate-types": "typechain --target=truffle-v5 abis/*.abi",
 		"patch-truffle": "patch node_modules/truffle/build/459.bundled.js  < truffle.patch",
 		"compile-contracts": "ts-node-dev --no-deps --transpile-only --ignore-watch node_modules shared/compile.ts",
 		"migrate": "tsc -p ./tsconfig.migrate.json --outDir ./migrations && truffle migrate",
 		"migrate-reset": "tsc -p ./tsconfig.migrate.json --outDir ./migrations && truffle migrate --reset",
+		"compile": "ts-node-dev --no-deps --transpile-only --ignore-watch node_modules shared/compile.ts ; typechain --target=truffle-v5 abis/*.abi; tsc -p ./tsconfig.migrate.json --outDir ./migrations && truffle migrate",
 		"test": "tsc -p ./tsconfig.test.json --outDir test && truffle test",
         "coverage": "npx truffle run coverage --network development"
 	},
@@ -24,11 +25,11 @@
 		"contracts",
 		"security"
 	],
-	"author": "Vitally Marinchenko",
+	"author": "Cerby Team",
 	"bugs": {
-		"url": "https://github.com/vm06007"
+		"url": "https://github.com/CerbyFinance"
 	},
-	"homepage": "https://www.upwork.com/freelancers/vitalijs",
+	"homepage": "https://cerby.fi",
 	"devDependencies": {
 		"@typechain/truffle-v5": "^7.0.0",
 		"@types/bn.js": "^4.11.6",

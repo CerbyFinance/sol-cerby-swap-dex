@@ -19,9 +19,9 @@ contract CerbySwapV1_MinimalProxy is CerbySwapV1_Declarations {
             abi.encodePacked(_token)
         );
 
-        address factory = address(this); // Q: can put as immutable in constructor
+        address factory = address(this);
 
-        address _vaultImplementation = vaultImplementation; // Q: can use directly (immutable)
+        address _vaultImplementation = vaultImplementation;
         address vaultCloneAddress;
 
         assembly {
@@ -62,21 +62,16 @@ contract CerbySwapV1_MinimalProxy is CerbySwapV1_Declarations {
 
         address resultVaultAddress;
         assembly {
-
             let clone := mload(0x40)
-
             mstore(
                 clone,
                 0x3d602d80600a3d3981f3363d3d373d3d3d363d73000000000000000000000000
             )
-
             mstore(add(clone, 0x14), vaultImplementationBytes)
-
             mstore(
                 add(clone, 0x28),
                 0x5af43d82803e903d91602b57fd5bf30000000000000000000000000000000000
             )
-
             resultVaultAddress := create2(
                 0,
                 clone,

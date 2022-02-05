@@ -513,41 +513,6 @@ export interface CerbySwapV1Instance extends Truffle.ContractInstance {
     estimateGas(txDetails?: Truffle.TransactionDetails): Promise<number>;
   };
 
-  safeBatchTransferFrom: {
-    (
-      _from: string,
-      _to: string,
-      _ids: (number | BN | string)[],
-      _amounts: (number | BN | string)[],
-      _data: string,
-      txDetails?: Truffle.TransactionDetails
-    ): Promise<Truffle.TransactionResponse<AllEvents>>;
-    call(
-      _from: string,
-      _to: string,
-      _ids: (number | BN | string)[],
-      _amounts: (number | BN | string)[],
-      _data: string,
-      txDetails?: Truffle.TransactionDetails
-    ): Promise<void>;
-    sendTransaction(
-      _from: string,
-      _to: string,
-      _ids: (number | BN | string)[],
-      _amounts: (number | BN | string)[],
-      _data: string,
-      txDetails?: Truffle.TransactionDetails
-    ): Promise<string>;
-    estimateGas(
-      _from: string,
-      _to: string,
-      _ids: (number | BN | string)[],
-      _amounts: (number | BN | string)[],
-      _data: string,
-      txDetails?: Truffle.TransactionDetails
-    ): Promise<number>;
-  };
-
   safeTransferFrom: {
     (
       _from: string,
@@ -1107,41 +1072,6 @@ export interface CerbySwapV1Instance extends Truffle.ContractInstance {
       call(txDetails?: Truffle.TransactionDetails): Promise<void>;
       sendTransaction(txDetails?: Truffle.TransactionDetails): Promise<string>;
       estimateGas(txDetails?: Truffle.TransactionDetails): Promise<number>;
-    };
-
-    safeBatchTransferFrom: {
-      (
-        _from: string,
-        _to: string,
-        _ids: (number | BN | string)[],
-        _amounts: (number | BN | string)[],
-        _data: string,
-        txDetails?: Truffle.TransactionDetails
-      ): Promise<Truffle.TransactionResponse<AllEvents>>;
-      call(
-        _from: string,
-        _to: string,
-        _ids: (number | BN | string)[],
-        _amounts: (number | BN | string)[],
-        _data: string,
-        txDetails?: Truffle.TransactionDetails
-      ): Promise<void>;
-      sendTransaction(
-        _from: string,
-        _to: string,
-        _ids: (number | BN | string)[],
-        _amounts: (number | BN | string)[],
-        _data: string,
-        txDetails?: Truffle.TransactionDetails
-      ): Promise<string>;
-      estimateGas(
-        _from: string,
-        _to: string,
-        _ids: (number | BN | string)[],
-        _amounts: (number | BN | string)[],
-        _data: string,
-        txDetails?: Truffle.TransactionDetails
-      ): Promise<number>;
     };
 
     safeTransferFrom: {

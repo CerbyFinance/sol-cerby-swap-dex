@@ -2,7 +2,7 @@
 
 pragma solidity ^0.8.11;
 
-import "./interfaces/IERC20.sol";
+import "./interfaces/IBasicERC20.sol";
 import "./interfaces/ICerbySwapV1_VaultImplementation.sol";
 import "./CerbySwapV1_MinimalProxy.sol";
 import "./CerbySwapV1_EventsAndErrors.sol";
@@ -39,7 +39,7 @@ abstract contract CerbySwapV1_SafeFunctions is
     {
         return _token == nativeToken
             ? _vault.balance
-            : IERC20(_token).balanceOf(_vault);
+            : IBasicERC20(_token).balanceOf(_vault);
     }
 
     // Q: simplify, too many && double cuz wrong one chosen as default
@@ -55,9 +55,19 @@ abstract contract CerbySwapV1_SafeFunctions is
             return;
         }
 
-        // native tokens sender --> vault
-        if (_token == nativeToken && _from == msg.sender) {
+        if (_token != nativeToken) {
+            // _safeCoreTransferFrom does not require return value
+            _safeCoreTransferFrom(
+                _token,
+                _from,
+                _to,
+                _amountTokens
+            );
+            return;
+        }
 
+        // native tokens sender --> vault
+        if (_from == msg.sender) {
             // sender must sent some native tokens
             uint256 nativeBalance = address(this).balance;
 
@@ -84,45 +94,12 @@ abstract contract CerbySwapV1_SafeFunctions is
         }
 
         // native tokens vault --> _to
-        if (_token == nativeToken && _from != msg.sender) {
-            ICerbySwapV1_VaultImplementation(_from).withdrawEth(
-                _to,
-                _amountTokens
-            );
-
-            return;
-        }
-
-        // token != nativeToken clause
-        // _safeCoreTransferFrom does not require return value
-        _safeCoreTransferFrom(
-            _token,
-            _from,
+        ICerbySwapV1_VaultImplementation(_from).withdrawEth(
             _to,
             _amountTokens
         );
-    }
 
-    function _safeCoreTransferToken(
-        address _token,
-        address _to,
-        uint256 _value
-    )
-        internal
-    {
-        // refer to https://github.com/Uniswap/solidity-lib/blob/master/contracts/libraries/TransferHelper.sol
-        (bool success, bytes memory data) = _token.call(
-            abi.encodeWithSelector(
-                0xa9059cbb,
-                _to,
-                _value
-            )
-        );
-
-        // we allow successfull calls and with (true) or without return data
-        if (!(success && (data.length == 0 || abi.decode(data, (bool))))) {
-            revert CerbySwapV1_SafeTransferTokensFailed();
-        }
+        return;
     }
 
     function _safeCoreTransferFrom(

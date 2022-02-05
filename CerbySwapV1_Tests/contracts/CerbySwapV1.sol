@@ -26,8 +26,6 @@ contract CerbySwapV1 is CerbySwapV1_AdminFunctions {
             * feeMaximum
             / feeMinimum; // TVL * 27.397260274
 
-        uint256 sincePeriodAgoToTrackTradeVolume = 24; // tracking last 24 hours trade volume
-
         settings = Settings({
             mintFeeBeneficiary: mintFeeBeneficiary,
             mintFeeMultiplier: uint32(mintFeeMultiplier),
@@ -38,7 +36,7 @@ contract CerbySwapV1 is CerbySwapV1_AdminFunctions {
         });
 
         // Filling with empty pool 0th id
-        uint32[8] memory tradeVolumePerPeriodInCerUsd;
+        uint40[NUMBER_OF_TRADE_PERIODS] memory tradeVolumePerPeriodInCerUsd;
         pools.push(
             Pool({
                 tradeVolumePerPeriodInCerUsd: tradeVolumePerPeriodInCerUsd,

@@ -31,7 +31,7 @@ abstract contract CerbySwapV1_LiquidityFunctions is
 
         if (pool.creditCerUsd < MAX_CER_USD_CREDIT) {
             // increasing credit for user-created pool
-            pool.creditCerUsd += uint112(_amountCerUsdCredit);
+            pool.creditCerUsd += uint120(_amountCerUsdCredit);
 
             // burning user's cerUsd tokens in order to increase the credit for given pool
             ICerbyTokenMinterBurner(cerUsdToken).burnHumanAddress(
@@ -49,7 +49,7 @@ abstract contract CerbySwapV1_LiquidityFunctions is
         );
     }
 
-    // only users (Q:? looks like no restricton) are allowed to create new pools with creditCerUsd = 0
+    // users are allowed to create new pools but only with creditCerUsd = 0
     function createPool(
         address _token,
         uint256 _amountTokensIn,
@@ -79,9 +79,7 @@ abstract contract CerbySwapV1_LiquidityFunctions is
         tokenDoesNotExistInPool(_token)
     {
         // creating vault contract to safely store tokens
-        address vaultAddress = address( // Q: does this really need to be wrapped in address() ??
-            cloneVault(_token)
-        );
+        address vaultAddress = cloneVault(_token);
 
         ICerbySwapV1_VaultImplementation(vaultAddress).initialize(
             _token,
@@ -114,20 +112,20 @@ abstract contract CerbySwapV1_LiquidityFunctions is
             revert CerbySwapV1_AmountOfTokensMustBeLargerThanOne();
         }
 
-        // create new pool record ??
-        uint256 newSqrtKValue = sqrt( // used only once
-            _amountTokensIn * _amountCerUsdToMint
-        );
-
         // preparing pool object to push into storage
-        uint32[NUMBER_OF_TRADE_PERIODS] memory tradeVolumePerPeriodInCerUsd;
+        // filling trade volume with 1 (gas savings in runtime)
+        uint40[NUMBER_OF_TRADE_PERIODS] memory tradeVolumePerPeriodInCerUsd;
+        for(uint256 i; i<NUMBER_OF_TRADE_PERIODS; i++) {
+            tradeVolumePerPeriodInCerUsd[i] = 1;
+        }
 
+        uint256 newSqrtKValue = sqrt(_amountTokensIn * _amountCerUsdToMint);
         Pool memory pool = Pool({
             tradeVolumePerPeriodInCerUsd: tradeVolumePerPeriodInCerUsd,
-            lastCachedTradePeriod: 0,
             lastCachedOneMinusFee: uint16(FEE_DENORM - settings.feeMaximum),
-            lastSqrtKValue: uint112(newSqrtKValue),
-            creditCerUsd: uint112(_creditCerUsd)
+            lastCachedTradePeriod: uint8(_getCurrentPeriod()),
+            lastSqrtKValue: uint120(newSqrtKValue),
+            creditCerUsd: uint120(_creditCerUsd)
         });
 
         // remembering the position where new pool will be pushed to
@@ -137,12 +135,11 @@ abstract contract CerbySwapV1_LiquidityFunctions is
         // remembering poolId in the mapping
         tokenToPoolId[_token] = poolId;
 
-        // minting 1000 lp tokens to prevent attack
+        // minting 1000 lp tokens to null address as per uniswap v2 whitepaper
         _mint(
             DEAD_ADDRESS,
             poolId,
-            MINIMUM_LIQUIDITY,
-            "" // Q: super weird, i'd get rid of this
+            MINIMUM_LIQUIDITY
         );
 
         // minting initial lp tokens
@@ -152,8 +149,7 @@ abstract contract CerbySwapV1_LiquidityFunctions is
         _mint(
             _transferTo,
             poolId,
-            lpAmount,
-            "" // Q: super weird, i'd get rid of this
+            lpAmount
         );
 
         // PoolCreated event is needed to track new pairs created in the graph node
@@ -239,8 +235,7 @@ abstract contract CerbySwapV1_LiquidityFunctions is
         _mint(
             settings.mintFeeBeneficiary,
             poolId,
-            amountLpTokensToMintAsFee,
-            "" // Q: super weird, i'd get rid of this
+            amountLpTokensToMintAsFee
         );
 
         // minting LP tokens
@@ -251,8 +246,7 @@ abstract contract CerbySwapV1_LiquidityFunctions is
         _mint(
             _transferTo,
             poolId,
-            lpAmount,
-            "" // Q: super weird, i'd get rid of this
+            lpAmount
         );
 
         // scope to avoid stack to deep error
@@ -272,7 +266,7 @@ abstract contract CerbySwapV1_LiquidityFunctions is
         );
 
         // updating pool variables
-        pool.lastSqrtKValue = uint112(
+        pool.lastSqrtKValue = uint120(
             sqrt(poolBalancesAfter.balanceToken * poolBalancesAfter.balanceCerUsd)
         );
 
@@ -353,8 +347,7 @@ abstract contract CerbySwapV1_LiquidityFunctions is
         _mint(
             settings.mintFeeBeneficiary,
             poolId,
-            amountLpTokensToMintAsFee,
-            "" // Q: super weird, i'd get rid of this
+            amountLpTokensToMintAsFee
         );
 
         // updating pool variables
@@ -363,7 +356,7 @@ abstract contract CerbySwapV1_LiquidityFunctions is
             poolBalancesBefore.balanceCerUsd - amountCerUsdToBurn
         );
 
-        pool.lastSqrtKValue = uint112(
+        pool.lastSqrtKValue = uint120(
             sqrt(poolBalancesAfter.balanceToken * poolBalancesAfter.balanceCerUsd)
         );
 
@@ -412,7 +405,7 @@ abstract contract CerbySwapV1_LiquidityFunctions is
         return amountTokensOut;
     }
 
-    function _getMintFeeLiquidityAmount( // Q: unnecessary item
+    function _getMintFeeLiquidityAmount(
         uint256 _lastSqrtKValue,
         uint256 _newSqrtKValue,
         uint256 _totalLPSupply
@@ -421,7 +414,6 @@ abstract contract CerbySwapV1_LiquidityFunctions is
         view
         returns (uint256)
     {
-        uint256 amountLpTokensToMintAsFee; // Q: review this (remove this)
         uint256 mintFeeMultiplier = uint256(
             settings.mintFeeMultiplier
         );
@@ -431,7 +423,7 @@ abstract contract CerbySwapV1_LiquidityFunctions is
             _lastSqrtKValue > 0 &&
             mintFeeMultiplier > 0
         ) {
-            amountLpTokensToMintAsFee =
+            return
                 (_totalLPSupply *
                     mintFeeMultiplier *
                     (_newSqrtKValue - _lastSqrtKValue)) /
@@ -441,6 +433,6 @@ abstract contract CerbySwapV1_LiquidityFunctions is
                     mintFeeMultiplier);
         }
 
-        return amountLpTokensToMintAsFee;
+        return 0;
     }
 }

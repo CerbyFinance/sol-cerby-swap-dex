@@ -293,8 +293,7 @@ abstract contract ERC1155 is ERC165, IERC1155, IERC1155MetadataURI {
     function _mint(
         address _to,
         uint256 _id,
-        uint256 _amount,
-        bytes memory _data
+        uint256 _amount
     ) internal virtual {
         if (_to == BURN_ADDRESS) {
             revert ERC1155_MintToZeroAddress();
@@ -320,53 +319,7 @@ abstract contract ERC1155 is ERC165, IERC1155, IERC1155MetadataURI {
             _to,
             _id,
             _amount,
-            _data
-        );
-    }
-
-    /**
-     * @dev xref:ROOT:erc1155.adoc#batch-operations[Batched] version of {_mint}.
-     *
-     * Requirements:
-     *
-     * - `ids` and `amounts` must have the same length.
-     * - If `to` refers to a smart contract, it must implement {IERC1155Receiver-onERC1155BatchReceived} and return the
-     * acceptance magic value.
-     */
-    function _mintBatch(
-        address _to,
-        uint256[] calldata _ids,
-        uint256[] calldata _amounts,
-        bytes memory _data
-    ) internal virtual {
-        if (_to == BURN_ADDRESS) {
-            revert ERC1155_MintToZeroAddress();
-        }
-
-        uint256 idsLength = _ids.length;
-        if (idsLength != _amounts.length) {
-            revert ERC1155_IdsAndAmountsLengthMismatch();
-        }
-
-        address operator = msg.sender;
-
-        for (uint256 i = 0; i < idsLength; i++) {
-            contractTotalSupply[_ids[i]] += _amounts[i];
-
-            unchecked {
-                balances[_ids[i]][_to] += _amounts[i];
-            }
-        }
-
-        emit TransferBatch(operator, BURN_ADDRESS, _to, _ids, _amounts);
-
-        _doSafeBatchTransferAcceptanceCheck(
-            operator,
-            BURN_ADDRESS,
-            _to,
-            _ids,
-            _amounts,
-            _data
+            ""
         );
     }
 
@@ -399,45 +352,6 @@ abstract contract ERC1155 is ERC165, IERC1155, IERC1155MetadataURI {
         }
 
         emit TransferSingle(operator, _from, BURN_ADDRESS, _id, _amount);
-    }
-
-    /**
-     * @dev xref:ROOT:erc1155.adoc#batch-operations[Batched] version of {_burn}.
-     *
-     * Requirements:
-     *
-     * - `ids` and `amounts` must have the same length.
-     */
-    function _burnBatch(
-        address _from,
-        uint256[] calldata _ids,
-        uint256[] calldata _amounts
-    ) internal virtual {
-        if (_from == BURN_ADDRESS) {
-            revert ERC1155_BurnFromZeroAddress();
-        }
-        if (_ids.length != _amounts.length) {
-            revert ERC1155_IdsAndAmountsLengthMismatch();
-        }
-
-        address operator = msg.sender;
-
-        for (uint256 i = 0; i < _ids.length; i++) {
-            uint256 id = _ids[i];
-            uint256 amount = _amounts[i];
-
-            uint256 fromBalance = balances[id][_from];
-            if (fromBalance < amount) {
-                revert ERC1155_BurnAmountExceedsBalance();
-            }
-
-            unchecked {
-                balances[id][_from] = fromBalance - amount;
-                contractTotalSupply[id] -= amount;
-            }
-        }
-
-        emit TransferBatch(operator, _from, BURN_ADDRESS, _ids, _amounts);
     }
 
     /**

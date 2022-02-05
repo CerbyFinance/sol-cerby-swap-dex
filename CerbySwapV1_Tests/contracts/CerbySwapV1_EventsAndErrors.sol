@@ -42,10 +42,8 @@ abstract contract CerbySwapV1_EventsAndErrors {
     error CerbySwapV1_TokenAlreadyExists();
     error CerbySwapV1_TokenDoesNotExist();
     error CerbySwapV1_TransactionIsExpired();
-    error CerbySwapV1_FeeOnTransferTokensArentSupported(); // Q: unused
     error CerbySwapV1_AmountOfTokensMustBeLargerThanOne();
     error CerbySwapV1_AmountOfCerUsdMustBeLargerThanOne();
-    error CerbySwapV1_MsgValueProvidedMustBeZero(); // Q: unused
     error CerbySwapV1_OutputCerUsdAmountIsLowerThanMinimumSpecified();
     error CerbySwapV1_OutputTokensAmountIsLowerThanMinimumSpecified();
     error CerbySwapV1_InputCerUsdAmountIsLargerThanMaximumSpecified();
@@ -60,6 +58,5 @@ abstract contract CerbySwapV1_EventsAndErrors {
     error CerbySwapV1_FeeIsWrong();
     error CerbySwapV1_TvlMultiplierIsWrong();
     error CerbySwapV1_MintFeeMultiplierMustNotBeLargerThan50Percent();
-    error CerbySwapV1_CreditCerUsdIsOverflown(); // Q: unused
     error CerbySwapV1_CreditCerUsdMustNotBeBelowZero();
 }

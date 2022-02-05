@@ -9,28 +9,58 @@ export interface IERC20Contract extends Truffle.Contract<IERC20Instance> {
   "new"(meta?: Truffle.TransactionDetails): Promise<IERC20Instance>;
 }
 
-type AllEvents = never;
+export interface Approval {
+  name: "Approval";
+  args: {
+    owner: string;
+    spender: string;
+    value: BN;
+    0: string;
+    1: string;
+    2: BN;
+  };
+}
+
+export interface Transfer {
+  name: "Transfer";
+  args: {
+    from: string;
+    to: string;
+    value: BN;
+    0: string;
+    1: string;
+    2: BN;
+  };
+}
+
+type AllEvents = Approval | Transfer;
 
 export interface IERC20Instance extends Truffle.ContractInstance {
+  allowance(
+    owner: string,
+    spender: string,
+    txDetails?: Truffle.TransactionDetails
+  ): Promise<BN>;
+
   approve: {
     (
-      _spender: string,
-      _value: number | BN | string,
+      spender: string,
+      amount: number | BN | string,
       txDetails?: Truffle.TransactionDetails
     ): Promise<Truffle.TransactionResponse<AllEvents>>;
     call(
-      _spender: string,
-      _value: number | BN | string,
+      spender: string,
+      amount: number | BN | string,
       txDetails?: Truffle.TransactionDetails
     ): Promise<boolean>;
     sendTransaction(
-      _spender: string,
-      _value: number | BN | string,
+      spender: string,
+      amount: number | BN | string,
       txDetails?: Truffle.TransactionDetails
     ): Promise<string>;
     estimateGas(
-      _spender: string,
-      _value: number | BN | string,
+      spender: string,
+      amount: number | BN | string,
       txDetails?: Truffle.TransactionDetails
     ): Promise<number>;
   };
@@ -40,26 +70,84 @@ export interface IERC20Instance extends Truffle.ContractInstance {
     txDetails?: Truffle.TransactionDetails
   ): Promise<BN>;
 
+  totalSupply(txDetails?: Truffle.TransactionDetails): Promise<BN>;
+
+  transfer: {
+    (
+      recipient: string,
+      amount: number | BN | string,
+      txDetails?: Truffle.TransactionDetails
+    ): Promise<Truffle.TransactionResponse<AllEvents>>;
+    call(
+      recipient: string,
+      amount: number | BN | string,
+      txDetails?: Truffle.TransactionDetails
+    ): Promise<boolean>;
+    sendTransaction(
+      recipient: string,
+      amount: number | BN | string,
+      txDetails?: Truffle.TransactionDetails
+    ): Promise<string>;
+    estimateGas(
+      recipient: string,
+      amount: number | BN | string,
+      txDetails?: Truffle.TransactionDetails
+    ): Promise<number>;
+  };
+
+  transferFrom: {
+    (
+      sender: string,
+      recipient: string,
+      amount: number | BN | string,
+      txDetails?: Truffle.TransactionDetails
+    ): Promise<Truffle.TransactionResponse<AllEvents>>;
+    call(
+      sender: string,
+      recipient: string,
+      amount: number | BN | string,
+      txDetails?: Truffle.TransactionDetails
+    ): Promise<boolean>;
+    sendTransaction(
+      sender: string,
+      recipient: string,
+      amount: number | BN | string,
+      txDetails?: Truffle.TransactionDetails
+    ): Promise<string>;
+    estimateGas(
+      sender: string,
+      recipient: string,
+      amount: number | BN | string,
+      txDetails?: Truffle.TransactionDetails
+    ): Promise<number>;
+  };
+
   methods: {
+    allowance(
+      owner: string,
+      spender: string,
+      txDetails?: Truffle.TransactionDetails
+    ): Promise<BN>;
+
     approve: {
       (
-        _spender: string,
-        _value: number | BN | string,
+        spender: string,
+        amount: number | BN | string,
         txDetails?: Truffle.TransactionDetails
       ): Promise<Truffle.TransactionResponse<AllEvents>>;
       call(
-        _spender: string,
-        _value: number | BN | string,
+        spender: string,
+        amount: number | BN | string,
         txDetails?: Truffle.TransactionDetails
       ): Promise<boolean>;
       sendTransaction(
-        _spender: string,
-        _value: number | BN | string,
+        spender: string,
+        amount: number | BN | string,
         txDetails?: Truffle.TransactionDetails
       ): Promise<string>;
       estimateGas(
-        _spender: string,
-        _value: number | BN | string,
+        spender: string,
+        amount: number | BN | string,
         txDetails?: Truffle.TransactionDetails
       ): Promise<number>;
     };
@@ -68,6 +156,58 @@ export interface IERC20Instance extends Truffle.ContractInstance {
       account: string,
       txDetails?: Truffle.TransactionDetails
     ): Promise<BN>;
+
+    totalSupply(txDetails?: Truffle.TransactionDetails): Promise<BN>;
+
+    transfer: {
+      (
+        recipient: string,
+        amount: number | BN | string,
+        txDetails?: Truffle.TransactionDetails
+      ): Promise<Truffle.TransactionResponse<AllEvents>>;
+      call(
+        recipient: string,
+        amount: number | BN | string,
+        txDetails?: Truffle.TransactionDetails
+      ): Promise<boolean>;
+      sendTransaction(
+        recipient: string,
+        amount: number | BN | string,
+        txDetails?: Truffle.TransactionDetails
+      ): Promise<string>;
+      estimateGas(
+        recipient: string,
+        amount: number | BN | string,
+        txDetails?: Truffle.TransactionDetails
+      ): Promise<number>;
+    };
+
+    transferFrom: {
+      (
+        sender: string,
+        recipient: string,
+        amount: number | BN | string,
+        txDetails?: Truffle.TransactionDetails
+      ): Promise<Truffle.TransactionResponse<AllEvents>>;
+      call(
+        sender: string,
+        recipient: string,
+        amount: number | BN | string,
+        txDetails?: Truffle.TransactionDetails
+      ): Promise<boolean>;
+      sendTransaction(
+        sender: string,
+        recipient: string,
+        amount: number | BN | string,
+        txDetails?: Truffle.TransactionDetails
+      ): Promise<string>;
+      estimateGas(
+        sender: string,
+        recipient: string,
+        amount: number | BN | string,
+        txDetails?: Truffle.TransactionDetails
+      ): Promise<number>;
+    };
   };
 
   getPastEvents(event: string): Promise<EventData[]>;

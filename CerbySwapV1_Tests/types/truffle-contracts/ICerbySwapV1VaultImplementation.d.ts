@@ -40,7 +40,7 @@ export interface ICerbySwapV1VaultImplementationInstance
   };
 
   balanceOf(
-    account: string,
+    _account: string,
     txDetails?: Truffle.TransactionDetails
   ): Promise<BN>;
 
@@ -119,7 +119,7 @@ export interface ICerbySwapV1VaultImplementationInstance
     };
 
     balanceOf(
-      account: string,
+      _account: string,
       txDetails?: Truffle.TransactionDetails
     ): Promise<BN>;
 
