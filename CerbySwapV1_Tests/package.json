@@ -12,7 +12,7 @@
 		"migrate-reset": "tsc -p ./tsconfig.migrate.json --outDir ./migrations && truffle migrate --reset",
 		"compile": "ts-node-dev --no-deps --transpile-only --ignore-watch node_modules shared/compile.ts ; typechain --target=truffle-v5 abis/*.abi; tsc -p ./tsconfig.migrate.json --outDir ./migrations && truffle migrate",
 		"test": "tsc -p ./tsconfig.test.json --outDir test && truffle test",
-        "coverage": "npx truffle run coverage --network development"
+		"coverage": "npx truffle run coverage --network development"
 	},
 	"repository": {
 		"type": "git",
