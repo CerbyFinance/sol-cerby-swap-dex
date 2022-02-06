@@ -155,12 +155,12 @@ abstract contract CerbySwapV1_GetFunctions is
         // direction XXX --> cerUSD --> YYY (or XXX --> YYY)
         // getting amountTokensOut
         uint256 amountCerUsdOut = _getInputCerUsdForExactTokens(
-            _getPoolBalances(_tokenIn),
+            _getPoolBalances(_tokenOut),
             _amountTokensOut
         );
 
         amountTokensIn = _getInputTokensForExactCerUsd(
-            _getPoolBalances(_tokenOut),
+            _getPoolBalances(_tokenIn),
             _tokenIn,
             amountCerUsdOut
         );

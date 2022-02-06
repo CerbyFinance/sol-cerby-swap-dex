@@ -23,6 +23,7 @@ abstract contract CerbySwapV1_Declarations is CerbySwapV1_EventsAndErrors {
 
     uint256 constant FEE_DENORM = 10000;
     uint256 constant FEE_DENORM_SQUARED = FEE_DENORM * FEE_DENORM;
+    uint256 constant MAX_TRADE_FEE_POSSIBLE = 500; // 5%
     uint256 constant TRADE_VOLUME_DENORM = 1e18;
 
     uint256 constant TVL_MULTIPLIER_DENORM = 1e10;

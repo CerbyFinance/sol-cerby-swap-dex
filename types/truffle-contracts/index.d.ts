@@ -2,7 +2,10 @@
 /* tslint:disable */
 /* eslint-disable */
 
+import { AccessControlContract } from "./AccessControl";
+import { AccessControlEnumerableContract } from "./AccessControlEnumerable";
 import { CerbyCronJobsExecutionContract } from "./CerbyCronJobsExecution";
+import { CerbySwapLP1155V1Contract } from "./CerbySwapLP1155V1";
 import { CerbySwapV1Contract } from "./CerbySwapV1";
 import { CerbySwapV1AdminFunctionsContract } from "./CerbySwapV1AdminFunctions";
 import { CerbySwapV1DeclarationsContract } from "./CerbySwapV1Declarations";
@@ -14,16 +17,22 @@ import { CerbySwapV1MinimalProxyContract } from "./CerbySwapV1MinimalProxy";
 import { CerbySwapV1ModifiersContract } from "./CerbySwapV1Modifiers";
 import { CerbySwapV1SafeFunctionsContract } from "./CerbySwapV1SafeFunctions";
 import { CerbySwapV1SwapFunctionsContract } from "./CerbySwapV1SwapFunctions";
+import { CerbySwapV1VaultContract } from "./CerbySwapV1Vault";
 import { CerbySwapV1VaultImplementationContract } from "./CerbySwapV1VaultImplementation";
 import { ERC1155Contract } from "./ERC1155";
+import { ERC1155SupplyContract } from "./ERC1155Supply";
 import { ERC165Contract } from "./ERC165";
 import { ERC20Contract } from "./ERC20";
+import { IAccessControlContract } from "./IAccessControl";
+import { IAccessControlEnumerableContract } from "./IAccessControlEnumerable";
 import { IBasicERC20Contract } from "./IBasicERC20";
 import { ICerbyBotDetectionContract } from "./ICerbyBotDetection";
+import { ICerbySwapV1VaultContract } from "./ICerbySwapV1Vault";
 import { ICerbySwapV1VaultImplementationContract } from "./ICerbySwapV1VaultImplementation";
 import { ICerbyTokenContract } from "./ICerbyToken";
 import { ICerbyTokenMinterBurnerContract } from "./ICerbyTokenMinterBurner";
 import { IERC1155Contract } from "./IERC1155";
+import { IERC1155MetadataURIContract } from "./IERC1155MetadataURI";
 import { IERC1155ReceiverContract } from "./IERC1155Receiver";
 import { IERC165Contract } from "./IERC165";
 import { IERC20Contract } from "./IERC20";
@@ -37,7 +46,10 @@ import { TestUsdcTokenContract } from "./TestUsdcToken";
 declare global {
   namespace Truffle {
     interface Artifacts {
+      require(name: "AccessControl"): AccessControlContract;
+      require(name: "AccessControlEnumerable"): AccessControlEnumerableContract;
       require(name: "CerbyCronJobsExecution"): CerbyCronJobsExecutionContract;
+      require(name: "CerbySwapLP1155V1"): CerbySwapLP1155V1Contract;
       require(name: "CerbySwapV1"): CerbySwapV1Contract;
       require(
         name: "CerbySwapV1_AdminFunctions"
@@ -65,20 +77,28 @@ declare global {
       require(
         name: "CerbySwapV1_SwapFunctions"
       ): CerbySwapV1SwapFunctionsContract;
+      require(name: "CerbySwapV1_Vault"): CerbySwapV1VaultContract;
       require(
         name: "CerbySwapV1_VaultImplementation"
       ): CerbySwapV1VaultImplementationContract;
       require(name: "ERC1155"): ERC1155Contract;
+      require(name: "ERC1155Supply"): ERC1155SupplyContract;
       require(name: "ERC165"): ERC165Contract;
       require(name: "ERC20"): ERC20Contract;
+      require(name: "IAccessControl"): IAccessControlContract;
+      require(
+        name: "IAccessControlEnumerable"
+      ): IAccessControlEnumerableContract;
       require(name: "IBasicERC20"): IBasicERC20Contract;
       require(name: "ICerbyBotDetection"): ICerbyBotDetectionContract;
+      require(name: "ICerbySwapV1_Vault"): ICerbySwapV1VaultContract;
       require(
         name: "ICerbySwapV1_VaultImplementation"
       ): ICerbySwapV1VaultImplementationContract;
       require(name: "ICerbyToken"): ICerbyTokenContract;
       require(name: "ICerbyTokenMinterBurner"): ICerbyTokenMinterBurnerContract;
       require(name: "IERC1155"): IERC1155Contract;
+      require(name: "IERC1155MetadataURI"): IERC1155MetadataURIContract;
       require(name: "IERC1155Receiver"): IERC1155ReceiverContract;
       require(name: "IERC165"): IERC165Contract;
       require(name: "IERC20"): IERC20Contract;
@@ -92,10 +112,19 @@ declare global {
   }
 }
 
+export { AccessControlContract, AccessControlInstance } from "./AccessControl";
+export {
+  AccessControlEnumerableContract,
+  AccessControlEnumerableInstance,
+} from "./AccessControlEnumerable";
 export {
   CerbyCronJobsExecutionContract,
   CerbyCronJobsExecutionInstance,
 } from "./CerbyCronJobsExecution";
+export {
+  CerbySwapLP1155V1Contract,
+  CerbySwapLP1155V1Instance,
+} from "./CerbySwapLP1155V1";
 export { CerbySwapV1Contract, CerbySwapV1Instance } from "./CerbySwapV1";
 export {
   CerbySwapV1AdminFunctionsContract,
@@ -138,17 +167,34 @@ export {
   CerbySwapV1SwapFunctionsInstance,
 } from "./CerbySwapV1SwapFunctions";
 export {
+  CerbySwapV1VaultContract,
+  CerbySwapV1VaultInstance,
+} from "./CerbySwapV1Vault";
+export {
   CerbySwapV1VaultImplementationContract,
   CerbySwapV1VaultImplementationInstance,
 } from "./CerbySwapV1VaultImplementation";
 export { ERC1155Contract, ERC1155Instance } from "./ERC1155";
+export { ERC1155SupplyContract, ERC1155SupplyInstance } from "./ERC1155Supply";
 export { ERC165Contract, ERC165Instance } from "./ERC165";
 export { ERC20Contract, ERC20Instance } from "./ERC20";
+export {
+  IAccessControlContract,
+  IAccessControlInstance,
+} from "./IAccessControl";
+export {
+  IAccessControlEnumerableContract,
+  IAccessControlEnumerableInstance,
+} from "./IAccessControlEnumerable";
 export { IBasicERC20Contract, IBasicERC20Instance } from "./IBasicERC20";
 export {
   ICerbyBotDetectionContract,
   ICerbyBotDetectionInstance,
 } from "./ICerbyBotDetection";
+export {
+  ICerbySwapV1VaultContract,
+  ICerbySwapV1VaultInstance,
+} from "./ICerbySwapV1Vault";
 export {
   ICerbySwapV1VaultImplementationContract,
   ICerbySwapV1VaultImplementationInstance,
@@ -159,6 +205,10 @@ export {
   ICerbyTokenMinterBurnerInstance,
 } from "./ICerbyTokenMinterBurner";
 export { IERC1155Contract, IERC1155Instance } from "./IERC1155";
+export {
+  IERC1155MetadataURIContract,
+  IERC1155MetadataURIInstance,
+} from "./IERC1155MetadataURI";
 export {
   IERC1155ReceiverContract,
   IERC1155ReceiverInstance,

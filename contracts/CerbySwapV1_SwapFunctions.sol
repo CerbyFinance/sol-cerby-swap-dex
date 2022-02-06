@@ -406,6 +406,7 @@ abstract contract CerbySwapV1_SwapFunctions is CerbySwapV1_LiquidityFunctions {
         uint256 amountTokensIn = poolBalancesAfter.balanceToken
             - _poolBalancesBefore.balanceToken;
 
+        // at least one of amountTokensIn or amountCerUsdIn must be larger than zero
         if (amountTokensIn + amountCerUsdIn <= 1) {
             revert("2");
             revert CerbySwapV1_AmountOfCerUsdOrTokensInMustBeLargerThanOne();

@@ -1,32 +1,44 @@
 // SPDX-License-Identifier: MIT
 // OpenZeppelin Contracts v4.4.1 (token/ERC1155/ERC1155.sol)
 
-pragma solidity ^0.8.0;
+pragma solidity ^0.8.11;
 
 import "./IERC1155.sol";
 import "./IERC1155Receiver.sol";
 import "../../utils/introspection/ERC165.sol";
 
-/**
- * @dev Implementation of the basic standard multi-token.
- * See https://eips.ethereum.org/EIPS/eip-1155
- * Originally based on code by Enjin: https://github.com/enjin/erc-1155
- *
- * _Available since v3.1._
- */
-abstract contract ERC1155 is ERC165, IERC1155 {
+abstract contract ERC1155 {
     // Mapping from token ID to account balances
     mapping(uint256 => mapping(address => uint256)) internal balances;
 
     // Mapping from account to operator approvals
     mapping(address => mapping(address => bool)) internal operatorApprovals;
 
-    // Used as the URI for all token types by relying on ID substitution, e.g. https://token-cdn-domain/{id}.json
-    string internal contractUri;
-
     mapping(uint256 => uint256) internal contractTotalSupply;
 
     address internal constant BURN_ADDRESS = address(0);
+
+    event TransferSingle(
+        address indexed operator,
+        address indexed from,
+        address indexed to,
+        uint256 id,
+        uint256 value
+    );
+
+    event TransferBatch(
+        address indexed operator,
+        address indexed from,
+        address indexed to,
+        uint256[] ids,
+        uint256[] values
+    );
+
+    event ApprovalForAll(
+        address indexed account,
+        address indexed operator,
+        bool approved
+    );
 
     error ERC1155_CallerIsNotOwnerNorApproved();
     error ERC1155_AddressMustNotBeZeroAddress();
@@ -36,13 +48,6 @@ abstract contract ERC1155 is ERC165, IERC1155 {
     error ERC1155_SettingApprovalStatusForSelf();
     error ERC1155_ERC1155ReceiverRejectsTokens();
     error ERC1155_TransferToNonERC1155ReceiverImplementer();
-
-    /**
-     * @dev See {_setURI}.
-     */
-    constructor(string memory _uri) {
-        _setURI(_uri);
-    }
 
     modifier addressIsApproved(address _addr) {
         if (_addr == msg.sender && isApprovedForAll(_addr, msg.sender)) {
@@ -65,81 +70,26 @@ abstract contract ERC1155 is ERC165, IERC1155 {
         _;
     }
 
-    /**
-     * @dev Total amount of tokens in with a given id.
-     */
-    function totalSupply(uint256 _id) external view virtual returns (uint256) {
-        return contractTotalSupply[_id];
-    }
-
-    /**
-     * @dev Indicates whether any token exist with a given id, or not.
-     */
-    function exists(uint256 _id) external view virtual returns (bool) {
-        return contractTotalSupply[_id] > 0;
-    }
-
-    function isContract(address _account) internal view returns (bool) {
-        // This method relies on extcodesize, which returns 0 for contracts in
-        // construction, since the code is only stored at the end of the
-        // constructor execution.
-
-        uint256 size;
-        assembly {
-            size := extcodesize(_account)
-        }
-        return size > 0;
-    }
-
-    /**
-     * @dev See {IERC1155MetadataURI-uri}.
-     *
-     * This implementation returns the same URI for *all* token types. It relies
-     * on the token type ID substitution mechanism
-     * https://eips.ethereum.org/EIPS/eip-1155#metadata[defined in the EIP].
-     *
-     * Clients calling this function must replace the `\{id\}` substring with the
-     * actual token type ID.
-     */
-    function uri(uint256)
-        external
-        view
-        virtual
-        returns (string memory)
-    {
-        return contractUri;
-    }
-
-    /**
-     * @dev See {IERC1155-balanceOf}.
-     *
-     * Requirements:
-     *
-     * - `account` cannot be the zero address.
-     */
     function balanceOf(address _account, uint256 _id)
         public
         view
-        virtual
-        override
         addressIsNotBurnAddress(_account)
         returns (uint256)
     {
         return balances[_id][_account];
     }
 
-    /**
-     * @dev See {IERC1155-balanceOfBatch}.
-     *
-     * Requirements:
-     *
-     * - `accounts` and `ids` must have the same length.
-     */
+    function isApprovedForAll(address _account, address _operator)
+        public
+        view
+        returns (bool)
+    {
+        return operatorApprovals[_account][_operator];
+    }
+
     function balanceOfBatch(address[] calldata _accounts, uint256[] calldata _ids)
         external
         view
-        virtual
-        override
         idsLengthMismatch(_ids.length, _accounts.length)
         returns (uint256[] memory)
     {
@@ -151,32 +101,23 @@ abstract contract ERC1155 is ERC165, IERC1155 {
 
         return batchBalances;
     }
-
-    /**
-     * @dev See {IERC1155-isApprovedForAll}.
-     */
-    function isApprovedForAll(address _account, address _operator)
-        public
-        view
-        virtual
-        override
-        returns (bool)
+    
+    function totalSupply(uint256 _id) 
+        external 
+        view 
+        returns (uint256) 
     {
-        return operatorApprovals[_account][_operator];
+        return contractTotalSupply[_id];
+    }
+    
+    function exists(uint256 _id) 
+        external 
+        view 
+        returns (bool) 
+    {
+        return contractTotalSupply[_id] > 0;
     }
 
-    /**
-     * @dev Transfers `amount` tokens of token type `id` from `from` to `to`.
-     *
-     * Emits a {TransferSingle} event.
-     *
-     * Requirements:
-     *
-     * - `to` cannot be the zero address.
-     * - `from` must have a balance of tokens of type `id` of at least `amount`.
-     * - If `to` refers to a smart contract, it must implement {IERC1155Receiver-onERC1155Received} and return the
-     * acceptance magic value.
-     */
     function _safeTransferFrom(
         address _from,
         address _to,
@@ -184,8 +125,7 @@ abstract contract ERC1155 is ERC165, IERC1155 {
         uint256 _amount,
         bytes calldata _data
     ) 
-        internal 
-        virtual
+        internal
         addressIsNotBurnAddress(_to)
     {
         address operator = msg.sender;
@@ -195,12 +135,10 @@ abstract contract ERC1155 is ERC165, IERC1155 {
             revert ERC1155_InsufficientBalanceForTransfer();
         }
 
+        contractTotalSupply[_id] += _amount; // will overflow (revert) earlier than balances[_id][_to]
         unchecked {
             balances[_id][_from] = fromBalance - _amount;
-        }
-        balances[_id][_to] += _amount;
-        unchecked {
-            contractTotalSupply[_id] += _amount;
+            balances[_id][_to] += _amount;
         }
 
         emit TransferSingle(operator, _from, _to, _id, _amount);
@@ -208,47 +146,12 @@ abstract contract ERC1155 is ERC165, IERC1155 {
         _doSafeTransferAcceptanceCheck(operator, _from, _to, _id, _amount, _data);
     }
 
-    /**
-     * @dev Sets a new URI for all token types, by relying on the token type ID
-     * substitution mechanism
-     * https://eips.ethereum.org/EIPS/eip-1155#metadata[defined in the EIP].
-     *
-     * By this mechanism, any occurrence of the `\{id\}` substring in either the
-     * URI or any of the amounts in the JSON file at said URI will be replaced by
-     * clients with the token type ID.
-     *
-     * For example, the `https://token-cdn-domain/\{id\}.json` URI would be
-     * interpreted by clients as
-     * `https://token-cdn-domain/000000000000000000000000000000000000000000000000000000000004cce0.json`
-     * for token type ID 0x4cce0.
-     *
-     * See {uri}.
-     *
-     * Because these URIs cannot be meaningfully represented by the {URI} event,
-     * this function emits no events.
-     */
-    function _setURI(string memory _newContractUri) internal virtual {
-        contractUri = _newContractUri;
-    }
-
-    /**
-     * @dev Creates `amount` tokens of token type `id`, and assigns them to `to`.
-     *
-     * Emits a {TransferSingle} event.
-     *
-     * Requirements:
-     *
-     * - `to` cannot be the zero address.
-     * - If `to` refers to a smart contract, it must implement {IERC1155Receiver-onERC1155Received} and return the
-     * acceptance magic value.
-     */
     function _mint(
         address _to,
         uint256 _id,
         uint256 _amount
     ) 
-        internal 
-        virtual 
+        internal
         addressIsNotBurnAddress(_to)
     {
         if (_amount == 0) {
@@ -257,8 +160,7 @@ abstract contract ERC1155 is ERC165, IERC1155 {
 
         address operator = msg.sender;
 
-        contractTotalSupply[_id] += _amount;
-
+        contractTotalSupply[_id] += _amount; // will overflow (revert) earlier than balances[_id][_to]
         unchecked {
             balances[_id][_to] += _amount;
         }
@@ -275,21 +177,12 @@ abstract contract ERC1155 is ERC165, IERC1155 {
         );
     }
 
-    /**
-     * @dev Destroys `amount` tokens of token type `id` from `from`
-     *
-     * Requirements:
-     *
-     * - `from` cannot be the zero address.
-     * - `from` must have at least `amount` tokens of token type `id`.
-     */
     function _burn(
         address _from,
         uint256 _id,
         uint256 _amount
     ) 
-        internal 
-        virtual 
+        internal
         addressIsNotBurnAddress(_from)
     {
         address operator = msg.sender;
@@ -300,22 +193,19 @@ abstract contract ERC1155 is ERC165, IERC1155 {
         }
         unchecked {
             balances[_id][_from] = fromBalance - _amount;
-            contractTotalSupply[_id] -= _amount;
+            contractTotalSupply[_id] -= _amount; // if user balance is not overflown then total supply isn't too
         }
 
         emit TransferSingle(operator, _from, BURN_ADDRESS, _id, _amount);
     }
 
-    /**
-     * @dev Approve `operator` to operate on all of `owner` tokens
-     *
-     * Emits a {ApprovalForAll} event.
-     */
     function _setApprovalForAll(
         address _owner,
         address _operator,
         bool _approved
-    ) internal virtual {
+    ) 
+        internal 
+    {
         if (_owner == _operator) {
             revert ERC1155_SettingApprovalStatusForSelf();
         }
@@ -331,7 +221,9 @@ abstract contract ERC1155 is ERC165, IERC1155 {
         uint256 _id,
         uint256 _amount,
         bytes memory _data
-    ) private {
+    ) 
+        private 
+    {
         if (isContract(_to)) {
             try
                 IERC1155Receiver(_to).onERC1155Received(
@@ -349,5 +241,21 @@ abstract contract ERC1155 is ERC165, IERC1155 {
                 revert ERC1155_TransferToNonERC1155ReceiverImplementer();
             }
         }
+    }
+
+    function isContract(address _account) 
+        private 
+        view 
+        returns (bool) 
+    {
+        // This method relies on extcodesize, which returns 0 for contracts in
+        // construction, since the code is only stored at the end of the
+        // constructor execution.
+
+        uint256 size;
+        assembly {
+            size := extcodesize(_account)
+        }
+        return size > 0;
     }
 }

@@ -64,13 +64,12 @@ abstract contract CerbySwapV1_AdminFunctions is
         );
     }
 
-    function adminSetURI(
+    function adminSetUrlPrefix(
         string calldata _newUrlPrefix
     )
         external
         onlyOwner
     {
-        _setURI(string(abi.encodePacked(_newUrlPrefix, "{id}.json")));
         urlPrefix = _newUrlPrefix;
     }
 
@@ -85,7 +84,7 @@ abstract contract CerbySwapV1_AdminFunctions is
         contractSymbol = _newContractSymbol;
     }
 
-    function adminUpdateFeesAndTvlMultipliers(
+    function adminUpdateSettings(
         Settings calldata _settings
     )
         external
@@ -94,16 +93,19 @@ abstract contract CerbySwapV1_AdminFunctions is
         if (
             _settings.feeMinimum == 0 ||
             _settings.feeMinimum > _settings.feeMaximum ||
-            _settings.feeMaximum > 500 // 5.00% is hard limit on updating fee // put as constant
+            _settings.feeMaximum > MAX_TRADE_FEE_POSSIBLE // 5.00% is hard limit on updating fee
         ) {
+            revert ("a1");
             revert CerbySwapV1_FeeIsWrong();
         }
 
         if (_settings.tvlMultiplierMinimum > _settings.tvlMultiplierMaximum) {
+            revert ("a2");
             revert CerbySwapV1_TvlMultiplierIsWrong();
         }
 
-        if (_settings.mintFeeMultiplier * 2 >= MINT_FEE_DENORM) {
+        if (_settings.mintFeeMultiplier >= MINT_FEE_DENORM / 2) {
+            revert ("a3");
             revert CerbySwapV1_MintFeeMultiplierMustNotBeLargerThan50Percent();
         }
 

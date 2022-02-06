@@ -20,24 +20,24 @@
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">87.14% </span>
+        <span class="strong">95.71% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>61/70</span>
+        <span class='fraction'>67/70</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">50% </span>
+        <span class="strong">60% </span>
         <span class="quiet">Branches</span>
-        <span class='fraction'>5/10</span>
+        <span class='fraction'>6/10</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">71.43% </span>
+        <span class="strong">85.71% </span>
         <span class="quiet">Functions</span>
-        <span class='fraction'>5/7</span>
+        <span class='fraction'>6/7</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">83.56% </span>
+        <span class="strong">91.78% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>61/73</span>
+        <span class='fraction'>67/73</span>
       </div>
     </div>
   </div>
@@ -506,25 +506,25 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -937,32 +937,32 @@ abstract contract CerbySwapV1_LiquidityFunctions is
     CerbySwapV1_GetFunctions
 {
     // user can increase cerUsd credit in the pool
-<span class="fstat-no" title="function not covered" >    function increaseCerUsdCreditInPool(</span>
+    function increaseCerUsdCreditInPool(
         address _token,
         uint256 _amountCerUsdCredit
     )
         external
     {
         // getting pool storage link (saves gas compared to memory)
-<span class="cstat-no" title="statement not covered" >        Pool storage pool = pools[tokenToPoolId[_token]];</span>
+        Pool storage pool = pools[tokenToPoolId[_token]];
 &nbsp;
-<span class="cstat-no" title="statement not covered" >        PoolBalances memory poolBalances = _getPoolBalances(</span>
+        PoolBalances memory poolBalances = _getPoolBalances(
             _token
         );
 &nbsp;
-<span class="cstat-no" title="statement not covered" >        if (pool.creditCerUsd &lt; MAX_CER_USD_CREDIT) {</span>
+        <span class="missing-if-branch" title="else path not taken" >E</span>if (pool.creditCerUsd &lt; MAX_CER_USD_CREDIT) {
             // increasing credit for user-created pool
-<span class="cstat-no" title="statement not covered" >            pool.creditCerUsd += uint120(_amountCerUsdCredit)</span>;
+            pool.creditCerUsd += uint120(_amountCerUsdCredit);
 &nbsp;
             // burning user's cerUsd tokens in order to increase the credit for given pool
-<span class="cstat-no" title="statement not covered" >            ICerbyTokenMinterBurner(cerUsdToken).burnHumanAddress(</span>
+            ICerbyTokenMinterBurner(cerUsdToken).burnHumanAddress(
                 msg.sender,
                 _amountCerUsdCredit
             );
         }
 &nbsp;
         // Sync event to update pool variables in the graph node
-<span class="cstat-no" title="statement not covered" >        emit Sync(</span>
+        emit Sync(
             _token,
             poolBalances.balanceToken,
             poolBalances.balanceCerUsd,
@@ -1363,7 +1363,7 @@ abstract contract CerbySwapV1_LiquidityFunctions is
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Sat Feb 05 2022 23:29:24 GMT+0700 (Indochina Time)
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Sun Feb 06 2022 15:19:03 GMT+0700 (Indochina Time)
 </div>
 </div>
 <script src="../prettify.js"></script>

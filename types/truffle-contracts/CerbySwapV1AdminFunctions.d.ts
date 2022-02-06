@@ -260,7 +260,7 @@ export interface CerbySwapV1AdminFunctionsInstance
     estimateGas(txDetails?: Truffle.TransactionDetails): Promise<number>;
   };
 
-  adminSetURI: {
+  adminSetUrlPrefix: {
     (_newUrlPrefix: string, txDetails?: Truffle.TransactionDetails): Promise<
       Truffle.TransactionResponse<AllEvents>
     >;
@@ -274,53 +274,6 @@ export interface CerbySwapV1AdminFunctionsInstance
     ): Promise<string>;
     estimateGas(
       _newUrlPrefix: string,
-      txDetails?: Truffle.TransactionDetails
-    ): Promise<number>;
-  };
-
-  adminUpdateFeesAndTvlMultipliers: {
-    (
-      _settings: {
-        mintFeeBeneficiary: string;
-        mintFeeMultiplier: number | BN | string;
-        feeMinimum: number | BN | string;
-        feeMaximum: number | BN | string;
-        tvlMultiplierMinimum: number | BN | string;
-        tvlMultiplierMaximum: number | BN | string;
-      },
-      txDetails?: Truffle.TransactionDetails
-    ): Promise<Truffle.TransactionResponse<AllEvents>>;
-    call(
-      _settings: {
-        mintFeeBeneficiary: string;
-        mintFeeMultiplier: number | BN | string;
-        feeMinimum: number | BN | string;
-        feeMaximum: number | BN | string;
-        tvlMultiplierMinimum: number | BN | string;
-        tvlMultiplierMaximum: number | BN | string;
-      },
-      txDetails?: Truffle.TransactionDetails
-    ): Promise<void>;
-    sendTransaction(
-      _settings: {
-        mintFeeBeneficiary: string;
-        mintFeeMultiplier: number | BN | string;
-        feeMinimum: number | BN | string;
-        feeMaximum: number | BN | string;
-        tvlMultiplierMinimum: number | BN | string;
-        tvlMultiplierMaximum: number | BN | string;
-      },
-      txDetails?: Truffle.TransactionDetails
-    ): Promise<string>;
-    estimateGas(
-      _settings: {
-        mintFeeBeneficiary: string;
-        mintFeeMultiplier: number | BN | string;
-        feeMinimum: number | BN | string;
-        feeMaximum: number | BN | string;
-        tvlMultiplierMinimum: number | BN | string;
-        tvlMultiplierMaximum: number | BN | string;
-      },
       txDetails?: Truffle.TransactionDetails
     ): Promise<number>;
   };
@@ -344,6 +297,53 @@ export interface CerbySwapV1AdminFunctionsInstance
     estimateGas(
       _newContractName: string,
       _newContractSymbol: string,
+      txDetails?: Truffle.TransactionDetails
+    ): Promise<number>;
+  };
+
+  adminUpdateSettings: {
+    (
+      _settings: {
+        mintFeeBeneficiary: string;
+        mintFeeMultiplier: number | BN | string;
+        feeMinimum: number | BN | string;
+        feeMaximum: number | BN | string;
+        tvlMultiplierMinimum: number | BN | string;
+        tvlMultiplierMaximum: number | BN | string;
+      },
+      txDetails?: Truffle.TransactionDetails
+    ): Promise<Truffle.TransactionResponse<AllEvents>>;
+    call(
+      _settings: {
+        mintFeeBeneficiary: string;
+        mintFeeMultiplier: number | BN | string;
+        feeMinimum: number | BN | string;
+        feeMaximum: number | BN | string;
+        tvlMultiplierMinimum: number | BN | string;
+        tvlMultiplierMaximum: number | BN | string;
+      },
+      txDetails?: Truffle.TransactionDetails
+    ): Promise<void>;
+    sendTransaction(
+      _settings: {
+        mintFeeBeneficiary: string;
+        mintFeeMultiplier: number | BN | string;
+        feeMinimum: number | BN | string;
+        feeMaximum: number | BN | string;
+        tvlMultiplierMinimum: number | BN | string;
+        tvlMultiplierMaximum: number | BN | string;
+      },
+      txDetails?: Truffle.TransactionDetails
+    ): Promise<string>;
+    estimateGas(
+      _settings: {
+        mintFeeBeneficiary: string;
+        mintFeeMultiplier: number | BN | string;
+        feeMinimum: number | BN | string;
+        feeMaximum: number | BN | string;
+        tvlMultiplierMinimum: number | BN | string;
+        tvlMultiplierMaximum: number | BN | string;
+      },
       txDetails?: Truffle.TransactionDetails
     ): Promise<number>;
   };
@@ -821,7 +821,7 @@ export interface CerbySwapV1AdminFunctionsInstance
       estimateGas(txDetails?: Truffle.TransactionDetails): Promise<number>;
     };
 
-    adminSetURI: {
+    adminSetUrlPrefix: {
       (_newUrlPrefix: string, txDetails?: Truffle.TransactionDetails): Promise<
         Truffle.TransactionResponse<AllEvents>
       >;
@@ -835,53 +835,6 @@ export interface CerbySwapV1AdminFunctionsInstance
       ): Promise<string>;
       estimateGas(
         _newUrlPrefix: string,
-        txDetails?: Truffle.TransactionDetails
-      ): Promise<number>;
-    };
-
-    adminUpdateFeesAndTvlMultipliers: {
-      (
-        _settings: {
-          mintFeeBeneficiary: string;
-          mintFeeMultiplier: number | BN | string;
-          feeMinimum: number | BN | string;
-          feeMaximum: number | BN | string;
-          tvlMultiplierMinimum: number | BN | string;
-          tvlMultiplierMaximum: number | BN | string;
-        },
-        txDetails?: Truffle.TransactionDetails
-      ): Promise<Truffle.TransactionResponse<AllEvents>>;
-      call(
-        _settings: {
-          mintFeeBeneficiary: string;
-          mintFeeMultiplier: number | BN | string;
-          feeMinimum: number | BN | string;
-          feeMaximum: number | BN | string;
-          tvlMultiplierMinimum: number | BN | string;
-          tvlMultiplierMaximum: number | BN | string;
-        },
-        txDetails?: Truffle.TransactionDetails
-      ): Promise<void>;
-      sendTransaction(
-        _settings: {
-          mintFeeBeneficiary: string;
-          mintFeeMultiplier: number | BN | string;
-          feeMinimum: number | BN | string;
-          feeMaximum: number | BN | string;
-          tvlMultiplierMinimum: number | BN | string;
-          tvlMultiplierMaximum: number | BN | string;
-        },
-        txDetails?: Truffle.TransactionDetails
-      ): Promise<string>;
-      estimateGas(
-        _settings: {
-          mintFeeBeneficiary: string;
-          mintFeeMultiplier: number | BN | string;
-          feeMinimum: number | BN | string;
-          feeMaximum: number | BN | string;
-          tvlMultiplierMinimum: number | BN | string;
-          tvlMultiplierMaximum: number | BN | string;
-        },
         txDetails?: Truffle.TransactionDetails
       ): Promise<number>;
     };
@@ -905,6 +858,53 @@ export interface CerbySwapV1AdminFunctionsInstance
       estimateGas(
         _newContractName: string,
         _newContractSymbol: string,
+        txDetails?: Truffle.TransactionDetails
+      ): Promise<number>;
+    };
+
+    adminUpdateSettings: {
+      (
+        _settings: {
+          mintFeeBeneficiary: string;
+          mintFeeMultiplier: number | BN | string;
+          feeMinimum: number | BN | string;
+          feeMaximum: number | BN | string;
+          tvlMultiplierMinimum: number | BN | string;
+          tvlMultiplierMaximum: number | BN | string;
+        },
+        txDetails?: Truffle.TransactionDetails
+      ): Promise<Truffle.TransactionResponse<AllEvents>>;
+      call(
+        _settings: {
+          mintFeeBeneficiary: string;
+          mintFeeMultiplier: number | BN | string;
+          feeMinimum: number | BN | string;
+          feeMaximum: number | BN | string;
+          tvlMultiplierMinimum: number | BN | string;
+          tvlMultiplierMaximum: number | BN | string;
+        },
+        txDetails?: Truffle.TransactionDetails
+      ): Promise<void>;
+      sendTransaction(
+        _settings: {
+          mintFeeBeneficiary: string;
+          mintFeeMultiplier: number | BN | string;
+          feeMinimum: number | BN | string;
+          feeMaximum: number | BN | string;
+          tvlMultiplierMinimum: number | BN | string;
+          tvlMultiplierMaximum: number | BN | string;
+        },
+        txDetails?: Truffle.TransactionDetails
+      ): Promise<string>;
+      estimateGas(
+        _settings: {
+          mintFeeBeneficiary: string;
+          mintFeeMultiplier: number | BN | string;
+          feeMinimum: number | BN | string;
+          feeMaximum: number | BN | string;
+          tvlMultiplierMinimum: number | BN | string;
+          tvlMultiplierMaximum: number | BN | string;
+        },
         txDetails?: Truffle.TransactionDetails
       ): Promise<number>;
     };

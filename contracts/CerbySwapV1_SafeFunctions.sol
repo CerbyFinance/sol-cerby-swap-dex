@@ -28,7 +28,6 @@ abstract contract CerbySwapV1_SafeFunctions is
         );
     }
 
-    // Q: isn't this better?
     function _getTokenBalance(
         address _token,
         address _vault
@@ -42,7 +41,6 @@ abstract contract CerbySwapV1_SafeFunctions is
             : IBasicERC20(_token).balanceOf(_vault);
     }
 
-    // Q: simplify, too many && double cuz wrong one chosen as default
     function _safeTransferFromHelper(
         address _token,
         address _from,

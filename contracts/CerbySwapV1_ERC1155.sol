@@ -10,13 +10,6 @@ abstract contract CerbySwapV1_ERC1155 is ERC1155, CerbyCronJobsExecution {
     string internal contractSymbol = "CS1";
     string internal urlPrefix = "https://data.cerby.fi/CerbySwap/v1/";
 
-    error CerbySwapLP1155V1_TransactionsAreTemporarilyDisabled(); // Q: unsued?
-    error CerbySwapLP1155V1_CallerIsNotOwnerNorApproved(); //
-
-    constructor() ERC1155(
-        string(abi.encodePacked(urlPrefix, "{id}.json"))
-    ) {}
-
     function name()
         external
         view
@@ -60,12 +53,10 @@ abstract contract CerbySwapV1_ERC1155 is ERC1155, CerbyCronJobsExecution {
     function uri(uint256 _id)
         external
         view
-        virtual // why?
-        override
         returns (string memory)
     {
         return string(
-            abi.encodePacked(urlPrefix, _id, ".json")
+            abi.encodePacked(urlPrefix, uint2str(_id), ".json")
         );
     }
 
@@ -74,8 +65,6 @@ abstract contract CerbySwapV1_ERC1155 is ERC1155, CerbyCronJobsExecution {
         bool _approved
     )
         external
-        virtual // why?
-        override
         executeCronJobs
     {
         _setApprovalForAll(
@@ -94,8 +83,6 @@ abstract contract CerbySwapV1_ERC1155 is ERC1155, CerbyCronJobsExecution {
         bytes calldata _data
     )
         external
-        virtual // why?
-        override
         addressIsApproved(_from)
         executeCronJobs
     {
@@ -106,5 +93,34 @@ abstract contract CerbySwapV1_ERC1155 is ERC1155, CerbyCronJobsExecution {
             _amount,
             _data
         );
+    }
+
+    function uint2str(
+        uint256 _i
+    )
+        private
+        pure
+        returns (string memory str)
+    {
+        if (_i == 0)
+        {
+            return "0";
+        }
+        uint256 j = _i;
+        uint256 length;
+        while (j != 0)
+        {
+            length++;
+            j /= 10;
+        }
+        bytes memory bstr = new bytes(length);
+        uint256 k = length;
+        j = _i;
+        while (j != 0)
+        {
+            bstr[--k] = bytes1(uint8(48 + j % 10));
+            j /= 10;
+        }
+        str = string(bstr);
     }
 }
