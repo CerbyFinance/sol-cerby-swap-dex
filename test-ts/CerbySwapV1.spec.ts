@@ -1,6 +1,6 @@
 import BN from "bn.js";
 import crypto from "crypto";
-import { TestCerbyToken2 } from "./utils";
+import { promisify } from "util";
 const truffleAssert = require("truffle-assertions");
 
 const TestCerbyToken = artifacts.require("TestCerbyToken");
@@ -28,7 +28,34 @@ function delay(ms: number) {
     return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
+
+// @ts-ignore
+const send = promisify(web3.currentProvider.send)
+
+const increaseTime = async (seconds: number) => {
+	await send({
+		method: 'evm_increaseTime',
+		params: [seconds],
+	})
+
+    await send({ method: 'evm_mine' })
+};
+
+
 contract("Cerby", (accounts) => {
+
+    it.only('time travel', async () => {
+        const INTERVAL = 1337 * 1000
+        const prevTime = await web3.eth.getBlock('latest')
+
+        await increaseTime(INTERVAL)
+
+        const currentTime = await web3.eth.getBlock('latest')
+
+        const actual = (Number( currentTime.timestamp) - Number(prevTime.timestamp) )
+
+        assert.isTrue( actual >= INTERVAL  )
+    })
 
 
     // ---------------------------------------------------------- //
