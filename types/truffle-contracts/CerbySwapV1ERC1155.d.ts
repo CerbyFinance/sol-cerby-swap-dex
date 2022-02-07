@@ -54,17 +54,7 @@ export interface TransferSingle {
   };
 }
 
-export interface URI {
-  name: "URI";
-  args: {
-    value: string;
-    id: BN;
-    0: string;
-    1: BN;
-  };
-}
-
-type AllEvents = ApprovalForAll | TransferBatch | TransferSingle | URI;
+type AllEvents = ApprovalForAll | TransferBatch | TransferSingle;
 
 export interface CerbySwapV1ERC1155Instance extends Truffle.ContractInstance {
   balanceOf(
@@ -156,11 +146,6 @@ export interface CerbySwapV1ERC1155Instance extends Truffle.ContractInstance {
       txDetails?: Truffle.TransactionDetails
     ): Promise<number>;
   };
-
-  supportsInterface(
-    interfaceId: string,
-    txDetails?: Truffle.TransactionDetails
-  ): Promise<boolean>;
 
   symbol(txDetails?: Truffle.TransactionDetails): Promise<string>;
 
@@ -259,11 +244,6 @@ export interface CerbySwapV1ERC1155Instance extends Truffle.ContractInstance {
         txDetails?: Truffle.TransactionDetails
       ): Promise<number>;
     };
-
-    supportsInterface(
-      interfaceId: string,
-      txDetails?: Truffle.TransactionDetails
-    ): Promise<boolean>;
 
     symbol(txDetails?: Truffle.TransactionDetails): Promise<string>;
 

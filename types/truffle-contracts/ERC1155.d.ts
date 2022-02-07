@@ -53,17 +53,7 @@ export interface TransferSingle {
   };
 }
 
-export interface URI {
-  name: "URI";
-  args: {
-    value: string;
-    id: BN;
-    0: string;
-    1: BN;
-  };
-}
-
-type AllEvents = ApprovalForAll | TransferBatch | TransferSingle | URI;
+type AllEvents = ApprovalForAll | TransferBatch | TransferSingle;
 
 export interface ERC1155Instance extends Truffle.ContractInstance {
   balanceOf(
@@ -89,78 +79,10 @@ export interface ERC1155Instance extends Truffle.ContractInstance {
     txDetails?: Truffle.TransactionDetails
   ): Promise<boolean>;
 
-  safeTransferFrom: {
-    (
-      from: string,
-      to: string,
-      id: number | BN | string,
-      amount: number | BN | string,
-      data: string,
-      txDetails?: Truffle.TransactionDetails
-    ): Promise<Truffle.TransactionResponse<AllEvents>>;
-    call(
-      from: string,
-      to: string,
-      id: number | BN | string,
-      amount: number | BN | string,
-      data: string,
-      txDetails?: Truffle.TransactionDetails
-    ): Promise<void>;
-    sendTransaction(
-      from: string,
-      to: string,
-      id: number | BN | string,
-      amount: number | BN | string,
-      data: string,
-      txDetails?: Truffle.TransactionDetails
-    ): Promise<string>;
-    estimateGas(
-      from: string,
-      to: string,
-      id: number | BN | string,
-      amount: number | BN | string,
-      data: string,
-      txDetails?: Truffle.TransactionDetails
-    ): Promise<number>;
-  };
-
-  setApprovalForAll: {
-    (
-      operator: string,
-      approved: boolean,
-      txDetails?: Truffle.TransactionDetails
-    ): Promise<Truffle.TransactionResponse<AllEvents>>;
-    call(
-      operator: string,
-      approved: boolean,
-      txDetails?: Truffle.TransactionDetails
-    ): Promise<void>;
-    sendTransaction(
-      operator: string,
-      approved: boolean,
-      txDetails?: Truffle.TransactionDetails
-    ): Promise<string>;
-    estimateGas(
-      operator: string,
-      approved: boolean,
-      txDetails?: Truffle.TransactionDetails
-    ): Promise<number>;
-  };
-
-  supportsInterface(
-    interfaceId: string,
-    txDetails?: Truffle.TransactionDetails
-  ): Promise<boolean>;
-
   totalSupply(
     _id: number | BN | string,
     txDetails?: Truffle.TransactionDetails
   ): Promise<BN>;
-
-  uri(
-    arg0: number | BN | string,
-    txDetails?: Truffle.TransactionDetails
-  ): Promise<string>;
 
   methods: {
     balanceOf(
@@ -186,78 +108,10 @@ export interface ERC1155Instance extends Truffle.ContractInstance {
       txDetails?: Truffle.TransactionDetails
     ): Promise<boolean>;
 
-    safeTransferFrom: {
-      (
-        from: string,
-        to: string,
-        id: number | BN | string,
-        amount: number | BN | string,
-        data: string,
-        txDetails?: Truffle.TransactionDetails
-      ): Promise<Truffle.TransactionResponse<AllEvents>>;
-      call(
-        from: string,
-        to: string,
-        id: number | BN | string,
-        amount: number | BN | string,
-        data: string,
-        txDetails?: Truffle.TransactionDetails
-      ): Promise<void>;
-      sendTransaction(
-        from: string,
-        to: string,
-        id: number | BN | string,
-        amount: number | BN | string,
-        data: string,
-        txDetails?: Truffle.TransactionDetails
-      ): Promise<string>;
-      estimateGas(
-        from: string,
-        to: string,
-        id: number | BN | string,
-        amount: number | BN | string,
-        data: string,
-        txDetails?: Truffle.TransactionDetails
-      ): Promise<number>;
-    };
-
-    setApprovalForAll: {
-      (
-        operator: string,
-        approved: boolean,
-        txDetails?: Truffle.TransactionDetails
-      ): Promise<Truffle.TransactionResponse<AllEvents>>;
-      call(
-        operator: string,
-        approved: boolean,
-        txDetails?: Truffle.TransactionDetails
-      ): Promise<void>;
-      sendTransaction(
-        operator: string,
-        approved: boolean,
-        txDetails?: Truffle.TransactionDetails
-      ): Promise<string>;
-      estimateGas(
-        operator: string,
-        approved: boolean,
-        txDetails?: Truffle.TransactionDetails
-      ): Promise<number>;
-    };
-
-    supportsInterface(
-      interfaceId: string,
-      txDetails?: Truffle.TransactionDetails
-    ): Promise<boolean>;
-
     totalSupply(
       _id: number | BN | string,
       txDetails?: Truffle.TransactionDetails
     ): Promise<BN>;
-
-    uri(
-      arg0: number | BN | string,
-      txDetails?: Truffle.TransactionDetails
-    ): Promise<string>;
   };
 
   getPastEvents(event: string): Promise<EventData[]>;

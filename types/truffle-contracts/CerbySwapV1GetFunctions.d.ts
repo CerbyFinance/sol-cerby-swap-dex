@@ -97,6 +97,8 @@ export interface CerbySwapV1GetFunctionsInstance
     txDetails?: Truffle.TransactionDetails
   ): Promise<BN>;
 
+  getCurrentPeriod(txDetails?: Truffle.TransactionDetails): Promise<BN>;
+
   getInputTokensForExactTokens(
     _tokenIn: string,
     _tokenOut: string,
@@ -137,6 +139,8 @@ export interface CerbySwapV1GetFunctionsInstance
       _token: string,
       txDetails?: Truffle.TransactionDetails
     ): Promise<BN>;
+
+    getCurrentPeriod(txDetails?: Truffle.TransactionDetails): Promise<BN>;
 
     getInputTokensForExactTokens(
       _tokenIn: string,

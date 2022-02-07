@@ -120,6 +120,7 @@ abstract contract CerbySwapV1_SafeFunctions is
 
         // we allow successfull calls and with (true) or without return data
         if (!(success && (data.length == 0 || abi.decode(data, (bool))))) {
+            revert("x1");
             revert CerbySwapV1_SafeTransferFromFailed();
         }
     }
@@ -135,6 +136,7 @@ abstract contract CerbySwapV1_SafeFunctions is
 
         // we allow only successfull calls
         if (!success) {
+            revert("x2");
             revert CerbySwapV1_SafeTransferNativeFailed();
         }
     }

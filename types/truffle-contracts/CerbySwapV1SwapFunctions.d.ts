@@ -132,16 +132,6 @@ export interface TransferSingle {
   };
 }
 
-export interface URI {
-  name: "URI";
-  args: {
-    value: string;
-    id: BN;
-    0: string;
-    1: BN;
-  };
-}
-
 type AllEvents =
   | ApprovalForAll
   | LiquidityAdded
@@ -150,8 +140,7 @@ type AllEvents =
   | Swap
   | Sync
   | TransferBatch
-  | TransferSingle
-  | URI;
+  | TransferSingle;
 
 export interface CerbySwapV1SwapFunctionsInstance
   extends Truffle.ContractInstance {
@@ -240,6 +229,8 @@ export interface CerbySwapV1SwapFunctionsInstance
     _token: string,
     txDetails?: Truffle.TransactionDetails
   ): Promise<BN>;
+
+  getCurrentPeriod(txDetails?: Truffle.TransactionDetails): Promise<BN>;
 
   getInputTokensForExactTokens(
     _tokenIn: string,
@@ -400,11 +391,6 @@ export interface CerbySwapV1SwapFunctionsInstance
       txDetails?: Truffle.TransactionDetails
     ): Promise<number>;
   };
-
-  supportsInterface(
-    interfaceId: string,
-    txDetails?: Truffle.TransactionDetails
-  ): Promise<boolean>;
 
   swapExactTokensForTokens: {
     (
@@ -578,6 +564,8 @@ export interface CerbySwapV1SwapFunctionsInstance
       txDetails?: Truffle.TransactionDetails
     ): Promise<BN>;
 
+    getCurrentPeriod(txDetails?: Truffle.TransactionDetails): Promise<BN>;
+
     getInputTokensForExactTokens(
       _tokenIn: string,
       _tokenOut: string,
@@ -737,11 +725,6 @@ export interface CerbySwapV1SwapFunctionsInstance
         txDetails?: Truffle.TransactionDetails
       ): Promise<number>;
     };
-
-    supportsInterface(
-      interfaceId: string,
-      txDetails?: Truffle.TransactionDetails
-    ): Promise<boolean>;
 
     swapExactTokensForTokens: {
       (
