@@ -205,7 +205,9 @@ contract('Cerby', (accounts) => {
       TestCerbyToken.address,
     )
 
-    const res = await cerbySwap.getPoolsBalancesByTokens([TestCerbyToken.address])
+    const res = await cerbySwap.getPoolsBalancesByTokens([
+      TestCerbyToken.address,
+    ])
     const beforeCerbyPool = res[0]
 
     const beforeLpTokens = await cerbySwap.balanceOf(
@@ -4184,9 +4186,7 @@ contract('Cerby', (accounts) => {
         await cerbySwap.getPoolsBalancesByTokens([TestCerbyToken.address])
       )[0]
 
-      let pool = (
-        await cerbySwap.getPoolsByTokens([TestCerbyToken.address])
-      )[0];
+      let pool = (await cerbySwap.getPoolsByTokens([TestCerbyToken.address]))[0]
 
       const cerbyToken = await TestCerbyToken.deployed()
       await cerbyToken.mintHumanAddress(
@@ -4209,11 +4209,9 @@ contract('Cerby', (accounts) => {
         expireTimestamp,
         transferTo,
       )
-      await increaseTime(ONE_PERIOD*2)
-      
-      pool = (
-        await cerbySwap.getPoolsByTokens([TestCerbyToken.address])
-      )[0];
+      await increaseTime(ONE_PERIOD * 2)
+
+      pool = (await cerbySwap.getPoolsByTokens([TestCerbyToken.address]))[0]
 
       // actualOneMinusFee must be in range min - max
       actualOneMinusFee = await cerbySwap.getCurrentOneMinusFeeBasedOnTrades(
@@ -4231,11 +4229,9 @@ contract('Cerby', (accounts) => {
         expireTimestamp,
         transferTo,
       )
-      await increaseTime(ONE_PERIOD*3)
-      
-      pool = (
-        await cerbySwap.getPoolsByTokens([TestCerbyToken.address])
-      )[0];
+      await increaseTime(ONE_PERIOD * 3)
+
+      pool = (await cerbySwap.getPoolsByTokens([TestCerbyToken.address]))[0]
 
       // actualOneMinusFee must be == max
       actualOneMinusFee = await cerbySwap.getCurrentOneMinusFeeBasedOnTrades(
@@ -4257,7 +4253,7 @@ contract('Cerby', (accounts) => {
         expireTimestamp,
         transferTo,
       )
-      await increaseTime(ONE_PERIOD*1)
+      await increaseTime(ONE_PERIOD * 1)
 
       // clearing 5 periods
       amountTokensIn = _BN(1e9)
@@ -4269,7 +4265,7 @@ contract('Cerby', (accounts) => {
         expireTimestamp,
         transferTo,
       )
-      await increaseTime(ONE_PERIOD*1)
+      await increaseTime(ONE_PERIOD * 1)
       amountTokensIn = _BN(1e9)
       await cerbySwap.swapExactTokensForTokens(
         tokenIn,
@@ -4279,7 +4275,7 @@ contract('Cerby', (accounts) => {
         expireTimestamp,
         transferTo,
       )
-      await increaseTime(ONE_PERIOD*1)
+      await increaseTime(ONE_PERIOD * 1)
       amountTokensIn = _BN(1e9)
       await cerbySwap.swapExactTokensForTokens(
         tokenIn,
@@ -4289,7 +4285,7 @@ contract('Cerby', (accounts) => {
         expireTimestamp,
         transferTo,
       )
-      await increaseTime(ONE_PERIOD*1)
+      await increaseTime(ONE_PERIOD * 1)
       amountTokensIn = _BN(1e9)
       await cerbySwap.swapExactTokensForTokens(
         tokenIn,
@@ -4299,7 +4295,7 @@ contract('Cerby', (accounts) => {
         expireTimestamp,
         transferTo,
       )
-      await increaseTime(ONE_PERIOD*1)
+      await increaseTime(ONE_PERIOD * 1)
       amountTokensIn = _BN(1e9)
       await cerbySwap.swapExactTokensForTokens(
         tokenIn,
@@ -4309,14 +4305,11 @@ contract('Cerby', (accounts) => {
         expireTimestamp,
         transferTo,
       )
-      await increaseTime(ONE_PERIOD*1)
+      await increaseTime(ONE_PERIOD * 1)
 
       actualOneMinusFee = await cerbySwap.getCurrentOneMinusFeeBasedOnTrades(
         TestCerbyToken.address,
       )
-      console.log(actualOneMinusFee.toString(),
-      " - ",
-      ONE_MINUS_FEE_MINIMUM.toString(),)
       assert.deepEqual(
         actualOneMinusFee.toString(),
         ONE_MINUS_FEE_MINIMUM.toString(),
