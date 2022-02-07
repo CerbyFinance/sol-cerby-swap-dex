@@ -4257,11 +4257,66 @@ contract('Cerby', (accounts) => {
         expireTimestamp,
         transferTo,
       )
-      await increaseTime(ONE_PERIOD*10)
+      await increaseTime(ONE_PERIOD*1)
+
+      // clearing 5 periods
+      amountTokensIn = _BN(1e9)
+      await cerbySwap.swapExactTokensForTokens(
+        tokenIn,
+        tokenOut,
+        amountTokensIn,
+        minAmountTokensOut,
+        expireTimestamp,
+        transferTo,
+      )
+      await increaseTime(ONE_PERIOD*1)
+      amountTokensIn = _BN(1e9)
+      await cerbySwap.swapExactTokensForTokens(
+        tokenIn,
+        tokenOut,
+        amountTokensIn,
+        minAmountTokensOut,
+        expireTimestamp,
+        transferTo,
+      )
+      await increaseTime(ONE_PERIOD*1)
+      amountTokensIn = _BN(1e9)
+      await cerbySwap.swapExactTokensForTokens(
+        tokenIn,
+        tokenOut,
+        amountTokensIn,
+        minAmountTokensOut,
+        expireTimestamp,
+        transferTo,
+      )
+      await increaseTime(ONE_PERIOD*1)
+      amountTokensIn = _BN(1e9)
+      await cerbySwap.swapExactTokensForTokens(
+        tokenIn,
+        tokenOut,
+        amountTokensIn,
+        minAmountTokensOut,
+        expireTimestamp,
+        transferTo,
+      )
+      await increaseTime(ONE_PERIOD*1)
+      amountTokensIn = _BN(1e9)
+      await cerbySwap.swapExactTokensForTokens(
+        tokenIn,
+        tokenOut,
+        amountTokensIn,
+        minAmountTokensOut,
+        expireTimestamp,
+        transferTo,
+      )
+      await increaseTime(ONE_PERIOD*1)
 
       actualOneMinusFee = await cerbySwap.getCurrentOneMinusFeeBasedOnTrades(
         TestCerbyToken.address,
       )
+      console.log(actualOneMinusFee.toString(),
+      " - ",
+      ONE_MINUS_FEE_MINIMUM.toString(),)
       assert.deepEqual(
         actualOneMinusFee.toString(),
         ONE_MINUS_FEE_MINIMUM.toString(),
