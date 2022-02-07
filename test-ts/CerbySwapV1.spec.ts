@@ -4257,7 +4257,15 @@ contract('Cerby', (accounts) => {
         expireTimestamp,
         transferTo,
       )
-      await increaseTime(ONE_PERIOD*3)
+      await increaseTime(ONE_PERIOD*10)
+
+      actualOneMinusFee = await cerbySwap.getCurrentOneMinusFeeBasedOnTrades(
+        TestCerbyToken.address,
+      )
+      assert.deepEqual(
+        actualOneMinusFee.toString(),
+        ONE_MINUS_FEE_MINIMUM.toString(),
+      )
     }
   })
 
