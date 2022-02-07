@@ -230,8 +230,6 @@ export interface CerbySwapV1SwapFunctionsInstance
     txDetails?: Truffle.TransactionDetails
   ): Promise<BN>;
 
-  getCurrentPeriod(txDetails?: Truffle.TransactionDetails): Promise<BN>;
-
   getInputTokensForExactTokens(
     _tokenIn: string,
     _tokenOut: string,
@@ -246,10 +244,23 @@ export interface CerbySwapV1SwapFunctionsInstance
     txDetails?: Truffle.TransactionDetails
   ): Promise<BN>;
 
-  getPoolsByTokens(
+  getPoolsBalancesByTokens(
     _tokens: string[],
     txDetails?: Truffle.TransactionDetails
   ): Promise<{ balanceToken: BN; balanceCerUsd: BN }[]>;
+
+  getPoolsByTokens(
+    _tokens: string[],
+    txDetails?: Truffle.TransactionDetails
+  ): Promise<
+    {
+      tradeVolumePerPeriodInCerUsd: BN[];
+      lastCachedOneMinusFee: BN;
+      lastCachedTradePeriod: BN;
+      lastSqrtKValue: BN;
+      creditCerUsd: BN;
+    }[]
+  >;
 
   getSettings(
     txDetails?: Truffle.TransactionDetails
@@ -564,8 +575,6 @@ export interface CerbySwapV1SwapFunctionsInstance
       txDetails?: Truffle.TransactionDetails
     ): Promise<BN>;
 
-    getCurrentPeriod(txDetails?: Truffle.TransactionDetails): Promise<BN>;
-
     getInputTokensForExactTokens(
       _tokenIn: string,
       _tokenOut: string,
@@ -580,10 +589,23 @@ export interface CerbySwapV1SwapFunctionsInstance
       txDetails?: Truffle.TransactionDetails
     ): Promise<BN>;
 
-    getPoolsByTokens(
+    getPoolsBalancesByTokens(
       _tokens: string[],
       txDetails?: Truffle.TransactionDetails
     ): Promise<{ balanceToken: BN; balanceCerUsd: BN }[]>;
+
+    getPoolsByTokens(
+      _tokens: string[],
+      txDetails?: Truffle.TransactionDetails
+    ): Promise<
+      {
+        tradeVolumePerPeriodInCerUsd: BN[];
+        lastCachedOneMinusFee: BN;
+        lastCachedTradePeriod: BN;
+        lastSqrtKValue: BN;
+        creditCerUsd: BN;
+      }[]
+    >;
 
     getSettings(
       txDetails?: Truffle.TransactionDetails

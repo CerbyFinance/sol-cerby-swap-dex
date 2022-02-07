@@ -135,7 +135,7 @@ contract('Cerby', (accounts) => {
     const ETH_POOL_POS = await cerbySwap.getTokenToPoolId(ETH_TOKEN_ADDRESS)
 
     const beforeEthPool = (
-      await cerbySwap.getPoolsByTokens([ETH_TOKEN_ADDRESS])
+      await cerbySwap.getPoolsBalancesByTokens([ETH_TOKEN_ADDRESS])
     )[0]
 
     const beforeLpTokens = await cerbySwap.balanceOf(firstAccount, ETH_POOL_POS)
@@ -167,7 +167,7 @@ contract('Cerby', (accounts) => {
       )
 
       const afterEthPool = (
-        await cerbySwap.getPoolsByTokens([ETH_TOKEN_ADDRESS])
+        await cerbySwap.getPoolsBalancesByTokens([ETH_TOKEN_ADDRESS])
       )[0]
 
       const afterLpTokens = await cerbySwap.balanceOf(
@@ -205,7 +205,7 @@ contract('Cerby', (accounts) => {
       TestCerbyToken.address,
     )
 
-    const res = await cerbySwap.getPoolsByTokens([TestCerbyToken.address])
+    const res = await cerbySwap.getPoolsBalancesByTokens([TestCerbyToken.address])
     const beforeCerbyPool = res[0]
 
     const beforeLpTokens = await cerbySwap.balanceOf(
@@ -237,7 +237,7 @@ contract('Cerby', (accounts) => {
       )
 
       const afterCerbyPool = (
-        await cerbySwap.getPoolsByTokens([TestCerbyToken.address])
+        await cerbySwap.getPoolsBalancesByTokens([TestCerbyToken.address])
       )[0]
       const afterLpTokens = await cerbySwap.balanceOf(
         firstAccount,
@@ -276,7 +276,7 @@ contract('Cerby', (accounts) => {
     const cerbySwap = await CerbySwapV1.deployed()
 
     const beforeCerbyPool = (
-      await cerbySwap.getPoolsByTokens([TestCerbyToken.address])
+      await cerbySwap.getPoolsBalancesByTokens([TestCerbyToken.address])
     )[0]
 
     const tokenIn = TestCerbyToken.address
@@ -308,7 +308,7 @@ contract('Cerby', (accounts) => {
     )
 
     const afterCerbyPool = (
-      await cerbySwap.getPoolsByTokens([TestCerbyToken.address])
+      await cerbySwap.getPoolsBalancesByTokens([TestCerbyToken.address])
     )[0]
 
     // check pool increased by amountTokensIn
@@ -342,7 +342,7 @@ contract('Cerby', (accounts) => {
     const cerbySwap = await CerbySwapV1.deployed()
 
     const beforeCerbyPool = (
-      await cerbySwap.getPoolsByTokens([TestCerbyToken.address])
+      await cerbySwap.getPoolsBalancesByTokens([TestCerbyToken.address])
     )[0]
 
     {
@@ -371,7 +371,7 @@ contract('Cerby', (accounts) => {
       )
 
       const afterCerbyPool = (
-        await cerbySwap.getPoolsByTokens([TestCerbyToken.address])
+        await cerbySwap.getPoolsBalancesByTokens([TestCerbyToken.address])
       )[0]
 
       // check pool increased by amountTokensIn
@@ -406,7 +406,7 @@ contract('Cerby', (accounts) => {
     const cerbySwap = await CerbySwapV1.deployed()
 
     const beforeCerbyPool = (
-      await cerbySwap.getPoolsByTokens([TestCerbyToken.address])
+      await cerbySwap.getPoolsBalancesByTokens([TestCerbyToken.address])
     )[0]
 
     {
@@ -455,7 +455,7 @@ contract('Cerby', (accounts) => {
       )
 
       const afterCerbyPool = (
-        await cerbySwap.getPoolsByTokens([TestCerbyToken.address])
+        await cerbySwap.getPoolsBalancesByTokens([TestCerbyToken.address])
       )[0]
 
       // check sent amount must be larger than received
@@ -488,7 +488,7 @@ contract('Cerby', (accounts) => {
     const cerbySwap = await CerbySwapV1.deployed()
 
     const beforeCerbyPool = (
-      await cerbySwap.getPoolsByTokens([TestCerbyToken.address])
+      await cerbySwap.getPoolsBalancesByTokens([TestCerbyToken.address])
     )[0]
 
     {
@@ -538,7 +538,7 @@ contract('Cerby', (accounts) => {
       )
 
       const afterCerbyPool = (
-        await cerbySwap.getPoolsByTokens([TestCerbyToken.address])
+        await cerbySwap.getPoolsBalancesByTokens([TestCerbyToken.address])
       )[0]
 
       // check sent amount larger than received
@@ -579,11 +579,11 @@ contract('Cerby', (accounts) => {
     const cerbySwap = await CerbySwapV1.deployed()
 
     const beforeCerbyPool = (
-      await cerbySwap.getPoolsByTokens([TestCerbyToken.address])
+      await cerbySwap.getPoolsBalancesByTokens([TestCerbyToken.address])
     )[0]
 
     const beforeUSDCPool = (
-      await cerbySwap.getPoolsByTokens([TestUsdcToken.address])
+      await cerbySwap.getPoolsBalancesByTokens([TestUsdcToken.address])
     )[0]
 
     {
@@ -638,11 +638,11 @@ contract('Cerby', (accounts) => {
       )
 
       const afterCerbyPool = (
-        await cerbySwap.getPoolsByTokens([TestCerbyToken.address])
+        await cerbySwap.getPoolsBalancesByTokens([TestCerbyToken.address])
       )[0]
 
       const afterUSDCPool = (
-        await cerbySwap.getPoolsByTokens([TestUsdcToken.address])
+        await cerbySwap.getPoolsBalancesByTokens([TestUsdcToken.address])
       )[0]
 
       // check sum cerUsd balances in USDC and Cerby pools must be equal
@@ -709,11 +709,11 @@ contract('Cerby', (accounts) => {
     const cerbySwap = await CerbySwapV1.deployed()
 
     const beforeCerbyPool = (
-      await cerbySwap.getPoolsByTokens([TestCerbyToken.address])
+      await cerbySwap.getPoolsBalancesByTokens([TestCerbyToken.address])
     )[0]
 
     const beforeUSDCPool = (
-      await cerbySwap.getPoolsByTokens([TestUsdcToken.address])
+      await cerbySwap.getPoolsBalancesByTokens([TestUsdcToken.address])
     )[0]
 
     {
@@ -767,11 +767,11 @@ contract('Cerby', (accounts) => {
       )
 
       const afterCerbyPool = (
-        await cerbySwap.getPoolsByTokens([TestCerbyToken.address])
+        await cerbySwap.getPoolsBalancesByTokens([TestCerbyToken.address])
       )[0]
 
       const afterUSDCPool = (
-        await cerbySwap.getPoolsByTokens([TestUsdcToken.address])
+        await cerbySwap.getPoolsBalancesByTokens([TestUsdcToken.address])
       )[0]
 
       // check sum cerUsd balances in USDC and Cerby pools must be equal
@@ -838,11 +838,11 @@ contract('Cerby', (accounts) => {
     const cerbySwap = await CerbySwapV1.deployed()
 
     const beforeCerbyPool = (
-      await cerbySwap.getPoolsByTokens([TestCerbyToken.address])
+      await cerbySwap.getPoolsBalancesByTokens([TestCerbyToken.address])
     )[0]
 
     const beforeUSDCPool = (
-      await cerbySwap.getPoolsByTokens([TestUsdcToken.address])
+      await cerbySwap.getPoolsBalancesByTokens([TestUsdcToken.address])
     )[0]
 
     {
@@ -897,11 +897,11 @@ contract('Cerby', (accounts) => {
       )
 
       const afterCerbyPool = (
-        await cerbySwap.getPoolsByTokens([TestCerbyToken.address])
+        await cerbySwap.getPoolsBalancesByTokens([TestCerbyToken.address])
       )[0]
 
       const afterUSDCPool = (
-        await cerbySwap.getPoolsByTokens([TestUsdcToken.address])
+        await cerbySwap.getPoolsBalancesByTokens([TestUsdcToken.address])
       )[0]
 
       // check sum cerUsd balances in USDC and Cerby pools must be equal
@@ -968,11 +968,11 @@ contract('Cerby', (accounts) => {
     const cerbySwap = await CerbySwapV1.deployed()
 
     const beforeCerbyPool = (
-      await cerbySwap.getPoolsByTokens([TestCerbyToken.address])
+      await cerbySwap.getPoolsBalancesByTokens([TestCerbyToken.address])
     )[0]
 
     const beforeUSDCPool = (
-      await cerbySwap.getPoolsByTokens([TestUsdcToken.address])
+      await cerbySwap.getPoolsBalancesByTokens([TestUsdcToken.address])
     )[0]
 
     {
@@ -1018,11 +1018,11 @@ contract('Cerby', (accounts) => {
       )
 
       const afterCerbyPool = (
-        await cerbySwap.getPoolsByTokens([TestCerbyToken.address])
+        await cerbySwap.getPoolsBalancesByTokens([TestCerbyToken.address])
       )[0]
 
       const afterUSDCPool = (
-        await cerbySwap.getPoolsByTokens([TestUsdcToken.address])
+        await cerbySwap.getPoolsBalancesByTokens([TestUsdcToken.address])
       )[0]
 
       // check sum cerUsd balances in USDC and Cerby pools must be equal
@@ -1307,7 +1307,7 @@ contract('Cerby', (accounts) => {
     const cerbySwap = await CerbySwapV1.deployed()
 
     const beforeCerbyPool = (
-      await cerbySwap.getPoolsByTokens([TestCerbyToken.address])
+      await cerbySwap.getPoolsBalancesByTokens([TestCerbyToken.address])
     )[0]
 
     {
@@ -1333,7 +1333,7 @@ contract('Cerby', (accounts) => {
       )
 
       const afterCerbyPool = (
-        await cerbySwap.getPoolsByTokens([TestCerbyToken.address])
+        await cerbySwap.getPoolsBalancesByTokens([TestCerbyToken.address])
       )[0]
 
       // check pool increased by amountTokensIn
@@ -1368,7 +1368,7 @@ contract('Cerby', (accounts) => {
     const cerbySwap = await CerbySwapV1.deployed()
 
     const beforeCerbyPool = (
-      await cerbySwap.getPoolsByTokens([TestCerbyToken.address])
+      await cerbySwap.getPoolsBalancesByTokens([TestCerbyToken.address])
     )[0]
 
     {
@@ -1394,7 +1394,7 @@ contract('Cerby', (accounts) => {
       )
 
       const afterCerbyPool = (
-        await cerbySwap.getPoolsByTokens([TestCerbyToken.address])
+        await cerbySwap.getPoolsBalancesByTokens([TestCerbyToken.address])
       )[0]
 
       // check pool increased by amountTokensIn
@@ -1429,7 +1429,7 @@ contract('Cerby', (accounts) => {
     const cerbySwap = await CerbySwapV1.deployed()
 
     const beforeCerbyPool = (
-      await cerbySwap.getPoolsByTokens([TestCerbyToken.address])
+      await cerbySwap.getPoolsBalancesByTokens([TestCerbyToken.address])
     )[0]
 
     {
@@ -1478,7 +1478,7 @@ contract('Cerby', (accounts) => {
       )
 
       const afterCerbyPool = (
-        await cerbySwap.getPoolsByTokens([TestCerbyToken.address])
+        await cerbySwap.getPoolsBalancesByTokens([TestCerbyToken.address])
       )[0]
 
       // check sent amount must be larger than received
@@ -1516,7 +1516,7 @@ contract('Cerby', (accounts) => {
     const cerbySwap = await CerbySwapV1.deployed()
 
     const beforeCerbyPool = (
-      await cerbySwap.getPoolsByTokens([TestCerbyToken.address])
+      await cerbySwap.getPoolsBalancesByTokens([TestCerbyToken.address])
     )[0]
 
     {
@@ -1564,7 +1564,7 @@ contract('Cerby', (accounts) => {
       )
 
       const afterCerbyPool = (
-        await cerbySwap.getPoolsByTokens([TestCerbyToken.address])
+        await cerbySwap.getPoolsBalancesByTokens([TestCerbyToken.address])
       )[0]
 
       // check sent amount larger than received
@@ -1608,11 +1608,11 @@ contract('Cerby', (accounts) => {
     const cerbySwap = await CerbySwapV1.deployed()
 
     const beforeCerbyPool = (
-      await cerbySwap.getPoolsByTokens([TestCerbyToken.address])
+      await cerbySwap.getPoolsBalancesByTokens([TestCerbyToken.address])
     )[0]
 
     const beforeUSDCPool = (
-      await cerbySwap.getPoolsByTokens([TestUsdcToken.address])
+      await cerbySwap.getPoolsBalancesByTokens([TestUsdcToken.address])
     )[0]
 
     {
@@ -1666,11 +1666,11 @@ contract('Cerby', (accounts) => {
       )
 
       const afterCerbyPool = (
-        await cerbySwap.getPoolsByTokens([TestCerbyToken.address])
+        await cerbySwap.getPoolsBalancesByTokens([TestCerbyToken.address])
       )[0]
 
       const afterUSDCPool = (
-        await cerbySwap.getPoolsByTokens([TestUsdcToken.address])
+        await cerbySwap.getPoolsBalancesByTokens([TestUsdcToken.address])
       )[0]
 
       // check sum cerUsd balances in USDC and Cerby pools must be equal
@@ -1737,11 +1737,11 @@ contract('Cerby', (accounts) => {
     const cerbySwap = await CerbySwapV1.deployed()
 
     const beforeCerbyPool = (
-      await cerbySwap.getPoolsByTokens([TestCerbyToken.address])
+      await cerbySwap.getPoolsBalancesByTokens([TestCerbyToken.address])
     )[0]
 
     const beforeUSDCPool = (
-      await cerbySwap.getPoolsByTokens([TestUsdcToken.address])
+      await cerbySwap.getPoolsBalancesByTokens([TestUsdcToken.address])
     )[0]
 
     {
@@ -1785,11 +1785,11 @@ contract('Cerby', (accounts) => {
       )
 
       const afterCerbyPool = (
-        await cerbySwap.getPoolsByTokens([TestCerbyToken.address])
+        await cerbySwap.getPoolsBalancesByTokens([TestCerbyToken.address])
       )[0]
 
       const afterUSDCPool = (
-        await cerbySwap.getPoolsByTokens([TestUsdcToken.address])
+        await cerbySwap.getPoolsBalancesByTokens([TestUsdcToken.address])
       )[0]
 
       // check sum cerUsd balances in USDC and Cerby pools must be equal
@@ -1856,11 +1856,11 @@ contract('Cerby', (accounts) => {
     const cerbySwap = await CerbySwapV1.deployed()
 
     const beforeCerbyPool = (
-      await cerbySwap.getPoolsByTokens([TestCerbyToken.address])
+      await cerbySwap.getPoolsBalancesByTokens([TestCerbyToken.address])
     )[0]
 
     const beforeUSDCPool = (
-      await cerbySwap.getPoolsByTokens([TestUsdcToken.address])
+      await cerbySwap.getPoolsBalancesByTokens([TestUsdcToken.address])
     )[0]
 
     {
@@ -1914,11 +1914,11 @@ contract('Cerby', (accounts) => {
       )
 
       const afterCerbyPool = (
-        await cerbySwap.getPoolsByTokens([TestCerbyToken.address])
+        await cerbySwap.getPoolsBalancesByTokens([TestCerbyToken.address])
       )[0]
 
       const afterUSDCPool = (
-        await cerbySwap.getPoolsByTokens([TestUsdcToken.address])
+        await cerbySwap.getPoolsBalancesByTokens([TestUsdcToken.address])
       )[0]
 
       // check sum cerUsd balances in USDC and Cerby pools must be equal
@@ -1985,11 +1985,11 @@ contract('Cerby', (accounts) => {
     const cerbySwap = await CerbySwapV1.deployed()
 
     const beforeCerbyPool = (
-      await cerbySwap.getPoolsByTokens([TestCerbyToken.address])
+      await cerbySwap.getPoolsBalancesByTokens([TestCerbyToken.address])
     )[0]
 
     const beforeUSDCPool = (
-      await cerbySwap.getPoolsByTokens([TestUsdcToken.address])
+      await cerbySwap.getPoolsBalancesByTokens([TestUsdcToken.address])
     )[0]
 
     {
@@ -2035,11 +2035,11 @@ contract('Cerby', (accounts) => {
       )
 
       const afterCerbyPool = (
-        await cerbySwap.getPoolsByTokens([TestCerbyToken.address])
+        await cerbySwap.getPoolsBalancesByTokens([TestCerbyToken.address])
       )[0]
 
       const afterUSDCPool = (
-        await cerbySwap.getPoolsByTokens([TestUsdcToken.address])
+        await cerbySwap.getPoolsBalancesByTokens([TestUsdcToken.address])
       )[0]
 
       // check sum cerUsd balances in USDC and Cerby pools must be equal
@@ -2270,7 +2270,7 @@ contract('Cerby', (accounts) => {
     const cerbySwap = await CerbySwapV1.deployed()
 
     const beforeEthPool = (
-      await cerbySwap.getPoolsByTokens([ETH_TOKEN_ADDRESS])
+      await cerbySwap.getPoolsBalancesByTokens([ETH_TOKEN_ADDRESS])
     )[0]
 
     {
@@ -2297,7 +2297,7 @@ contract('Cerby', (accounts) => {
       )
 
       const afterEthPool = (
-        await cerbySwap.getPoolsByTokens([ETH_TOKEN_ADDRESS])
+        await cerbySwap.getPoolsBalancesByTokens([ETH_TOKEN_ADDRESS])
       )[0]
 
       // check pool increased by amountTokensIn
@@ -2330,7 +2330,7 @@ contract('Cerby', (accounts) => {
     const cerbySwap = await CerbySwapV1.deployed()
 
     const beforeEthPool = (
-      await cerbySwap.getPoolsByTokens([ETH_TOKEN_ADDRESS])
+      await cerbySwap.getPoolsBalancesByTokens([ETH_TOKEN_ADDRESS])
     )[0]
 
     {
@@ -2356,7 +2356,7 @@ contract('Cerby', (accounts) => {
       )
 
       const afterEthPool = (
-        await cerbySwap.getPoolsByTokens([ETH_TOKEN_ADDRESS])
+        await cerbySwap.getPoolsBalancesByTokens([ETH_TOKEN_ADDRESS])
       )[0]
 
       // check pool increased by amountTokensIn
@@ -2389,7 +2389,7 @@ contract('Cerby', (accounts) => {
     const cerbySwap = await CerbySwapV1.deployed()
 
     const beforeEthPool = (
-      await cerbySwap.getPoolsByTokens([ETH_TOKEN_ADDRESS])
+      await cerbySwap.getPoolsBalancesByTokens([ETH_TOKEN_ADDRESS])
     )[0]
 
     {
@@ -2439,7 +2439,7 @@ contract('Cerby', (accounts) => {
       )
 
       const afterEthPool = (
-        await cerbySwap.getPoolsByTokens([ETH_TOKEN_ADDRESS])
+        await cerbySwap.getPoolsBalancesByTokens([ETH_TOKEN_ADDRESS])
       )[0]
 
       // check sent amount must be larger than received
@@ -2470,7 +2470,7 @@ contract('Cerby', (accounts) => {
     const cerbySwap = await CerbySwapV1.deployed()
 
     const beforeEthPool = (
-      await cerbySwap.getPoolsByTokens([ETH_TOKEN_ADDRESS])
+      await cerbySwap.getPoolsBalancesByTokens([ETH_TOKEN_ADDRESS])
     )[0]
 
     {
@@ -2520,7 +2520,7 @@ contract('Cerby', (accounts) => {
       )
 
       const afterEthPool = (
-        await cerbySwap.getPoolsByTokens([ETH_TOKEN_ADDRESS])
+        await cerbySwap.getPoolsBalancesByTokens([ETH_TOKEN_ADDRESS])
       )[0]
 
       // check sent amount larger than received
@@ -2559,11 +2559,11 @@ contract('Cerby', (accounts) => {
     const cerbySwap = await CerbySwapV1.deployed()
 
     const beforeEthPool = (
-      await cerbySwap.getPoolsByTokens([ETH_TOKEN_ADDRESS])
+      await cerbySwap.getPoolsBalancesByTokens([ETH_TOKEN_ADDRESS])
     )[0]
 
     const beforeUSDCPool = (
-      await cerbySwap.getPoolsByTokens([TestUsdcToken.address])
+      await cerbySwap.getPoolsBalancesByTokens([TestUsdcToken.address])
     )[0]
 
     {
@@ -2613,11 +2613,11 @@ contract('Cerby', (accounts) => {
       )
 
       const afterEthPool = (
-        await cerbySwap.getPoolsByTokens([ETH_TOKEN_ADDRESS])
+        await cerbySwap.getPoolsBalancesByTokens([ETH_TOKEN_ADDRESS])
       )[0]
 
       const afterUSDCPool = (
-        await cerbySwap.getPoolsByTokens([TestUsdcToken.address])
+        await cerbySwap.getPoolsBalancesByTokens([TestUsdcToken.address])
       )[0]
 
       // check sum cerUsd balances in USDC and Cerby pools must be equal
@@ -2680,11 +2680,11 @@ contract('Cerby', (accounts) => {
     const cerbySwap = await CerbySwapV1.deployed()
 
     const beforeEthPool = (
-      await cerbySwap.getPoolsByTokens([ETH_TOKEN_ADDRESS])
+      await cerbySwap.getPoolsBalancesByTokens([ETH_TOKEN_ADDRESS])
     )[0]
 
     const beforeUSDCPool = (
-      await cerbySwap.getPoolsByTokens([TestUsdcToken.address])
+      await cerbySwap.getPoolsBalancesByTokens([TestUsdcToken.address])
     )[0]
 
     {
@@ -2735,11 +2735,11 @@ contract('Cerby', (accounts) => {
       )
 
       const afterEthPool = (
-        await cerbySwap.getPoolsByTokens([ETH_TOKEN_ADDRESS])
+        await cerbySwap.getPoolsBalancesByTokens([ETH_TOKEN_ADDRESS])
       )[0]
 
       const afterUSDCPool = (
-        await cerbySwap.getPoolsByTokens([TestUsdcToken.address])
+        await cerbySwap.getPoolsBalancesByTokens([TestUsdcToken.address])
       )[0]
 
       // check sum cerUsd balances in USDC and Cerby pools must be equal
@@ -2802,11 +2802,11 @@ contract('Cerby', (accounts) => {
     const cerbySwap = await CerbySwapV1.deployed()
 
     const beforeEthPool = (
-      await cerbySwap.getPoolsByTokens([ETH_TOKEN_ADDRESS])
+      await cerbySwap.getPoolsBalancesByTokens([ETH_TOKEN_ADDRESS])
     )[0]
 
     const beforeUSDCPool = (
-      await cerbySwap.getPoolsByTokens([TestUsdcToken.address])
+      await cerbySwap.getPoolsBalancesByTokens([TestUsdcToken.address])
     )[0]
 
     {
@@ -2855,11 +2855,11 @@ contract('Cerby', (accounts) => {
       )
 
       const afterEthPool = (
-        await cerbySwap.getPoolsByTokens([ETH_TOKEN_ADDRESS])
+        await cerbySwap.getPoolsBalancesByTokens([ETH_TOKEN_ADDRESS])
       )[0]
 
       const afterUSDCPool = (
-        await cerbySwap.getPoolsByTokens([TestUsdcToken.address])
+        await cerbySwap.getPoolsBalancesByTokens([TestUsdcToken.address])
       )[0]
 
       // check sum cerUsd balances in USDC and Cerby pools must be equal
@@ -2922,11 +2922,11 @@ contract('Cerby', (accounts) => {
     const cerbySwap = await CerbySwapV1.deployed()
 
     const beforeEthPool = (
-      await cerbySwap.getPoolsByTokens([ETH_TOKEN_ADDRESS])
+      await cerbySwap.getPoolsBalancesByTokens([ETH_TOKEN_ADDRESS])
     )[0]
 
     const beforeUSDCPool = (
-      await cerbySwap.getPoolsByTokens([TestUsdcToken.address])
+      await cerbySwap.getPoolsBalancesByTokens([TestUsdcToken.address])
     )[0]
 
     {
@@ -2966,11 +2966,11 @@ contract('Cerby', (accounts) => {
       )
 
       const afterEthPool = (
-        await cerbySwap.getPoolsByTokens([ETH_TOKEN_ADDRESS])
+        await cerbySwap.getPoolsBalancesByTokens([ETH_TOKEN_ADDRESS])
       )[0]
 
       const afterUSDCPool = (
-        await cerbySwap.getPoolsByTokens([TestUsdcToken.address])
+        await cerbySwap.getPoolsBalancesByTokens([TestUsdcToken.address])
       )[0]
 
       // check sum cerUsd balances in USDC and Cerby pools must be equal
@@ -3037,7 +3037,7 @@ contract('Cerby', (accounts) => {
     const cerbySwap = await CerbySwapV1.deployed()
 
     const beforeEthPool = (
-      await cerbySwap.getPoolsByTokens([ETH_TOKEN_ADDRESS])
+      await cerbySwap.getPoolsBalancesByTokens([ETH_TOKEN_ADDRESS])
     )[0]
 
     {
@@ -3064,7 +3064,7 @@ contract('Cerby', (accounts) => {
       )
 
       const afterEthPool = (
-        await cerbySwap.getPoolsByTokens([ETH_TOKEN_ADDRESS])
+        await cerbySwap.getPoolsBalancesByTokens([ETH_TOKEN_ADDRESS])
       )[0]
 
       // check pool increased by amountTokensIn
@@ -3097,7 +3097,7 @@ contract('Cerby', (accounts) => {
     const cerbySwap = await CerbySwapV1.deployed()
 
     const beforeEthPool = (
-      await cerbySwap.getPoolsByTokens([ETH_TOKEN_ADDRESS])
+      await cerbySwap.getPoolsBalancesByTokens([ETH_TOKEN_ADDRESS])
     )[0]
 
     {
@@ -3123,7 +3123,7 @@ contract('Cerby', (accounts) => {
       )
 
       const afterEthPool = (
-        await cerbySwap.getPoolsByTokens([ETH_TOKEN_ADDRESS])
+        await cerbySwap.getPoolsBalancesByTokens([ETH_TOKEN_ADDRESS])
       )[0]
 
       // check pool increased by amountTokensIn
@@ -3156,7 +3156,7 @@ contract('Cerby', (accounts) => {
     const cerbySwap = await CerbySwapV1.deployed()
 
     const beforeEthPool = (
-      await cerbySwap.getPoolsByTokens([ETH_TOKEN_ADDRESS])
+      await cerbySwap.getPoolsBalancesByTokens([ETH_TOKEN_ADDRESS])
     )[0]
 
     {
@@ -3206,7 +3206,7 @@ contract('Cerby', (accounts) => {
       )
 
       const afterEthPool = (
-        await cerbySwap.getPoolsByTokens([ETH_TOKEN_ADDRESS])
+        await cerbySwap.getPoolsBalancesByTokens([ETH_TOKEN_ADDRESS])
       )[0]
 
       // check sent amount must be larger than received
@@ -3240,7 +3240,7 @@ contract('Cerby', (accounts) => {
     const cerbySwap = await CerbySwapV1.deployed()
 
     const beforeEthPool = (
-      await cerbySwap.getPoolsByTokens([ETH_TOKEN_ADDRESS])
+      await cerbySwap.getPoolsBalancesByTokens([ETH_TOKEN_ADDRESS])
     )[0]
 
     {
@@ -3289,7 +3289,7 @@ contract('Cerby', (accounts) => {
       )
 
       const afterEthPool = (
-        await cerbySwap.getPoolsByTokens([ETH_TOKEN_ADDRESS])
+        await cerbySwap.getPoolsBalancesByTokens([ETH_TOKEN_ADDRESS])
       )[0]
 
       // check sent amount larger than received
@@ -3323,11 +3323,11 @@ contract('Cerby', (accounts) => {
     const cerbySwap = await CerbySwapV1.deployed()
 
     const beforeEthPool = (
-      await cerbySwap.getPoolsByTokens([ETH_TOKEN_ADDRESS])
+      await cerbySwap.getPoolsBalancesByTokens([ETH_TOKEN_ADDRESS])
     )[0]
 
     const beforeUSDCPool = (
-      await cerbySwap.getPoolsByTokens([TestUsdcToken.address])
+      await cerbySwap.getPoolsBalancesByTokens([TestUsdcToken.address])
     )[0]
 
     {
@@ -3376,11 +3376,11 @@ contract('Cerby', (accounts) => {
       )
 
       const afterEthPool = (
-        await cerbySwap.getPoolsByTokens([ETH_TOKEN_ADDRESS])
+        await cerbySwap.getPoolsBalancesByTokens([ETH_TOKEN_ADDRESS])
       )[0]
 
       const afterUSDCPool = (
-        await cerbySwap.getPoolsByTokens([TestUsdcToken.address])
+        await cerbySwap.getPoolsBalancesByTokens([TestUsdcToken.address])
       )[0]
 
       // check sum cerUsd balances in USDC and Cerby pools must be equal
@@ -3443,11 +3443,11 @@ contract('Cerby', (accounts) => {
     const cerbySwap = await CerbySwapV1.deployed()
 
     const beforeEthPool = (
-      await cerbySwap.getPoolsByTokens([ETH_TOKEN_ADDRESS])
+      await cerbySwap.getPoolsBalancesByTokens([ETH_TOKEN_ADDRESS])
     )[0]
 
     const beforeUSDCPool = (
-      await cerbySwap.getPoolsByTokens([TestUsdcToken.address])
+      await cerbySwap.getPoolsBalancesByTokens([TestUsdcToken.address])
     )[0]
 
     {
@@ -3486,11 +3486,11 @@ contract('Cerby', (accounts) => {
       )
 
       const afterEthPool = (
-        await cerbySwap.getPoolsByTokens([ETH_TOKEN_ADDRESS])
+        await cerbySwap.getPoolsBalancesByTokens([ETH_TOKEN_ADDRESS])
       )[0]
 
       const afterUSDCPool = (
-        await cerbySwap.getPoolsByTokens([TestUsdcToken.address])
+        await cerbySwap.getPoolsBalancesByTokens([TestUsdcToken.address])
       )[0]
 
       // check sum cerUsd balances in USDC and Cerby pools must be equal
@@ -3553,11 +3553,11 @@ contract('Cerby', (accounts) => {
     const cerbySwap = await CerbySwapV1.deployed()
 
     const beforeEthPool = (
-      await cerbySwap.getPoolsByTokens([ETH_TOKEN_ADDRESS])
+      await cerbySwap.getPoolsBalancesByTokens([ETH_TOKEN_ADDRESS])
     )[0]
 
     const beforeUSDCPool = (
-      await cerbySwap.getPoolsByTokens([TestUsdcToken.address])
+      await cerbySwap.getPoolsBalancesByTokens([TestUsdcToken.address])
     )[0]
 
     {
@@ -3605,11 +3605,11 @@ contract('Cerby', (accounts) => {
       )
 
       const afterEthPool = (
-        await cerbySwap.getPoolsByTokens([ETH_TOKEN_ADDRESS])
+        await cerbySwap.getPoolsBalancesByTokens([ETH_TOKEN_ADDRESS])
       )[0]
 
       const afterUSDCPool = (
-        await cerbySwap.getPoolsByTokens([TestUsdcToken.address])
+        await cerbySwap.getPoolsBalancesByTokens([TestUsdcToken.address])
       )[0]
 
       // check sum cerUsd balances in USDC and Cerby pools must be equal
@@ -3672,11 +3672,11 @@ contract('Cerby', (accounts) => {
     const cerbySwap = await CerbySwapV1.deployed()
 
     const beforeEthPool = (
-      await cerbySwap.getPoolsByTokens([ETH_TOKEN_ADDRESS])
+      await cerbySwap.getPoolsBalancesByTokens([ETH_TOKEN_ADDRESS])
     )[0]
 
     const beforeUSDCPool = (
-      await cerbySwap.getPoolsByTokens([TestUsdcToken.address])
+      await cerbySwap.getPoolsBalancesByTokens([TestUsdcToken.address])
     )[0]
 
     {
@@ -3714,11 +3714,11 @@ contract('Cerby', (accounts) => {
       )
 
       const afterEthPool = (
-        await cerbySwap.getPoolsByTokens([ETH_TOKEN_ADDRESS])
+        await cerbySwap.getPoolsBalancesByTokens([ETH_TOKEN_ADDRESS])
       )[0]
 
       const afterUSDCPool = (
-        await cerbySwap.getPoolsByTokens([TestUsdcToken.address])
+        await cerbySwap.getPoolsBalancesByTokens([TestUsdcToken.address])
       )[0]
 
       // check sum cerUsd balances in USDC and Cerby pools must be equal
@@ -3826,7 +3826,7 @@ contract('Cerby', (accounts) => {
       )
 
       const beforeCerbyPool = (
-        await cerbySwap.getPoolsByTokens([TestCerbyToken.address])
+        await cerbySwap.getPoolsBalancesByTokens([TestCerbyToken.address])
       )[0]
 
       // adding 1000 CERBY to liquidity
@@ -3896,7 +3896,7 @@ contract('Cerby', (accounts) => {
       )
 
       const afterCerbyPool = (
-        await cerbySwap.getPoolsByTokens([TestCerbyToken.address])
+        await cerbySwap.getPoolsBalancesByTokens([TestCerbyToken.address])
       )[0]
 
       // check account balance must be less than 1000 CERBY
@@ -3954,7 +3954,7 @@ contract('Cerby', (accounts) => {
       )
 
       const beforeCerbyPool = (
-        await cerbySwap.getPoolsByTokens([TestCerbyToken.address])
+        await cerbySwap.getPoolsBalancesByTokens([TestCerbyToken.address])
       )[0]
 
       // adding 1000 CERBY to liquidity
@@ -4024,7 +4024,7 @@ contract('Cerby', (accounts) => {
       )
 
       const afterCerbyPool = (
-        await cerbySwap.getPoolsByTokens([TestCerbyToken.address])
+        await cerbySwap.getPoolsBalancesByTokens([TestCerbyToken.address])
       )[0]
 
       // check account balance must be less than 1000 CERBY
@@ -4080,7 +4080,7 @@ contract('Cerby', (accounts) => {
       )
 
       const beforeCerbyPool = (
-        await cerbySwap.getPoolsByTokens([TestCerbyToken.address])
+        await cerbySwap.getPoolsBalancesByTokens([TestCerbyToken.address])
       )[0]
 
       // adding 1000 CERBY to liquidity
@@ -4143,7 +4143,7 @@ contract('Cerby', (accounts) => {
       )
 
       const afterCerbyPool = (
-        await cerbySwap.getPoolsByTokens([TestCerbyToken.address])
+        await cerbySwap.getPoolsBalancesByTokens([TestCerbyToken.address])
       )[0]
 
       // check account balance must be less than 1000 CERBY
@@ -4165,7 +4165,7 @@ contract('Cerby', (accounts) => {
     {
       const ONE_PERIOD = 17280 // 4.8 hours time travel
 
-      await increaseTime(ONE_PERIOD * 10) // shifting 2 days to clear any fees stats
+      await increaseTime(ONE_PERIOD * 13) // shifting 2.6 days to clear any fees stats
 
       let actualOneMinusFee = await cerbySwap.getCurrentOneMinusFeeBasedOnTrades(
         TestCerbyToken.address,
@@ -4181,13 +4181,17 @@ contract('Cerby', (accounts) => {
       )
 
       const beforeCerbyPool = (
-        await cerbySwap.getPoolsByTokens([TestCerbyToken.address])
+        await cerbySwap.getPoolsBalancesByTokens([TestCerbyToken.address])
       )[0]
+
+      let pool = (
+        await cerbySwap.getPoolsByTokens([TestCerbyToken.address])
+      )[0];
 
       const cerbyToken = await TestCerbyToken.deployed()
       await cerbyToken.mintHumanAddress(
         firstAccount,
-        _BN(beforeCerbyPool.balanceToken).mul(_BN(31)),
+        _BN(beforeCerbyPool.balanceToken).mul(_BN(100)),
       )
 
       const tokenIn = TestCerbyToken.address
@@ -4205,7 +4209,11 @@ contract('Cerby', (accounts) => {
         expireTimestamp,
         transferTo,
       )
-      await increaseTime(ONE_PERIOD)
+      await increaseTime(ONE_PERIOD*2)
+      
+      pool = (
+        await cerbySwap.getPoolsByTokens([TestCerbyToken.address])
+      )[0];
 
       // actualOneMinusFee must be in range min - max
       actualOneMinusFee = await cerbySwap.getCurrentOneMinusFeeBasedOnTrades(
@@ -4223,7 +4231,11 @@ contract('Cerby', (accounts) => {
         expireTimestamp,
         transferTo,
       )
-      await increaseTime(ONE_PERIOD)
+      await increaseTime(ONE_PERIOD*3)
+      
+      pool = (
+        await cerbySwap.getPoolsByTokens([TestCerbyToken.address])
+      )[0];
 
       // actualOneMinusFee must be == max
       actualOneMinusFee = await cerbySwap.getCurrentOneMinusFeeBasedOnTrades(
@@ -4235,6 +4247,17 @@ contract('Cerby', (accounts) => {
         actualOneMinusFee.toString(),
         ONE_MINUS_FEE_MAXIMUM.toString(),
       )
+
+      amountTokensIn = _BN(beforeCerbyPool.balanceToken).mul(_BN(30))
+      await cerbySwap.swapExactTokensForTokens(
+        tokenIn,
+        tokenOut,
+        amountTokensIn,
+        minAmountTokensOut,
+        expireTimestamp,
+        transferTo,
+      )
+      await increaseTime(ONE_PERIOD*3)
     }
   })
 
@@ -4321,7 +4344,7 @@ contract('Cerby', (accounts) => {
     const ETH_POOL_POS = await cerbySwap.getTokenToPoolId(ETH_TOKEN_ADDRESS)
 
     const beforeEthPool = (
-      await cerbySwap.getPoolsByTokens([ETH_TOKEN_ADDRESS])
+      await cerbySwap.getPoolsBalancesByTokens([ETH_TOKEN_ADDRESS])
     )[0]
     const beforeLpTokens = await cerbySwap.balanceOf(firstAccount, ETH_POOL_POS)
 
@@ -4352,7 +4375,7 @@ contract('Cerby', (accounts) => {
       )
 
       const afterEthPool = (
-        await cerbySwap.getPoolsByTokens([ETH_TOKEN_ADDRESS])
+        await cerbySwap.getPoolsBalancesByTokens([ETH_TOKEN_ADDRESS])
       )[0]
 
       const afterLpTokens = await cerbySwap.balanceOf(
@@ -4391,7 +4414,7 @@ contract('Cerby', (accounts) => {
     )
 
     const beforeCerbyPool = (
-      await cerbySwap.getPoolsByTokens([TestCerbyToken.address])
+      await cerbySwap.getPoolsBalancesByTokens([TestCerbyToken.address])
     )[0]
     const beforeLpTokens = await cerbySwap.balanceOf(
       firstAccount,
@@ -4425,7 +4448,7 @@ contract('Cerby', (accounts) => {
       )
 
       const afterCerbyPool = (
-        await cerbySwap.getPoolsByTokens([TestCerbyToken.address])
+        await cerbySwap.getPoolsBalancesByTokens([TestCerbyToken.address])
       )[0]
       const afterLpTokens = await cerbySwap.balanceOf(
         firstAccount,
@@ -4461,7 +4484,7 @@ contract('Cerby', (accounts) => {
     const ETH_POOL_POS = await cerbySwap.getTokenToPoolId(ETH_TOKEN_ADDRESS)
 
     const beforeEthPool = (
-      await cerbySwap.getPoolsByTokens([ETH_TOKEN_ADDRESS])
+      await cerbySwap.getPoolsBalancesByTokens([ETH_TOKEN_ADDRESS])
     )[0]
     const beforeLpTokens = await cerbySwap.balanceOf(firstAccount, ETH_POOL_POS)
 
@@ -4494,7 +4517,7 @@ contract('Cerby', (accounts) => {
       )
 
       const afterEthPool = (
-        await cerbySwap.getPoolsByTokens([ETH_TOKEN_ADDRESS])
+        await cerbySwap.getPoolsBalancesByTokens([ETH_TOKEN_ADDRESS])
       )[0]
 
       const afterLpTokens = await cerbySwap.balanceOf(
@@ -4533,7 +4556,7 @@ contract('Cerby', (accounts) => {
     )
 
     const beforeCerbyPool = (
-      await cerbySwap.getPoolsByTokens([TestCerbyToken.address])
+      await cerbySwap.getPoolsBalancesByTokens([TestCerbyToken.address])
     )[0]
 
     const beforeLpTokens = await cerbySwap.balanceOf(
@@ -4569,7 +4592,7 @@ contract('Cerby', (accounts) => {
       )
 
       const afterCerbyPool = (
-        await cerbySwap.getPoolsByTokens([TestCerbyToken.address])
+        await cerbySwap.getPoolsBalancesByTokens([TestCerbyToken.address])
       )[0]
 
       const afterLpTokens = await cerbySwap.balanceOf(

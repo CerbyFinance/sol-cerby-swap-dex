@@ -428,7 +428,7 @@ abstract contract CerbySwapV1_SwapFunctions is CerbySwapV1_LiquidityFunctions {
             // calculating fees
             // if swap is ANY --> cerUSD, fee is calculated
             // else swap is cerUSD --> ANY, fee is zero (oneMinusFee = FEE_DENORM)
-            if (amountCerUsdIn > 1 && amountTokensIn <= 1) {
+            if (amountCerUsdIn <= 1 && amountTokensIn > 1) {
 
                 // updating cache while gas estimations to avoid out of gas error by artificially inflating gas limit
                 // caching it for whole current period

@@ -32,6 +32,21 @@ abstract contract CerbySwapV1_GetFunctions is
     )
         external
         view
+        returns (Pool[] memory)
+    {
+        Pool[] memory outputPools = new Pool[](_tokens.length);
+        for (uint256 i; i < _tokens.length; i++) {
+            address token = _tokens[i];
+            outputPools[i] = pools[tokenToPoolId[token]];
+        }
+        return outputPools;
+    }
+
+    function getPoolsBalancesByTokens(
+        address[] calldata _tokens
+    )
+        external
+        view
         returns (PoolBalances[] memory)
     {
         PoolBalances[] memory outputPools = new PoolBalances[](_tokens.length);
