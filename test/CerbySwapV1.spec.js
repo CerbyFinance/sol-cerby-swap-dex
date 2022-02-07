@@ -24,10 +24,14 @@ const bn1e18 = _BN((1e18).toString());
 function delay(ms) {
     return new Promise((resolve) => setTimeout(resolve, ms));
 }
+let shift = 0;
+function currentTimestamp() {
+    return now() + shift;
+}
 // @ts-ignore
 const send = (0, util_1.promisify)(web3.currentProvider.send);
 const increaseTime = async (seconds) => {
-    const newTime = now() + seconds;
+    shift += seconds;
     await send({
         method: 'evm_increaseTime',
         params: [seconds],
@@ -46,6 +50,10 @@ contract('Cerby', (accounts) => {
         console.log('TestCerbyToken Address: ' + TestCerbyToken.address);
         console.log('TestCerUsdToken Address: ' + TestCerUsdToken.address);
         console.log('TestUsdcToken Address: ' + TestUsdcToken.address);
+        await send({
+            method: 'evm_setTime',
+            params: [Math.floor(+new Date())],
+        });
         {
             const urlPrefix = 'https://test.com/path/';
             const itemNumber = '777';
@@ -106,7 +114,7 @@ contract('Cerby', (accounts) => {
             const amountCerUsdIn = amountTokensIn
                 .mul(_BN(beforeEthPool.balanceCerUsd))
                 .div(_BN(beforeEthPool.balanceToken));
-            const expireTimestamp = now() + 86400;
+            const expireTimestamp = currentTimestamp() + 86400;
             const transferTo = firstAccount;
             const totalLPSupply = await cerbySwap.methods['totalSupply(uint256)'](ETH_POOL_POS);
             const lpTokens = amountTokensIn
@@ -138,7 +146,7 @@ contract('Cerby', (accounts) => {
             const amountCerUsdIn = amountTokensIn
                 .mul(_BN(beforeCerbyPool.balanceCerUsd))
                 .div(_BN(beforeCerbyPool.balanceToken));
-            const expireTimestamp = now() + 86400;
+            const expireTimestamp = currentTimestamp() + 86400;
             const transferTo = firstAccount;
             const totalLPSupply = await cerbySwap.methods['totalSupply(uint256)'](CERBY_POOL_POS);
             const lpTokens = amountTokensIn
@@ -171,7 +179,7 @@ contract('Cerby', (accounts) => {
             gas: '3000000',
         });
         const minAmountTokensOut = 0;
-        const expireTimestamp = now() + 86400;
+        const expireTimestamp = currentTimestamp() + 86400;
         const transferTo = firstAccount;
         await cerbySwap.swapExactTokensForTokens(tokenIn, tokenOut, amountTokensIn, minAmountTokensOut, expireTimestamp, transferTo, {
             gas: '3000000',
@@ -197,7 +205,7 @@ contract('Cerby', (accounts) => {
             const amountTokensIn = _BN(1002).mul(bn1e18);
             const amountTokensOut = await cerbySwap.getOutputExactTokensForTokens(tokenIn, tokenOut, amountTokensIn);
             const minAmountTokensOut = 0;
-            const expireTimestamp = now() + 86400;
+            const expireTimestamp = currentTimestamp() + 86400;
             const transferTo = firstAccount;
             await cerbySwap.swapExactTokensForTokens(tokenIn, tokenOut, amountTokensIn, minAmountTokensOut, expireTimestamp, transferTo, {
                 gas: '3000000',
@@ -225,7 +233,7 @@ contract('Cerby', (accounts) => {
             const amountTokensIn1 = _BN(1003).mul(bn1e18);
             const amountTokensOut1 = await cerbySwap.getOutputExactTokensForTokens(tokenIn1, tokenOut1, amountTokensIn1);
             const minAmountTokensOut1 = 0;
-            const expireTimestamp1 = now() + 86400;
+            const expireTimestamp1 = currentTimestamp() + 86400;
             const transferTo1 = firstAccount;
             await cerbySwap.swapExactTokensForTokens(tokenIn1, tokenOut1, amountTokensIn1, minAmountTokensOut1, expireTimestamp1, transferTo1);
             // CERBY --> cerUSD
@@ -234,7 +242,7 @@ contract('Cerby', (accounts) => {
             const amountTokensIn2 = amountTokensOut1;
             const amountTokensOut2 = await cerbySwap.getOutputExactTokensForTokens(tokenIn2, tokenOut2, amountTokensIn2);
             const minAmountTokensOut2 = 0;
-            const expireTimestamp2 = now() + 86400;
+            const expireTimestamp2 = currentTimestamp() + 86400;
             const transferTo2 = firstAccount;
             await cerbySwap.swapExactTokensForTokens(tokenIn2, tokenOut2, amountTokensIn2, minAmountTokensOut2, expireTimestamp2, transferTo2);
             const afterCerbyPool = (await cerbySwap.getPoolsByTokens([TestCerbyToken.address]))[0];
@@ -261,7 +269,7 @@ contract('Cerby', (accounts) => {
             const amountTokensIn1 = _BN(1004).mul(bn1e18);
             const amountTokensOut1 = await cerbySwap.getOutputExactTokensForTokens(tokenIn1, tokenOut1, amountTokensIn1);
             const minAmountTokensOut1 = 0;
-            const expireTimestamp1 = now() + 86400;
+            const expireTimestamp1 = currentTimestamp() + 86400;
             const transferTo1 = firstAccount;
             await cerbySwap.swapExactTokensForTokens(tokenIn1, tokenOut1, amountTokensIn1, minAmountTokensOut1, expireTimestamp1, transferTo1);
             // cerUSD --> CERBY
@@ -270,7 +278,7 @@ contract('Cerby', (accounts) => {
             const amountTokensIn2 = amountTokensOut1;
             const amountTokensOut2 = await cerbySwap.getOutputExactTokensForTokens(tokenIn2, tokenOut2, amountTokensIn2);
             const minAmountTokensOut2 = 0;
-            const expireTimestamp2 = now() + 86400;
+            const expireTimestamp2 = currentTimestamp() + 86400;
             const transferTo2 = firstAccount;
             await cerbySwap.swapExactTokensForTokens(tokenIn2, tokenOut2, amountTokensIn2, minAmountTokensOut2, expireTimestamp2, transferTo2);
             const afterCerbyPool = (await cerbySwap.getPoolsByTokens([TestCerbyToken.address]))[0];
@@ -302,7 +310,7 @@ contract('Cerby', (accounts) => {
             const amountTokensIn1 = _BN(1005).mul(bn1e18);
             const amountTokensOut1 = await cerbySwap.getOutputExactTokensForTokens(tokenIn1, tokenOut1, amountTokensIn1);
             const minAmountTokensOut1 = 0;
-            const expireTimestamp1 = now() + 86400;
+            const expireTimestamp1 = currentTimestamp() + 86400;
             const transferTo1 = firstAccount;
             // cerUSD --> USDC
             const tokenIn2 = TestCerUsdToken.address;
@@ -312,7 +320,7 @@ contract('Cerby', (accounts) => {
             const amountTokensOut3 = await cerbySwap.getOutputExactTokensForTokens(tokenIn1, tokenOut2, amountTokensIn1);
             assert.deepEqual(amountTokensOut2, amountTokensOut3);
             const minAmountTokensOut2 = 0;
-            const expireTimestamp2 = now() + 86400;
+            const expireTimestamp2 = currentTimestamp() + 86400;
             const transferTo2 = firstAccount;
             await cerbySwap.swapExactTokensForTokens(tokenIn1, tokenOut1, amountTokensIn1, minAmountTokensOut1, expireTimestamp1, transferTo1);
             await cerbySwap.swapExactTokensForTokens(tokenIn2, tokenOut2, amountTokensIn2, minAmountTokensOut2, expireTimestamp2, transferTo2);
@@ -352,7 +360,7 @@ contract('Cerby', (accounts) => {
             const amountTokensIn1 = _BN(1006).mul(bn1e18);
             const amountTokensOut1 = await cerbySwap.getOutputExactTokensForTokens(tokenIn1, tokenOut1, amountTokensIn1);
             const minAmountTokensOut1 = 0;
-            const expireTimestamp1 = now() + 86400;
+            const expireTimestamp1 = currentTimestamp() + 86400;
             const transferTo1 = firstAccount;
             // cerUSD --> USDC
             const tokenIn2 = TestCerUsdToken.address;
@@ -362,7 +370,7 @@ contract('Cerby', (accounts) => {
             const amountTokensOut3 = await cerbySwap.getOutputExactTokensForTokens(tokenIn1, tokenOut2, amountTokensIn1);
             assert.deepEqual(amountTokensOut2, amountTokensOut3);
             const minAmountTokensOut2 = 0;
-            const expireTimestamp2 = now() + 86400;
+            const expireTimestamp2 = currentTimestamp() + 86400;
             const transferTo2 = firstAccount;
             await cerbySwap.swapExactTokensForTokens(tokenIn1, tokenOut1, amountTokensIn1, minAmountTokensOut1, expireTimestamp1, transferTo1);
             await cerbySwap.swapExactTokensForTokens(tokenIn2, tokenOut2, amountTokensIn2, minAmountTokensOut2, expireTimestamp2, transferTo2);
@@ -402,7 +410,7 @@ contract('Cerby', (accounts) => {
             const amountTokensIn1 = _BN(1007).mul(bn1e18);
             const amountTokensOut1 = await cerbySwap.getOutputExactTokensForTokens(tokenIn1, tokenOut1, amountTokensIn1);
             const minAmountTokensOut1 = 0;
-            const expireTimestamp1 = now() + 86400;
+            const expireTimestamp1 = currentTimestamp() + 86400;
             const transferTo1 = firstAccount;
             // cerUSD --> CERBY
             const tokenIn2 = TestCerUsdToken.address;
@@ -412,7 +420,7 @@ contract('Cerby', (accounts) => {
             const amountTokensOut3 = await cerbySwap.getOutputExactTokensForTokens(tokenIn1, tokenOut2, amountTokensIn1);
             assert.deepEqual(amountTokensOut2, amountTokensOut3);
             const minAmountTokensOut2 = 0;
-            const expireTimestamp2 = now() + 86400;
+            const expireTimestamp2 = currentTimestamp() + 86400;
             const transferTo2 = firstAccount;
             await cerbySwap.swapExactTokensForTokens(tokenIn1, tokenOut1, amountTokensIn1, minAmountTokensOut1, expireTimestamp1, transferTo1);
             await cerbySwap.swapExactTokensForTokens(tokenIn2, tokenOut2, amountTokensIn2, minAmountTokensOut2, expireTimestamp2, transferTo2);
@@ -452,7 +460,7 @@ contract('Cerby', (accounts) => {
             const amountTokensIn1 = _BN(1008).mul(bn1e18);
             const amountTokensOut1 = await cerbySwap.getOutputExactTokensForTokens(tokenIn1, tokenOut1, amountTokensIn1);
             const minAmountTokensOut1 = 0;
-            const expireTimestamp1 = now() + 86400;
+            const expireTimestamp1 = currentTimestamp() + 86400;
             const transferTo1 = firstAccount;
             // cerUSD --> CERBY
             const tokenIn2 = TestCerUsdToken.address;
@@ -462,7 +470,7 @@ contract('Cerby', (accounts) => {
             const amountTokensOut3 = await cerbySwap.getOutputExactTokensForTokens(tokenIn1, tokenOut2, amountTokensIn1);
             assert.deepEqual(amountTokensOut2, amountTokensOut3);
             const minAmountTokensOut2 = 0;
-            const expireTimestamp2 = now() + 86400;
+            const expireTimestamp2 = currentTimestamp() + 86400;
             const transferTo2 = firstAccount;
             await cerbySwap.swapExactTokensForTokens(tokenIn1, tokenOut2, amountTokensIn1, minAmountTokensOut2, expireTimestamp2, transferTo2);
             const afterCerbyPool = (await cerbySwap.getPoolsByTokens([TestCerbyToken.address]))[0];
@@ -499,7 +507,7 @@ contract('Cerby', (accounts) => {
             let tokenOut1 = TestCerUsdToken.address;
             let amountTokensIn1 = _BN(1010).mul(bn1e18);
             let minAmountTokensOut1 = _BN(0);
-            let expireTimestamp1 = now() + 86400;
+            let expireTimestamp1 = currentTimestamp() + 86400;
             let transferTo1 = firstAccount;
             await truffleAssert.reverts(cerbySwap.swapExactTokensForTokens(tokenIn1, tokenOut1, amountTokensIn1, minAmountTokensOut1, expireTimestamp1, transferTo1), SWAP_CERUSD_FOR_CERUSD_IS_FORBIDDEN_L);
             // CERBY --> CERBY
@@ -507,7 +515,7 @@ contract('Cerby', (accounts) => {
             tokenOut1 = TestCerbyToken.address;
             amountTokensIn1 = _BN(1010).mul(bn1e18);
             minAmountTokensOut1 = _BN(1000000000).mul(bn1e18);
-            expireTimestamp1 = now() + 86400;
+            expireTimestamp1 = currentTimestamp() + 86400;
             transferTo1 = firstAccount;
             await truffleAssert.reverts(cerbySwap.swapExactTokensForTokens(tokenIn1, tokenOut1, amountTokensIn1, minAmountTokensOut1, expireTimestamp1, transferTo1, {
                 gas: 6700000,
@@ -517,7 +525,7 @@ contract('Cerby', (accounts) => {
             tokenOut1 = TestCerUsdToken.address;
             amountTokensIn1 = _BN(1010).mul(bn1e18);
             minAmountTokensOut1 = _BN(1000000000).mul(bn1e18);
-            expireTimestamp1 = now() + 86400;
+            expireTimestamp1 = currentTimestamp() + 86400;
             transferTo1 = firstAccount;
             await truffleAssert.reverts(cerbySwap.swapExactTokensForTokens(tokenIn1, tokenOut1, amountTokensIn1, minAmountTokensOut1, expireTimestamp1, transferTo1, {
                 gas: 6700000,
@@ -527,7 +535,7 @@ contract('Cerby', (accounts) => {
             tokenOut1 = TestCerbyToken.address;
             amountTokensIn1 = _BN(1010).mul(bn1e18);
             minAmountTokensOut1 = _BN(1000000000).mul(bn1e18);
-            expireTimestamp1 = now() + 86400;
+            expireTimestamp1 = currentTimestamp() + 86400;
             transferTo1 = firstAccount;
             await truffleAssert.reverts(cerbySwap.swapExactTokensForTokens(tokenIn1, tokenOut1, amountTokensIn1, minAmountTokensOut1, expireTimestamp1, transferTo1, {
                 gas: 6700000,
@@ -536,7 +544,7 @@ contract('Cerby', (accounts) => {
             tokenOut1 = TestCerbyToken.address;
             amountTokensIn1 = _BN(1010).mul(bn1e18);
             minAmountTokensOut1 = _BN(1000000000).mul(bn1e18);
-            expireTimestamp1 = now() + 86400;
+            expireTimestamp1 = currentTimestamp() + 86400;
             transferTo1 = firstAccount;
             await truffleAssert.reverts(cerbySwap.swapExactTokensForTokens(tokenIn1, tokenOut1, amountTokensIn1, minAmountTokensOut1, expireTimestamp1, transferTo1, {
                 gas: 6700000,
@@ -546,7 +554,7 @@ contract('Cerby', (accounts) => {
             tokenOut1 = TestCerUsdToken.address;
             amountTokensIn1 = _BN(1010).mul(bn1e18);
             minAmountTokensOut1 = _BN(0);
-            expireTimestamp1 = now() - 86400;
+            expireTimestamp1 = currentTimestamp() - 86400;
             transferTo1 = firstAccount;
             await truffleAssert.reverts(cerbySwap.swapExactTokensForTokens(tokenIn1, tokenOut1, amountTokensIn1, minAmountTokensOut1, expireTimestamp1, transferTo1), TRANSACTION_IS_EXPIRED_D);
             const AMOUNT_OF_TOKENS_MUST_BE_LARGER_THAN_ZERO_F = 'F';
@@ -554,7 +562,7 @@ contract('Cerby', (accounts) => {
             tokenOut1 = TestCerUsdToken.address;
             amountTokensIn1 = _BN(0).mul(bn1e18);
             minAmountTokensOut1 = _BN(0);
-            expireTimestamp1 = now() + 86400;
+            expireTimestamp1 = currentTimestamp() + 86400;
             transferTo1 = firstAccount;
             await truffleAssert.reverts(cerbySwap.swapExactTokensForTokens(tokenIn1, tokenOut1, amountTokensIn1, minAmountTokensOut1, expireTimestamp1, transferTo1), AMOUNT_OF_TOKENS_MUST_BE_LARGER_THAN_ZERO_F);
             tokenIn1 = TestCerUsdToken.address;
@@ -562,7 +570,7 @@ contract('Cerby', (accounts) => {
             amountTokensIn1 = _BN(0).mul(bn1e18);
             minAmountTokensOut1 = _BN(0);
             amountTokensIn1 = _BN(0);
-            expireTimestamp1 = now() + 86400;
+            expireTimestamp1 = currentTimestamp() + 86400;
             transferTo1 = firstAccount;
             await truffleAssert.reverts(cerbySwap.swapExactTokensForTokens(tokenIn1, tokenOut1, amountTokensIn1, minAmountTokensOut1, expireTimestamp1, transferTo1), AMOUNT_OF_TOKENS_MUST_BE_LARGER_THAN_ZERO_F);
             tokenIn1 = TestUsdcToken.address;
@@ -570,7 +578,7 @@ contract('Cerby', (accounts) => {
             amountTokensIn1 = _BN(0).mul(bn1e18);
             minAmountTokensOut1 = _BN(0);
             amountTokensIn1 = _BN(0);
-            expireTimestamp1 = now() + 86400;
+            expireTimestamp1 = currentTimestamp() + 86400;
             transferTo1 = firstAccount;
             await truffleAssert.reverts(cerbySwap.swapExactTokensForTokens(tokenIn1, tokenOut1, amountTokensIn1, minAmountTokensOut1, expireTimestamp1, transferTo1), AMOUNT_OF_TOKENS_MUST_BE_LARGER_THAN_ZERO_F);
             const CerbySwapV1_MsgValueProvidedMustBeLargerThanAmountTokensIn = 'asd';
@@ -578,7 +586,7 @@ contract('Cerby', (accounts) => {
             tokenOut1 = TestCerbyToken.address;
             amountTokensIn1 = _BN(1).mul(bn1e18);
             minAmountTokensOut1 = _BN(0);
-            expireTimestamp1 = now() + 86400;
+            expireTimestamp1 = currentTimestamp() + 86400;
             transferTo1 = firstAccount;
             await truffleAssert.reverts(cerbySwap.swapExactTokensForTokens(tokenIn1, tokenOut1, amountTokensIn1, minAmountTokensOut1, expireTimestamp1, transferTo1, {
                 value: amountTokensIn1.sub(_BN(10)),
@@ -600,7 +608,7 @@ contract('Cerby', (accounts) => {
             const amountTokensOut = _BN(1011).mul(bn1e18);
             const amountTokensIn = await cerbySwap.getInputTokensForExactTokens(tokenIn, tokenOut, amountTokensOut);
             const maxAmountTokensIn = _BN(1000000).mul(bn1e18);
-            const expireTimestamp = now() + 86400;
+            const expireTimestamp = currentTimestamp() + 86400;
             const transferTo = firstAccount;
             await cerbySwap.swapTokensForExactTokens(tokenIn, tokenOut, amountTokensOut, maxAmountTokensIn, expireTimestamp, transferTo);
             const afterCerbyPool = (await cerbySwap.getPoolsByTokens([TestCerbyToken.address]))[0];
@@ -625,7 +633,7 @@ contract('Cerby', (accounts) => {
             const amountTokensOut = _BN(1012).mul(bn1e18);
             const amountTokensIn = await cerbySwap.getInputTokensForExactTokens(tokenIn, tokenOut, amountTokensOut);
             const maxAmountTokensIn = _BN(1000000).mul(bn1e18);
-            const expireTimestamp = now() + 86400;
+            const expireTimestamp = currentTimestamp() + 86400;
             const transferTo = firstAccount;
             await cerbySwap.swapTokensForExactTokens(tokenIn, tokenOut, amountTokensOut, maxAmountTokensIn, expireTimestamp, transferTo);
             const afterCerbyPool = (await cerbySwap.getPoolsByTokens([TestCerbyToken.address]))[0];
@@ -654,10 +662,10 @@ contract('Cerby', (accounts) => {
             const amountTokensOut1 = amountTokensIn2;
             const amountTokensIn1 = await cerbySwap.getInputTokensForExactTokens(tokenIn1, tokenOut1, amountTokensOut1);
             const maxAmountTokensIn1 = _BN(1000000).mul(bn1e18);
-            const expireTimestamp1 = now() + 86400;
+            const expireTimestamp1 = currentTimestamp() + 86400;
             const transferTo1 = firstAccount;
             const maxAmountTokensIn2 = _BN(1000000).mul(bn1e18);
-            const expireTimestamp2 = now() + 86400;
+            const expireTimestamp2 = currentTimestamp() + 86400;
             const transferTo2 = firstAccount;
             // cerUSD --> CERBY
             await cerbySwap.swapTokensForExactTokens(tokenIn1, tokenOut1, amountTokensOut1, maxAmountTokensIn1, expireTimestamp1, transferTo1);
@@ -698,10 +706,10 @@ contract('Cerby', (accounts) => {
             const amountTokensOut1 = amountTokensIn2;
             const amountTokensIn1 = await cerbySwap.getInputTokensForExactTokens(tokenIn1, tokenOut1, amountTokensOut1);
             const maxAmountTokensIn1 = _BN(1000000).mul(bn1e18);
-            const expireTimestamp1 = now() + 86400;
+            const expireTimestamp1 = currentTimestamp() + 86400;
             const transferTo1 = firstAccount;
             const maxAmountTokensIn2 = _BN(1000000).mul(bn1e18);
-            const expireTimestamp2 = now() + 86400;
+            const expireTimestamp2 = currentTimestamp() + 86400;
             const transferTo2 = firstAccount;
             // CERBY --> cerUSD
             await cerbySwap.swapTokensForExactTokens(tokenIn1, tokenOut1, amountTokensOut1, maxAmountTokensIn1, expireTimestamp1, transferTo1);
@@ -747,10 +755,10 @@ contract('Cerby', (accounts) => {
             const amountTokensIn0 = await cerbySwap.getInputTokensForExactTokens(tokenIn1, tokenOut2, amountTokensOut2);
             assert.deepEqual(amountTokensIn1.toString(), amountTokensIn0.toString());
             const maxAmountTokensIn1 = _BN(1000000).mul(bn1e18);
-            const expireTimestamp1 = now() + 86400;
+            const expireTimestamp1 = currentTimestamp() + 86400;
             const transferTo1 = firstAccount;
             const maxAmountTokensIn2 = _BN(1000000).mul(bn1e18);
-            const expireTimestamp2 = now() + 86400;
+            const expireTimestamp2 = currentTimestamp() + 86400;
             const transferTo2 = firstAccount;
             // CERBY --> cerUSD
             await cerbySwap.swapTokensForExactTokens(tokenIn1, tokenOut1, amountTokensOut1, maxAmountTokensIn1, expireTimestamp1, transferTo1);
@@ -797,10 +805,10 @@ contract('Cerby', (accounts) => {
             const amountTokensIn0 = await cerbySwap.getInputTokensForExactTokens(tokenIn1, tokenOut2, amountTokensOut2);
             assert.deepEqual(amountTokensIn1, amountTokensIn0);
             const maxAmountTokensIn1 = _BN(1000000).mul(bn1e18);
-            const expireTimestamp1 = now() + 86400;
+            const expireTimestamp1 = currentTimestamp() + 86400;
             const transferTo1 = firstAccount;
             const maxAmountTokensIn2 = _BN(1000000).mul(bn1e18);
-            const expireTimestamp2 = now() + 86400;
+            const expireTimestamp2 = currentTimestamp() + 86400;
             const transferTo2 = firstAccount;
             // CERBY --> USDC
             await cerbySwap.swapTokensForExactTokens(tokenIn1, tokenOut2, amountTokensOut2, maxAmountTokensIn2, expireTimestamp2, transferTo2);
@@ -845,10 +853,10 @@ contract('Cerby', (accounts) => {
             const amountTokensIn0 = await cerbySwap.getInputTokensForExactTokens(tokenIn1, tokenOut2, amountTokensOut2);
             assert.deepEqual(amountTokensIn1, amountTokensIn0);
             const maxAmountTokensIn1 = _BN(1000000).mul(bn1e18);
-            const expireTimestamp1 = now() + 86400;
+            const expireTimestamp1 = currentTimestamp() + 86400;
             const transferTo1 = firstAccount;
             const maxAmountTokensIn2 = _BN(1000000).mul(bn1e18);
-            const expireTimestamp2 = now() + 86400;
+            const expireTimestamp2 = currentTimestamp() + 86400;
             const transferTo2 = firstAccount;
             // USDC --> cerUSD
             await cerbySwap.swapTokensForExactTokens(tokenIn1, tokenOut1, amountTokensOut1, maxAmountTokensIn1, expireTimestamp1, transferTo1);
@@ -895,10 +903,10 @@ contract('Cerby', (accounts) => {
             const amountTokensIn0 = await cerbySwap.getInputTokensForExactTokens(tokenIn1, tokenOut2, amountTokensOut2);
             assert.deepEqual(amountTokensIn1, amountTokensIn0);
             const maxAmountTokensIn1 = _BN(1000000).mul(bn1e18);
-            const expireTimestamp1 = now() + 86400;
+            const expireTimestamp1 = currentTimestamp() + 86400;
             const transferTo1 = firstAccount;
             const maxAmountTokensIn2 = _BN(1000000).mul(bn1e18);
-            const expireTimestamp2 = now() + 86400;
+            const expireTimestamp2 = currentTimestamp() + 86400;
             const transferTo2 = firstAccount;
             // USDC --> CERBY
             await cerbySwap.swapTokensForExactTokens(tokenIn1, tokenOut2, amountTokensOut2, maxAmountTokensIn2, expireTimestamp2, transferTo2);
@@ -936,7 +944,7 @@ contract('Cerby', (accounts) => {
             let tokenOut1 = TestCerUsdToken.address;
             let amountTokensOut1 = _BN(1020).mul(bn1e18);
             let maxAmountTokensIn1 = _BN(1000000).mul(bn1e18);
-            let expireTimestamp1 = now() + 86400;
+            let expireTimestamp1 = currentTimestamp() + 86400;
             let transferTo1 = firstAccount;
             await truffleAssert.reverts(cerbySwap.swapTokensForExactTokens(tokenIn1, tokenOut1, amountTokensOut1, maxAmountTokensIn1, expireTimestamp1, transferTo1), SWAP_CERUSD_FOR_CERUSD_IS_FORBIDDEN_L);
             const OUTPUT_TOKENS_AMOUNT_IS_MORE_THAN_MAXIMUM_SPECIFIED_K = 'K';
@@ -944,14 +952,14 @@ contract('Cerby', (accounts) => {
             tokenOut1 = TestCerUsdToken.address;
             amountTokensOut1 = _BN(1020).mul(bn1e18);
             maxAmountTokensIn1 = _BN(0).mul(bn1e18);
-            expireTimestamp1 = now() + 86400;
+            expireTimestamp1 = currentTimestamp() + 86400;
             transferTo1 = firstAccount;
             await truffleAssert.reverts(cerbySwap.swapTokensForExactTokens(tokenIn1, tokenOut1, amountTokensOut1, maxAmountTokensIn1, expireTimestamp1, transferTo1), OUTPUT_TOKENS_AMOUNT_IS_MORE_THAN_MAXIMUM_SPECIFIED_K);
             tokenIn1 = TestUsdcToken.address;
             tokenOut1 = TestCerUsdToken.address;
             amountTokensOut1 = _BN(1020).mul(bn1e18);
             maxAmountTokensIn1 = _BN(0).mul(bn1e18);
-            expireTimestamp1 = now() + 86400;
+            expireTimestamp1 = currentTimestamp() + 86400;
             transferTo1 = firstAccount;
             await truffleAssert.reverts(cerbySwap.swapTokensForExactTokens(tokenIn1, tokenOut1, amountTokensOut1, maxAmountTokensIn1, expireTimestamp1, transferTo1), OUTPUT_TOKENS_AMOUNT_IS_MORE_THAN_MAXIMUM_SPECIFIED_K);
             const OUTPUT_CERUSD_AMOUNT_IS_MORE_THAN_MAXIMUM_SPECIFIED_J = 'J';
@@ -959,7 +967,7 @@ contract('Cerby', (accounts) => {
             tokenOut1 = TestCerbyToken.address;
             amountTokensOut1 = _BN(1020).mul(bn1e18);
             maxAmountTokensIn1 = _BN(0).mul(bn1e18);
-            expireTimestamp1 = now() + 86400;
+            expireTimestamp1 = currentTimestamp() + 86400;
             transferTo1 = firstAccount;
             await truffleAssert.reverts(cerbySwap.swapTokensForExactTokens(tokenIn1, tokenOut1, amountTokensOut1, maxAmountTokensIn1, expireTimestamp1, transferTo1), OUTPUT_CERUSD_AMOUNT_IS_MORE_THAN_MAXIMUM_SPECIFIED_J);
             const TRANSACTION_IS_EXPIRED_D = 'D';
@@ -967,7 +975,7 @@ contract('Cerby', (accounts) => {
             tokenOut1 = TestCerUsdToken.address;
             amountTokensOut1 = _BN(1020).mul(bn1e18);
             maxAmountTokensIn1 = _BN(1000000).mul(bn1e18);
-            expireTimestamp1 = now() - 86400;
+            expireTimestamp1 = currentTimestamp() - 86400;
             transferTo1 = firstAccount;
             await truffleAssert.reverts(cerbySwap.swapTokensForExactTokens(tokenIn1, tokenOut1, amountTokensOut1, maxAmountTokensIn1, expireTimestamp1, transferTo1), TRANSACTION_IS_EXPIRED_D);
             const AMOUNT_OF_TOKENS_MUST_BE_LARGER_THAN_ZERO_F = 'F';
@@ -975,7 +983,7 @@ contract('Cerby', (accounts) => {
             tokenOut1 = TestCerUsdToken.address;
             amountTokensOut1 = _BN(0);
             maxAmountTokensIn1 = _BN(1000000).mul(bn1e18);
-            expireTimestamp1 = now() + 86400;
+            expireTimestamp1 = currentTimestamp() + 86400;
             transferTo1 = firstAccount;
             await truffleAssert.reverts(cerbySwap.swapTokensForExactTokens(tokenIn1, tokenOut1, amountTokensOut1, maxAmountTokensIn1, expireTimestamp1, transferTo1), AMOUNT_OF_TOKENS_MUST_BE_LARGER_THAN_ZERO_F);
             const AMOUNT_OF_CERUSD_MUST_BE_LARGER_THAN_ZERO_U = 'U';
@@ -983,14 +991,14 @@ contract('Cerby', (accounts) => {
             tokenOut1 = TestCerbyToken.address;
             amountTokensOut1 = _BN(0);
             maxAmountTokensIn1 = _BN(1000000).mul(bn1e18);
-            expireTimestamp1 = now() + 86400;
+            expireTimestamp1 = currentTimestamp() + 86400;
             transferTo1 = firstAccount;
             await truffleAssert.reverts(cerbySwap.swapTokensForExactTokens(tokenIn1, tokenOut1, amountTokensOut1, maxAmountTokensIn1, expireTimestamp1, transferTo1), AMOUNT_OF_CERUSD_MUST_BE_LARGER_THAN_ZERO_U);
             tokenIn1 = TestUsdcToken.address;
             tokenOut1 = TestCerbyToken.address;
             amountTokensOut1 = _BN(0);
             maxAmountTokensIn1 = _BN(1000000).mul(bn1e18);
-            expireTimestamp1 = now() + 86400;
+            expireTimestamp1 = currentTimestamp() + 86400;
             transferTo1 = firstAccount;
             await truffleAssert.reverts(cerbySwap.swapTokensForExactTokens(tokenIn1, tokenOut1, amountTokensOut1, maxAmountTokensIn1, expireTimestamp1, transferTo1), AMOUNT_OF_CERUSD_MUST_BE_LARGER_THAN_ZERO_U);
         }
@@ -1010,7 +1018,7 @@ contract('Cerby', (accounts) => {
             const amountTokensIn = _BN((1021e10).toString());
             const amountTokensOut = await cerbySwap.getOutputExactTokensForTokens(tokenIn, tokenOut, amountTokensIn);
             const minAmountTokensOut = 0;
-            const expireTimestamp = now() + 86400;
+            const expireTimestamp = currentTimestamp() + 86400;
             const transferTo = firstAccount;
             await cerbySwap.swapExactTokensForTokens(tokenIn, tokenOut, amountTokensIn, minAmountTokensOut, expireTimestamp, transferTo, { value: amountTokensIn });
             const afterEthPool = (await cerbySwap.getPoolsByTokens([ETH_TOKEN_ADDRESS]))[0];
@@ -1035,7 +1043,7 @@ contract('Cerby', (accounts) => {
             const amountTokensIn = _BN(1022).mul(bn1e18);
             const amountTokensOut = await cerbySwap.getOutputExactTokensForTokens(tokenIn, tokenOut, amountTokensIn);
             const minAmountTokensOut = 0;
-            const expireTimestamp = now() + 86400;
+            const expireTimestamp = currentTimestamp() + 86400;
             const transferTo = firstAccount;
             await cerbySwap.swapExactTokensForTokens(tokenIn, tokenOut, amountTokensIn, minAmountTokensOut, expireTimestamp, transferTo);
             const afterEthPool = (await cerbySwap.getPoolsByTokens([ETH_TOKEN_ADDRESS]))[0];
@@ -1061,7 +1069,7 @@ contract('Cerby', (accounts) => {
             const amountTokensIn1 = _BN(1023).mul(bn1e18);
             const amountTokensOut1 = await cerbySwap.getOutputExactTokensForTokens(tokenIn1, tokenOut1, amountTokensIn1);
             const minAmountTokensOut1 = 0;
-            const expireTimestamp1 = now() + 86400;
+            const expireTimestamp1 = currentTimestamp() + 86400;
             const transferTo1 = firstAccount;
             await cerbySwap.swapExactTokensForTokens(tokenIn1, tokenOut1, amountTokensIn1, minAmountTokensOut1, expireTimestamp1, transferTo1);
             // ETH --> cerUSD
@@ -1070,7 +1078,7 @@ contract('Cerby', (accounts) => {
             const amountTokensIn2 = amountTokensOut1;
             const amountTokensOut2 = await cerbySwap.getOutputExactTokensForTokens(tokenIn2, tokenOut2, amountTokensIn2);
             const minAmountTokensOut2 = 0;
-            const expireTimestamp2 = now() + 86400;
+            const expireTimestamp2 = currentTimestamp() + 86400;
             const transferTo2 = firstAccount;
             await cerbySwap.swapExactTokensForTokens(tokenIn2, tokenOut2, amountTokensIn2, minAmountTokensOut2, expireTimestamp2, transferTo2, { value: amountTokensIn2 });
             const afterEthPool = (await cerbySwap.getPoolsByTokens([ETH_TOKEN_ADDRESS]))[0];
@@ -1097,7 +1105,7 @@ contract('Cerby', (accounts) => {
             const amountTokensIn1 = _BN((1024e10).toString());
             const amountTokensOut1 = await cerbySwap.getOutputExactTokensForTokens(tokenIn1, tokenOut1, amountTokensIn1);
             const minAmountTokensOut1 = 0;
-            const expireTimestamp1 = now() + 86400;
+            const expireTimestamp1 = currentTimestamp() + 86400;
             const transferTo1 = firstAccount;
             await cerbySwap.swapExactTokensForTokens(tokenIn1, tokenOut1, amountTokensIn1, minAmountTokensOut1, expireTimestamp1, transferTo1, { value: amountTokensIn1 });
             // cerUSD --> ETH
@@ -1106,7 +1114,7 @@ contract('Cerby', (accounts) => {
             const amountTokensIn2 = amountTokensOut1;
             const amountTokensOut2 = await cerbySwap.getOutputExactTokensForTokens(tokenIn2, tokenOut2, amountTokensIn2);
             const minAmountTokensOut2 = 0;
-            const expireTimestamp2 = now() + 86400;
+            const expireTimestamp2 = currentTimestamp() + 86400;
             const transferTo2 = firstAccount;
             await cerbySwap.swapExactTokensForTokens(tokenIn2, tokenOut2, amountTokensIn2, minAmountTokensOut2, expireTimestamp2, transferTo2);
             const afterEthPool = (await cerbySwap.getPoolsByTokens([ETH_TOKEN_ADDRESS]))[0];
@@ -1138,7 +1146,7 @@ contract('Cerby', (accounts) => {
             const amountTokensIn1 = _BN((1025e10).toString());
             const amountTokensOut1 = await cerbySwap.getOutputExactTokensForTokens(tokenIn1, tokenOut1, amountTokensIn1);
             const minAmountTokensOut1 = 0;
-            const expireTimestamp1 = now() + 86400;
+            const expireTimestamp1 = currentTimestamp() + 86400;
             const transferTo1 = firstAccount;
             await cerbySwap.swapExactTokensForTokens(tokenIn1, tokenOut1, amountTokensIn1, minAmountTokensOut1, expireTimestamp1, transferTo1, { value: amountTokensIn1 });
             // cerUSD --> USDC
@@ -1147,7 +1155,7 @@ contract('Cerby', (accounts) => {
             const amountTokensIn2 = amountTokensOut1;
             const amountTokensOut2 = await cerbySwap.getOutputExactTokensForTokens(tokenIn2, tokenOut2, amountTokensIn2);
             const minAmountTokensOut2 = 0;
-            const expireTimestamp2 = now() + 86400;
+            const expireTimestamp2 = currentTimestamp() + 86400;
             const transferTo2 = firstAccount;
             await cerbySwap.swapExactTokensForTokens(tokenIn2, tokenOut2, amountTokensIn2, minAmountTokensOut2, expireTimestamp2, transferTo2);
             const afterEthPool = (await cerbySwap.getPoolsByTokens([ETH_TOKEN_ADDRESS]))[0];
@@ -1186,7 +1194,7 @@ contract('Cerby', (accounts) => {
             const amountTokensIn1 = _BN((1026e10).toString());
             const amountTokensOut1 = await cerbySwap.getOutputExactTokensForTokens(tokenIn1, tokenOut1, amountTokensIn1);
             const minAmountTokensOut1 = 0;
-            const expireTimestamp1 = now() + 86400;
+            const expireTimestamp1 = currentTimestamp() + 86400;
             const transferTo1 = firstAccount;
             await cerbySwap.swapExactTokensForTokens(tokenIn1, tokenOut1, amountTokensIn1, minAmountTokensOut1, expireTimestamp1, transferTo1, { value: amountTokensIn1 });
             // cerUSD --> USDC
@@ -1195,7 +1203,7 @@ contract('Cerby', (accounts) => {
             const amountTokensIn2 = amountTokensOut1;
             const amountTokensOut2 = await cerbySwap.getOutputExactTokensForTokens(tokenIn2, tokenOut2, amountTokensIn2);
             const minAmountTokensOut2 = 0;
-            const expireTimestamp2 = now() + 86400;
+            const expireTimestamp2 = currentTimestamp() + 86400;
             const transferTo2 = firstAccount;
             await cerbySwap.swapExactTokensForTokens(tokenIn2, tokenOut2, amountTokensIn2, minAmountTokensOut2, expireTimestamp2, transferTo2);
             const afterEthPool = (await cerbySwap.getPoolsByTokens([ETH_TOKEN_ADDRESS]))[0];
@@ -1234,7 +1242,7 @@ contract('Cerby', (accounts) => {
             const amountTokensIn1 = _BN(1027).mul(bn1e18);
             const amountTokensOut1 = await cerbySwap.getOutputExactTokensForTokens(tokenIn1, tokenOut1, amountTokensIn1);
             const minAmountTokensOut1 = 0;
-            const expireTimestamp1 = now() + 86400;
+            const expireTimestamp1 = currentTimestamp() + 86400;
             const transferTo1 = firstAccount;
             await cerbySwap.swapExactTokensForTokens(tokenIn1, tokenOut1, amountTokensIn1, minAmountTokensOut1, expireTimestamp1, transferTo1);
             // cerUSD --> ETH
@@ -1243,7 +1251,7 @@ contract('Cerby', (accounts) => {
             const amountTokensIn2 = amountTokensOut1;
             const amountTokensOut2 = await cerbySwap.getOutputExactTokensForTokens(tokenIn2, tokenOut2, amountTokensIn2);
             const minAmountTokensOut2 = 0;
-            const expireTimestamp2 = now() + 86400;
+            const expireTimestamp2 = currentTimestamp() + 86400;
             const transferTo2 = firstAccount;
             await cerbySwap.swapExactTokensForTokens(tokenIn2, tokenOut2, amountTokensIn2, minAmountTokensOut2, expireTimestamp2, transferTo2);
             const afterEthPool = (await cerbySwap.getPoolsByTokens([ETH_TOKEN_ADDRESS]))[0];
@@ -1282,7 +1290,7 @@ contract('Cerby', (accounts) => {
             const amountTokensIn1 = _BN(1028).mul(bn1e18);
             const amountTokensOut1 = await cerbySwap.getOutputExactTokensForTokens(tokenIn1, tokenOut1, amountTokensIn1);
             const minAmountTokensOut1 = 0;
-            const expireTimestamp1 = now() + 86400;
+            const expireTimestamp1 = currentTimestamp() + 86400;
             const transferTo1 = firstAccount;
             // cerUSD --> ETH
             const tokenIn2 = TestCerUsdToken.address;
@@ -1290,7 +1298,7 @@ contract('Cerby', (accounts) => {
             const amountTokensIn2 = amountTokensOut1;
             const amountTokensOut2 = await cerbySwap.getOutputExactTokensForTokens(tokenIn2, tokenOut2, amountTokensIn2);
             const minAmountTokensOut2 = 0;
-            const expireTimestamp2 = now() + 86400;
+            const expireTimestamp2 = currentTimestamp() + 86400;
             const transferTo2 = firstAccount;
             await cerbySwap.swapExactTokensForTokens(tokenIn1, tokenOut2, amountTokensIn1, minAmountTokensOut2, expireTimestamp2, transferTo2);
             const afterEthPool = (await cerbySwap.getPoolsByTokens([ETH_TOKEN_ADDRESS]))[0];
@@ -1330,7 +1338,7 @@ contract('Cerby', (accounts) => {
             const amountTokensOut = _BN((1031e10).toString());
             const amountTokensIn = await cerbySwap.getInputTokensForExactTokens(tokenIn, tokenOut, amountTokensOut);
             const maxAmountTokensIn = _BN(33).mul(bn1e18);
-            const expireTimestamp = now() + 86400;
+            const expireTimestamp = currentTimestamp() + 86400;
             const transferTo = firstAccount;
             await cerbySwap.swapTokensForExactTokens(tokenIn, tokenOut, amountTokensOut, maxAmountTokensIn, expireTimestamp, transferTo, { value: maxAmountTokensIn });
             const afterEthPool = (await cerbySwap.getPoolsByTokens([ETH_TOKEN_ADDRESS]))[0];
@@ -1355,7 +1363,7 @@ contract('Cerby', (accounts) => {
             const amountTokensOut = _BN((1032e10).toString());
             const amountTokensIn = await cerbySwap.getInputTokensForExactTokens(tokenIn, tokenOut, amountTokensOut);
             const maxAmountTokensIn = _BN(1000000).mul(bn1e18);
-            const expireTimestamp = now() + 86400;
+            const expireTimestamp = currentTimestamp() + 86400;
             const transferTo = firstAccount;
             await cerbySwap.swapTokensForExactTokens(tokenIn, tokenOut, amountTokensOut, maxAmountTokensIn, expireTimestamp, transferTo);
             const afterEthPool = (await cerbySwap.getPoolsByTokens([ETH_TOKEN_ADDRESS]))[0];
@@ -1384,10 +1392,10 @@ contract('Cerby', (accounts) => {
             const amountTokensOut1 = amountTokensIn2;
             const amountTokensIn1 = await cerbySwap.getInputTokensForExactTokens(tokenIn1, tokenOut1, amountTokensOut1);
             const maxAmountTokensIn1 = _BN(1000000).mul(bn1e18);
-            const expireTimestamp1 = now() + 86400;
+            const expireTimestamp1 = currentTimestamp() + 86400;
             const transferTo1 = firstAccount;
             const maxAmountTokensIn2 = _BN(1).mul(bn1e18);
-            const expireTimestamp2 = now() + 86400;
+            const expireTimestamp2 = currentTimestamp() + 86400;
             const transferTo2 = firstAccount;
             // cerUSD --> CERBY
             await cerbySwap.swapTokensForExactTokens(tokenIn1, tokenOut1, amountTokensOut1, maxAmountTokensIn1, expireTimestamp1, transferTo1);
@@ -1426,10 +1434,10 @@ contract('Cerby', (accounts) => {
             const amountTokensOut1 = amountTokensIn2;
             const amountTokensIn1 = await cerbySwap.getInputTokensForExactTokens(tokenIn1, tokenOut1, amountTokensOut1);
             const maxAmountTokensIn1 = _BN(1).mul(bn1e18);
-            const expireTimestamp1 = now() + 86400;
+            const expireTimestamp1 = currentTimestamp() + 86400;
             const transferTo1 = firstAccount;
             const maxAmountTokensIn2 = _BN(1000000).mul(bn1e18);
-            const expireTimestamp2 = now() + 86400;
+            const expireTimestamp2 = currentTimestamp() + 86400;
             const transferTo2 = firstAccount;
             // CERBY --> cerUSD
             await cerbySwap.swapTokensForExactTokens(tokenIn1, tokenOut1, amountTokensOut1, maxAmountTokensIn1, expireTimestamp1, transferTo1, { value: maxAmountTokensIn1 });
@@ -1466,10 +1474,10 @@ contract('Cerby', (accounts) => {
             const amountTokensOut1 = amountTokensIn2;
             const amountTokensIn1 = await cerbySwap.getInputTokensForExactTokens(tokenIn1, tokenOut1, amountTokensOut1);
             const maxAmountTokensIn1 = _BN(1).mul(bn1e18);
-            const expireTimestamp1 = now() + 86400;
+            const expireTimestamp1 = currentTimestamp() + 86400;
             const transferTo1 = firstAccount;
             const maxAmountTokensIn2 = _BN(1000000).mul(bn1e18);
-            const expireTimestamp2 = now() + 86400;
+            const expireTimestamp2 = currentTimestamp() + 86400;
             const transferTo2 = firstAccount;
             // CERBY --> cerUSD
             await cerbySwap.swapTokensForExactTokens(tokenIn1, tokenOut1, amountTokensOut1, maxAmountTokensIn1, expireTimestamp1, transferTo1, { value: maxAmountTokensIn1 });
@@ -1514,10 +1522,10 @@ contract('Cerby', (accounts) => {
             const amountTokensOut1 = amountTokensIn2;
             const amountTokensIn1 = await cerbySwap.getInputTokensForExactTokens(tokenIn1, tokenOut1, amountTokensOut1);
             const maxAmountTokensIn1 = _BN(1).mul(bn1e18);
-            const expireTimestamp1 = now() + 86400;
+            const expireTimestamp1 = currentTimestamp() + 86400;
             const transferTo1 = firstAccount;
             const maxAmountTokensIn2 = _BN(1000000).mul(bn1e18);
-            const expireTimestamp2 = now() + 86400;
+            const expireTimestamp2 = currentTimestamp() + 86400;
             const transferTo2 = firstAccount;
             // CERBY --> USDC
             await cerbySwap.swapTokensForExactTokens(tokenIn1, tokenOut2, amountTokensOut2, maxAmountTokensIn2, expireTimestamp2, transferTo2, { value: maxAmountTokensIn1 });
@@ -1560,10 +1568,10 @@ contract('Cerby', (accounts) => {
             const amountTokensOut1 = amountTokensIn2;
             const amountTokensIn1 = await cerbySwap.getInputTokensForExactTokens(tokenIn1, tokenOut1, amountTokensOut1);
             const maxAmountTokensIn1 = _BN(1000000).mul(bn1e18);
-            const expireTimestamp1 = now() + 86400;
+            const expireTimestamp1 = currentTimestamp() + 86400;
             const transferTo1 = firstAccount;
             const maxAmountTokensIn2 = _BN(1000000).mul(bn1e18);
-            const expireTimestamp2 = now() + 86400;
+            const expireTimestamp2 = currentTimestamp() + 86400;
             const transferTo2 = firstAccount;
             // USDC --> cerUSD
             await cerbySwap.swapTokensForExactTokens(tokenIn1, tokenOut1, amountTokensOut1, maxAmountTokensIn1, expireTimestamp1, transferTo1);
@@ -1608,10 +1616,10 @@ contract('Cerby', (accounts) => {
             const amountTokensOut1 = amountTokensIn2;
             const amountTokensIn1 = await cerbySwap.getInputTokensForExactTokens(tokenIn1, tokenOut1, amountTokensOut1);
             const maxAmountTokensIn1 = _BN(1000000).mul(bn1e18);
-            const expireTimestamp1 = now() + 86400;
+            const expireTimestamp1 = currentTimestamp() + 86400;
             const transferTo1 = firstAccount;
             const maxAmountTokensIn2 = _BN(1000000).mul(bn1e18);
-            const expireTimestamp2 = now() + 86400;
+            const expireTimestamp2 = currentTimestamp() + 86400;
             const transferTo2 = firstAccount;
             // USDC --> CERBY
             await cerbySwap.swapTokensForExactTokens(tokenIn1, tokenOut2, amountTokensOut2, maxAmountTokensIn2, expireTimestamp2, transferTo2);
@@ -1652,7 +1660,7 @@ contract('Cerby', (accounts) => {
             const maxAmountTokensIn = _BN(1).mul(bn1e18);
             const amountTokensOut = _BN(2000e12);
             const amountTokensIn = amountTokensOut.div(_BN(2));
-            const expireTimestamp = now() + 86400;
+            const expireTimestamp = currentTimestamp() + 86400;
             const transferTo = firstAccount;
             // burnding all CERBY tokens on firstAccount
             let beforeCerbyBalance = await cerbyToken.balanceOf(firstAccount);
@@ -1705,7 +1713,7 @@ contract('Cerby', (accounts) => {
             const maxAmountTokensIn = _BN(1).mul(bn1e18);
             const amountTokensOut = _BN(2000e12);
             const amountTokensIn = amountTokensOut.div(_BN(2));
-            const expireTimestamp = now() + 86400;
+            const expireTimestamp = currentTimestamp() + 86400;
             const transferTo = firstAccount;
             // burnding all CERBY tokens on firstAccount
             let beforeCerbyBalance = await cerbyToken.balanceOf(firstAccount);
@@ -1758,7 +1766,7 @@ contract('Cerby', (accounts) => {
             const maxAmountTokensIn = _BN(1).mul(bn1e18);
             const amountTokensOut = _BN(2000e12);
             const amountTokensIn = amountTokensOut.div(_BN(2));
-            const expireTimestamp = now() + 86400;
+            const expireTimestamp = currentTimestamp() + 86400;
             const transferTo = firstAccount;
             // burnding all CERBY tokens on firstAccount
             let beforeCerbyBalance = await cerbyToken.balanceOf(firstAccount);
@@ -1799,21 +1807,13 @@ contract('Cerby', (accounts) => {
     // ---------------------------------------------------------- //
     // getCurrentOneMinusFeeBasedOnTrades tests //
     // ---------------------------------------------------------- //
-    it.skip('getCurrentOneMinusFeeBasedOnTrades: time travel, do small trade, time travel, check fee', async () => {
+    it('getCurrentOneMinusFeeBasedOnTrades: time travel, do small trade, time travel, check fee', async () => {
         await delay(DELAY_BETWEEN_TESTS);
         const accounts = await web3.eth.getAccounts();
         const firstAccount = accounts[0];
         const cerbySwap = await CerbySwapV1.deployed();
         {
-            const snapshotId = await send({
-                method: 'evm_snapshot',
-                params: [],
-            });
             const ONE_PERIOD = 17280; // 4.8 hours time travel
-            const startPeriod = await cerbySwap.getCurrentPeriod();
-            await increaseTime(ONE_PERIOD);
-            const endPeriod = await cerbySwap.getCurrentPeriod();
-            assert.deepEqual(endPeriod.toString(), startPeriod.add(_BN(1)).toString()); // period shifted +1
             await increaseTime(ONE_PERIOD * 10); // shifting 2 days to clear any fees stats
             let actualOneMinusFee = await cerbySwap.getCurrentOneMinusFeeBasedOnTrades(TestCerbyToken.address);
             const ONE_MINUS_FEE_MINIMUM = FEE_DENORM.sub(_BN(200)); // 98.00%
@@ -1842,14 +1842,6 @@ contract('Cerby', (accounts) => {
             actualOneMinusFee = await cerbySwap.getCurrentOneMinusFeeBasedOnTrades(TestCerbyToken.address);
             // actualOneMinusFee must be == min
             assert.deepEqual(actualOneMinusFee.toString(), ONE_MINUS_FEE_MAXIMUM.toString());
-            await send({
-                method: 'evm_revert',
-                params: [snapshotId],
-            });
-            await send({
-                method: 'evm_setTime',
-                params: [now()],
-            });
         }
     });
     // ---------------------------------------------------------- //
@@ -1866,7 +1858,7 @@ contract('Cerby', (accounts) => {
             const amountTokensIn = _BN(1001).mul(bn1e18);
             const amountTokensOut = await cerbySwap.getOutputExactTokensForTokens(tokenIn, tokenOut, amountTokensIn);
             const minAmountTokensOut = 0;
-            const expireTimestamp = now() + 86400;
+            const expireTimestamp = currentTimestamp() + 86400;
             const transferTo = firstAccount;
             // buying CERBY
             await cerbySwap.swapTokensForExactTokens(ETH_TOKEN_ADDRESS, TestCerbyToken.address, amountTokensIn, bn1e18, expireTimestamp, transferTo, { value: bn1e18, gas: '30000000' });
@@ -1898,7 +1890,7 @@ contract('Cerby', (accounts) => {
             const amountCerUsdOut = _BN(beforeEthPool.balanceCerUsd)
                 .mul(amountLPTokensBurn)
                 .div(totalLPSupply);
-            const expireTimestamp = now() + 86400;
+            const expireTimestamp = currentTimestamp() + 86400;
             const transferTo = firstAccount;
             await cerbySwap.removeTokenLiquidity(tokenOut, amountLPTokensBurn, expireTimestamp, transferTo);
             const afterEthPool = (await cerbySwap.getPoolsByTokens([ETH_TOKEN_ADDRESS]))[0];
@@ -1929,7 +1921,7 @@ contract('Cerby', (accounts) => {
             const amountCerUsdOut = _BN(beforeCerbyPool.balanceCerUsd)
                 .mul(amountLPTokensBurn)
                 .div(totalLPSupply);
-            const expireTimestamp = now() + 86400;
+            const expireTimestamp = currentTimestamp() + 86400;
             const transferTo = firstAccount;
             await cerbySwap.removeTokenLiquidity(tokenOut, amountLPTokensBurn, expireTimestamp, transferTo);
             const afterCerbyPool = (await cerbySwap.getPoolsByTokens([TestCerbyToken.address]))[0];
@@ -1960,7 +1952,7 @@ contract('Cerby', (accounts) => {
             const amountCerUsdOut = _BN(beforeEthPool.balanceCerUsd)
                 .mul(amountLPTokensBurn)
                 .div(totalLPSupply);
-            const expireTimestamp = now() + 86400;
+            const expireTimestamp = currentTimestamp() + 86400;
             const transferTo = firstAccount;
             await cerbySwap.removeTokenLiquidity(tokenOut, amountLPTokensBurn, expireTimestamp, transferTo);
             const afterEthPool = (await cerbySwap.getPoolsByTokens([ETH_TOKEN_ADDRESS]))[0];
@@ -1991,7 +1983,7 @@ contract('Cerby', (accounts) => {
             const amountCerUsdOut = _BN(beforeCerbyPool.balanceCerUsd)
                 .mul(amountLPTokensBurn)
                 .div(totalLPSupply);
-            const expireTimestamp = now() + 86400;
+            const expireTimestamp = currentTimestamp() + 86400;
             const transferTo = firstAccount;
             await cerbySwap.removeTokenLiquidity(tokenOut, amountLPTokensBurn, expireTimestamp, transferTo);
             const afterCerbyPool = (await cerbySwap.getPoolsByTokens([TestCerbyToken.address]))[0];

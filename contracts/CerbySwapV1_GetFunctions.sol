@@ -9,15 +9,6 @@ abstract contract CerbySwapV1_GetFunctions is
     CerbySwapV1_Modifiers,
     CerbySwapV1_SafeFunctions
 {
-    function getCurrentPeriod() // TODO: remove on production
-        external
-        view
-        returns (uint256)
-    {
-        return block.timestamp
-            / ONE_PERIOD_IN_SECONDS;
-    }
-
     function getTokenToPoolId(
         address _token
     )
