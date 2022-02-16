@@ -35,9 +35,9 @@
         <span class='fraction'>4/8</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">64% </span>
+        <span class="strong">66.67% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>16/25</span>
+        <span class='fraction'>16/24</span>
       </div>
     </div>
   </div>
@@ -169,7 +169,13 @@
 124
 125
 126
-127</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+127
+128
+129
+130
+131
+132
+133</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -226,7 +232,12 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -275,22 +286,23 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-yes">3×</span>
 <span class="cline-any cline-yes">3×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1×</span>
-<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-yes">3×</span>
 <span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -303,9 +315,9 @@ import "./CerbyCronJobsExecution.sol";
 &nbsp;
 abstract contract CerbySwapV1_ERC1155 is ERC1155, CerbyCronJobsExecution {
 &nbsp;
-    string internal contractName = "CerbySwapV1"; // Q: everything by default is internal
-    string internal contractSymbol = "CS1";
-    string internal urlPrefix = "https://data.cerby.fi/CerbySwap/v1/";
+    string contractName = "CerbySwapV1"; // Q: everything by default is
+    string contractSymbol = "CS1";
+    string urlPrefix = "https://data.cerby.fi/CerbySwap/v1/";
 &nbsp;
     function name()
         external
@@ -347,13 +359,18 @@ abstract contract CerbySwapV1_ERC1155 is ERC1155, CerbyCronJobsExecution {
 <span class="cstat-no" title="statement not covered" >        return totalSupplyAmount;</span>
     }
 &nbsp;
-    function uri(uint256 _id)
+    function uri(
+        uint256 _id
+    )
         external
         view
         returns (string memory)
     {
         return string(
-            abi.encodePacked(urlPrefix, uint2str(_id), ".json")
+            abi.encodePacked(
+                urlPrefix,
+                uint2str(_id), ".json"
+            )
         );
     }
 &nbsp;
@@ -399,25 +416,26 @@ abstract contract CerbySwapV1_ERC1155 is ERC1155, CerbyCronJobsExecution {
         pure
         returns (string memory str)
     {
-        <span class="missing-if-branch" title="if path not taken" >I</span>if (_i == 0)
-        {
-<span class="cstat-no" title="statement not covered" >            return "0";</span>
-        }
+        <span class="missing-if-branch" title="if path not taken" >I</span>if (_i == 0) <span class="cstat-no" title="statement not covered" >return "0";</span>
+&nbsp;
         uint256 j = _i;
         uint256 length;
-        while (j != 0)
-        {
+&nbsp;
+        while (j != 0) {
             length++;
             j /= 10;
         }
+&nbsp;
         bytes memory bstr = new bytes(length);
         uint256 k = length;
+&nbsp;
         j = _i;
-        while (j != 0)
-        {
+&nbsp;
+        while (j != 0) {
             bstr[--k] = bytes1(uint8(48 + j % 10));
             j /= 10;
         }
+&nbsp;
         str = string(bstr);
     }
 }
@@ -427,7 +445,7 @@ abstract contract CerbySwapV1_ERC1155 is ERC1155, CerbyCronJobsExecution {
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Mon Feb 07 2022 22:15:18 GMT+0700 (Indochina Time)
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Wed Feb 16 2022 14:48:18 GMT+0700 (Indochina Time)
 </div>
 </div>
 <script src="../prettify.js"></script>

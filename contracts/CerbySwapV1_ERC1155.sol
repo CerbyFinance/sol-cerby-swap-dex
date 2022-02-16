@@ -6,9 +6,9 @@ import "./CerbyCronJobsExecution.sol";
 
 abstract contract CerbySwapV1_ERC1155 is ERC1155, CerbyCronJobsExecution {
 
-    string internal contractName = "CerbySwapV1"; // Q: everything by default is internal
-    string internal contractSymbol = "CS1";
-    string internal urlPrefix = "https://data.cerby.fi/CerbySwap/v1/";
+    string contractName = "CerbySwapV1"; // Q: everything by default is
+    string contractSymbol = "CS1";
+    string urlPrefix = "https://data.cerby.fi/CerbySwap/v1/";
 
     function name()
         external
@@ -50,13 +50,18 @@ abstract contract CerbySwapV1_ERC1155 is ERC1155, CerbyCronJobsExecution {
         return totalSupplyAmount;
     }
 
-    function uri(uint256 _id)
+    function uri(
+        uint256 _id
+    )
         external
         view
         returns (string memory)
     {
         return string(
-            abi.encodePacked(urlPrefix, uint2str(_id), ".json")
+            abi.encodePacked(
+                urlPrefix,
+                uint2str(_id), ".json"
+            )
         );
     }
 
@@ -102,25 +107,26 @@ abstract contract CerbySwapV1_ERC1155 is ERC1155, CerbyCronJobsExecution {
         pure
         returns (string memory str)
     {
-        if (_i == 0)
-        {
-            return "0";
-        }
+        if (_i == 0) return "0";
+
         uint256 j = _i;
         uint256 length;
-        while (j != 0)
-        {
+
+        while (j != 0) {
             length++;
             j /= 10;
         }
+
         bytes memory bstr = new bytes(length);
         uint256 k = length;
+
         j = _i;
-        while (j != 0)
-        {
+
+        while (j != 0) {
             bstr[--k] = bytes1(uint8(48 + j % 10));
             j /= 10;
         }
+
         str = string(bstr);
     }
 }

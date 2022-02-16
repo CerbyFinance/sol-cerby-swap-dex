@@ -137,7 +137,9 @@ contract('Cerby', (accounts) => {
         const firstAccount = accounts[0];
         const cerbySwap = await CerbySwapV1.deployed();
         const CERBY_POOL_POS = await cerbySwap.getTokenToPoolId(TestCerbyToken.address);
-        const res = await cerbySwap.getPoolsBalancesByTokens([TestCerbyToken.address]);
+        const res = await cerbySwap.getPoolsBalancesByTokens([
+            TestCerbyToken.address,
+        ]);
         const beforeCerbyPool = res[0];
         const beforeLpTokens = await cerbySwap.balanceOf(firstAccount, CERBY_POOL_POS);
         {
@@ -1865,7 +1867,6 @@ contract('Cerby', (accounts) => {
             await cerbySwap.swapExactTokensForTokens(tokenIn, tokenOut, amountTokensIn, minAmountTokensOut, expireTimestamp, transferTo);
             await increaseTime(ONE_PERIOD * 1);
             actualOneMinusFee = await cerbySwap.getCurrentOneMinusFeeBasedOnTrades(TestCerbyToken.address);
-            console.log(actualOneMinusFee.toString(), " - ", ONE_MINUS_FEE_MINIMUM.toString());
             assert.deepEqual(actualOneMinusFee.toString(), ONE_MINUS_FEE_MINIMUM.toString());
         }
     });

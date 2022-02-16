@@ -27,8 +27,8 @@ abstract contract CerbySwapV1_EventsAndErrors {
         address _sender,
         uint256 _amountTokensIn,
         uint256 _amountCerUsdIn,
-        uint256 __amountTokensOut,
-        uint256 amountCerUsdOut,
+        uint256 _amountTokensOut, // Q: double underscore
+        uint256 _amountCerUsdOut, // no underscore
         uint256 _currentFee,
         address _transferTo
     );

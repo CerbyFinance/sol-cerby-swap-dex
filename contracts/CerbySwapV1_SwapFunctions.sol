@@ -17,18 +17,18 @@ abstract contract CerbySwapV1_SwapFunctions is CerbySwapV1_LiquidityFunctions {
         external
         payable
         transactionIsNotExpired(_expireTimestamp)
-        // checkForBots(msg.sender) // TODO: enable on production
+        // checkForBots(msg.sender) // TODO: enable on production // C: concern
         returns (uint256[] memory)
     {
         // does not make sense to do the swap ANY --> ANY
         if (_tokenIn == _tokenOut) {
-            revert("L"); // TODO: remove this line on production
+            revert("L"); // TODO: remove this line on production // C: concern
             revert CerbySwapV1_SwappingTokenToSameTokenIsForbidden();
         }
 
         // amountTokensIn must be larger than 1 to avoid rounding errors
-        if (_amountTokensIn <= 1) {
-            revert("F"); // TODO: remove this line on production
+        if (_amountTokensIn <= 1) { // Q3: this check can be removed, it happens another time later anyway
+            revert("F"); // TODO: remove this line on production // C: concern
             revert CerbySwapV1_AmountOfTokensMustBeLargerThanOne();
         }
 
@@ -57,7 +57,7 @@ abstract contract CerbySwapV1_SwapFunctions is CerbySwapV1_LiquidityFunctions {
 
             // checking slippage
             if (amounts[1] < _minAmountTokensOut) {
-                revert("H"); // TODO: remove this line on production
+                revert("H"); // TODO: remove this line on production // C: concern
                 revert CerbySwapV1_OutputCerUsdAmountIsLowerThanMinimumSpecified();
             }
 
@@ -102,7 +102,7 @@ abstract contract CerbySwapV1_SwapFunctions is CerbySwapV1_LiquidityFunctions {
 
             // checking slippage
             if (amounts[1] < _minAmountTokensOut) {
-                revert("i"); // TODO: remove this line on production
+                revert("i"); // TODO: remove this line on production // C: concern
                 revert CerbySwapV1_OutputTokensAmountIsLowerThanMinimumSpecified();
             }
 
@@ -128,7 +128,7 @@ abstract contract CerbySwapV1_SwapFunctions is CerbySwapV1_LiquidityFunctions {
 
         // if (tokenIn != tokenOut && tokenIn != cerUsdToken && tokenOut != cerUsdToken)
         // swaping XXX --> cerUsd --> YYY (or XXX --> YYY)
-    
+
         // getting pool balances before the swap
         poolInBalancesBefore = _getPoolBalances(
             _tokenIn
@@ -177,7 +177,7 @@ abstract contract CerbySwapV1_SwapFunctions is CerbySwapV1_LiquidityFunctions {
 
         // swapping cerUSD ---> YYY
         _swap(
-            _tokenOut, 
+            _tokenOut,
             poolOutBalancesBefore,
             amounts[1],
             0,
@@ -197,7 +197,7 @@ abstract contract CerbySwapV1_SwapFunctions is CerbySwapV1_LiquidityFunctions {
         address _transferTo
     )
         external
-        payable // Q: where is msg.value used?
+        payable
         transactionIsNotExpired(_expireTimestamp)
         // checkForBots(msg.sender) // TODO: enable on production
         returns (uint256[] memory)
@@ -288,7 +288,7 @@ abstract contract CerbySwapV1_SwapFunctions is CerbySwapV1_LiquidityFunctions {
             }
 
             // amountTokensIn must be larger than 1 to avoid rounding errors
-            if (amounts[0] <= 1) {
+            if (amounts[0] <= 1) { // Q3: redundant check if this already gonna be checked in _safeTransferFromHelper
                 revert("U"); // TODO: remove this line on production
                 revert CerbySwapV1_AmountOfCerUsdMustBeLargerThanOne();
             }
@@ -315,7 +315,7 @@ abstract contract CerbySwapV1_SwapFunctions is CerbySwapV1_LiquidityFunctions {
 
         // if (_tokenIn != cerUsdToken && _tokenOut != cerUsdToken && _tokenIn != _tokenOut)
         // swaping XXX --> cerUsd --> YYY (or XXX --> YYY)
-    
+
         // getting pool balances before the swap
         poolOutBalancesBefore = _getPoolBalances(
             _tokenOut
@@ -414,6 +414,7 @@ abstract contract CerbySwapV1_SwapFunctions is CerbySwapV1_LiquidityFunctions {
 
         // checking if cerUsd credit is enough to cover this swap
         Pool storage pool = pools[tokenToPoolId[_token]];
+
         if (
             pool.creditCerUsd < MAX_CER_USD_CREDIT &&
             uint256(pool.creditCerUsd) + amountCerUsdIn < _amountCerUsdOut
@@ -424,6 +425,7 @@ abstract contract CerbySwapV1_SwapFunctions is CerbySwapV1_LiquidityFunctions {
 
         uint256 currentPeriod = _getCurrentPeriod();
         uint256 oneMinusFee = FEE_DENORM;
+
         {
             // calculating fees
             // if swap is ANY --> cerUSD, fee is calculated
@@ -432,10 +434,14 @@ abstract contract CerbySwapV1_SwapFunctions is CerbySwapV1_LiquidityFunctions {
 
                 // updating cache while gas estimations to avoid out of gas error by artificially inflating gas limit
                 // caching it for whole current period
-                uint256 lastPeriodI = uint256(pool.lastCachedTradePeriod);
+                uint256 lastPeriodI = uint256(
+                    pool.lastCachedTradePeriod
+                );
+
                 if (
-                    lastPeriodI != currentPeriod  ||
-                    tx.gasprice == 0
+                    lastPeriodI != currentPeriod ||
+                    tx.gasprice == 0 // this is questionable
+                    // <- Q: how is this possible? (not sure what is this OR for, could be removed, probably not needed)
                 ) {
 
                     // setting trade volume periods to 1
@@ -443,8 +449,9 @@ abstract contract CerbySwapV1_SwapFunctions is CerbySwapV1_LiquidityFunctions {
                     uint256 endPeriod = currentPeriod < lastPeriodI
                         ? currentPeriod + NUMBER_OF_TRADE_PERIODS
                         : currentPeriod;
+
                     while(++lastPeriodI <= endPeriod) {
-                        pool.tradeVolumePerPeriodInCerUsd[lastPeriodI % NUMBER_OF_TRADE_PERIODS] = 1; 
+                        pool.tradeVolumePerPeriodInCerUsd[lastPeriodI % NUMBER_OF_TRADE_PERIODS] = 1;
                     }
 
                     // caching oneMinusFee
@@ -455,8 +462,11 @@ abstract contract CerbySwapV1_SwapFunctions is CerbySwapV1_LiquidityFunctions {
                         )
                     );
 
-                    pool.lastCachedTradePeriod = uint8(currentPeriod);
+                    pool.lastCachedTradePeriod = uint8(
+                        currentPeriod
+                    );
                 }
+
                 oneMinusFee = pool.lastCachedOneMinusFee;
             }
 
@@ -465,7 +475,11 @@ abstract contract CerbySwapV1_SwapFunctions is CerbySwapV1_LiquidityFunctions {
                 * _poolBalancesBefore.balanceCerUsd
                 * FEE_DENORM_SQUARED;
 
-            // calculating new K value including trade fees
+            // calculating new K value including trade fees // Q3: messy
+            // Q3: since its messy can propose maybe to extract variable
+            // uint256 something = (FEE_DENORM - oneMinusFee) // since this one is repeated
+            // uint256 a = FEE_DENORM - oneMinusFee
+
             uint256 afterKValueDenormed = (poolBalancesAfter.balanceCerUsd *
                 FEE_DENORM -
                 amountCerUsdIn *
@@ -476,7 +490,7 @@ abstract contract CerbySwapV1_SwapFunctions is CerbySwapV1_LiquidityFunctions {
                     (FEE_DENORM - oneMinusFee));
 
             if (afterKValueDenormed < beforeKValueDenormed) {
-                revert("1");
+                revert("1"); // C: concern (would prefer to see final version)
                 revert CerbySwapV1_InvariantKValueMustBeSameOrIncreasedOnAnySwaps();
             }
 
@@ -494,21 +508,25 @@ abstract contract CerbySwapV1_SwapFunctions is CerbySwapV1_LiquidityFunctions {
             if (_amountCerUsdOut > TRADE_VOLUME_DENORM) {
                 // or else amountCerUsdOut / TRADE_VOLUME_DENORM == 0
                 // stores in 10xUSD value, up-to $40B per 4 hours per pair will be stored correctly
-                uint256 updatedTradeVolume = uint256( // Q: is order correct here?
-                    pool.tradeVolumePerPeriodInCerUsd[currentPeriod]
-                ) + _amountCerUsdOut / TRADE_VOLUME_DENORM; // if ANY --> cerUSD, then output is cerUSD only
+                uint256 updatedTradeVolume = _amountCerUsdOut
+                    / TRADE_VOLUME_DENORM
+                    + uint256(pool.tradeVolumePerPeriodInCerUsd[currentPeriod]); // if ANY --> cerUSD, then output is cerUSD only
 
                 // handling overflow just in case
-                pool.tradeVolumePerPeriodInCerUsd[currentPeriod] = updatedTradeVolume < type(uint32).max
-                    ? uint32(updatedTradeVolume)
-                    : type(uint32).max;
+                pool.tradeVolumePerPeriodInCerUsd[currentPeriod] = updatedTradeVolume < type(uint40).max
+                    ? uint40(updatedTradeVolume)
+                    : type(uint40).max;
             }
         }
+
+        address vault = getVaultCloneAddressByToken(
+            _token
+        );
 
         // safely transfering cerUSD
         _safeTransferFromHelper(
             cerUsdToken,
-            getVaultCloneAddressByToken(_token),
+            vault, // repeated Q3:
             _transferTo,
             _amountCerUsdOut
         );
@@ -517,7 +535,7 @@ abstract contract CerbySwapV1_SwapFunctions is CerbySwapV1_LiquidityFunctions {
         // and making sure exact amounts were actually transferred
         _safeTransferFromHelper(
             _token,
-            getVaultCloneAddressByToken(_token),
+            vault, // repeated Q3:
             _transferTo,
             _amountTokensOut
         );

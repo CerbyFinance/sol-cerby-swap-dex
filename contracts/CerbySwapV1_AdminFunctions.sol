@@ -10,8 +10,8 @@ abstract contract CerbySwapV1_AdminFunctions is
     Ownable
 {
     // TODO: remove on production
-    function testSetupTokens(
-        address, 
+    function testSetupTokens( // Q3: is it used anywhere?
+        address,
         address _testCerbyToken,
         address _cerUsdToken,
         address _testUsdcToken,
@@ -28,7 +28,9 @@ abstract contract CerbySwapV1_AdminFunctions is
     }
 
     // TODO: remove on production
-    function testInit() public {
+    function testInit() // Q3: is it used anywhere?
+        public
+    {
         // TODO: remove on production
         _createPool(
             testCerbyToken,
@@ -114,7 +116,7 @@ abstract contract CerbySwapV1_AdminFunctions is
 
     // only admins are allowed to create new pools with creditCerUsd = unlimitted
     // this is only for trusted tokens such as ETH, BNB, UNI, etc
-    function adminCreatePool(
+    function adminCreatePool( // Q3: is it used somewhere?
         address _token,
         uint256 _amountTokensIn,
         uint256 _amountCerUsdToMint,
@@ -138,7 +140,7 @@ abstract contract CerbySwapV1_AdminFunctions is
     // admins will be able to fix it by increasing credit
     // and swapping extra tokens + adding back to liquidity
     // using external contract assigned with admin role
-    function adminChangeCerUsdCreditInPool(
+    function adminChangeCerUsdCreditInPool( // Q3: is it used somewhere?
         address _token,
         uint256 _amountCerUsdCredit
     )

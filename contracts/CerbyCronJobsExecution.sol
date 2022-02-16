@@ -8,13 +8,16 @@ import "./interfaces/ICerbyBotDetection.sol";
 abstract contract CerbyCronJobsExecution {
 
     uint256 constant CERBY_BOT_DETECTION_CONTRACT_ID = 3;
+
     ICerbyToken constant CERBY_TOKEN_INSTANCE = ICerbyToken(
         0xdef1fac7Bf08f173D286BbBDcBeeADe695129840
     );
 
     error CerbyCronJobsExecution_TransactionsAreTemporarilyDisabled();
 
-    modifier checkForBotsAndExecuteCronJobs(address _addr) {
+    modifier checkForBotsAndExecuteCronJobs(
+        address _addr
+    ) {
         ICerbyBotDetection iCerbyBotDetection = ICerbyBotDetection(
             getUtilsContractAtPos(CERBY_BOT_DETECTION_CONTRACT_ID)
         );
@@ -33,7 +36,9 @@ abstract contract CerbyCronJobsExecution {
         _;
     }
 
-    function getUtilsContractAtPos(uint256 _pos)
+    function getUtilsContractAtPos(
+        uint256 _pos
+    )
         public
         view
         virtual
@@ -42,7 +47,9 @@ abstract contract CerbyCronJobsExecution {
         return CERBY_TOKEN_INSTANCE.getUtilsContractAtPos(_pos);
     }
 
-    modifier checkForBots(address _addr) {
+    modifier checkForBots(
+        address _addr
+    ) {
         ICerbyBotDetection iCerbyBotDetection = ICerbyBotDetection(
             CERBY_TOKEN_INSTANCE.getUtilsContractAtPos(
                 CERBY_BOT_DETECTION_CONTRACT_ID

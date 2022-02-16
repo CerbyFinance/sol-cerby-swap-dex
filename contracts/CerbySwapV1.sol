@@ -37,6 +37,7 @@ contract CerbySwapV1 is CerbySwapV1_AdminFunctions {
 
         // Filling with empty pool 0th id
         uint40[NUMBER_OF_TRADE_PERIODS] memory tradeVolumePerPeriodInCerUsd;
+
         pools.push(
             Pool({
                 tradeVolumePerPeriodInCerUsd: tradeVolumePerPeriodInCerUsd,

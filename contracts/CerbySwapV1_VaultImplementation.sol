@@ -4,15 +4,15 @@ pragma solidity ^0.8.11;
 
 import "./interfaces/IBasicERC20.sol";
 
-contract CerbySwapV1_VaultImplementation {
+contract CerbySwapV1_VaultImplementation { // Q2: consider renaming to just CerbySwapV1_Vault
 
     address token;
     address cerUsdToken; // TODO: make constant on production
-    address owner; // TODO: make constant on production
+    address factory; // TODO: make constant on production // could rename to factory
 
     error CerbySwapV1_Vault_SafeTransferNativeFailed();
     error CerbySwapV1_Vault_CallerIsNotOwner();
-    error CerbySwapV1_Vault_AlreadyInitialized(); // TODO: remove on production
+    error CerbySwapV1_Vault_AlreadyInitialized(); // TODO: remove on production // C: concern
 
     function initialize(
         address _token,
@@ -20,25 +20,29 @@ contract CerbySwapV1_VaultImplementation {
         bool _isNativeToken
     )
         external
-        //onlyOwner // TODO: make onlyOwner here because owner will be predefined in the constant on production
+        //onlyOwner // TODO: make onlyOwner here because factory will be predefined in the constant on production
     {
         // initialize contract only once
-        if (owner != address(0)) { // TODO: remove on production
+        if (factory != address(0)) { // TODO: remove on production // C: concern
             revert CerbySwapV1_Vault_AlreadyInitialized();
         }
 
         token = _token;
         cerUsdToken = _cerUsdToken; // TODO: remove on production
-        owner = msg.sender; // TODO: remove on production
+        factory = msg.sender; // TODO: remove on production
 
+        // Q3: is this really needed?
+        // (who is being approved and why)
         IBasicERC20(_cerUsdToken).approve(
-            msg.sender,
+            factory,
             type(uint256).max
         );
 
+        // Q3: is this really needed?
+        // (who is being approved and why)
         if (!_isNativeToken) {
             IBasicERC20(_token).approve(
-                msg.sender,
+                factory,
                 type(uint256).max
             );
         }

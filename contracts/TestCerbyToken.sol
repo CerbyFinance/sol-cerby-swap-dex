@@ -22,6 +22,10 @@ contract TestCerbyToken is ERC20 {
         address recipient,
         uint256 amount
     ) public virtual override returns (bool) {
+        /*require(
+            allowance[msg.sender] > amount,
+            "check this out"
+        );*/
         _transfer(sender, recipient, amount);
         return true;
     }

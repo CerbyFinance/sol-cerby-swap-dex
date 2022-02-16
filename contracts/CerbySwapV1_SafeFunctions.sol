@@ -49,8 +49,14 @@ abstract contract CerbySwapV1_SafeFunctions is
     )
         internal
     {
-        if (_amountTokens <= 1 || _from == _to) {
-            return;
+        if (_from == _to) {
+            revert("equal");
+        }
+
+        if (_amountTokens <= 1) { // Q3: || _from == _to this can be removed
+            // revert("F");
+            return; // Q3: should this revert somehow or remove whenever _safeTransferFromHelper is used?
+            // since same would happen anyway later on could revert much earlier (see other remarks)
         }
 
         if (_token != nativeToken) {
@@ -66,11 +72,13 @@ abstract contract CerbySwapV1_SafeFunctions is
 
         // native tokens sender --> vault
         if (_from == msg.sender) {
+
             // sender must sent some native tokens
             uint256 nativeBalance = address(this).balance;
 
-            if (nativeBalance < _amountTokens) {
-                revert("asd");
+            // this can be removed -> double check -> already handled in _safeCoreTransferNative -> you will get "x2"
+            if (nativeBalance < _amountTokens) { // Q3: can it be equal?? redundant
+                revert("asd"); // Q3: can it be equal ?? is it needed?? would revert anyway
                 revert CerbySwapV1_MsgValueProvidedMustBeLargerThanAmountTokensIn();
             }
 
@@ -96,8 +104,6 @@ abstract contract CerbySwapV1_SafeFunctions is
             _to,
             _amountTokens
         );
-
-        return;
     }
 
     function _safeCoreTransferFrom(
@@ -136,7 +142,7 @@ abstract contract CerbySwapV1_SafeFunctions is
 
         // we allow only successfull calls
         if (!success) {
-            revert("x2");
+            revert("x2"); // Q5: double check in _safeTransferFromHelper (no need to check there)
             revert CerbySwapV1_SafeTransferNativeFailed();
         }
     }

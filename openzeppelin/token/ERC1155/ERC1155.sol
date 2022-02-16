@@ -56,7 +56,7 @@ abstract contract ERC1155 {
         _;
     }
 
-    modifier addressIsNotBurnAddress(address _addr) {        
+    modifier addressIsNotBurnAddress(address _addr) {
         if (_addr == BURN_ADDRESS) {
             revert ERC1155_AddressMustNotBeZeroAddress();
         }
@@ -101,30 +101,30 @@ abstract contract ERC1155 {
 
         return batchBalances;
     }
-    
-    function totalSupply(uint256 _id) 
-        external 
-        view 
-        returns (uint256) 
+
+    function totalSupply(uint256 _id)
+        external
+        view
+        returns (uint256)
     {
         return contractTotalSupply[_id];
     }
-    
-    function exists(uint256 _id) 
-        external 
-        view 
-        returns (bool) 
+
+    function exists(uint256 _id)
+        external
+        view
+        returns (bool)
     {
         return contractTotalSupply[_id] > 0;
     }
 
-    function _safeTransferFrom(
+    function _safeTransferFrom( // @TODO: was modified
         address _from,
         address _to,
         uint256 _id,
         uint256 _amount,
         bytes calldata _data
-    ) 
+    )
         internal
         addressIsNotBurnAddress(_to)
     {
@@ -136,21 +136,30 @@ abstract contract ERC1155 {
         }
 
         contractTotalSupply[_id] += _amount; // will overflow (revert) earlier than balances[_id][_to]
+
         unchecked {
             balances[_id][_from] = fromBalance - _amount;
             balances[_id][_to] += _amount;
         }
 
-        emit TransferSingle(operator, _from, _to, _id, _amount);
+        emit TransferSingle(
+            operator,
+            _from,
+            _to,
+            _id,
+            _amount
+        );
 
         _doSafeTransferAcceptanceCheck(operator, _from, _to, _id, _amount, _data);
     }
+
+    // @TODO: was modified (check this one )
 
     function _mint(
         address _to,
         uint256 _id,
         uint256 _amount
-    ) 
+    )
         internal
         addressIsNotBurnAddress(_to)
     {
@@ -161,6 +170,7 @@ abstract contract ERC1155 {
         address operator = msg.sender;
 
         contractTotalSupply[_id] += _amount; // will overflow (revert) earlier than balances[_id][_to]
+
         unchecked {
             balances[_id][_to] += _amount;
         }
@@ -177,20 +187,24 @@ abstract contract ERC1155 {
         );
     }
 
+    // @TODO: was modified
+
     function _burn(
         address _from,
         uint256 _id,
         uint256 _amount
-    ) 
+    )
         internal
         addressIsNotBurnAddress(_from)
     {
         address operator = msg.sender;
 
         uint256 fromBalance = balances[_id][_from];
+
         if (fromBalance < _amount) {
             revert ERC1155_BurnAmountExceedsBalance();
         }
+
         unchecked {
             balances[_id][_from] = fromBalance - _amount;
             contractTotalSupply[_id] -= _amount; // if user balance is not overflown then total supply isn't too
@@ -203,8 +217,8 @@ abstract contract ERC1155 {
         address _owner,
         address _operator,
         bool _approved
-    ) 
-        internal 
+    )
+        internal
     {
         if (_owner == _operator) {
             revert ERC1155_SettingApprovalStatusForSelf();
@@ -221,8 +235,8 @@ abstract contract ERC1155 {
         uint256 _id,
         uint256 _amount,
         bytes memory _data
-    ) 
-        private 
+    )
+        private
     {
         if (isContract(_to)) {
             try
@@ -243,10 +257,10 @@ abstract contract ERC1155 {
         }
     }
 
-    function isContract(address _account) 
-        private 
-        view 
-        returns (bool) 
+    function isContract(address _account)
+        private
+        view
+        returns (bool)
     {
         // This method relies on extcodesize, which returns 0 for contracts in
         // construction, since the code is only stored at the end of the
