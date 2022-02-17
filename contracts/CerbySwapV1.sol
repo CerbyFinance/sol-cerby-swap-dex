@@ -14,7 +14,7 @@ contract CerbySwapV1 is CerbySwapV1_AdminFunctions {
         );
 
         address mintFeeBeneficiary = 0xdEF78a28c78A461598d948bc0c689ce88f812AD8; // CerbyBridge fees wallet
-        uint256 mintFeeMultiplier = 0;//MINT_FEE_DENORM * 20 / 100; // means 20% of fees goes to buyback & burn Cerby
+        uint256 mintFeeMultiplier = MINT_FEE_DENORM * 20 / 100; // means 20% of fees goes to buyback & burn Cerby
         uint256 tvlMultiplier = 1369863014; // 0.1369863014
 
         uint256 feeMinimum = 1; // 0.01%

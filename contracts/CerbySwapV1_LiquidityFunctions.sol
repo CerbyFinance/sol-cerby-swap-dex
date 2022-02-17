@@ -253,14 +253,6 @@ abstract contract CerbySwapV1_LiquidityFunctions is
             amountLpTokensToMintAsFee
         );
 
-        // updating pool variables
-        pool.lastSqrtKValue = uint120(
-            sqrt(
-                tokenBalanceAfter 
-                * (poolBalancesBefore.balanceCerUsd + amountCerUsdToMint) // cerUSD balance has increased by amountCerUsdToMint
-            )
-        );
-
         // calculating amount of cerUSD to mint according to current price
         uint256 amountCerUsdToMint = _amountTokensIn
             * poolBalancesBefore.balanceCerUsd
@@ -270,17 +262,26 @@ abstract contract CerbySwapV1_LiquidityFunctions is
             revert CerbySwapV1_AmountOfCerUsdMustBeLargerThanOne();
         }
 
+        // updating pool variables
+        pool.lastSqrtKValue = uint120(
+            sqrt(
+                tokenBalanceAfter 
+                * (poolBalancesBefore.balanceCerUsd + amountCerUsdToMint) // cerUSD balance has increased by amountCerUsdToMint
+            )
+        );
+
         // minting cerUSD according to current pool
         ICerbyTokenMinterBurner(CER_USD_TOKEN).mintHumanAddress(
             vaultInAddress,
             amountCerUsdToMint
         );
 
-        // minting LP tokens (subject to re-entrancty attack, doing it last)
+        // calculating LP tokens
         uint256 lpAmount = _amountTokensIn
             * contractTotalSupply[poolId] // contractTotalSupply[poolId] might have changed during mintFee, we are using updated value
             / poolBalancesBefore.balanceToken;
 
+        // minting LP tokens (subject to re-entrancty attack, doing it last)
         _mint(
             _transferTo,
             poolId,
