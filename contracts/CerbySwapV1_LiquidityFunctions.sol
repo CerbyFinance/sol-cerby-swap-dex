@@ -148,6 +148,7 @@ abstract contract CerbySwapV1_LiquidityFunctions is
         cachedTokenValues[_token].poolId = uint96(poolId);
 
         // minting 1000 lp tokens to null address as per uniswap v2 whitepaper
+        // refer to 3.4 Initialization of liquidity token supply https://uniswap.org/whitepaper.pdf
         _mint(
             DEAD_ADDRESS,
             poolId,
@@ -223,12 +224,13 @@ abstract contract CerbySwapV1_LiquidityFunctions is
         );
 
         // remembering balance after the transfer
-        PoolBalances memory poolBalancesAfter = _getPoolBalances(
-            _token
+        uint256 tokenBalanceAfter = _getTokenBalance(
+            _token,
+            vaultInAddress
         );
 
         // finding out how many tokens we've actually received
-        _amountTokensIn = poolBalancesAfter.balanceToken
+        _amountTokensIn = tokenBalanceAfter
             - poolBalancesBefore.balanceToken;
 
         if (_amountTokensIn <= 1) {
@@ -236,29 +238,27 @@ abstract contract CerbySwapV1_LiquidityFunctions is
             revert CerbySwapV1_AmountOfTokensMustBeLargerThanOne();
         }
 
-        // calculating and minting LP trade fees
+        // calculating protocol trade fees
         uint256 amountLpTokensToMintAsFee = _getMintFeeLiquidityAmount(
-            pool.lastSqrtKValue,
-            // calculating sqrt(k) value before updating pool
+            uint256(pool.lastSqrtKValue),
+            // calculating sqrt(k) value before pool balances are updated
             sqrt(poolBalancesBefore.balanceToken * poolBalancesBefore.balanceCerUsd),
             contractTotalSupply[poolId]
         );
 
+        // minting protocol trade fees
         _mint(
             settings.mintFeeBeneficiary,
             poolId,
             amountLpTokensToMintAsFee
         );
 
-        // minting LP tokens
-        uint256 lpAmount = _amountTokensIn
-            * contractTotalSupply[poolId] // contractTotalSupply[poolId] might have changed during mintFee, we must use updated value
-            / poolBalancesBefore.balanceToken;
-
-        _mint(
-            _transferTo,
-            poolId,
-            lpAmount
+        // updating pool variables
+        pool.lastSqrtKValue = uint120(
+            sqrt(
+                tokenBalanceAfter 
+                * (poolBalancesBefore.balanceCerUsd + amountCerUsdToMint) // cerUSD balance has increased by amountCerUsdToMint
+            )
         );
 
         // calculating amount of cerUSD to mint according to current price
@@ -276,9 +276,15 @@ abstract contract CerbySwapV1_LiquidityFunctions is
             amountCerUsdToMint
         );
 
-        // updating pool variables
-        pool.lastSqrtKValue = uint120(
-            sqrt(poolBalancesAfter.balanceToken * poolBalancesAfter.balanceCerUsd)
+        // minting LP tokens (subject to re-entrancty attack, doing it last)
+        uint256 lpAmount = _amountTokensIn
+            * contractTotalSupply[poolId] // contractTotalSupply[poolId] might have changed during mintFee, we are using updated value
+            / poolBalancesBefore.balanceToken;
+
+        _mint(
+            _transferTo,
+            poolId,
+            lpAmount
         );
 
         // LiquidityAdded event is needed to post in telegram channel
@@ -292,8 +298,8 @@ abstract contract CerbySwapV1_LiquidityFunctions is
         // Sync event to update pool variables in the graph node
         emit Sync(
             _token,
-            poolBalancesAfter.balanceToken,
-            poolBalancesAfter.balanceCerUsd,
+            tokenBalanceAfter,
+            poolBalancesBefore.balanceCerUsd + amountCerUsdToMint, // cerUSD balance has increased by amountCerUsdToMint
             pool.creditCerUsd
         );
 
@@ -338,8 +344,8 @@ abstract contract CerbySwapV1_LiquidityFunctions is
 
         // minting trade fees
         uint256 amountLpTokensToMintAsFee = _getMintFeeLiquidityAmount(
-            pool.lastSqrtKValue,
-            // calculating sqrt(k) value before updating pool
+            uint256(pool.lastSqrtKValue),
+            // calculating sqrt(k) value before pool balances are updated
             sqrt(poolBalancesBefore.balanceToken * poolBalancesBefore.balanceCerUsd),
             contractTotalSupply[poolId]
         );
@@ -353,12 +359,12 @@ abstract contract CerbySwapV1_LiquidityFunctions is
         // calculating amount of tokens to transfer
         uint256 amountTokensOut = poolBalancesBefore.balanceToken
             * _amountLpTokensBalanceToBurn
-            / contractTotalSupply[poolId]; // contractTotalSupply[poolId] might have changed during mintFee, we must use updated value
+            / contractTotalSupply[poolId]; // contractTotalSupply[poolId] might have changed during mintFee, we are using updated value
 
         // calculating amount of cerUSD to burn
         uint256 amountCerUsdToBurn = poolBalancesBefore.balanceCerUsd
             * _amountLpTokensBalanceToBurn
-            / contractTotalSupply[poolId]; // contractTotalSupply[poolId] might have changed during mintFee, we must use updated value
+            / contractTotalSupply[poolId]; // contractTotalSupply[poolId] might have changed during mintFee, we are using updated value
 
         // updating pool variables
         PoolBalances memory poolBalancesAfter = PoolBalances(
@@ -415,7 +421,7 @@ abstract contract CerbySwapV1_LiquidityFunctions is
         return amountTokensOut;
     }
 
-    function _getMintFeeLiquidityAmount( // C: would be good to have external wrap
+    function _getMintFeeLiquidityAmount(
         uint256 _oldSqrtKValue,
         uint256 _newSqrtKValue,
         uint256 _totalLPSupply
@@ -430,19 +436,20 @@ abstract contract CerbySwapV1_LiquidityFunctions is
 
         if (
             mintFeePercentage == 0 || // mint fee is disabled
-            _oldSqrtKValue >= _newSqrtKValue // K value has decreased or not changed
+            _newSqrtKValue <= _oldSqrtKValue // K value has decreased or unchanged
         ) {
             return 0;
         }
 
         // mint fee is enabled && K value increased
+        // refer to 2.4 Protocol fee https://uniswap.org/whitepaper.pdf
         return _totalLPSupply
             * mintFeePercentage
             * (_newSqrtKValue - _oldSqrtKValue)
             / (
                 _newSqrtKValue
-                    * (MINT_FEE_DENORM - mintFeePercentage)
-                    + (_oldSqrtKValue * mintFeePercentage)
+                * (MINT_FEE_DENORM - mintFeePercentage)
+                    + _oldSqrtKValue * mintFeePercentage
             );
     }
 }

@@ -446,20 +446,21 @@ abstract contract CerbySwapV1_SwapFunctions is CerbySwapV1_LiquidityFunctions {
                 * _poolBalancesBefore.balanceCerUsd
                 * FEE_DENORM_SQUARED;
 
-            // calculating new K value including trade fees // Q3: messy
-            // Q3: since its messy can propose maybe to extract variable
-            // uint256 something = (FEE_DENORM - oneMinusFee) // since this one is repeated
-            // uint256 a = FEE_DENORM - oneMinusFee
-
+            // calculating new K value including trade fees
+            // refer to 3.2.1 Adjustment for fee https://uniswap.org/whitepaper.pdf
             uint256 fee = FEE_DENORM - oneMinusFee;
-            uint256 afterKValueDenormed = (poolBalancesAfter.balanceCerUsd *
-                FEE_DENORM -
-                amountCerUsdIn *
-                fee) *
-                (poolBalancesAfter.balanceToken *
-                    FEE_DENORM -
-                    amountTokensIn *
-                    fee);
+            uint256 afterKValueDenormed = (
+                    poolBalancesAfter.balanceCerUsd
+                    * FEE_DENORM // = 1000 in uniswap wp
+                        - amountCerUsdIn
+                        * fee // = 3 in uniswap wp
+                ) 
+                * (
+                    poolBalancesAfter.balanceToken 
+                    * FEE_DENORM // = 1000 in uniswap wp
+                        - amountTokensIn 
+                        * fee // = 3 in uniswap wp
+                );
 
             if (afterKValueDenormed < beforeKValueDenormed) {
                 revert("1"); // TODO: remove on production

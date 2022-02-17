@@ -135,11 +135,10 @@ abstract contract ERC1155 {
             revert ERC1155_InsufficientBalanceForTransfer();
         }
 
-        balances[_id][_to] += _amount;
-
         unchecked {
             balances[_id][_from] = fromBalance - _amount;
         }
+        balances[_id][_to] += _amount;
 
         emit TransferSingle(
             operator,
