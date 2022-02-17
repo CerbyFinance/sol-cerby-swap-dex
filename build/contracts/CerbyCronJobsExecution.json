@@ -26,7 +26,7 @@
       "type": "function"
     }
   ],
-  "metadata": "{\"compiler\":{\"version\":\"0.8.11+commit.d7f03943\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[],\"name\":\"CerbyCronJobsExecution_TransactionsAreTemporarilyDisabled\",\"type\":\"error\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_pos\",\"type\":\"uint256\"}],\"name\":\"getUtilsContractAtPos\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"/Users/numwan/Documents/Remix/bitbucket/sol-cerby-swap-v1/contracts/CerbyCronJobsExecution.sol\":\"CerbyCronJobsExecution\"},\"evmVersion\":\"london\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[]},\"sources\":{\"/Users/numwan/Documents/Remix/bitbucket/sol-cerby-swap-v1/contracts/CerbyCronJobsExecution.sol\":{\"keccak256\":\"0xc7159882b84f72eb78c6b27ccda491efda455ff1abc2b3baaeb28c118a739dbd\",\"license\":\"BUSL-1.1\",\"urls\":[\"bzz-raw://0e02f14796cccb64ff4cef2a257046875e5a14182323244606d17c3eff37b9cc\",\"dweb:/ipfs/QmQCqX2H4e6j5EtCvPvZCZeCJULwWHZoL9KtVEMfgMdW2C\"]},\"/Users/numwan/Documents/Remix/bitbucket/sol-cerby-swap-v1/contracts/interfaces/ICerbyBotDetection.sol\":{\"keccak256\":\"0xbc95b2664c6eba1c562504b57a6a8c384104b29d516d7a50adc88bc7690f7838\",\"license\":\"BUSL-1.1\",\"urls\":[\"bzz-raw://5766813310ea6a93f250416a9047fbfbfaff52e2fcd136c9b8ad74c3b195553b\",\"dweb:/ipfs/QmSEutKMBmwTsmJjTa3M6MrtXhi4VbLTzizrRmPuuvcx4e\"]},\"/Users/numwan/Documents/Remix/bitbucket/sol-cerby-swap-v1/contracts/interfaces/ICerbyToken.sol\":{\"keccak256\":\"0x3ddbd9e279dd16038e700b5e47ee89dc8127bca86aa05bb237194b49f21908f5\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://c5aa13fd55b3881ab3d4fb0df0b0b9aff01eb8dd36620a093c9bd1d164be6b51\",\"dweb:/ipfs/QmeA9f9E4z7BysW64W1pju3ipTRELVjaVL9sEMN22j7vA8\"]}},\"version\":1}",
+  "metadata": "{\"compiler\":{\"version\":\"0.8.11+commit.d7f03943\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[],\"name\":\"CerbyCronJobsExecution_TransactionsAreTemporarilyDisabled\",\"type\":\"error\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_pos\",\"type\":\"uint256\"}],\"name\":\"getUtilsContractAtPos\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"project:/contracts/CerbyCronJobsExecution.sol\":\"CerbyCronJobsExecution\"},\"evmVersion\":\"london\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[]},\"sources\":{\"project:/contracts/CerbyCronJobsExecution.sol\":{\"keccak256\":\"0xbca9bc31e66437b856e476b2edc6de1f36c0cdb2768f75bf65c1f0ac7987eae4\",\"license\":\"BUSL-1.1\",\"urls\":[\"bzz-raw://3427c7349333991f0cdf80b38c00094f2890e33fec4545f2eb62f7306195c485\",\"dweb:/ipfs/Qmckn4akqcXXnaBMKXUhgzrjAgyETA7kHcX58RbPjoHtFY\"]},\"project:/contracts/interfaces/ICerbyBotDetection.sol\":{\"keccak256\":\"0xbc95b2664c6eba1c562504b57a6a8c384104b29d516d7a50adc88bc7690f7838\",\"license\":\"BUSL-1.1\",\"urls\":[\"bzz-raw://5766813310ea6a93f250416a9047fbfbfaff52e2fcd136c9b8ad74c3b195553b\",\"dweb:/ipfs/QmSEutKMBmwTsmJjTa3M6MrtXhi4VbLTzizrRmPuuvcx4e\"]},\"project:/contracts/interfaces/ICerbyToken.sol\":{\"keccak256\":\"0x3ddbd9e279dd16038e700b5e47ee89dc8127bca86aa05bb237194b49f21908f5\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://c5aa13fd55b3881ab3d4fb0df0b0b9aff01eb8dd36620a093c9bd1d164be6b51\",\"dweb:/ipfs/QmeA9f9E4z7BysW64W1pju3ipTRELVjaVL9sEMN22j7vA8\"]}},\"version\":1}",
   "bytecode": "0x",
   "deployedBytecode": "0x",
   "immutableReferences": {},
@@ -34,25 +34,25 @@
   "deployedGeneratedSources": [],
   "sourceMap": "",
   "deployedSourceMap": "",
-  "source": "// SPDX-License-Identifier: BUSL-1.1\n\npragma solidity ^0.8.11;\n\nimport \"./interfaces/ICerbyToken.sol\";\nimport \"./interfaces/ICerbyBotDetection.sol\";\n\nabstract contract CerbyCronJobsExecution {\n\n    uint256 constant CERBY_BOT_DETECTION_CONTRACT_ID = 3;\n    ICerbyToken constant CERBY_TOKEN_INSTANCE = ICerbyToken(\n        0xdef1fac7Bf08f173D286BbBDcBeeADe695129840\n    );\n\n    error CerbyCronJobsExecution_TransactionsAreTemporarilyDisabled();\n\n    modifier checkForBotsAndExecuteCronJobs(address _addr) {\n        ICerbyBotDetection iCerbyBotDetection = ICerbyBotDetection(\n            getUtilsContractAtPos(CERBY_BOT_DETECTION_CONTRACT_ID)\n        );\n        if (iCerbyBotDetection.isBotAddress(_addr)) {\n            revert CerbyCronJobsExecution_TransactionsAreTemporarilyDisabled();\n        }\n        iCerbyBotDetection.executeCronJobs();\n        _;\n    }\n\n    modifier executeCronJobs() {\n        ICerbyBotDetection iCerbyBotDetection = ICerbyBotDetection(\n            getUtilsContractAtPos(CERBY_BOT_DETECTION_CONTRACT_ID)\n        );\n        iCerbyBotDetection.executeCronJobs();\n        _;\n    }\n\n    function getUtilsContractAtPos(uint256 _pos)\n        public\n        view\n        virtual\n        returns (address)\n    {\n        return CERBY_TOKEN_INSTANCE.getUtilsContractAtPos(_pos);\n    }\n\n    modifier checkForBots(address _addr) {\n        ICerbyBotDetection iCerbyBotDetection = ICerbyBotDetection(\n            CERBY_TOKEN_INSTANCE.getUtilsContractAtPos(\n                CERBY_BOT_DETECTION_CONTRACT_ID\n            )\n        );\n\n        if (iCerbyBotDetection.isBotAddress(_addr)) {\n            revert CerbyCronJobsExecution_TransactionsAreTemporarilyDisabled();\n        }\n\n        _;\n    }\n\n    modifier checkTransactionAndExecuteCron(\n        address _tokenAddr,\n        address _addr\n    ) {\n        ICerbyBotDetection iCerbyBotDetection = ICerbyBotDetection(\n            CERBY_TOKEN_INSTANCE.getUtilsContractAtPos(\n                CERBY_BOT_DETECTION_CONTRACT_ID\n            )\n        );\n\n        if (iCerbyBotDetection.detectBotTransaction(_tokenAddr, _addr)) {\n            revert CerbyCronJobsExecution_TransactionsAreTemporarilyDisabled();\n        }\n\n        iCerbyBotDetection.executeCronJobs();\n        _;\n    }\n\n    function checkTransactionForBots(\n        address _token,\n        address _from,\n        address _to\n    )\n        internal\n    {\n        ICerbyBotDetection iCerbyBotDetection = ICerbyBotDetection(\n            CERBY_TOKEN_INSTANCE.getUtilsContractAtPos(\n                CERBY_BOT_DETECTION_CONTRACT_ID\n            )\n        );\n\n        if (iCerbyBotDetection.detectBotTransaction(_token, _from)) {\n            revert CerbyCronJobsExecution_TransactionsAreTemporarilyDisabled();\n        }\n\n        if (_to == address(this)) return;\n\n        iCerbyBotDetection.registerTransaction(\n            _token,\n            _to\n        );\n    }\n}\n",
+  "source": "// SPDX-License-Identifier: BUSL-1.1\n\npragma solidity ^0.8.11;\n\nimport \"./interfaces/ICerbyToken.sol\";\nimport \"./interfaces/ICerbyBotDetection.sol\";\n\nabstract contract CerbyCronJobsExecution {\n\n    uint256 constant CERBY_BOT_DETECTION_CONTRACT_ID = 3;\n\n    ICerbyToken constant CERBY_TOKEN_INSTANCE = ICerbyToken(\n        0xdef1fac7Bf08f173D286BbBDcBeeADe695129840\n    );\n\n    error CerbyCronJobsExecution_TransactionsAreTemporarilyDisabled();\n\n    modifier checkForBotsAndExecuteCronJobs(\n        address _addr\n    ) {\n        ICerbyBotDetection iCerbyBotDetection = ICerbyBotDetection(\n            getUtilsContractAtPos(CERBY_BOT_DETECTION_CONTRACT_ID)\n        );\n        if (iCerbyBotDetection.isBotAddress(_addr)) {\n            revert CerbyCronJobsExecution_TransactionsAreTemporarilyDisabled();\n        }\n        iCerbyBotDetection.executeCronJobs();\n        _;\n    }\n\n    modifier executeCronJobs() {\n        ICerbyBotDetection iCerbyBotDetection = ICerbyBotDetection(\n            getUtilsContractAtPos(CERBY_BOT_DETECTION_CONTRACT_ID)\n        );\n        iCerbyBotDetection.executeCronJobs();\n        _;\n    }\n\n    function getUtilsContractAtPos(\n        uint256 _pos\n    )\n        public\n        view\n        virtual\n        returns (address)\n    {\n        return CERBY_TOKEN_INSTANCE.getUtilsContractAtPos(_pos);\n    }\n\n    modifier checkForBots(\n        address _addr\n    ) {\n        ICerbyBotDetection iCerbyBotDetection = ICerbyBotDetection(\n            CERBY_TOKEN_INSTANCE.getUtilsContractAtPos(\n                CERBY_BOT_DETECTION_CONTRACT_ID\n            )\n        );\n\n        if (iCerbyBotDetection.isBotAddress(_addr)) {\n            revert CerbyCronJobsExecution_TransactionsAreTemporarilyDisabled();\n        }\n\n        _;\n    }\n\n    modifier checkTransactionAndExecuteCron(\n        address _tokenAddr,\n        address _addr\n    ) {\n        ICerbyBotDetection iCerbyBotDetection = ICerbyBotDetection(\n            CERBY_TOKEN_INSTANCE.getUtilsContractAtPos(\n                CERBY_BOT_DETECTION_CONTRACT_ID\n            )\n        );\n\n        if (iCerbyBotDetection.detectBotTransaction(_tokenAddr, _addr)) {\n            revert CerbyCronJobsExecution_TransactionsAreTemporarilyDisabled();\n        }\n\n        iCerbyBotDetection.executeCronJobs();\n        _;\n    }\n\n    function checkTransactionForBots(\n        address _token,\n        address _from,\n        address _to\n    )\n        internal\n    {\n        ICerbyBotDetection iCerbyBotDetection = ICerbyBotDetection(\n            CERBY_TOKEN_INSTANCE.getUtilsContractAtPos(\n                CERBY_BOT_DETECTION_CONTRACT_ID\n            )\n        );\n\n        if (iCerbyBotDetection.detectBotTransaction(_token, _from)) {\n            revert CerbyCronJobsExecution_TransactionsAreTemporarilyDisabled();\n        }\n\n        if (_to == address(this)) return;\n\n        iCerbyBotDetection.registerTransaction(\n            _token,\n            _to\n        );\n    }\n}\n",
   "sourcePath": "/Users/numwan/Documents/Remix/bitbucket/sol-cerby-swap-v1/contracts/CerbyCronJobsExecution.sol",
   "ast": {
-    "absolutePath": "/Users/numwan/Documents/Remix/bitbucket/sol-cerby-swap-v1/contracts/CerbyCronJobsExecution.sol",
+    "absolutePath": "project:/contracts/CerbyCronJobsExecution.sol",
     "exportedSymbols": {
       "AccessSettings": [
-        4275
+        4172
       ],
       "CerbyCronJobsExecution": [
         178
       ],
       "ICerbyBotDetection": [
-        4219
+        4109
       ],
       "ICerbyToken": [
-        4377
+        4274
       ],
       "TransactionInfo": [
-        4176
+        4066
       ]
     },
     "id": 179,
@@ -71,25 +71,25 @@
         "src": "38:24:0"
       },
       {
-        "absolutePath": "/Users/numwan/Documents/Remix/bitbucket/sol-cerby-swap-v1/contracts/interfaces/ICerbyToken.sol",
+        "absolutePath": "project:/contracts/interfaces/ICerbyToken.sol",
         "file": "./interfaces/ICerbyToken.sol",
         "id": 2,
         "nameLocation": "-1:-1:-1",
         "nodeType": "ImportDirective",
         "scope": 179,
-        "sourceUnit": 4378,
+        "sourceUnit": 4275,
         "src": "64:38:0",
         "symbolAliases": [],
         "unitAlias": ""
       },
       {
-        "absolutePath": "/Users/numwan/Documents/Remix/bitbucket/sol-cerby-swap-v1/contracts/interfaces/ICerbyBotDetection.sol",
+        "absolutePath": "project:/contracts/interfaces/ICerbyBotDetection.sol",
         "file": "./interfaces/ICerbyBotDetection.sol",
         "id": 3,
         "nameLocation": "-1:-1:-1",
         "nodeType": "ImportDirective",
         "scope": 179,
-        "sourceUnit": 4220,
+        "sourceUnit": 4110,
         "src": "103:45:0",
         "symbolAliases": [],
         "unitAlias": ""
@@ -157,14 +157,14 @@
             "id": 12,
             "mutability": "constant",
             "name": "CERBY_TOKEN_INSTANCE",
-            "nameLocation": "277:20:0",
+            "nameLocation": "278:20:0",
             "nodeType": "VariableDeclaration",
             "scope": 178,
-            "src": "256:113:0",
+            "src": "257:113:0",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
-              "typeIdentifier": "t_contract$_ICerbyToken_$4377",
+              "typeIdentifier": "t_contract$_ICerbyToken_$4274",
               "typeString": "contract ICerbyToken"
             },
             "typeName": {
@@ -174,13 +174,13 @@
                 "id": 7,
                 "name": "ICerbyToken",
                 "nodeType": "IdentifierPath",
-                "referencedDeclaration": 4377,
-                "src": "256:11:0"
+                "referencedDeclaration": 4274,
+                "src": "257:11:0"
               },
-              "referencedDeclaration": 4377,
-              "src": "256:11:0",
+              "referencedDeclaration": 4274,
+              "src": "257:11:0",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_ICerbyToken_$4377",
+                "typeIdentifier": "t_contract$_ICerbyToken_$4274",
                 "typeString": "contract ICerbyToken"
               }
             },
@@ -195,7 +195,7 @@
                   "kind": "number",
                   "lValueRequested": false,
                   "nodeType": "Literal",
-                  "src": "321:42:0",
+                  "src": "322:42:0",
                   "typeDescriptions": {
                     "typeIdentifier": "t_address",
                     "typeString": "address"
@@ -214,10 +214,10 @@
                 "name": "ICerbyToken",
                 "nodeType": "Identifier",
                 "overloadedDeclarations": [],
-                "referencedDeclaration": 4377,
-                "src": "300:11:0",
+                "referencedDeclaration": 4274,
+                "src": "301:11:0",
                 "typeDescriptions": {
-                  "typeIdentifier": "t_type$_t_contract$_ICerbyToken_$4377_$",
+                  "typeIdentifier": "t_type$_t_contract$_ICerbyToken_$4274_$",
                   "typeString": "type(contract ICerbyToken)"
                 }
               },
@@ -229,10 +229,10 @@
               "lValueRequested": false,
               "names": [],
               "nodeType": "FunctionCall",
-              "src": "300:69:0",
+              "src": "301:69:0",
               "tryCall": false,
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_ICerbyToken_$4377",
+                "typeIdentifier": "t_contract$_ICerbyToken_$4274",
                 "typeString": "contract ICerbyToken"
               }
             },
@@ -241,21 +241,21 @@
           {
             "id": 14,
             "name": "CerbyCronJobsExecution_TransactionsAreTemporarilyDisabled",
-            "nameLocation": "382:57:0",
+            "nameLocation": "383:57:0",
             "nodeType": "ErrorDefinition",
             "parameters": {
               "id": 13,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "439:2:0"
+              "src": "440:2:0"
             },
-            "src": "376:66:0"
+            "src": "377:66:0"
           },
           {
             "body": {
               "id": 42,
               "nodeType": "Block",
-              "src": "503:354:0",
+              "src": "518:354:0",
               "statements": [
                 {
                   "assignments": [
@@ -267,14 +267,14 @@
                       "id": 20,
                       "mutability": "mutable",
                       "name": "iCerbyBotDetection",
-                      "nameLocation": "532:18:0",
+                      "nameLocation": "547:18:0",
                       "nodeType": "VariableDeclaration",
                       "scope": 42,
-                      "src": "513:37:0",
+                      "src": "528:37:0",
                       "stateVariable": false,
                       "storageLocation": "default",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_contract$_ICerbyBotDetection_$4219",
+                        "typeIdentifier": "t_contract$_ICerbyBotDetection_$4109",
                         "typeString": "contract ICerbyBotDetection"
                       },
                       "typeName": {
@@ -284,13 +284,13 @@
                           "id": 18,
                           "name": "ICerbyBotDetection",
                           "nodeType": "IdentifierPath",
-                          "referencedDeclaration": 4219,
-                          "src": "513:18:0"
+                          "referencedDeclaration": 4109,
+                          "src": "528:18:0"
                         },
-                        "referencedDeclaration": 4219,
-                        "src": "513:18:0",
+                        "referencedDeclaration": 4109,
+                        "src": "528:18:0",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_contract$_ICerbyBotDetection_$4219",
+                          "typeIdentifier": "t_contract$_ICerbyBotDetection_$4109",
                           "typeString": "contract ICerbyBotDetection"
                         }
                       },
@@ -308,7 +308,7 @@
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
                             "referencedDeclaration": 6,
-                            "src": "607:31:0",
+                            "src": "622:31:0",
                             "typeDescriptions": {
                               "typeIdentifier": "t_uint256",
                               "typeString": "uint256"
@@ -327,7 +327,7 @@
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
                           "referencedDeclaration": 74,
-                          "src": "585:21:0",
+                          "src": "600:21:0",
                           "typeDescriptions": {
                             "typeIdentifier": "t_function_internal_view$_t_uint256_$returns$_t_address_$",
                             "typeString": "function (uint256) view returns (address)"
@@ -341,7 +341,7 @@
                         "lValueRequested": false,
                         "names": [],
                         "nodeType": "FunctionCall",
-                        "src": "585:54:0",
+                        "src": "600:54:0",
                         "tryCall": false,
                         "typeDescriptions": {
                           "typeIdentifier": "t_address",
@@ -360,10 +360,10 @@
                       "name": "ICerbyBotDetection",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 4219,
-                      "src": "553:18:0",
+                      "referencedDeclaration": 4109,
+                      "src": "568:18:0",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_type$_t_contract$_ICerbyBotDetection_$4219_$",
+                        "typeIdentifier": "t_type$_t_contract$_ICerbyBotDetection_$4109_$",
                         "typeString": "type(contract ICerbyBotDetection)"
                       }
                     },
@@ -375,15 +375,15 @@
                     "lValueRequested": false,
                     "names": [],
                     "nodeType": "FunctionCall",
-                    "src": "553:96:0",
+                    "src": "568:96:0",
                     "tryCall": false,
                     "typeDescriptions": {
-                      "typeIdentifier": "t_contract$_ICerbyBotDetection_$4219",
+                      "typeIdentifier": "t_contract$_ICerbyBotDetection_$4109",
                       "typeString": "contract ICerbyBotDetection"
                     }
                   },
                   "nodeType": "VariableDeclarationStatement",
-                  "src": "513:136:0"
+                  "src": "528:136:0"
                 },
                 {
                   "condition": {
@@ -394,7 +394,7 @@
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
                         "referencedDeclaration": 16,
-                        "src": "695:5:0",
+                        "src": "710:5:0",
                         "typeDescriptions": {
                           "typeIdentifier": "t_address",
                           "typeString": "address"
@@ -414,9 +414,9 @@
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
                         "referencedDeclaration": 20,
-                        "src": "663:18:0",
+                        "src": "678:18:0",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_contract$_ICerbyBotDetection_$4219",
+                          "typeIdentifier": "t_contract$_ICerbyBotDetection_$4109",
                           "typeString": "contract ICerbyBotDetection"
                         }
                       },
@@ -427,8 +427,8 @@
                       "lValueRequested": false,
                       "memberName": "isBotAddress",
                       "nodeType": "MemberAccess",
-                      "referencedDeclaration": 4199,
-                      "src": "663:31:0",
+                      "referencedDeclaration": 4089,
+                      "src": "678:31:0",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_external_view$_t_address_$returns$_t_bool_$",
                         "typeString": "function (address) view external returns (bool)"
@@ -442,7 +442,7 @@
                     "lValueRequested": false,
                     "names": [],
                     "nodeType": "FunctionCall",
-                    "src": "663:38:0",
+                    "src": "678:38:0",
                     "tryCall": false,
                     "typeDescriptions": {
                       "typeIdentifier": "t_bool",
@@ -451,11 +451,11 @@
                   },
                   "id": 35,
                   "nodeType": "IfStatement",
-                  "src": "659:135:0",
+                  "src": "674:135:0",
                   "trueBody": {
                     "id": 34,
                     "nodeType": "Block",
-                    "src": "703:91:0",
+                    "src": "718:91:0",
                     "statements": [
                       {
                         "errorCall": {
@@ -467,7 +467,7 @@
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
                             "referencedDeclaration": 14,
-                            "src": "724:57:0",
+                            "src": "739:57:0",
                             "typeDescriptions": {
                               "typeIdentifier": "t_function_error_pure$__$returns$__$",
                               "typeString": "function () pure"
@@ -481,7 +481,7 @@
                           "lValueRequested": false,
                           "names": [],
                           "nodeType": "FunctionCall",
-                          "src": "724:59:0",
+                          "src": "739:59:0",
                           "tryCall": false,
                           "typeDescriptions": {
                             "typeIdentifier": "t_tuple$__$",
@@ -490,7 +490,7 @@
                         },
                         "id": 33,
                         "nodeType": "RevertStatement",
-                        "src": "717:66:0"
+                        "src": "732:66:0"
                       }
                     ]
                   }
@@ -506,9 +506,9 @@
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
                         "referencedDeclaration": 20,
-                        "src": "803:18:0",
+                        "src": "818:18:0",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_contract$_ICerbyBotDetection_$4219",
+                          "typeIdentifier": "t_contract$_ICerbyBotDetection_$4109",
                           "typeString": "contract ICerbyBotDetection"
                         }
                       },
@@ -519,8 +519,8 @@
                       "lValueRequested": false,
                       "memberName": "executeCronJobs",
                       "nodeType": "MemberAccess",
-                      "referencedDeclaration": 4202,
-                      "src": "803:34:0",
+                      "referencedDeclaration": 4092,
+                      "src": "818:34:0",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_external_nonpayable$__$returns$__$",
                         "typeString": "function () external"
@@ -534,7 +534,7 @@
                     "lValueRequested": false,
                     "names": [],
                     "nodeType": "FunctionCall",
-                    "src": "803:36:0",
+                    "src": "818:36:0",
                     "tryCall": false,
                     "typeDescriptions": {
                       "typeIdentifier": "t_tuple$__$",
@@ -543,18 +543,18 @@
                   },
                   "id": 40,
                   "nodeType": "ExpressionStatement",
-                  "src": "803:36:0"
+                  "src": "818:36:0"
                 },
                 {
                   "id": 41,
                   "nodeType": "PlaceholderStatement",
-                  "src": "849:1:0"
+                  "src": "864:1:0"
                 }
               ]
             },
             "id": 43,
             "name": "checkForBotsAndExecuteCronJobs",
-            "nameLocation": "457:30:0",
+            "nameLocation": "458:30:0",
             "nodeType": "ModifierDefinition",
             "parameters": {
               "id": 17,
@@ -565,10 +565,10 @@
                   "id": 16,
                   "mutability": "mutable",
                   "name": "_addr",
-                  "nameLocation": "496:5:0",
+                  "nameLocation": "506:5:0",
                   "nodeType": "VariableDeclaration",
                   "scope": 43,
-                  "src": "488:13:0",
+                  "src": "498:13:0",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -579,7 +579,7 @@
                     "id": 15,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "488:7:0",
+                    "src": "498:7:0",
                     "stateMutability": "nonpayable",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
@@ -589,9 +589,9 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "487:15:0"
+              "src": "488:29:0"
             },
-            "src": "448:409:0",
+            "src": "449:423:0",
             "virtual": false,
             "visibility": "internal"
           },
@@ -599,7 +599,7 @@
             "body": {
               "id": 60,
               "nodeType": "Block",
-              "src": "890:210:0",
+              "src": "905:210:0",
               "statements": [
                 {
                   "assignments": [
@@ -611,14 +611,14 @@
                       "id": 47,
                       "mutability": "mutable",
                       "name": "iCerbyBotDetection",
-                      "nameLocation": "919:18:0",
+                      "nameLocation": "934:18:0",
                       "nodeType": "VariableDeclaration",
                       "scope": 60,
-                      "src": "900:37:0",
+                      "src": "915:37:0",
                       "stateVariable": false,
                       "storageLocation": "default",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_contract$_ICerbyBotDetection_$4219",
+                        "typeIdentifier": "t_contract$_ICerbyBotDetection_$4109",
                         "typeString": "contract ICerbyBotDetection"
                       },
                       "typeName": {
@@ -628,13 +628,13 @@
                           "id": 45,
                           "name": "ICerbyBotDetection",
                           "nodeType": "IdentifierPath",
-                          "referencedDeclaration": 4219,
-                          "src": "900:18:0"
+                          "referencedDeclaration": 4109,
+                          "src": "915:18:0"
                         },
-                        "referencedDeclaration": 4219,
-                        "src": "900:18:0",
+                        "referencedDeclaration": 4109,
+                        "src": "915:18:0",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_contract$_ICerbyBotDetection_$4219",
+                          "typeIdentifier": "t_contract$_ICerbyBotDetection_$4109",
                           "typeString": "contract ICerbyBotDetection"
                         }
                       },
@@ -652,7 +652,7 @@
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
                             "referencedDeclaration": 6,
-                            "src": "994:31:0",
+                            "src": "1009:31:0",
                             "typeDescriptions": {
                               "typeIdentifier": "t_uint256",
                               "typeString": "uint256"
@@ -671,7 +671,7 @@
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
                           "referencedDeclaration": 74,
-                          "src": "972:21:0",
+                          "src": "987:21:0",
                           "typeDescriptions": {
                             "typeIdentifier": "t_function_internal_view$_t_uint256_$returns$_t_address_$",
                             "typeString": "function (uint256) view returns (address)"
@@ -685,7 +685,7 @@
                         "lValueRequested": false,
                         "names": [],
                         "nodeType": "FunctionCall",
-                        "src": "972:54:0",
+                        "src": "987:54:0",
                         "tryCall": false,
                         "typeDescriptions": {
                           "typeIdentifier": "t_address",
@@ -704,10 +704,10 @@
                       "name": "ICerbyBotDetection",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 4219,
-                      "src": "940:18:0",
+                      "referencedDeclaration": 4109,
+                      "src": "955:18:0",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_type$_t_contract$_ICerbyBotDetection_$4219_$",
+                        "typeIdentifier": "t_type$_t_contract$_ICerbyBotDetection_$4109_$",
                         "typeString": "type(contract ICerbyBotDetection)"
                       }
                     },
@@ -719,15 +719,15 @@
                     "lValueRequested": false,
                     "names": [],
                     "nodeType": "FunctionCall",
-                    "src": "940:96:0",
+                    "src": "955:96:0",
                     "tryCall": false,
                     "typeDescriptions": {
-                      "typeIdentifier": "t_contract$_ICerbyBotDetection_$4219",
+                      "typeIdentifier": "t_contract$_ICerbyBotDetection_$4109",
                       "typeString": "contract ICerbyBotDetection"
                     }
                   },
                   "nodeType": "VariableDeclarationStatement",
-                  "src": "900:136:0"
+                  "src": "915:136:0"
                 },
                 {
                   "expression": {
@@ -740,9 +740,9 @@
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
                         "referencedDeclaration": 47,
-                        "src": "1046:18:0",
+                        "src": "1061:18:0",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_contract$_ICerbyBotDetection_$4219",
+                          "typeIdentifier": "t_contract$_ICerbyBotDetection_$4109",
                           "typeString": "contract ICerbyBotDetection"
                         }
                       },
@@ -753,8 +753,8 @@
                       "lValueRequested": false,
                       "memberName": "executeCronJobs",
                       "nodeType": "MemberAccess",
-                      "referencedDeclaration": 4202,
-                      "src": "1046:34:0",
+                      "referencedDeclaration": 4092,
+                      "src": "1061:34:0",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_external_nonpayable$__$returns$__$",
                         "typeString": "function () external"
@@ -768,7 +768,7 @@
                     "lValueRequested": false,
                     "names": [],
                     "nodeType": "FunctionCall",
-                    "src": "1046:36:0",
+                    "src": "1061:36:0",
                     "tryCall": false,
                     "typeDescriptions": {
                       "typeIdentifier": "t_tuple$__$",
@@ -777,26 +777,26 @@
                   },
                   "id": 58,
                   "nodeType": "ExpressionStatement",
-                  "src": "1046:36:0"
+                  "src": "1061:36:0"
                 },
                 {
                   "id": 59,
                   "nodeType": "PlaceholderStatement",
-                  "src": "1092:1:0"
+                  "src": "1107:1:0"
                 }
               ]
             },
             "id": 61,
             "name": "executeCronJobs",
-            "nameLocation": "872:15:0",
+            "nameLocation": "887:15:0",
             "nodeType": "ModifierDefinition",
             "parameters": {
               "id": 44,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "887:2:0"
+              "src": "902:2:0"
             },
-            "src": "863:237:0",
+            "src": "878:237:0",
             "virtual": false,
             "visibility": "internal"
           },
@@ -804,7 +804,7 @@
             "body": {
               "id": 73,
               "nodeType": "Block",
-              "src": "1225:72:0",
+              "src": "1254:72:0",
               "statements": [
                 {
                   "expression": {
@@ -815,7 +815,7 @@
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
                         "referencedDeclaration": 63,
-                        "src": "1285:4:0",
+                        "src": "1314:4:0",
                         "typeDescriptions": {
                           "typeIdentifier": "t_uint256",
                           "typeString": "uint256"
@@ -835,9 +835,9 @@
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
                         "referencedDeclaration": 12,
-                        "src": "1242:20:0",
+                        "src": "1271:20:0",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_contract$_ICerbyToken_$4377",
+                          "typeIdentifier": "t_contract$_ICerbyToken_$4274",
                           "typeString": "contract ICerbyToken"
                         }
                       },
@@ -848,8 +848,8 @@
                       "lValueRequested": false,
                       "memberName": "getUtilsContractAtPos",
                       "nodeType": "MemberAccess",
-                      "referencedDeclaration": 4360,
-                      "src": "1242:42:0",
+                      "referencedDeclaration": 4257,
+                      "src": "1271:42:0",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_external_view$_t_uint256_$returns$_t_address_$",
                         "typeString": "function (uint256) view external returns (address)"
@@ -863,7 +863,7 @@
                     "lValueRequested": false,
                     "names": [],
                     "nodeType": "FunctionCall",
-                    "src": "1242:48:0",
+                    "src": "1271:48:0",
                     "tryCall": false,
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
@@ -873,7 +873,7 @@
                   "functionReturnParameters": 67,
                   "id": 72,
                   "nodeType": "Return",
-                  "src": "1235:55:0"
+                  "src": "1264:55:0"
                 }
               ]
             },
@@ -883,7 +883,7 @@
             "kind": "function",
             "modifiers": [],
             "name": "getUtilsContractAtPos",
-            "nameLocation": "1115:21:0",
+            "nameLocation": "1130:21:0",
             "nodeType": "FunctionDefinition",
             "parameters": {
               "id": 64,
@@ -894,10 +894,10 @@
                   "id": 63,
                   "mutability": "mutable",
                   "name": "_pos",
-                  "nameLocation": "1145:4:0",
+                  "nameLocation": "1169:4:0",
                   "nodeType": "VariableDeclaration",
                   "scope": 74,
-                  "src": "1137:12:0",
+                  "src": "1161:12:0",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -908,7 +908,7 @@
                     "id": 62,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
-                    "src": "1137:7:0",
+                    "src": "1161:7:0",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -917,7 +917,7 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "1136:14:0"
+              "src": "1151:28:0"
             },
             "returnParameters": {
               "id": 67,
@@ -931,7 +931,7 @@
                   "nameLocation": "-1:-1:-1",
                   "nodeType": "VariableDeclaration",
                   "scope": 74,
-                  "src": "1212:7:0",
+                  "src": "1241:7:0",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -942,7 +942,7 @@
                     "id": 65,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "1212:7:0",
+                    "src": "1241:7:0",
                     "stateMutability": "nonpayable",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
@@ -952,10 +952,10 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "1211:9:0"
+              "src": "1240:9:0"
             },
             "scope": 178,
-            "src": "1106:191:0",
+            "src": "1121:205:0",
             "stateMutability": "view",
             "virtual": true,
             "visibility": "public"
@@ -964,7 +964,7 @@
             "body": {
               "id": 98,
               "nodeType": "Block",
-              "src": "1340:361:0",
+              "src": "1383:361:0",
               "statements": [
                 {
                   "assignments": [
@@ -976,14 +976,14 @@
                       "id": 80,
                       "mutability": "mutable",
                       "name": "iCerbyBotDetection",
-                      "nameLocation": "1369:18:0",
+                      "nameLocation": "1412:18:0",
                       "nodeType": "VariableDeclaration",
                       "scope": 98,
-                      "src": "1350:37:0",
+                      "src": "1393:37:0",
                       "stateVariable": false,
                       "storageLocation": "default",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_contract$_ICerbyBotDetection_$4219",
+                        "typeIdentifier": "t_contract$_ICerbyBotDetection_$4109",
                         "typeString": "contract ICerbyBotDetection"
                       },
                       "typeName": {
@@ -993,13 +993,13 @@
                           "id": 78,
                           "name": "ICerbyBotDetection",
                           "nodeType": "IdentifierPath",
-                          "referencedDeclaration": 4219,
-                          "src": "1350:18:0"
+                          "referencedDeclaration": 4109,
+                          "src": "1393:18:0"
                         },
-                        "referencedDeclaration": 4219,
-                        "src": "1350:18:0",
+                        "referencedDeclaration": 4109,
+                        "src": "1393:18:0",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_contract$_ICerbyBotDetection_$4219",
+                          "typeIdentifier": "t_contract$_ICerbyBotDetection_$4109",
                           "typeString": "contract ICerbyBotDetection"
                         }
                       },
@@ -1017,7 +1017,7 @@
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
                             "referencedDeclaration": 6,
-                            "src": "1482:31:0",
+                            "src": "1525:31:0",
                             "typeDescriptions": {
                               "typeIdentifier": "t_uint256",
                               "typeString": "uint256"
@@ -1037,9 +1037,9 @@
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
                             "referencedDeclaration": 12,
-                            "src": "1422:20:0",
+                            "src": "1465:20:0",
                             "typeDescriptions": {
-                              "typeIdentifier": "t_contract$_ICerbyToken_$4377",
+                              "typeIdentifier": "t_contract$_ICerbyToken_$4274",
                               "typeString": "contract ICerbyToken"
                             }
                           },
@@ -1050,8 +1050,8 @@
                           "lValueRequested": false,
                           "memberName": "getUtilsContractAtPos",
                           "nodeType": "MemberAccess",
-                          "referencedDeclaration": 4360,
-                          "src": "1422:42:0",
+                          "referencedDeclaration": 4257,
+                          "src": "1465:42:0",
                           "typeDescriptions": {
                             "typeIdentifier": "t_function_external_view$_t_uint256_$returns$_t_address_$",
                             "typeString": "function (uint256) view external returns (address)"
@@ -1065,7 +1065,7 @@
                         "lValueRequested": false,
                         "names": [],
                         "nodeType": "FunctionCall",
-                        "src": "1422:105:0",
+                        "src": "1465:105:0",
                         "tryCall": false,
                         "typeDescriptions": {
                           "typeIdentifier": "t_address",
@@ -1084,10 +1084,10 @@
                       "name": "ICerbyBotDetection",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 4219,
-                      "src": "1390:18:0",
+                      "referencedDeclaration": 4109,
+                      "src": "1433:18:0",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_type$_t_contract$_ICerbyBotDetection_$4219_$",
+                        "typeIdentifier": "t_type$_t_contract$_ICerbyBotDetection_$4109_$",
                         "typeString": "type(contract ICerbyBotDetection)"
                       }
                     },
@@ -1099,15 +1099,15 @@
                     "lValueRequested": false,
                     "names": [],
                     "nodeType": "FunctionCall",
-                    "src": "1390:147:0",
+                    "src": "1433:147:0",
                     "tryCall": false,
                     "typeDescriptions": {
-                      "typeIdentifier": "t_contract$_ICerbyBotDetection_$4219",
+                      "typeIdentifier": "t_contract$_ICerbyBotDetection_$4109",
                       "typeString": "contract ICerbyBotDetection"
                     }
                   },
                   "nodeType": "VariableDeclarationStatement",
-                  "src": "1350:187:0"
+                  "src": "1393:187:0"
                 },
                 {
                   "condition": {
@@ -1118,7 +1118,7 @@
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
                         "referencedDeclaration": 76,
-                        "src": "1584:5:0",
+                        "src": "1627:5:0",
                         "typeDescriptions": {
                           "typeIdentifier": "t_address",
                           "typeString": "address"
@@ -1138,9 +1138,9 @@
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
                         "referencedDeclaration": 80,
-                        "src": "1552:18:0",
+                        "src": "1595:18:0",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_contract$_ICerbyBotDetection_$4219",
+                          "typeIdentifier": "t_contract$_ICerbyBotDetection_$4109",
                           "typeString": "contract ICerbyBotDetection"
                         }
                       },
@@ -1151,8 +1151,8 @@
                       "lValueRequested": false,
                       "memberName": "isBotAddress",
                       "nodeType": "MemberAccess",
-                      "referencedDeclaration": 4199,
-                      "src": "1552:31:0",
+                      "referencedDeclaration": 4089,
+                      "src": "1595:31:0",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_external_view$_t_address_$returns$_t_bool_$",
                         "typeString": "function (address) view external returns (bool)"
@@ -1166,7 +1166,7 @@
                     "lValueRequested": false,
                     "names": [],
                     "nodeType": "FunctionCall",
-                    "src": "1552:38:0",
+                    "src": "1595:38:0",
                     "tryCall": false,
                     "typeDescriptions": {
                       "typeIdentifier": "t_bool",
@@ -1175,11 +1175,11 @@
                   },
                   "id": 96,
                   "nodeType": "IfStatement",
-                  "src": "1548:135:0",
+                  "src": "1591:135:0",
                   "trueBody": {
                     "id": 95,
                     "nodeType": "Block",
-                    "src": "1592:91:0",
+                    "src": "1635:91:0",
                     "statements": [
                       {
                         "errorCall": {
@@ -1191,7 +1191,7 @@
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
                             "referencedDeclaration": 14,
-                            "src": "1613:57:0",
+                            "src": "1656:57:0",
                             "typeDescriptions": {
                               "typeIdentifier": "t_function_error_pure$__$returns$__$",
                               "typeString": "function () pure"
@@ -1205,7 +1205,7 @@
                           "lValueRequested": false,
                           "names": [],
                           "nodeType": "FunctionCall",
-                          "src": "1613:59:0",
+                          "src": "1656:59:0",
                           "tryCall": false,
                           "typeDescriptions": {
                             "typeIdentifier": "t_tuple$__$",
@@ -1214,7 +1214,7 @@
                         },
                         "id": 94,
                         "nodeType": "RevertStatement",
-                        "src": "1606:66:0"
+                        "src": "1649:66:0"
                       }
                     ]
                   }
@@ -1222,13 +1222,13 @@
                 {
                   "id": 97,
                   "nodeType": "PlaceholderStatement",
-                  "src": "1693:1:0"
+                  "src": "1736:1:0"
                 }
               ]
             },
             "id": 99,
             "name": "checkForBots",
-            "nameLocation": "1312:12:0",
+            "nameLocation": "1341:12:0",
             "nodeType": "ModifierDefinition",
             "parameters": {
               "id": 77,
@@ -1239,10 +1239,10 @@
                   "id": 76,
                   "mutability": "mutable",
                   "name": "_addr",
-                  "nameLocation": "1333:5:0",
+                  "nameLocation": "1371:5:0",
                   "nodeType": "VariableDeclaration",
                   "scope": 99,
-                  "src": "1325:13:0",
+                  "src": "1363:13:0",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -1253,7 +1253,7 @@
                     "id": 75,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "1325:7:0",
+                    "src": "1363:7:0",
                     "stateMutability": "nonpayable",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
@@ -1263,9 +1263,9 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "1324:15:0"
+              "src": "1353:29:0"
             },
-            "src": "1303:398:0",
+            "src": "1332:412:0",
             "virtual": false,
             "visibility": "internal"
           },
@@ -1273,7 +1273,7 @@
             "body": {
               "id": 131,
               "nodeType": "Block",
-              "src": "1804:427:0",
+              "src": "1847:427:0",
               "statements": [
                 {
                   "assignments": [
@@ -1285,14 +1285,14 @@
                       "id": 107,
                       "mutability": "mutable",
                       "name": "iCerbyBotDetection",
-                      "nameLocation": "1833:18:0",
+                      "nameLocation": "1876:18:0",
                       "nodeType": "VariableDeclaration",
                       "scope": 131,
-                      "src": "1814:37:0",
+                      "src": "1857:37:0",
                       "stateVariable": false,
                       "storageLocation": "default",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_contract$_ICerbyBotDetection_$4219",
+                        "typeIdentifier": "t_contract$_ICerbyBotDetection_$4109",
                         "typeString": "contract ICerbyBotDetection"
                       },
                       "typeName": {
@@ -1302,13 +1302,13 @@
                           "id": 105,
                           "name": "ICerbyBotDetection",
                           "nodeType": "IdentifierPath",
-                          "referencedDeclaration": 4219,
-                          "src": "1814:18:0"
+                          "referencedDeclaration": 4109,
+                          "src": "1857:18:0"
                         },
-                        "referencedDeclaration": 4219,
-                        "src": "1814:18:0",
+                        "referencedDeclaration": 4109,
+                        "src": "1857:18:0",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_contract$_ICerbyBotDetection_$4219",
+                          "typeIdentifier": "t_contract$_ICerbyBotDetection_$4109",
                           "typeString": "contract ICerbyBotDetection"
                         }
                       },
@@ -1326,7 +1326,7 @@
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
                             "referencedDeclaration": 6,
-                            "src": "1946:31:0",
+                            "src": "1989:31:0",
                             "typeDescriptions": {
                               "typeIdentifier": "t_uint256",
                               "typeString": "uint256"
@@ -1346,9 +1346,9 @@
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
                             "referencedDeclaration": 12,
-                            "src": "1886:20:0",
+                            "src": "1929:20:0",
                             "typeDescriptions": {
-                              "typeIdentifier": "t_contract$_ICerbyToken_$4377",
+                              "typeIdentifier": "t_contract$_ICerbyToken_$4274",
                               "typeString": "contract ICerbyToken"
                             }
                           },
@@ -1359,8 +1359,8 @@
                           "lValueRequested": false,
                           "memberName": "getUtilsContractAtPos",
                           "nodeType": "MemberAccess",
-                          "referencedDeclaration": 4360,
-                          "src": "1886:42:0",
+                          "referencedDeclaration": 4257,
+                          "src": "1929:42:0",
                           "typeDescriptions": {
                             "typeIdentifier": "t_function_external_view$_t_uint256_$returns$_t_address_$",
                             "typeString": "function (uint256) view external returns (address)"
@@ -1374,7 +1374,7 @@
                         "lValueRequested": false,
                         "names": [],
                         "nodeType": "FunctionCall",
-                        "src": "1886:105:0",
+                        "src": "1929:105:0",
                         "tryCall": false,
                         "typeDescriptions": {
                           "typeIdentifier": "t_address",
@@ -1393,10 +1393,10 @@
                       "name": "ICerbyBotDetection",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 4219,
-                      "src": "1854:18:0",
+                      "referencedDeclaration": 4109,
+                      "src": "1897:18:0",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_type$_t_contract$_ICerbyBotDetection_$4219_$",
+                        "typeIdentifier": "t_type$_t_contract$_ICerbyBotDetection_$4109_$",
                         "typeString": "type(contract ICerbyBotDetection)"
                       }
                     },
@@ -1408,15 +1408,15 @@
                     "lValueRequested": false,
                     "names": [],
                     "nodeType": "FunctionCall",
-                    "src": "1854:147:0",
+                    "src": "1897:147:0",
                     "tryCall": false,
                     "typeDescriptions": {
-                      "typeIdentifier": "t_contract$_ICerbyBotDetection_$4219",
+                      "typeIdentifier": "t_contract$_ICerbyBotDetection_$4109",
                       "typeString": "contract ICerbyBotDetection"
                     }
                   },
                   "nodeType": "VariableDeclarationStatement",
-                  "src": "1814:187:0"
+                  "src": "1857:187:0"
                 },
                 {
                   "condition": {
@@ -1427,7 +1427,7 @@
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
                         "referencedDeclaration": 101,
-                        "src": "2056:10:0",
+                        "src": "2099:10:0",
                         "typeDescriptions": {
                           "typeIdentifier": "t_address",
                           "typeString": "address"
@@ -1439,7 +1439,7 @@
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
                         "referencedDeclaration": 103,
-                        "src": "2068:5:0",
+                        "src": "2111:5:0",
                         "typeDescriptions": {
                           "typeIdentifier": "t_address",
                           "typeString": "address"
@@ -1463,9 +1463,9 @@
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
                         "referencedDeclaration": 107,
-                        "src": "2016:18:0",
+                        "src": "2059:18:0",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_contract$_ICerbyBotDetection_$4219",
+                          "typeIdentifier": "t_contract$_ICerbyBotDetection_$4109",
                           "typeString": "contract ICerbyBotDetection"
                         }
                       },
@@ -1476,8 +1476,8 @@
                       "lValueRequested": false,
                       "memberName": "detectBotTransaction",
                       "nodeType": "MemberAccess",
-                      "referencedDeclaration": 4211,
-                      "src": "2016:39:0",
+                      "referencedDeclaration": 4101,
+                      "src": "2059:39:0",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_external_nonpayable$_t_address_$_t_address_$returns$_t_bool_$",
                         "typeString": "function (address,address) external returns (bool)"
@@ -1491,7 +1491,7 @@
                     "lValueRequested": false,
                     "names": [],
                     "nodeType": "FunctionCall",
-                    "src": "2016:58:0",
+                    "src": "2059:58:0",
                     "tryCall": false,
                     "typeDescriptions": {
                       "typeIdentifier": "t_bool",
@@ -1500,11 +1500,11 @@
                   },
                   "id": 124,
                   "nodeType": "IfStatement",
-                  "src": "2012:155:0",
+                  "src": "2055:155:0",
                   "trueBody": {
                     "id": 123,
                     "nodeType": "Block",
-                    "src": "2076:91:0",
+                    "src": "2119:91:0",
                     "statements": [
                       {
                         "errorCall": {
@@ -1516,7 +1516,7 @@
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
                             "referencedDeclaration": 14,
-                            "src": "2097:57:0",
+                            "src": "2140:57:0",
                             "typeDescriptions": {
                               "typeIdentifier": "t_function_error_pure$__$returns$__$",
                               "typeString": "function () pure"
@@ -1530,7 +1530,7 @@
                           "lValueRequested": false,
                           "names": [],
                           "nodeType": "FunctionCall",
-                          "src": "2097:59:0",
+                          "src": "2140:59:0",
                           "tryCall": false,
                           "typeDescriptions": {
                             "typeIdentifier": "t_tuple$__$",
@@ -1539,7 +1539,7 @@
                         },
                         "id": 122,
                         "nodeType": "RevertStatement",
-                        "src": "2090:66:0"
+                        "src": "2133:66:0"
                       }
                     ]
                   }
@@ -1555,9 +1555,9 @@
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
                         "referencedDeclaration": 107,
-                        "src": "2177:18:0",
+                        "src": "2220:18:0",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_contract$_ICerbyBotDetection_$4219",
+                          "typeIdentifier": "t_contract$_ICerbyBotDetection_$4109",
                           "typeString": "contract ICerbyBotDetection"
                         }
                       },
@@ -1568,8 +1568,8 @@
                       "lValueRequested": false,
                       "memberName": "executeCronJobs",
                       "nodeType": "MemberAccess",
-                      "referencedDeclaration": 4202,
-                      "src": "2177:34:0",
+                      "referencedDeclaration": 4092,
+                      "src": "2220:34:0",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_external_nonpayable$__$returns$__$",
                         "typeString": "function () external"
@@ -1583,7 +1583,7 @@
                     "lValueRequested": false,
                     "names": [],
                     "nodeType": "FunctionCall",
-                    "src": "2177:36:0",
+                    "src": "2220:36:0",
                     "tryCall": false,
                     "typeDescriptions": {
                       "typeIdentifier": "t_tuple$__$",
@@ -1592,18 +1592,18 @@
                   },
                   "id": 129,
                   "nodeType": "ExpressionStatement",
-                  "src": "2177:36:0"
+                  "src": "2220:36:0"
                 },
                 {
                   "id": 130,
                   "nodeType": "PlaceholderStatement",
-                  "src": "2223:1:0"
+                  "src": "2266:1:0"
                 }
               ]
             },
             "id": 132,
             "name": "checkTransactionAndExecuteCron",
-            "nameLocation": "1716:30:0",
+            "nameLocation": "1759:30:0",
             "nodeType": "ModifierDefinition",
             "parameters": {
               "id": 104,
@@ -1614,10 +1614,10 @@
                   "id": 101,
                   "mutability": "mutable",
                   "name": "_tokenAddr",
-                  "nameLocation": "1764:10:0",
+                  "nameLocation": "1807:10:0",
                   "nodeType": "VariableDeclaration",
                   "scope": 132,
-                  "src": "1756:18:0",
+                  "src": "1799:18:0",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -1628,7 +1628,7 @@
                     "id": 100,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "1756:7:0",
+                    "src": "1799:7:0",
                     "stateMutability": "nonpayable",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
@@ -1642,10 +1642,10 @@
                   "id": 103,
                   "mutability": "mutable",
                   "name": "_addr",
-                  "nameLocation": "1792:5:0",
+                  "nameLocation": "1835:5:0",
                   "nodeType": "VariableDeclaration",
                   "scope": 132,
-                  "src": "1784:13:0",
+                  "src": "1827:13:0",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -1656,7 +1656,7 @@
                     "id": 102,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "1784:7:0",
+                    "src": "1827:7:0",
                     "stateMutability": "nonpayable",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
@@ -1666,9 +1666,9 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "1746:57:0"
+              "src": "1789:57:0"
             },
-            "src": "1707:524:0",
+            "src": "1750:524:0",
             "virtual": false,
             "visibility": "internal"
           },
@@ -1676,7 +1676,7 @@
             "body": {
               "id": 176,
               "nodeType": "Block",
-              "src": "2365:504:0",
+              "src": "2408:504:0",
               "statements": [
                 {
                   "assignments": [
@@ -1688,14 +1688,14 @@
                       "id": 143,
                       "mutability": "mutable",
                       "name": "iCerbyBotDetection",
-                      "nameLocation": "2394:18:0",
+                      "nameLocation": "2437:18:0",
                       "nodeType": "VariableDeclaration",
                       "scope": 176,
-                      "src": "2375:37:0",
+                      "src": "2418:37:0",
                       "stateVariable": false,
                       "storageLocation": "default",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_contract$_ICerbyBotDetection_$4219",
+                        "typeIdentifier": "t_contract$_ICerbyBotDetection_$4109",
                         "typeString": "contract ICerbyBotDetection"
                       },
                       "typeName": {
@@ -1705,13 +1705,13 @@
                           "id": 141,
                           "name": "ICerbyBotDetection",
                           "nodeType": "IdentifierPath",
-                          "referencedDeclaration": 4219,
-                          "src": "2375:18:0"
+                          "referencedDeclaration": 4109,
+                          "src": "2418:18:0"
                         },
-                        "referencedDeclaration": 4219,
-                        "src": "2375:18:0",
+                        "referencedDeclaration": 4109,
+                        "src": "2418:18:0",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_contract$_ICerbyBotDetection_$4219",
+                          "typeIdentifier": "t_contract$_ICerbyBotDetection_$4109",
                           "typeString": "contract ICerbyBotDetection"
                         }
                       },
@@ -1729,7 +1729,7 @@
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
                             "referencedDeclaration": 6,
-                            "src": "2507:31:0",
+                            "src": "2550:31:0",
                             "typeDescriptions": {
                               "typeIdentifier": "t_uint256",
                               "typeString": "uint256"
@@ -1749,9 +1749,9 @@
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
                             "referencedDeclaration": 12,
-                            "src": "2447:20:0",
+                            "src": "2490:20:0",
                             "typeDescriptions": {
-                              "typeIdentifier": "t_contract$_ICerbyToken_$4377",
+                              "typeIdentifier": "t_contract$_ICerbyToken_$4274",
                               "typeString": "contract ICerbyToken"
                             }
                           },
@@ -1762,8 +1762,8 @@
                           "lValueRequested": false,
                           "memberName": "getUtilsContractAtPos",
                           "nodeType": "MemberAccess",
-                          "referencedDeclaration": 4360,
-                          "src": "2447:42:0",
+                          "referencedDeclaration": 4257,
+                          "src": "2490:42:0",
                           "typeDescriptions": {
                             "typeIdentifier": "t_function_external_view$_t_uint256_$returns$_t_address_$",
                             "typeString": "function (uint256) view external returns (address)"
@@ -1777,7 +1777,7 @@
                         "lValueRequested": false,
                         "names": [],
                         "nodeType": "FunctionCall",
-                        "src": "2447:105:0",
+                        "src": "2490:105:0",
                         "tryCall": false,
                         "typeDescriptions": {
                           "typeIdentifier": "t_address",
@@ -1796,10 +1796,10 @@
                       "name": "ICerbyBotDetection",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 4219,
-                      "src": "2415:18:0",
+                      "referencedDeclaration": 4109,
+                      "src": "2458:18:0",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_type$_t_contract$_ICerbyBotDetection_$4219_$",
+                        "typeIdentifier": "t_type$_t_contract$_ICerbyBotDetection_$4109_$",
                         "typeString": "type(contract ICerbyBotDetection)"
                       }
                     },
@@ -1811,15 +1811,15 @@
                     "lValueRequested": false,
                     "names": [],
                     "nodeType": "FunctionCall",
-                    "src": "2415:147:0",
+                    "src": "2458:147:0",
                     "tryCall": false,
                     "typeDescriptions": {
-                      "typeIdentifier": "t_contract$_ICerbyBotDetection_$4219",
+                      "typeIdentifier": "t_contract$_ICerbyBotDetection_$4109",
                       "typeString": "contract ICerbyBotDetection"
                     }
                   },
                   "nodeType": "VariableDeclarationStatement",
-                  "src": "2375:187:0"
+                  "src": "2418:187:0"
                 },
                 {
                   "condition": {
@@ -1830,7 +1830,7 @@
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
                         "referencedDeclaration": 134,
-                        "src": "2617:6:0",
+                        "src": "2660:6:0",
                         "typeDescriptions": {
                           "typeIdentifier": "t_address",
                           "typeString": "address"
@@ -1842,7 +1842,7 @@
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
                         "referencedDeclaration": 136,
-                        "src": "2625:5:0",
+                        "src": "2668:5:0",
                         "typeDescriptions": {
                           "typeIdentifier": "t_address",
                           "typeString": "address"
@@ -1866,9 +1866,9 @@
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
                         "referencedDeclaration": 143,
-                        "src": "2577:18:0",
+                        "src": "2620:18:0",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_contract$_ICerbyBotDetection_$4219",
+                          "typeIdentifier": "t_contract$_ICerbyBotDetection_$4109",
                           "typeString": "contract ICerbyBotDetection"
                         }
                       },
@@ -1879,8 +1879,8 @@
                       "lValueRequested": false,
                       "memberName": "detectBotTransaction",
                       "nodeType": "MemberAccess",
-                      "referencedDeclaration": 4211,
-                      "src": "2577:39:0",
+                      "referencedDeclaration": 4101,
+                      "src": "2620:39:0",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_external_nonpayable$_t_address_$_t_address_$returns$_t_bool_$",
                         "typeString": "function (address,address) external returns (bool)"
@@ -1894,7 +1894,7 @@
                     "lValueRequested": false,
                     "names": [],
                     "nodeType": "FunctionCall",
-                    "src": "2577:54:0",
+                    "src": "2620:54:0",
                     "tryCall": false,
                     "typeDescriptions": {
                       "typeIdentifier": "t_bool",
@@ -1903,11 +1903,11 @@
                   },
                   "id": 160,
                   "nodeType": "IfStatement",
-                  "src": "2573:151:0",
+                  "src": "2616:151:0",
                   "trueBody": {
                     "id": 159,
                     "nodeType": "Block",
-                    "src": "2633:91:0",
+                    "src": "2676:91:0",
                     "statements": [
                       {
                         "errorCall": {
@@ -1919,7 +1919,7 @@
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
                             "referencedDeclaration": 14,
-                            "src": "2654:57:0",
+                            "src": "2697:57:0",
                             "typeDescriptions": {
                               "typeIdentifier": "t_function_error_pure$__$returns$__$",
                               "typeString": "function () pure"
@@ -1933,7 +1933,7 @@
                           "lValueRequested": false,
                           "names": [],
                           "nodeType": "FunctionCall",
-                          "src": "2654:59:0",
+                          "src": "2697:59:0",
                           "tryCall": false,
                           "typeDescriptions": {
                             "typeIdentifier": "t_tuple$__$",
@@ -1942,7 +1942,7 @@
                         },
                         "id": 158,
                         "nodeType": "RevertStatement",
-                        "src": "2647:66:0"
+                        "src": "2690:66:0"
                       }
                     ]
                   }
@@ -1964,7 +1964,7 @@
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
                       "referencedDeclaration": 138,
-                      "src": "2738:3:0",
+                      "src": "2781:3:0",
                       "typeDescriptions": {
                         "typeIdentifier": "t_address",
                         "typeString": "address"
@@ -1980,7 +1980,7 @@
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
                           "referencedDeclaration": 4294967268,
-                          "src": "2753:4:0",
+                          "src": "2796:4:0",
                           "typeDescriptions": {
                             "typeIdentifier": "t_contract$_CerbyCronJobsExecution_$178",
                             "typeString": "contract CerbyCronJobsExecution"
@@ -2000,7 +2000,7 @@
                         "isPure": true,
                         "lValueRequested": false,
                         "nodeType": "ElementaryTypeNameExpression",
-                        "src": "2745:7:0",
+                        "src": "2788:7:0",
                         "typeDescriptions": {
                           "typeIdentifier": "t_type$_t_address_$",
                           "typeString": "type(address)"
@@ -2009,7 +2009,7 @@
                           "id": 162,
                           "name": "address",
                           "nodeType": "ElementaryTypeName",
-                          "src": "2745:7:0",
+                          "src": "2788:7:0",
                           "typeDescriptions": {}
                         }
                       },
@@ -2021,14 +2021,14 @@
                       "lValueRequested": false,
                       "names": [],
                       "nodeType": "FunctionCall",
-                      "src": "2745:13:0",
+                      "src": "2788:13:0",
                       "tryCall": false,
                       "typeDescriptions": {
                         "typeIdentifier": "t_address",
                         "typeString": "address"
                       }
                     },
-                    "src": "2738:20:0",
+                    "src": "2781:20:0",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bool",
                       "typeString": "bool"
@@ -2036,12 +2036,12 @@
                   },
                   "id": 168,
                   "nodeType": "IfStatement",
-                  "src": "2734:33:0",
+                  "src": "2777:33:0",
                   "trueBody": {
                     "functionReturnParameters": 140,
                     "id": 167,
                     "nodeType": "Return",
-                    "src": "2760:7:0"
+                    "src": "2803:7:0"
                   }
                 },
                 {
@@ -2053,7 +2053,7 @@
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
                         "referencedDeclaration": 134,
-                        "src": "2829:6:0",
+                        "src": "2872:6:0",
                         "typeDescriptions": {
                           "typeIdentifier": "t_address",
                           "typeString": "address"
@@ -2065,7 +2065,7 @@
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
                         "referencedDeclaration": 138,
-                        "src": "2849:3:0",
+                        "src": "2892:3:0",
                         "typeDescriptions": {
                           "typeIdentifier": "t_address",
                           "typeString": "address"
@@ -2089,9 +2089,9 @@
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
                         "referencedDeclaration": 143,
-                        "src": "2777:18:0",
+                        "src": "2820:18:0",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_contract$_ICerbyBotDetection_$4219",
+                          "typeIdentifier": "t_contract$_ICerbyBotDetection_$4109",
                           "typeString": "contract ICerbyBotDetection"
                         }
                       },
@@ -2102,8 +2102,8 @@
                       "lValueRequested": false,
                       "memberName": "registerTransaction",
                       "nodeType": "MemberAccess",
-                      "referencedDeclaration": 4218,
-                      "src": "2777:38:0",
+                      "referencedDeclaration": 4108,
+                      "src": "2820:38:0",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_external_nonpayable$_t_address_$_t_address_$returns$__$",
                         "typeString": "function (address,address) external"
@@ -2117,7 +2117,7 @@
                     "lValueRequested": false,
                     "names": [],
                     "nodeType": "FunctionCall",
-                    "src": "2777:85:0",
+                    "src": "2820:85:0",
                     "tryCall": false,
                     "typeDescriptions": {
                       "typeIdentifier": "t_tuple$__$",
@@ -2126,7 +2126,7 @@
                   },
                   "id": 175,
                   "nodeType": "ExpressionStatement",
-                  "src": "2777:85:0"
+                  "src": "2820:85:0"
                 }
               ]
             },
@@ -2135,7 +2135,7 @@
             "kind": "function",
             "modifiers": [],
             "name": "checkTransactionForBots",
-            "nameLocation": "2246:23:0",
+            "nameLocation": "2289:23:0",
             "nodeType": "FunctionDefinition",
             "parameters": {
               "id": 139,
@@ -2146,10 +2146,10 @@
                   "id": 134,
                   "mutability": "mutable",
                   "name": "_token",
-                  "nameLocation": "2287:6:0",
+                  "nameLocation": "2330:6:0",
                   "nodeType": "VariableDeclaration",
                   "scope": 177,
-                  "src": "2279:14:0",
+                  "src": "2322:14:0",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -2160,7 +2160,7 @@
                     "id": 133,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "2279:7:0",
+                    "src": "2322:7:0",
                     "stateMutability": "nonpayable",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
@@ -2174,10 +2174,10 @@
                   "id": 136,
                   "mutability": "mutable",
                   "name": "_from",
-                  "nameLocation": "2311:5:0",
+                  "nameLocation": "2354:5:0",
                   "nodeType": "VariableDeclaration",
                   "scope": 177,
-                  "src": "2303:13:0",
+                  "src": "2346:13:0",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -2188,7 +2188,7 @@
                     "id": 135,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "2303:7:0",
+                    "src": "2346:7:0",
                     "stateMutability": "nonpayable",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
@@ -2202,10 +2202,10 @@
                   "id": 138,
                   "mutability": "mutable",
                   "name": "_to",
-                  "nameLocation": "2334:3:0",
+                  "nameLocation": "2377:3:0",
                   "nodeType": "VariableDeclaration",
                   "scope": 177,
-                  "src": "2326:11:0",
+                  "src": "2369:11:0",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -2216,7 +2216,7 @@
                     "id": 137,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "2326:7:0",
+                    "src": "2369:7:0",
                     "stateMutability": "nonpayable",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
@@ -2226,47 +2226,47 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "2269:74:0"
+              "src": "2312:74:0"
             },
             "returnParameters": {
               "id": 140,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "2365:0:0"
+              "src": "2408:0:0"
             },
             "scope": 178,
-            "src": "2237:632:0",
+            "src": "2280:632:0",
             "stateMutability": "nonpayable",
             "virtual": false,
             "visibility": "internal"
           }
         ],
         "scope": 179,
-        "src": "150:2721:0",
+        "src": "150:2764:0",
         "usedErrors": [
           14
         ]
       }
     ],
-    "src": "38:2834:0"
+    "src": "38:2877:0"
   },
   "legacyAST": {
-    "absolutePath": "/Users/numwan/Documents/Remix/bitbucket/sol-cerby-swap-v1/contracts/CerbyCronJobsExecution.sol",
+    "absolutePath": "project:/contracts/CerbyCronJobsExecution.sol",
     "exportedSymbols": {
       "AccessSettings": [
-        4275
+        4172
       ],
       "CerbyCronJobsExecution": [
         178
       ],
       "ICerbyBotDetection": [
-        4219
+        4109
       ],
       "ICerbyToken": [
-        4377
+        4274
       ],
       "TransactionInfo": [
-        4176
+        4066
       ]
     },
     "id": 179,
@@ -2285,25 +2285,25 @@
         "src": "38:24:0"
       },
       {
-        "absolutePath": "/Users/numwan/Documents/Remix/bitbucket/sol-cerby-swap-v1/contracts/interfaces/ICerbyToken.sol",
+        "absolutePath": "project:/contracts/interfaces/ICerbyToken.sol",
         "file": "./interfaces/ICerbyToken.sol",
         "id": 2,
         "nameLocation": "-1:-1:-1",
         "nodeType": "ImportDirective",
         "scope": 179,
-        "sourceUnit": 4378,
+        "sourceUnit": 4275,
         "src": "64:38:0",
         "symbolAliases": [],
         "unitAlias": ""
       },
       {
-        "absolutePath": "/Users/numwan/Documents/Remix/bitbucket/sol-cerby-swap-v1/contracts/interfaces/ICerbyBotDetection.sol",
+        "absolutePath": "project:/contracts/interfaces/ICerbyBotDetection.sol",
         "file": "./interfaces/ICerbyBotDetection.sol",
         "id": 3,
         "nameLocation": "-1:-1:-1",
         "nodeType": "ImportDirective",
         "scope": 179,
-        "sourceUnit": 4220,
+        "sourceUnit": 4110,
         "src": "103:45:0",
         "symbolAliases": [],
         "unitAlias": ""
@@ -2371,14 +2371,14 @@
             "id": 12,
             "mutability": "constant",
             "name": "CERBY_TOKEN_INSTANCE",
-            "nameLocation": "277:20:0",
+            "nameLocation": "278:20:0",
             "nodeType": "VariableDeclaration",
             "scope": 178,
-            "src": "256:113:0",
+            "src": "257:113:0",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
-              "typeIdentifier": "t_contract$_ICerbyToken_$4377",
+              "typeIdentifier": "t_contract$_ICerbyToken_$4274",
               "typeString": "contract ICerbyToken"
             },
             "typeName": {
@@ -2388,13 +2388,13 @@
                 "id": 7,
                 "name": "ICerbyToken",
                 "nodeType": "IdentifierPath",
-                "referencedDeclaration": 4377,
-                "src": "256:11:0"
+                "referencedDeclaration": 4274,
+                "src": "257:11:0"
               },
-              "referencedDeclaration": 4377,
-              "src": "256:11:0",
+              "referencedDeclaration": 4274,
+              "src": "257:11:0",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_ICerbyToken_$4377",
+                "typeIdentifier": "t_contract$_ICerbyToken_$4274",
                 "typeString": "contract ICerbyToken"
               }
             },
@@ -2409,7 +2409,7 @@
                   "kind": "number",
                   "lValueRequested": false,
                   "nodeType": "Literal",
-                  "src": "321:42:0",
+                  "src": "322:42:0",
                   "typeDescriptions": {
                     "typeIdentifier": "t_address",
                     "typeString": "address"
@@ -2428,10 +2428,10 @@
                 "name": "ICerbyToken",
                 "nodeType": "Identifier",
                 "overloadedDeclarations": [],
-                "referencedDeclaration": 4377,
-                "src": "300:11:0",
+                "referencedDeclaration": 4274,
+                "src": "301:11:0",
                 "typeDescriptions": {
-                  "typeIdentifier": "t_type$_t_contract$_ICerbyToken_$4377_$",
+                  "typeIdentifier": "t_type$_t_contract$_ICerbyToken_$4274_$",
                   "typeString": "type(contract ICerbyToken)"
                 }
               },
@@ -2443,10 +2443,10 @@
               "lValueRequested": false,
               "names": [],
               "nodeType": "FunctionCall",
-              "src": "300:69:0",
+              "src": "301:69:0",
               "tryCall": false,
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_ICerbyToken_$4377",
+                "typeIdentifier": "t_contract$_ICerbyToken_$4274",
                 "typeString": "contract ICerbyToken"
               }
             },
@@ -2455,21 +2455,21 @@
           {
             "id": 14,
             "name": "CerbyCronJobsExecution_TransactionsAreTemporarilyDisabled",
-            "nameLocation": "382:57:0",
+            "nameLocation": "383:57:0",
             "nodeType": "ErrorDefinition",
             "parameters": {
               "id": 13,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "439:2:0"
+              "src": "440:2:0"
             },
-            "src": "376:66:0"
+            "src": "377:66:0"
           },
           {
             "body": {
               "id": 42,
               "nodeType": "Block",
-              "src": "503:354:0",
+              "src": "518:354:0",
               "statements": [
                 {
                   "assignments": [
@@ -2481,14 +2481,14 @@
                       "id": 20,
                       "mutability": "mutable",
                       "name": "iCerbyBotDetection",
-                      "nameLocation": "532:18:0",
+                      "nameLocation": "547:18:0",
                       "nodeType": "VariableDeclaration",
                       "scope": 42,
-                      "src": "513:37:0",
+                      "src": "528:37:0",
                       "stateVariable": false,
                       "storageLocation": "default",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_contract$_ICerbyBotDetection_$4219",
+                        "typeIdentifier": "t_contract$_ICerbyBotDetection_$4109",
                         "typeString": "contract ICerbyBotDetection"
                       },
                       "typeName": {
@@ -2498,13 +2498,13 @@
                           "id": 18,
                           "name": "ICerbyBotDetection",
                           "nodeType": "IdentifierPath",
-                          "referencedDeclaration": 4219,
-                          "src": "513:18:0"
+                          "referencedDeclaration": 4109,
+                          "src": "528:18:0"
                         },
-                        "referencedDeclaration": 4219,
-                        "src": "513:18:0",
+                        "referencedDeclaration": 4109,
+                        "src": "528:18:0",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_contract$_ICerbyBotDetection_$4219",
+                          "typeIdentifier": "t_contract$_ICerbyBotDetection_$4109",
                           "typeString": "contract ICerbyBotDetection"
                         }
                       },
@@ -2522,7 +2522,7 @@
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
                             "referencedDeclaration": 6,
-                            "src": "607:31:0",
+                            "src": "622:31:0",
                             "typeDescriptions": {
                               "typeIdentifier": "t_uint256",
                               "typeString": "uint256"
@@ -2541,7 +2541,7 @@
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
                           "referencedDeclaration": 74,
-                          "src": "585:21:0",
+                          "src": "600:21:0",
                           "typeDescriptions": {
                             "typeIdentifier": "t_function_internal_view$_t_uint256_$returns$_t_address_$",
                             "typeString": "function (uint256) view returns (address)"
@@ -2555,7 +2555,7 @@
                         "lValueRequested": false,
                         "names": [],
                         "nodeType": "FunctionCall",
-                        "src": "585:54:0",
+                        "src": "600:54:0",
                         "tryCall": false,
                         "typeDescriptions": {
                           "typeIdentifier": "t_address",
@@ -2574,10 +2574,10 @@
                       "name": "ICerbyBotDetection",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 4219,
-                      "src": "553:18:0",
+                      "referencedDeclaration": 4109,
+                      "src": "568:18:0",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_type$_t_contract$_ICerbyBotDetection_$4219_$",
+                        "typeIdentifier": "t_type$_t_contract$_ICerbyBotDetection_$4109_$",
                         "typeString": "type(contract ICerbyBotDetection)"
                       }
                     },
@@ -2589,15 +2589,15 @@
                     "lValueRequested": false,
                     "names": [],
                     "nodeType": "FunctionCall",
-                    "src": "553:96:0",
+                    "src": "568:96:0",
                     "tryCall": false,
                     "typeDescriptions": {
-                      "typeIdentifier": "t_contract$_ICerbyBotDetection_$4219",
+                      "typeIdentifier": "t_contract$_ICerbyBotDetection_$4109",
                       "typeString": "contract ICerbyBotDetection"
                     }
                   },
                   "nodeType": "VariableDeclarationStatement",
-                  "src": "513:136:0"
+                  "src": "528:136:0"
                 },
                 {
                   "condition": {
@@ -2608,7 +2608,7 @@
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
                         "referencedDeclaration": 16,
-                        "src": "695:5:0",
+                        "src": "710:5:0",
                         "typeDescriptions": {
                           "typeIdentifier": "t_address",
                           "typeString": "address"
@@ -2628,9 +2628,9 @@
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
                         "referencedDeclaration": 20,
-                        "src": "663:18:0",
+                        "src": "678:18:0",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_contract$_ICerbyBotDetection_$4219",
+                          "typeIdentifier": "t_contract$_ICerbyBotDetection_$4109",
                           "typeString": "contract ICerbyBotDetection"
                         }
                       },
@@ -2641,8 +2641,8 @@
                       "lValueRequested": false,
                       "memberName": "isBotAddress",
                       "nodeType": "MemberAccess",
-                      "referencedDeclaration": 4199,
-                      "src": "663:31:0",
+                      "referencedDeclaration": 4089,
+                      "src": "678:31:0",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_external_view$_t_address_$returns$_t_bool_$",
                         "typeString": "function (address) view external returns (bool)"
@@ -2656,7 +2656,7 @@
                     "lValueRequested": false,
                     "names": [],
                     "nodeType": "FunctionCall",
-                    "src": "663:38:0",
+                    "src": "678:38:0",
                     "tryCall": false,
                     "typeDescriptions": {
                       "typeIdentifier": "t_bool",
@@ -2665,11 +2665,11 @@
                   },
                   "id": 35,
                   "nodeType": "IfStatement",
-                  "src": "659:135:0",
+                  "src": "674:135:0",
                   "trueBody": {
                     "id": 34,
                     "nodeType": "Block",
-                    "src": "703:91:0",
+                    "src": "718:91:0",
                     "statements": [
                       {
                         "errorCall": {
@@ -2681,7 +2681,7 @@
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
                             "referencedDeclaration": 14,
-                            "src": "724:57:0",
+                            "src": "739:57:0",
                             "typeDescriptions": {
                               "typeIdentifier": "t_function_error_pure$__$returns$__$",
                               "typeString": "function () pure"
@@ -2695,7 +2695,7 @@
                           "lValueRequested": false,
                           "names": [],
                           "nodeType": "FunctionCall",
-                          "src": "724:59:0",
+                          "src": "739:59:0",
                           "tryCall": false,
                           "typeDescriptions": {
                             "typeIdentifier": "t_tuple$__$",
@@ -2704,7 +2704,7 @@
                         },
                         "id": 33,
                         "nodeType": "RevertStatement",
-                        "src": "717:66:0"
+                        "src": "732:66:0"
                       }
                     ]
                   }
@@ -2720,9 +2720,9 @@
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
                         "referencedDeclaration": 20,
-                        "src": "803:18:0",
+                        "src": "818:18:0",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_contract$_ICerbyBotDetection_$4219",
+                          "typeIdentifier": "t_contract$_ICerbyBotDetection_$4109",
                           "typeString": "contract ICerbyBotDetection"
                         }
                       },
@@ -2733,8 +2733,8 @@
                       "lValueRequested": false,
                       "memberName": "executeCronJobs",
                       "nodeType": "MemberAccess",
-                      "referencedDeclaration": 4202,
-                      "src": "803:34:0",
+                      "referencedDeclaration": 4092,
+                      "src": "818:34:0",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_external_nonpayable$__$returns$__$",
                         "typeString": "function () external"
@@ -2748,7 +2748,7 @@
                     "lValueRequested": false,
                     "names": [],
                     "nodeType": "FunctionCall",
-                    "src": "803:36:0",
+                    "src": "818:36:0",
                     "tryCall": false,
                     "typeDescriptions": {
                       "typeIdentifier": "t_tuple$__$",
@@ -2757,18 +2757,18 @@
                   },
                   "id": 40,
                   "nodeType": "ExpressionStatement",
-                  "src": "803:36:0"
+                  "src": "818:36:0"
                 },
                 {
                   "id": 41,
                   "nodeType": "PlaceholderStatement",
-                  "src": "849:1:0"
+                  "src": "864:1:0"
                 }
               ]
             },
             "id": 43,
             "name": "checkForBotsAndExecuteCronJobs",
-            "nameLocation": "457:30:0",
+            "nameLocation": "458:30:0",
             "nodeType": "ModifierDefinition",
             "parameters": {
               "id": 17,
@@ -2779,10 +2779,10 @@
                   "id": 16,
                   "mutability": "mutable",
                   "name": "_addr",
-                  "nameLocation": "496:5:0",
+                  "nameLocation": "506:5:0",
                   "nodeType": "VariableDeclaration",
                   "scope": 43,
-                  "src": "488:13:0",
+                  "src": "498:13:0",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -2793,7 +2793,7 @@
                     "id": 15,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "488:7:0",
+                    "src": "498:7:0",
                     "stateMutability": "nonpayable",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
@@ -2803,9 +2803,9 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "487:15:0"
+              "src": "488:29:0"
             },
-            "src": "448:409:0",
+            "src": "449:423:0",
             "virtual": false,
             "visibility": "internal"
           },
@@ -2813,7 +2813,7 @@
             "body": {
               "id": 60,
               "nodeType": "Block",
-              "src": "890:210:0",
+              "src": "905:210:0",
               "statements": [
                 {
                   "assignments": [
@@ -2825,14 +2825,14 @@
                       "id": 47,
                       "mutability": "mutable",
                       "name": "iCerbyBotDetection",
-                      "nameLocation": "919:18:0",
+                      "nameLocation": "934:18:0",
                       "nodeType": "VariableDeclaration",
                       "scope": 60,
-                      "src": "900:37:0",
+                      "src": "915:37:0",
                       "stateVariable": false,
                       "storageLocation": "default",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_contract$_ICerbyBotDetection_$4219",
+                        "typeIdentifier": "t_contract$_ICerbyBotDetection_$4109",
                         "typeString": "contract ICerbyBotDetection"
                       },
                       "typeName": {
@@ -2842,13 +2842,13 @@
                           "id": 45,
                           "name": "ICerbyBotDetection",
                           "nodeType": "IdentifierPath",
-                          "referencedDeclaration": 4219,
-                          "src": "900:18:0"
+                          "referencedDeclaration": 4109,
+                          "src": "915:18:0"
                         },
-                        "referencedDeclaration": 4219,
-                        "src": "900:18:0",
+                        "referencedDeclaration": 4109,
+                        "src": "915:18:0",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_contract$_ICerbyBotDetection_$4219",
+                          "typeIdentifier": "t_contract$_ICerbyBotDetection_$4109",
                           "typeString": "contract ICerbyBotDetection"
                         }
                       },
@@ -2866,7 +2866,7 @@
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
                             "referencedDeclaration": 6,
-                            "src": "994:31:0",
+                            "src": "1009:31:0",
                             "typeDescriptions": {
                               "typeIdentifier": "t_uint256",
                               "typeString": "uint256"
@@ -2885,7 +2885,7 @@
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
                           "referencedDeclaration": 74,
-                          "src": "972:21:0",
+                          "src": "987:21:0",
                           "typeDescriptions": {
                             "typeIdentifier": "t_function_internal_view$_t_uint256_$returns$_t_address_$",
                             "typeString": "function (uint256) view returns (address)"
@@ -2899,7 +2899,7 @@
                         "lValueRequested": false,
                         "names": [],
                         "nodeType": "FunctionCall",
-                        "src": "972:54:0",
+                        "src": "987:54:0",
                         "tryCall": false,
                         "typeDescriptions": {
                           "typeIdentifier": "t_address",
@@ -2918,10 +2918,10 @@
                       "name": "ICerbyBotDetection",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 4219,
-                      "src": "940:18:0",
+                      "referencedDeclaration": 4109,
+                      "src": "955:18:0",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_type$_t_contract$_ICerbyBotDetection_$4219_$",
+                        "typeIdentifier": "t_type$_t_contract$_ICerbyBotDetection_$4109_$",
                         "typeString": "type(contract ICerbyBotDetection)"
                       }
                     },
@@ -2933,15 +2933,15 @@
                     "lValueRequested": false,
                     "names": [],
                     "nodeType": "FunctionCall",
-                    "src": "940:96:0",
+                    "src": "955:96:0",
                     "tryCall": false,
                     "typeDescriptions": {
-                      "typeIdentifier": "t_contract$_ICerbyBotDetection_$4219",
+                      "typeIdentifier": "t_contract$_ICerbyBotDetection_$4109",
                       "typeString": "contract ICerbyBotDetection"
                     }
                   },
                   "nodeType": "VariableDeclarationStatement",
-                  "src": "900:136:0"
+                  "src": "915:136:0"
                 },
                 {
                   "expression": {
@@ -2954,9 +2954,9 @@
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
                         "referencedDeclaration": 47,
-                        "src": "1046:18:0",
+                        "src": "1061:18:0",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_contract$_ICerbyBotDetection_$4219",
+                          "typeIdentifier": "t_contract$_ICerbyBotDetection_$4109",
                           "typeString": "contract ICerbyBotDetection"
                         }
                       },
@@ -2967,8 +2967,8 @@
                       "lValueRequested": false,
                       "memberName": "executeCronJobs",
                       "nodeType": "MemberAccess",
-                      "referencedDeclaration": 4202,
-                      "src": "1046:34:0",
+                      "referencedDeclaration": 4092,
+                      "src": "1061:34:0",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_external_nonpayable$__$returns$__$",
                         "typeString": "function () external"
@@ -2982,7 +2982,7 @@
                     "lValueRequested": false,
                     "names": [],
                     "nodeType": "FunctionCall",
-                    "src": "1046:36:0",
+                    "src": "1061:36:0",
                     "tryCall": false,
                     "typeDescriptions": {
                       "typeIdentifier": "t_tuple$__$",
@@ -2991,26 +2991,26 @@
                   },
                   "id": 58,
                   "nodeType": "ExpressionStatement",
-                  "src": "1046:36:0"
+                  "src": "1061:36:0"
                 },
                 {
                   "id": 59,
                   "nodeType": "PlaceholderStatement",
-                  "src": "1092:1:0"
+                  "src": "1107:1:0"
                 }
               ]
             },
             "id": 61,
             "name": "executeCronJobs",
-            "nameLocation": "872:15:0",
+            "nameLocation": "887:15:0",
             "nodeType": "ModifierDefinition",
             "parameters": {
               "id": 44,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "887:2:0"
+              "src": "902:2:0"
             },
-            "src": "863:237:0",
+            "src": "878:237:0",
             "virtual": false,
             "visibility": "internal"
           },
@@ -3018,7 +3018,7 @@
             "body": {
               "id": 73,
               "nodeType": "Block",
-              "src": "1225:72:0",
+              "src": "1254:72:0",
               "statements": [
                 {
                   "expression": {
@@ -3029,7 +3029,7 @@
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
                         "referencedDeclaration": 63,
-                        "src": "1285:4:0",
+                        "src": "1314:4:0",
                         "typeDescriptions": {
                           "typeIdentifier": "t_uint256",
                           "typeString": "uint256"
@@ -3049,9 +3049,9 @@
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
                         "referencedDeclaration": 12,
-                        "src": "1242:20:0",
+                        "src": "1271:20:0",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_contract$_ICerbyToken_$4377",
+                          "typeIdentifier": "t_contract$_ICerbyToken_$4274",
                           "typeString": "contract ICerbyToken"
                         }
                       },
@@ -3062,8 +3062,8 @@
                       "lValueRequested": false,
                       "memberName": "getUtilsContractAtPos",
                       "nodeType": "MemberAccess",
-                      "referencedDeclaration": 4360,
-                      "src": "1242:42:0",
+                      "referencedDeclaration": 4257,
+                      "src": "1271:42:0",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_external_view$_t_uint256_$returns$_t_address_$",
                         "typeString": "function (uint256) view external returns (address)"
@@ -3077,7 +3077,7 @@
                     "lValueRequested": false,
                     "names": [],
                     "nodeType": "FunctionCall",
-                    "src": "1242:48:0",
+                    "src": "1271:48:0",
                     "tryCall": false,
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
@@ -3087,7 +3087,7 @@
                   "functionReturnParameters": 67,
                   "id": 72,
                   "nodeType": "Return",
-                  "src": "1235:55:0"
+                  "src": "1264:55:0"
                 }
               ]
             },
@@ -3097,7 +3097,7 @@
             "kind": "function",
             "modifiers": [],
             "name": "getUtilsContractAtPos",
-            "nameLocation": "1115:21:0",
+            "nameLocation": "1130:21:0",
             "nodeType": "FunctionDefinition",
             "parameters": {
               "id": 64,
@@ -3108,10 +3108,10 @@
                   "id": 63,
                   "mutability": "mutable",
                   "name": "_pos",
-                  "nameLocation": "1145:4:0",
+                  "nameLocation": "1169:4:0",
                   "nodeType": "VariableDeclaration",
                   "scope": 74,
-                  "src": "1137:12:0",
+                  "src": "1161:12:0",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -3122,7 +3122,7 @@
                     "id": 62,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
-                    "src": "1137:7:0",
+                    "src": "1161:7:0",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -3131,7 +3131,7 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "1136:14:0"
+              "src": "1151:28:0"
             },
             "returnParameters": {
               "id": 67,
@@ -3145,7 +3145,7 @@
                   "nameLocation": "-1:-1:-1",
                   "nodeType": "VariableDeclaration",
                   "scope": 74,
-                  "src": "1212:7:0",
+                  "src": "1241:7:0",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -3156,7 +3156,7 @@
                     "id": 65,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "1212:7:0",
+                    "src": "1241:7:0",
                     "stateMutability": "nonpayable",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
@@ -3166,10 +3166,10 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "1211:9:0"
+              "src": "1240:9:0"
             },
             "scope": 178,
-            "src": "1106:191:0",
+            "src": "1121:205:0",
             "stateMutability": "view",
             "virtual": true,
             "visibility": "public"
@@ -3178,7 +3178,7 @@
             "body": {
               "id": 98,
               "nodeType": "Block",
-              "src": "1340:361:0",
+              "src": "1383:361:0",
               "statements": [
                 {
                   "assignments": [
@@ -3190,14 +3190,14 @@
                       "id": 80,
                       "mutability": "mutable",
                       "name": "iCerbyBotDetection",
-                      "nameLocation": "1369:18:0",
+                      "nameLocation": "1412:18:0",
                       "nodeType": "VariableDeclaration",
                       "scope": 98,
-                      "src": "1350:37:0",
+                      "src": "1393:37:0",
                       "stateVariable": false,
                       "storageLocation": "default",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_contract$_ICerbyBotDetection_$4219",
+                        "typeIdentifier": "t_contract$_ICerbyBotDetection_$4109",
                         "typeString": "contract ICerbyBotDetection"
                       },
                       "typeName": {
@@ -3207,13 +3207,13 @@
                           "id": 78,
                           "name": "ICerbyBotDetection",
                           "nodeType": "IdentifierPath",
-                          "referencedDeclaration": 4219,
-                          "src": "1350:18:0"
+                          "referencedDeclaration": 4109,
+                          "src": "1393:18:0"
                         },
-                        "referencedDeclaration": 4219,
-                        "src": "1350:18:0",
+                        "referencedDeclaration": 4109,
+                        "src": "1393:18:0",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_contract$_ICerbyBotDetection_$4219",
+                          "typeIdentifier": "t_contract$_ICerbyBotDetection_$4109",
                           "typeString": "contract ICerbyBotDetection"
                         }
                       },
@@ -3231,7 +3231,7 @@
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
                             "referencedDeclaration": 6,
-                            "src": "1482:31:0",
+                            "src": "1525:31:0",
                             "typeDescriptions": {
                               "typeIdentifier": "t_uint256",
                               "typeString": "uint256"
@@ -3251,9 +3251,9 @@
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
                             "referencedDeclaration": 12,
-                            "src": "1422:20:0",
+                            "src": "1465:20:0",
                             "typeDescriptions": {
-                              "typeIdentifier": "t_contract$_ICerbyToken_$4377",
+                              "typeIdentifier": "t_contract$_ICerbyToken_$4274",
                               "typeString": "contract ICerbyToken"
                             }
                           },
@@ -3264,8 +3264,8 @@
                           "lValueRequested": false,
                           "memberName": "getUtilsContractAtPos",
                           "nodeType": "MemberAccess",
-                          "referencedDeclaration": 4360,
-                          "src": "1422:42:0",
+                          "referencedDeclaration": 4257,
+                          "src": "1465:42:0",
                           "typeDescriptions": {
                             "typeIdentifier": "t_function_external_view$_t_uint256_$returns$_t_address_$",
                             "typeString": "function (uint256) view external returns (address)"
@@ -3279,7 +3279,7 @@
                         "lValueRequested": false,
                         "names": [],
                         "nodeType": "FunctionCall",
-                        "src": "1422:105:0",
+                        "src": "1465:105:0",
                         "tryCall": false,
                         "typeDescriptions": {
                           "typeIdentifier": "t_address",
@@ -3298,10 +3298,10 @@
                       "name": "ICerbyBotDetection",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 4219,
-                      "src": "1390:18:0",
+                      "referencedDeclaration": 4109,
+                      "src": "1433:18:0",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_type$_t_contract$_ICerbyBotDetection_$4219_$",
+                        "typeIdentifier": "t_type$_t_contract$_ICerbyBotDetection_$4109_$",
                         "typeString": "type(contract ICerbyBotDetection)"
                       }
                     },
@@ -3313,15 +3313,15 @@
                     "lValueRequested": false,
                     "names": [],
                     "nodeType": "FunctionCall",
-                    "src": "1390:147:0",
+                    "src": "1433:147:0",
                     "tryCall": false,
                     "typeDescriptions": {
-                      "typeIdentifier": "t_contract$_ICerbyBotDetection_$4219",
+                      "typeIdentifier": "t_contract$_ICerbyBotDetection_$4109",
                       "typeString": "contract ICerbyBotDetection"
                     }
                   },
                   "nodeType": "VariableDeclarationStatement",
-                  "src": "1350:187:0"
+                  "src": "1393:187:0"
                 },
                 {
                   "condition": {
@@ -3332,7 +3332,7 @@
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
                         "referencedDeclaration": 76,
-                        "src": "1584:5:0",
+                        "src": "1627:5:0",
                         "typeDescriptions": {
                           "typeIdentifier": "t_address",
                           "typeString": "address"
@@ -3352,9 +3352,9 @@
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
                         "referencedDeclaration": 80,
-                        "src": "1552:18:0",
+                        "src": "1595:18:0",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_contract$_ICerbyBotDetection_$4219",
+                          "typeIdentifier": "t_contract$_ICerbyBotDetection_$4109",
                           "typeString": "contract ICerbyBotDetection"
                         }
                       },
@@ -3365,8 +3365,8 @@
                       "lValueRequested": false,
                       "memberName": "isBotAddress",
                       "nodeType": "MemberAccess",
-                      "referencedDeclaration": 4199,
-                      "src": "1552:31:0",
+                      "referencedDeclaration": 4089,
+                      "src": "1595:31:0",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_external_view$_t_address_$returns$_t_bool_$",
                         "typeString": "function (address) view external returns (bool)"
@@ -3380,7 +3380,7 @@
                     "lValueRequested": false,
                     "names": [],
                     "nodeType": "FunctionCall",
-                    "src": "1552:38:0",
+                    "src": "1595:38:0",
                     "tryCall": false,
                     "typeDescriptions": {
                       "typeIdentifier": "t_bool",
@@ -3389,11 +3389,11 @@
                   },
                   "id": 96,
                   "nodeType": "IfStatement",
-                  "src": "1548:135:0",
+                  "src": "1591:135:0",
                   "trueBody": {
                     "id": 95,
                     "nodeType": "Block",
-                    "src": "1592:91:0",
+                    "src": "1635:91:0",
                     "statements": [
                       {
                         "errorCall": {
@@ -3405,7 +3405,7 @@
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
                             "referencedDeclaration": 14,
-                            "src": "1613:57:0",
+                            "src": "1656:57:0",
                             "typeDescriptions": {
                               "typeIdentifier": "t_function_error_pure$__$returns$__$",
                               "typeString": "function () pure"
@@ -3419,7 +3419,7 @@
                           "lValueRequested": false,
                           "names": [],
                           "nodeType": "FunctionCall",
-                          "src": "1613:59:0",
+                          "src": "1656:59:0",
                           "tryCall": false,
                           "typeDescriptions": {
                             "typeIdentifier": "t_tuple$__$",
@@ -3428,7 +3428,7 @@
                         },
                         "id": 94,
                         "nodeType": "RevertStatement",
-                        "src": "1606:66:0"
+                        "src": "1649:66:0"
                       }
                     ]
                   }
@@ -3436,13 +3436,13 @@
                 {
                   "id": 97,
                   "nodeType": "PlaceholderStatement",
-                  "src": "1693:1:0"
+                  "src": "1736:1:0"
                 }
               ]
             },
             "id": 99,
             "name": "checkForBots",
-            "nameLocation": "1312:12:0",
+            "nameLocation": "1341:12:0",
             "nodeType": "ModifierDefinition",
             "parameters": {
               "id": 77,
@@ -3453,10 +3453,10 @@
                   "id": 76,
                   "mutability": "mutable",
                   "name": "_addr",
-                  "nameLocation": "1333:5:0",
+                  "nameLocation": "1371:5:0",
                   "nodeType": "VariableDeclaration",
                   "scope": 99,
-                  "src": "1325:13:0",
+                  "src": "1363:13:0",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -3467,7 +3467,7 @@
                     "id": 75,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "1325:7:0",
+                    "src": "1363:7:0",
                     "stateMutability": "nonpayable",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
@@ -3477,9 +3477,9 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "1324:15:0"
+              "src": "1353:29:0"
             },
-            "src": "1303:398:0",
+            "src": "1332:412:0",
             "virtual": false,
             "visibility": "internal"
           },
@@ -3487,7 +3487,7 @@
             "body": {
               "id": 131,
               "nodeType": "Block",
-              "src": "1804:427:0",
+              "src": "1847:427:0",
               "statements": [
                 {
                   "assignments": [
@@ -3499,14 +3499,14 @@
                       "id": 107,
                       "mutability": "mutable",
                       "name": "iCerbyBotDetection",
-                      "nameLocation": "1833:18:0",
+                      "nameLocation": "1876:18:0",
                       "nodeType": "VariableDeclaration",
                       "scope": 131,
-                      "src": "1814:37:0",
+                      "src": "1857:37:0",
                       "stateVariable": false,
                       "storageLocation": "default",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_contract$_ICerbyBotDetection_$4219",
+                        "typeIdentifier": "t_contract$_ICerbyBotDetection_$4109",
                         "typeString": "contract ICerbyBotDetection"
                       },
                       "typeName": {
@@ -3516,13 +3516,13 @@
                           "id": 105,
                           "name": "ICerbyBotDetection",
                           "nodeType": "IdentifierPath",
-                          "referencedDeclaration": 4219,
-                          "src": "1814:18:0"
+                          "referencedDeclaration": 4109,
+                          "src": "1857:18:0"
                         },
-                        "referencedDeclaration": 4219,
-                        "src": "1814:18:0",
+                        "referencedDeclaration": 4109,
+                        "src": "1857:18:0",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_contract$_ICerbyBotDetection_$4219",
+                          "typeIdentifier": "t_contract$_ICerbyBotDetection_$4109",
                           "typeString": "contract ICerbyBotDetection"
                         }
                       },
@@ -3540,7 +3540,7 @@
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
                             "referencedDeclaration": 6,
-                            "src": "1946:31:0",
+                            "src": "1989:31:0",
                             "typeDescriptions": {
                               "typeIdentifier": "t_uint256",
                               "typeString": "uint256"
@@ -3560,9 +3560,9 @@
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
                             "referencedDeclaration": 12,
-                            "src": "1886:20:0",
+                            "src": "1929:20:0",
                             "typeDescriptions": {
-                              "typeIdentifier": "t_contract$_ICerbyToken_$4377",
+                              "typeIdentifier": "t_contract$_ICerbyToken_$4274",
                               "typeString": "contract ICerbyToken"
                             }
                           },
@@ -3573,8 +3573,8 @@
                           "lValueRequested": false,
                           "memberName": "getUtilsContractAtPos",
                           "nodeType": "MemberAccess",
-                          "referencedDeclaration": 4360,
-                          "src": "1886:42:0",
+                          "referencedDeclaration": 4257,
+                          "src": "1929:42:0",
                           "typeDescriptions": {
                             "typeIdentifier": "t_function_external_view$_t_uint256_$returns$_t_address_$",
                             "typeString": "function (uint256) view external returns (address)"
@@ -3588,7 +3588,7 @@
                         "lValueRequested": false,
                         "names": [],
                         "nodeType": "FunctionCall",
-                        "src": "1886:105:0",
+                        "src": "1929:105:0",
                         "tryCall": false,
                         "typeDescriptions": {
                           "typeIdentifier": "t_address",
@@ -3607,10 +3607,10 @@
                       "name": "ICerbyBotDetection",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 4219,
-                      "src": "1854:18:0",
+                      "referencedDeclaration": 4109,
+                      "src": "1897:18:0",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_type$_t_contract$_ICerbyBotDetection_$4219_$",
+                        "typeIdentifier": "t_type$_t_contract$_ICerbyBotDetection_$4109_$",
                         "typeString": "type(contract ICerbyBotDetection)"
                       }
                     },
@@ -3622,15 +3622,15 @@
                     "lValueRequested": false,
                     "names": [],
                     "nodeType": "FunctionCall",
-                    "src": "1854:147:0",
+                    "src": "1897:147:0",
                     "tryCall": false,
                     "typeDescriptions": {
-                      "typeIdentifier": "t_contract$_ICerbyBotDetection_$4219",
+                      "typeIdentifier": "t_contract$_ICerbyBotDetection_$4109",
                       "typeString": "contract ICerbyBotDetection"
                     }
                   },
                   "nodeType": "VariableDeclarationStatement",
-                  "src": "1814:187:0"
+                  "src": "1857:187:0"
                 },
                 {
                   "condition": {
@@ -3641,7 +3641,7 @@
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
                         "referencedDeclaration": 101,
-                        "src": "2056:10:0",
+                        "src": "2099:10:0",
                         "typeDescriptions": {
                           "typeIdentifier": "t_address",
                           "typeString": "address"
@@ -3653,7 +3653,7 @@
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
                         "referencedDeclaration": 103,
-                        "src": "2068:5:0",
+                        "src": "2111:5:0",
                         "typeDescriptions": {
                           "typeIdentifier": "t_address",
                           "typeString": "address"
@@ -3677,9 +3677,9 @@
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
                         "referencedDeclaration": 107,
-                        "src": "2016:18:0",
+                        "src": "2059:18:0",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_contract$_ICerbyBotDetection_$4219",
+                          "typeIdentifier": "t_contract$_ICerbyBotDetection_$4109",
                           "typeString": "contract ICerbyBotDetection"
                         }
                       },
@@ -3690,8 +3690,8 @@
                       "lValueRequested": false,
                       "memberName": "detectBotTransaction",
                       "nodeType": "MemberAccess",
-                      "referencedDeclaration": 4211,
-                      "src": "2016:39:0",
+                      "referencedDeclaration": 4101,
+                      "src": "2059:39:0",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_external_nonpayable$_t_address_$_t_address_$returns$_t_bool_$",
                         "typeString": "function (address,address) external returns (bool)"
@@ -3705,7 +3705,7 @@
                     "lValueRequested": false,
                     "names": [],
                     "nodeType": "FunctionCall",
-                    "src": "2016:58:0",
+                    "src": "2059:58:0",
                     "tryCall": false,
                     "typeDescriptions": {
                       "typeIdentifier": "t_bool",
@@ -3714,11 +3714,11 @@
                   },
                   "id": 124,
                   "nodeType": "IfStatement",
-                  "src": "2012:155:0",
+                  "src": "2055:155:0",
                   "trueBody": {
                     "id": 123,
                     "nodeType": "Block",
-                    "src": "2076:91:0",
+                    "src": "2119:91:0",
                     "statements": [
                       {
                         "errorCall": {
@@ -3730,7 +3730,7 @@
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
                             "referencedDeclaration": 14,
-                            "src": "2097:57:0",
+                            "src": "2140:57:0",
                             "typeDescriptions": {
                               "typeIdentifier": "t_function_error_pure$__$returns$__$",
                               "typeString": "function () pure"
@@ -3744,7 +3744,7 @@
                           "lValueRequested": false,
                           "names": [],
                           "nodeType": "FunctionCall",
-                          "src": "2097:59:0",
+                          "src": "2140:59:0",
                           "tryCall": false,
                           "typeDescriptions": {
                             "typeIdentifier": "t_tuple$__$",
@@ -3753,7 +3753,7 @@
                         },
                         "id": 122,
                         "nodeType": "RevertStatement",
-                        "src": "2090:66:0"
+                        "src": "2133:66:0"
                       }
                     ]
                   }
@@ -3769,9 +3769,9 @@
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
                         "referencedDeclaration": 107,
-                        "src": "2177:18:0",
+                        "src": "2220:18:0",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_contract$_ICerbyBotDetection_$4219",
+                          "typeIdentifier": "t_contract$_ICerbyBotDetection_$4109",
                           "typeString": "contract ICerbyBotDetection"
                         }
                       },
@@ -3782,8 +3782,8 @@
                       "lValueRequested": false,
                       "memberName": "executeCronJobs",
                       "nodeType": "MemberAccess",
-                      "referencedDeclaration": 4202,
-                      "src": "2177:34:0",
+                      "referencedDeclaration": 4092,
+                      "src": "2220:34:0",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_external_nonpayable$__$returns$__$",
                         "typeString": "function () external"
@@ -3797,7 +3797,7 @@
                     "lValueRequested": false,
                     "names": [],
                     "nodeType": "FunctionCall",
-                    "src": "2177:36:0",
+                    "src": "2220:36:0",
                     "tryCall": false,
                     "typeDescriptions": {
                       "typeIdentifier": "t_tuple$__$",
@@ -3806,18 +3806,18 @@
                   },
                   "id": 129,
                   "nodeType": "ExpressionStatement",
-                  "src": "2177:36:0"
+                  "src": "2220:36:0"
                 },
                 {
                   "id": 130,
                   "nodeType": "PlaceholderStatement",
-                  "src": "2223:1:0"
+                  "src": "2266:1:0"
                 }
               ]
             },
             "id": 132,
             "name": "checkTransactionAndExecuteCron",
-            "nameLocation": "1716:30:0",
+            "nameLocation": "1759:30:0",
             "nodeType": "ModifierDefinition",
             "parameters": {
               "id": 104,
@@ -3828,10 +3828,10 @@
                   "id": 101,
                   "mutability": "mutable",
                   "name": "_tokenAddr",
-                  "nameLocation": "1764:10:0",
+                  "nameLocation": "1807:10:0",
                   "nodeType": "VariableDeclaration",
                   "scope": 132,
-                  "src": "1756:18:0",
+                  "src": "1799:18:0",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -3842,7 +3842,7 @@
                     "id": 100,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "1756:7:0",
+                    "src": "1799:7:0",
                     "stateMutability": "nonpayable",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
@@ -3856,10 +3856,10 @@
                   "id": 103,
                   "mutability": "mutable",
                   "name": "_addr",
-                  "nameLocation": "1792:5:0",
+                  "nameLocation": "1835:5:0",
                   "nodeType": "VariableDeclaration",
                   "scope": 132,
-                  "src": "1784:13:0",
+                  "src": "1827:13:0",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -3870,7 +3870,7 @@
                     "id": 102,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "1784:7:0",
+                    "src": "1827:7:0",
                     "stateMutability": "nonpayable",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
@@ -3880,9 +3880,9 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "1746:57:0"
+              "src": "1789:57:0"
             },
-            "src": "1707:524:0",
+            "src": "1750:524:0",
             "virtual": false,
             "visibility": "internal"
           },
@@ -3890,7 +3890,7 @@
             "body": {
               "id": 176,
               "nodeType": "Block",
-              "src": "2365:504:0",
+              "src": "2408:504:0",
               "statements": [
                 {
                   "assignments": [
@@ -3902,14 +3902,14 @@
                       "id": 143,
                       "mutability": "mutable",
                       "name": "iCerbyBotDetection",
-                      "nameLocation": "2394:18:0",
+                      "nameLocation": "2437:18:0",
                       "nodeType": "VariableDeclaration",
                       "scope": 176,
-                      "src": "2375:37:0",
+                      "src": "2418:37:0",
                       "stateVariable": false,
                       "storageLocation": "default",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_contract$_ICerbyBotDetection_$4219",
+                        "typeIdentifier": "t_contract$_ICerbyBotDetection_$4109",
                         "typeString": "contract ICerbyBotDetection"
                       },
                       "typeName": {
@@ -3919,13 +3919,13 @@
                           "id": 141,
                           "name": "ICerbyBotDetection",
                           "nodeType": "IdentifierPath",
-                          "referencedDeclaration": 4219,
-                          "src": "2375:18:0"
+                          "referencedDeclaration": 4109,
+                          "src": "2418:18:0"
                         },
-                        "referencedDeclaration": 4219,
-                        "src": "2375:18:0",
+                        "referencedDeclaration": 4109,
+                        "src": "2418:18:0",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_contract$_ICerbyBotDetection_$4219",
+                          "typeIdentifier": "t_contract$_ICerbyBotDetection_$4109",
                           "typeString": "contract ICerbyBotDetection"
                         }
                       },
@@ -3943,7 +3943,7 @@
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
                             "referencedDeclaration": 6,
-                            "src": "2507:31:0",
+                            "src": "2550:31:0",
                             "typeDescriptions": {
                               "typeIdentifier": "t_uint256",
                               "typeString": "uint256"
@@ -3963,9 +3963,9 @@
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
                             "referencedDeclaration": 12,
-                            "src": "2447:20:0",
+                            "src": "2490:20:0",
                             "typeDescriptions": {
-                              "typeIdentifier": "t_contract$_ICerbyToken_$4377",
+                              "typeIdentifier": "t_contract$_ICerbyToken_$4274",
                               "typeString": "contract ICerbyToken"
                             }
                           },
@@ -3976,8 +3976,8 @@
                           "lValueRequested": false,
                           "memberName": "getUtilsContractAtPos",
                           "nodeType": "MemberAccess",
-                          "referencedDeclaration": 4360,
-                          "src": "2447:42:0",
+                          "referencedDeclaration": 4257,
+                          "src": "2490:42:0",
                           "typeDescriptions": {
                             "typeIdentifier": "t_function_external_view$_t_uint256_$returns$_t_address_$",
                             "typeString": "function (uint256) view external returns (address)"
@@ -3991,7 +3991,7 @@
                         "lValueRequested": false,
                         "names": [],
                         "nodeType": "FunctionCall",
-                        "src": "2447:105:0",
+                        "src": "2490:105:0",
                         "tryCall": false,
                         "typeDescriptions": {
                           "typeIdentifier": "t_address",
@@ -4010,10 +4010,10 @@
                       "name": "ICerbyBotDetection",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 4219,
-                      "src": "2415:18:0",
+                      "referencedDeclaration": 4109,
+                      "src": "2458:18:0",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_type$_t_contract$_ICerbyBotDetection_$4219_$",
+                        "typeIdentifier": "t_type$_t_contract$_ICerbyBotDetection_$4109_$",
                         "typeString": "type(contract ICerbyBotDetection)"
                       }
                     },
@@ -4025,15 +4025,15 @@
                     "lValueRequested": false,
                     "names": [],
                     "nodeType": "FunctionCall",
-                    "src": "2415:147:0",
+                    "src": "2458:147:0",
                     "tryCall": false,
                     "typeDescriptions": {
-                      "typeIdentifier": "t_contract$_ICerbyBotDetection_$4219",
+                      "typeIdentifier": "t_contract$_ICerbyBotDetection_$4109",
                       "typeString": "contract ICerbyBotDetection"
                     }
                   },
                   "nodeType": "VariableDeclarationStatement",
-                  "src": "2375:187:0"
+                  "src": "2418:187:0"
                 },
                 {
                   "condition": {
@@ -4044,7 +4044,7 @@
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
                         "referencedDeclaration": 134,
-                        "src": "2617:6:0",
+                        "src": "2660:6:0",
                         "typeDescriptions": {
                           "typeIdentifier": "t_address",
                           "typeString": "address"
@@ -4056,7 +4056,7 @@
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
                         "referencedDeclaration": 136,
-                        "src": "2625:5:0",
+                        "src": "2668:5:0",
                         "typeDescriptions": {
                           "typeIdentifier": "t_address",
                           "typeString": "address"
@@ -4080,9 +4080,9 @@
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
                         "referencedDeclaration": 143,
-                        "src": "2577:18:0",
+                        "src": "2620:18:0",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_contract$_ICerbyBotDetection_$4219",
+                          "typeIdentifier": "t_contract$_ICerbyBotDetection_$4109",
                           "typeString": "contract ICerbyBotDetection"
                         }
                       },
@@ -4093,8 +4093,8 @@
                       "lValueRequested": false,
                       "memberName": "detectBotTransaction",
                       "nodeType": "MemberAccess",
-                      "referencedDeclaration": 4211,
-                      "src": "2577:39:0",
+                      "referencedDeclaration": 4101,
+                      "src": "2620:39:0",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_external_nonpayable$_t_address_$_t_address_$returns$_t_bool_$",
                         "typeString": "function (address,address) external returns (bool)"
@@ -4108,7 +4108,7 @@
                     "lValueRequested": false,
                     "names": [],
                     "nodeType": "FunctionCall",
-                    "src": "2577:54:0",
+                    "src": "2620:54:0",
                     "tryCall": false,
                     "typeDescriptions": {
                       "typeIdentifier": "t_bool",
@@ -4117,11 +4117,11 @@
                   },
                   "id": 160,
                   "nodeType": "IfStatement",
-                  "src": "2573:151:0",
+                  "src": "2616:151:0",
                   "trueBody": {
                     "id": 159,
                     "nodeType": "Block",
-                    "src": "2633:91:0",
+                    "src": "2676:91:0",
                     "statements": [
                       {
                         "errorCall": {
@@ -4133,7 +4133,7 @@
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
                             "referencedDeclaration": 14,
-                            "src": "2654:57:0",
+                            "src": "2697:57:0",
                             "typeDescriptions": {
                               "typeIdentifier": "t_function_error_pure$__$returns$__$",
                               "typeString": "function () pure"
@@ -4147,7 +4147,7 @@
                           "lValueRequested": false,
                           "names": [],
                           "nodeType": "FunctionCall",
-                          "src": "2654:59:0",
+                          "src": "2697:59:0",
                           "tryCall": false,
                           "typeDescriptions": {
                             "typeIdentifier": "t_tuple$__$",
@@ -4156,7 +4156,7 @@
                         },
                         "id": 158,
                         "nodeType": "RevertStatement",
-                        "src": "2647:66:0"
+                        "src": "2690:66:0"
                       }
                     ]
                   }
@@ -4178,7 +4178,7 @@
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
                       "referencedDeclaration": 138,
-                      "src": "2738:3:0",
+                      "src": "2781:3:0",
                       "typeDescriptions": {
                         "typeIdentifier": "t_address",
                         "typeString": "address"
@@ -4194,7 +4194,7 @@
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
                           "referencedDeclaration": 4294967268,
-                          "src": "2753:4:0",
+                          "src": "2796:4:0",
                           "typeDescriptions": {
                             "typeIdentifier": "t_contract$_CerbyCronJobsExecution_$178",
                             "typeString": "contract CerbyCronJobsExecution"
@@ -4214,7 +4214,7 @@
                         "isPure": true,
                         "lValueRequested": false,
                         "nodeType": "ElementaryTypeNameExpression",
-                        "src": "2745:7:0",
+                        "src": "2788:7:0",
                         "typeDescriptions": {
                           "typeIdentifier": "t_type$_t_address_$",
                           "typeString": "type(address)"
@@ -4223,7 +4223,7 @@
                           "id": 162,
                           "name": "address",
                           "nodeType": "ElementaryTypeName",
-                          "src": "2745:7:0",
+                          "src": "2788:7:0",
                           "typeDescriptions": {}
                         }
                       },
@@ -4235,14 +4235,14 @@
                       "lValueRequested": false,
                       "names": [],
                       "nodeType": "FunctionCall",
-                      "src": "2745:13:0",
+                      "src": "2788:13:0",
                       "tryCall": false,
                       "typeDescriptions": {
                         "typeIdentifier": "t_address",
                         "typeString": "address"
                       }
                     },
-                    "src": "2738:20:0",
+                    "src": "2781:20:0",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bool",
                       "typeString": "bool"
@@ -4250,12 +4250,12 @@
                   },
                   "id": 168,
                   "nodeType": "IfStatement",
-                  "src": "2734:33:0",
+                  "src": "2777:33:0",
                   "trueBody": {
                     "functionReturnParameters": 140,
                     "id": 167,
                     "nodeType": "Return",
-                    "src": "2760:7:0"
+                    "src": "2803:7:0"
                   }
                 },
                 {
@@ -4267,7 +4267,7 @@
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
                         "referencedDeclaration": 134,
-                        "src": "2829:6:0",
+                        "src": "2872:6:0",
                         "typeDescriptions": {
                           "typeIdentifier": "t_address",
                           "typeString": "address"
@@ -4279,7 +4279,7 @@
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
                         "referencedDeclaration": 138,
-                        "src": "2849:3:0",
+                        "src": "2892:3:0",
                         "typeDescriptions": {
                           "typeIdentifier": "t_address",
                           "typeString": "address"
@@ -4303,9 +4303,9 @@
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
                         "referencedDeclaration": 143,
-                        "src": "2777:18:0",
+                        "src": "2820:18:0",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_contract$_ICerbyBotDetection_$4219",
+                          "typeIdentifier": "t_contract$_ICerbyBotDetection_$4109",
                           "typeString": "contract ICerbyBotDetection"
                         }
                       },
@@ -4316,8 +4316,8 @@
                       "lValueRequested": false,
                       "memberName": "registerTransaction",
                       "nodeType": "MemberAccess",
-                      "referencedDeclaration": 4218,
-                      "src": "2777:38:0",
+                      "referencedDeclaration": 4108,
+                      "src": "2820:38:0",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_external_nonpayable$_t_address_$_t_address_$returns$__$",
                         "typeString": "function (address,address) external"
@@ -4331,7 +4331,7 @@
                     "lValueRequested": false,
                     "names": [],
                     "nodeType": "FunctionCall",
-                    "src": "2777:85:0",
+                    "src": "2820:85:0",
                     "tryCall": false,
                     "typeDescriptions": {
                       "typeIdentifier": "t_tuple$__$",
@@ -4340,7 +4340,7 @@
                   },
                   "id": 175,
                   "nodeType": "ExpressionStatement",
-                  "src": "2777:85:0"
+                  "src": "2820:85:0"
                 }
               ]
             },
@@ -4349,7 +4349,7 @@
             "kind": "function",
             "modifiers": [],
             "name": "checkTransactionForBots",
-            "nameLocation": "2246:23:0",
+            "nameLocation": "2289:23:0",
             "nodeType": "FunctionDefinition",
             "parameters": {
               "id": 139,
@@ -4360,10 +4360,10 @@
                   "id": 134,
                   "mutability": "mutable",
                   "name": "_token",
-                  "nameLocation": "2287:6:0",
+                  "nameLocation": "2330:6:0",
                   "nodeType": "VariableDeclaration",
                   "scope": 177,
-                  "src": "2279:14:0",
+                  "src": "2322:14:0",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -4374,7 +4374,7 @@
                     "id": 133,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "2279:7:0",
+                    "src": "2322:7:0",
                     "stateMutability": "nonpayable",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
@@ -4388,10 +4388,10 @@
                   "id": 136,
                   "mutability": "mutable",
                   "name": "_from",
-                  "nameLocation": "2311:5:0",
+                  "nameLocation": "2354:5:0",
                   "nodeType": "VariableDeclaration",
                   "scope": 177,
-                  "src": "2303:13:0",
+                  "src": "2346:13:0",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -4402,7 +4402,7 @@
                     "id": 135,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "2303:7:0",
+                    "src": "2346:7:0",
                     "stateMutability": "nonpayable",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
@@ -4416,10 +4416,10 @@
                   "id": 138,
                   "mutability": "mutable",
                   "name": "_to",
-                  "nameLocation": "2334:3:0",
+                  "nameLocation": "2377:3:0",
                   "nodeType": "VariableDeclaration",
                   "scope": 177,
-                  "src": "2326:11:0",
+                  "src": "2369:11:0",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -4430,7 +4430,7 @@
                     "id": 137,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "2326:7:0",
+                    "src": "2369:7:0",
                     "stateMutability": "nonpayable",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
@@ -4440,37 +4440,37 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "2269:74:0"
+              "src": "2312:74:0"
             },
             "returnParameters": {
               "id": 140,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "2365:0:0"
+              "src": "2408:0:0"
             },
             "scope": 178,
-            "src": "2237:632:0",
+            "src": "2280:632:0",
             "stateMutability": "nonpayable",
             "virtual": false,
             "visibility": "internal"
           }
         ],
         "scope": 179,
-        "src": "150:2721:0",
+        "src": "150:2764:0",
         "usedErrors": [
           14
         ]
       }
     ],
-    "src": "38:2834:0"
+    "src": "38:2877:0"
   },
   "compiler": {
     "name": "solc",
     "version": "0.8.11+commit.d7f03943.Emscripten.clang"
   },
   "networks": {},
-  "schemaVersion": "3.3.4",
-  "updatedAt": "2022-02-05T13:41:41.124Z",
+  "schemaVersion": "3.4.4",
+  "updatedAt": "2022-02-16T13:18:53.037Z",
   "devdoc": {
     "kind": "dev",
     "methods": {},

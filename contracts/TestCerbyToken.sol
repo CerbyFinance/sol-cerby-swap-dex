@@ -17,18 +17,6 @@ contract TestCerbyToken is ERC20 {
         _mint(msg.sender, 1e18 * 1e9);
     }
 
-    function transferFrom(
-        address sender,
-        address recipient,
-        uint256 amount
-    ) public virtual override returns (bool) {
-        /*require(
-            allowance[msg.sender] > amount,
-            "check this out"
-        );*/
-        _transfer(sender, recipient, amount);
-        return true;
-    }
 
     function mintByBridge(address to, uint256 amount) public {
         _mint(to, amount);

@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 // OpenZeppelin Contracts v4.4.1 (token/ERC1155/ERC1155.sol)
 
-pragma solidity ^0.8.11;
+pragma solidity ^0.8.12;
 
 import "./IERC1155.sol";
 import "./IERC1155Receiver.sol";
@@ -135,11 +135,10 @@ abstract contract ERC1155 {
             revert ERC1155_InsufficientBalanceForTransfer();
         }
 
-        contractTotalSupply[_id] += _amount; // will overflow (revert) earlier than balances[_id][_to]
+        balances[_id][_to] += _amount;
 
         unchecked {
             balances[_id][_from] = fromBalance - _amount;
-            balances[_id][_to] += _amount;
         }
 
         emit TransferSingle(

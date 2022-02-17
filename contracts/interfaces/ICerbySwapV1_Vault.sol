@@ -1,13 +1,11 @@
 // SPDX-License-Identifier: MIT
 
-pragma solidity ^0.8.11;
+pragma solidity ^0.8.12;
 
-interface ICerbySwapV1_VaultImplementation {
+interface ICerbySwapV1_Vault {
 
     function initialize(
-        address _token,
-        address _cerUsdToken, // TODO: remove cerUsd update from here on production
-        bool isNativeToken
+        address _token
     )
         external;
 
@@ -26,6 +24,13 @@ interface ICerbySwapV1_VaultImplementation {
         returns (bool success);
 
     function withdrawEth(
+        address _to,
+        uint256 _value
+    )
+        external;
+
+    function withdrawTokens(
+        address _token,
         address _to,
         uint256 _value
     )

@@ -20,14 +20,14 @@
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">65.22% </span>
+        <span class="strong">100% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>15/23</span>
+        <span class='fraction'>11/11</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">10% </span>
+        <span class="strong">100% </span>
         <span class="quiet">Branches</span>
-        <span class='fraction'>1/10</span>
+        <span class='fraction'>0/0</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">100% </span>
@@ -35,13 +35,13 @@
         <span class='fraction'>1/1</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">78.95% </span>
+        <span class="strong">100% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>15/19</span>
+        <span class='fraction'>11/11</span>
       </div>
     </div>
   </div>
-  <div class='status-line medium'></div>
+  <div class='status-line high'></div>
 <pre><table class="coverage">
 <tr><td class="line-count quiet">1
 2
@@ -95,32 +95,7 @@
 50
 51
 52
-53
-54
-55
-56
-57
-58
-59
-60
-61
-62
-63
-64
-65
-66
-67
-68
-69
-70
-71
-72
-73
-74
-75
-76
-77</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+53</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -166,29 +141,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3×</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3×</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3×</span>
-<span class="cline-any cline-yes">3×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -197,11 +149,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">// SPDX-License-Identifier: BUSL-1.1
 &nbsp;
-pragma solidity ^0.8.11;
+pragma solidity ^0.8.12;
 &nbsp;
 import "./CerbySwapV1_AdminFunctions.sol";
 import "./CerbySwapV1_SwapFunctions.sol";
-import "./CerbySwapV1_VaultImplementation.sol";
 &nbsp;
 contract CerbySwapV1 is CerbySwapV1_AdminFunctions {
 &nbsp;
@@ -244,29 +195,6 @@ contract CerbySwapV1 is CerbySwapV1_AdminFunctions {
                 creditCerUsd: 0
             })
         );
-&nbsp;
-        <span class="missing-if-branch" title="else path not taken" >E</span>if (block.chainid == 1) {
-            // Ethereum
-            nativeToken = 0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2;
-        } else <span class="cstat-no" title="statement not covered" >if (block.chainid == 56) {</span>
-            // BSC
-<span class="cstat-no" title="statement not covered" >            nativeToken = 0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c</span>;
-        } else <span class="cstat-no" title="statement not covered" >if (block.chainid == 137) {</span>
-            // Polygon
-<span class="cstat-no" title="statement not covered" >            nativeToken = 0x0d500B1d8E8eF31E21C99d1Db9A6444d3ADf1270</span>;
-        } else <span class="cstat-no" title="statement not covered" >if (block.chainid == 43114) {</span>
-            // Avalanche
-<span class="cstat-no" title="statement not covered" >            nativeToken = 0xB31f66AA3C1e785363F0875A1B74E27b85FD66c7</span>;
-        } else <span class="cstat-no" title="statement not covered" >if (block.chainid == 250) {</span>
-            // Fantom
-<span class="cstat-no" title="statement not covered" >            nativeToken = 0x21be370D5312f44cB42ce377BC9b8a0cEF1A4C83</span>;
-        }
-&nbsp;
-        // testnet native token
-        nativeToken = 0x14769F96e57B80c66837701DE0B43686Fb4632De; // TODO: update
-        vaultImplementation = address(
-            new CerbySwapV1_VaultImplementation()
-        );
     }
 &nbsp;
     receive() external payable {}
@@ -277,7 +205,7 @@ contract CerbySwapV1 is CerbySwapV1_AdminFunctions {
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Wed Feb 16 2022 14:48:18 GMT+0700 (Indochina Time)
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Thu Feb 17 2022 14:26:55 GMT+0700 (Indochina Time)
 </div>
 </div>
 <script src="../prettify.js"></script>

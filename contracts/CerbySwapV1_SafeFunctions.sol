@@ -1,9 +1,9 @@
 // SPDX-License-Identifier: BUSL-1.1
 
-pragma solidity ^0.8.11;
+pragma solidity ^0.8.12;
 
 import "./interfaces/IBasicERC20.sol";
-import "./interfaces/ICerbySwapV1_VaultImplementation.sol";
+import "./interfaces/ICerbySwapV1_Vault.sol";
 import "./CerbySwapV1_MinimalProxy.sol";
 import "./CerbySwapV1_EventsAndErrors.sol";
 
@@ -18,13 +18,13 @@ abstract contract CerbySwapV1_SafeFunctions is
         view
         returns (PoolBalances memory)
     {
-        address vault = getVaultCloneAddressByToken(
-            _token
-        );
+        address vault = cachedTokenValues[_token].vaultAddress == address(0)
+            ? _generateVaultAddressByToken(_token)
+            : cachedTokenValues[_token].vaultAddress;
 
         return PoolBalances(
             _getTokenBalance(_token, vault),
-            _getTokenBalance(cerUsdToken, vault)
+            _getTokenBalance(CER_USD_TOKEN, vault)
         );
     }
 
@@ -36,7 +36,7 @@ abstract contract CerbySwapV1_SafeFunctions is
         view
         returns (uint256)
     {
-        return _token == nativeToken
+        return _token == NATIVE_TOKEN
             ? _vault.balance
             : IBasicERC20(_token).balanceOf(_vault);
     }
@@ -49,38 +49,21 @@ abstract contract CerbySwapV1_SafeFunctions is
     )
         internal
     {
-        if (_from == _to) {
-            revert("equal");
-        }
-
-        if (_amountTokens <= 1) { // Q3: || _from == _to this can be removed
-            // revert("F");
-            return; // Q3: should this revert somehow or remove whenever _safeTransferFromHelper is used?
-            // since same would happen anyway later on could revert much earlier (see other remarks)
-        }
-
-        if (_token != nativeToken) {
-            // _safeCoreTransferFrom does not require return value
-            _safeCoreTransferFrom(
-                _token,
-                _from,
-                _to,
-                _amountTokens
-            );
-            return;
-        }
-
-        // native tokens sender --> vault
         if (_from == msg.sender) {
+            if (_token != NATIVE_TOKEN) {
+                // transferring tokens from user to vault
+                _safeCoreTransferFrom(
+                    _token,
+                    _from,
+                    _to,
+                    _amountTokens
+                );
 
-            // sender must sent some native tokens
-            uint256 nativeBalance = address(this).balance;
-
-            // this can be removed -> double check -> already handled in _safeCoreTransferNative -> you will get "x2"
-            if (nativeBalance < _amountTokens) { // Q3: can it be equal?? redundant
-                revert("asd"); // Q3: can it be equal ?? is it needed?? would revert anyway
-                revert CerbySwapV1_MsgValueProvidedMustBeLargerThanAmountTokensIn();
+                return; // early exit for non-native tokens as they are having larger volume
             }
+
+            // transferring native token from user to vault
+            uint256 nativeBalance = address(this).balance;
 
             // refunding excess of native tokens
             // to make sure nativeBalance == amountTokensIn
@@ -95,12 +78,21 @@ abstract contract CerbySwapV1_SafeFunctions is
                 _to,
                 _amountTokens
             );
-
             return;
         }
 
-        // native tokens vault --> _to
-        ICerbySwapV1_VaultImplementation(_from).withdrawEth(
+        // transferring tokens from vault to user
+        if (_token != NATIVE_TOKEN) {
+            ICerbySwapV1_Vault(_from).withdrawTokens(
+                _token,
+                _to,
+                _amountTokens
+            );
+            return; // early exit for non-native tokens as they are having larger volume
+        }
+
+        // transferring native token from vault to user
+        ICerbySwapV1_Vault(_from).withdrawEth(
             _to,
             _amountTokens
         );
@@ -142,7 +134,7 @@ abstract contract CerbySwapV1_SafeFunctions is
 
         // we allow only successfull calls
         if (!success) {
-            revert("x2"); // Q5: double check in _safeTransferFromHelper (no need to check there)
+            revert("x2");
             revert CerbySwapV1_SafeTransferNativeFailed();
         }
     }

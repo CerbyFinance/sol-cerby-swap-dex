@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: BUSL-1.1
 
-pragma solidity ^0.8.11;
+pragma solidity ^0.8.12;
 
 import "../openzeppelin/access/Ownable.sol";
 import "./CerbySwapV1_SwapFunctions.sol";
@@ -9,63 +9,6 @@ abstract contract CerbySwapV1_AdminFunctions is
     CerbySwapV1_SwapFunctions,
     Ownable
 {
-    // TODO: remove on production
-    function testSetupTokens( // Q3: is it used anywhere?
-        address,
-        address _testCerbyToken,
-        address _cerUsdToken,
-        address _testUsdcToken,
-        address
-    )
-        external
-    {
-        //testCerbyBotDetectionContract = _testCerbyBotDetectionContract;
-        testCerbyToken = _testCerbyToken;
-        cerUsdToken = _cerUsdToken;
-        testUsdcToken = _testUsdcToken;
-
-        testInit();
-    }
-
-    // TODO: remove on production
-    function testInit() // Q3: is it used anywhere?
-        public
-    {
-        // TODO: remove on production
-        _createPool(
-            testCerbyToken,
-            1e18 * 1e6,
-            1e18 * 5e5,
-            MAX_CER_USD_CREDIT,
-            msg.sender
-        );
-
-        // TODO: remove on production
-        _createPool(
-            testUsdcToken,
-            1e18 * 7e5,
-            1e18 * 7e5,
-            MAX_CER_USD_CREDIT,
-            msg.sender
-        );
-    }
-
-    // TODO: remove on production
-    function adminInitialize()
-        external
-        payable
-        onlyOwner // TODO: enable on production
-    {
-        // TODO: remove on production
-        _createPool(
-            nativeToken,
-            1e15,
-            1e18 * 1e6,
-            MAX_CER_USD_CREDIT,
-            msg.sender
-        );
-    }
-
     function adminSetUrlPrefix(
         string calldata _newUrlPrefix
     )
@@ -153,7 +96,7 @@ abstract contract CerbySwapV1_AdminFunctions is
         );
 
         // getting pool storage link (saves gas compared to memory)
-        Pool storage pool = pools[tokenToPoolId[_token]];
+        Pool storage pool = pools[cachedTokenValues[_token].poolId];
 
         // changing credit for user-created pool
         pool.creditCerUsd = uint120(

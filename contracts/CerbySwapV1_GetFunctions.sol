@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: BUSL-1.1
 
-pragma solidity ^0.8.11;
+pragma solidity ^0.8.12;
 
 import "./CerbySwapV1_Modifiers.sol";
 import "./CerbySwapV1_SafeFunctions.sol";
@@ -16,7 +16,7 @@ abstract contract CerbySwapV1_GetFunctions is
         view
         returns (uint256)
     {
-        return tokenToPoolId[_token];
+        return cachedTokenValues[_token].poolId;
     }
 
     function getSettings()
@@ -37,7 +37,7 @@ abstract contract CerbySwapV1_GetFunctions is
         Pool[] memory outputPools = new Pool[](_tokens.length);
         for (uint256 i; i < _tokens.length; i++) {
             address token = _tokens[i];
-            outputPools[i] = pools[tokenToPoolId[token]];
+            outputPools[i] = pools[cachedTokenValues[token].poolId];
         }
         return outputPools;
     }
@@ -65,7 +65,7 @@ abstract contract CerbySwapV1_GetFunctions is
         returns (uint256 fee)
     {
         // getting pool storage link (saves gas compared to memory)
-        Pool storage pool = pools[tokenToPoolId[_token]];
+        Pool storage pool = pools[cachedTokenValues[_token].poolId];
 
         PoolBalances memory poolBalances = _getPoolBalances(
             _token
@@ -77,7 +77,7 @@ abstract contract CerbySwapV1_GetFunctions is
         );
     }
 
-    function getOutputExactTokensForTokens( // Q3: order and unnecessary vals?
+    function getOutputExactTokensForTokens(
         address _tokenIn,
         address _tokenOut,
         uint256 _amountTokensIn
@@ -90,7 +90,7 @@ abstract contract CerbySwapV1_GetFunctions is
         // _tokenIn != _tokenOut
 
         // direction XXX --> cerUSD
-        if (_tokenOut == cerUsdToken) {
+        if (_tokenOut == CER_USD_TOKEN) {
             // getting amountTokensOut
             return _getOutputExactTokensForCerUsd(
                 _getPoolBalances(_tokenIn),
@@ -100,7 +100,7 @@ abstract contract CerbySwapV1_GetFunctions is
         }
 
         // direction cerUSD --> YYY
-        if (_tokenIn == cerUsdToken) {
+        if (_tokenIn == CER_USD_TOKEN) {
             // getting amountTokensOut
             return _getOutputExactCerUsdForTokens(
                 _getPoolBalances(_tokenOut),
@@ -108,7 +108,7 @@ abstract contract CerbySwapV1_GetFunctions is
             );
         }
 
-        // tokenIn != cerUsdToken && tokenIn != cerUsdToken clause
+        // tokenIn != CER_USD_TOKEN && tokenIn != CER_USD_TOKEN clause
         // direction XXX --> cerUSD --> YYY (or XXX --> YYY)
         // getting amountTokensOut
         uint256 amountCerUsdOut = _getOutputExactTokensForCerUsd(
@@ -136,7 +136,7 @@ abstract contract CerbySwapV1_GetFunctions is
         // _tokenIn != _tokenOut
 
         // direction XXX --> cerUSD
-        if (_tokenOut == cerUsdToken) {
+        if (_tokenOut == CER_USD_TOKEN) {
             // getting amountTokensOut
             return _getInputTokensForExactCerUsd(
                 _getPoolBalances(_tokenIn),
@@ -146,7 +146,7 @@ abstract contract CerbySwapV1_GetFunctions is
         }
 
         // direction cerUSD --> YYY
-        if (_tokenIn == cerUsdToken) {
+        if (_tokenIn == CER_USD_TOKEN) {
             // getting amountTokensOut
             return _getInputCerUsdForExactTokens(
                 _getPoolBalances(_tokenOut),
@@ -154,7 +154,7 @@ abstract contract CerbySwapV1_GetFunctions is
             );
         }
 
-        // tokenIn != cerUsdToken && tokenIn != cerUsdToken clause
+        // tokenIn != CER_USD_TOKEN && tokenIn != CER_USD_TOKEN clause
         // direction XXX --> cerUSD --> YYY (or XXX --> YYY)
         // getting amountTokensOut
         uint256 amountCerUsdOut = _getInputCerUsdForExactTokens(
@@ -238,7 +238,7 @@ abstract contract CerbySwapV1_GetFunctions is
         returns (uint256)
     {
         // getting pool storage link (saves gas compared to memory)
-        Pool storage pool = pools[tokenToPoolId[_token]];
+        Pool storage pool = pools[cachedTokenValues[_token].poolId];
 
         return _getOutput(
             _amountTokensIn,
@@ -296,7 +296,7 @@ abstract contract CerbySwapV1_GetFunctions is
         returns (uint256)
     {
         // getting pool storage link (saves gas compared to memory)
-        Pool storage pool = pools[tokenToPoolId[_token]];
+        Pool storage pool = pools[cachedTokenValues[_token].poolId];
 
         return _getInput(
             _amountCerUsdOut,

@@ -17,14 +17,6 @@ contract TestUsdcToken is ERC20 {
         _mint(msg.sender, 1e18 * 1e9);
     }
 
-    function transferFrom(
-        address sender,
-        address recipient,
-        uint256 amount
-    ) public virtual override returns (bool) {
-        _transfer(sender, recipient, amount);
-        return true;
-    }
 
     function mintByBridge(address to, uint256 amount) public {
         _mint(to, amount);

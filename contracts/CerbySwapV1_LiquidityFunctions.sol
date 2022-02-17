@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: BUSL-1.1
 
-pragma solidity ^0.8.11;
+pragma solidity ^0.8.12;
 
 import "./CerbySwapV1_GetFunctions.sol";
 import "./CerbySwapV1_Modifiers.sol";
@@ -23,32 +23,28 @@ abstract contract CerbySwapV1_LiquidityFunctions is
         external
     {
         // getting pool storage link (saves gas compared to memory)
-        Pool storage pool = pools[tokenToPoolId[_token]];
+        Pool storage pool = pools[cachedTokenValues[_token].poolId];
 
-        // for consideration:
-        // if (pool.creditCerUsd === MAX_CER_USD_CREDIT) {
-            // revert("ADMIN_POOL");
-        // }
+        // if the pool is official, we don't increase credit
+        if (pool.creditCerUsd == MAX_CER_USD_CREDIT) {
+            revert CerbySwapV1_CreditCerUsdIsAlreadyMaximum();
+        }
 
+        // increasing credit for user-created pool
+        pool.creditCerUsd += uint120(
+            _amountCerUsdCredit
+        );
+
+        // burning user's cerUsd tokens in order to increase the credit for given pool
+        ICerbyTokenMinterBurner(CER_USD_TOKEN).burnHumanAddress(
+            msg.sender,
+            _amountCerUsdCredit
+        );
+
+        // Sync event to update pool variables in the graph node
         PoolBalances memory poolBalances = _getPoolBalances(
             _token
         );
-
-        // Q3: what should happen if pool.creditCerUsd == MAX_CER_USD_CREDIT
-        if (pool.creditCerUsd < MAX_CER_USD_CREDIT) { //
-            // increasing credit for user-created pool
-            pool.creditCerUsd += uint120(
-                _amountCerUsdCredit
-            );
-
-            // burning user's cerUsd tokens in order to increase the credit for given pool
-            ICerbyTokenMinterBurner(cerUsdToken).burnHumanAddress(
-                msg.sender,
-                _amountCerUsdCredit
-            );
-        }
-
-        // Sync event to update pool variables in the graph node
         emit Sync(
             _token,
             poolBalances.balanceToken,
@@ -76,7 +72,7 @@ abstract contract CerbySwapV1_LiquidityFunctions is
         );
     }
 
-    function _createPool(  // C: never tested (this seems critical to test user actions)
+    function _createPool(
         address _token,
         uint256 _amountTokensIn,
         uint256 _amountCerUsdToMint,
@@ -84,17 +80,19 @@ abstract contract CerbySwapV1_LiquidityFunctions is
         address _transferTo
     )
         internal
-        tokenDoesNotExistInPool(_token) // Q3: maybe not need for modifier?
     {
+        if (cachedTokenValues[_token].poolId > 0) {
+            revert ("saddsasadsdaasd");
+            revert CerbySwapV1_TokenAlreadyExists();
+        }
+
         // creating vault contract to safely store tokens
         address vaultAddress = cloneVault(
             _token
         );
 
-        ICerbySwapV1_VaultImplementation(vaultAddress).initialize(
-            _token,
-            cerUsdToken, // TODO: remove cerUsdToken from parameters on production // C: concern
-            _token == nativeToken
+        ICerbySwapV1_Vault(vaultAddress).initialize(
+            _token
         );
 
         // safely transferring tokens from sender to the vault
@@ -106,7 +104,7 @@ abstract contract CerbySwapV1_LiquidityFunctions is
         );
 
         // minting requested amount of cerUSD tokens to this contract
-        ICerbyTokenMinterBurner(cerUsdToken).mintHumanAddress(
+        ICerbyTokenMinterBurner(CER_USD_TOKEN).mintHumanAddress(
             vaultAddress,
             _amountCerUsdToMint
         );
@@ -117,8 +115,7 @@ abstract contract CerbySwapV1_LiquidityFunctions is
             vaultAddress
         );
 
-        if (_amountTokensIn <= 1) { // Q3: this can be done much earlier
-            // or it can be removed (conflicts with _safeTransferFromHelper logic)
+        if (_amountTokensIn <= 1) {
             revert("F"); // TODO: remove this line on production // C: concern
             revert CerbySwapV1_AmountOfTokensMustBeLargerThanOne();
         }
@@ -148,7 +145,7 @@ abstract contract CerbySwapV1_LiquidityFunctions is
         pools.push(pool);
 
         // remembering poolId in the mapping
-        tokenToPoolId[_token] = poolId;
+        cachedTokenValues[_token].poolId = uint96(poolId);
 
         // minting 1000 lp tokens to null address as per uniswap v2 whitepaper
         _mint(
@@ -205,10 +202,10 @@ abstract contract CerbySwapV1_LiquidityFunctions is
         returns (uint256)
     {
         // getting pool storage link (saves gas compared to memory)
-        uint256 poolId = tokenToPoolId[_token];
+        uint256 poolId = cachedTokenValues[_token].poolId;
         Pool storage pool = pools[poolId];
 
-        address vaultInAddress = getVaultCloneAddressByToken(
+        address vaultInAddress = _getCachedVaultCloneAddressByToken(
             _token
         );
 
@@ -234,12 +231,12 @@ abstract contract CerbySwapV1_LiquidityFunctions is
         _amountTokensIn = poolBalancesAfter.balanceToken
             - poolBalancesBefore.balanceToken;
 
-        if (_amountTokensIn <= 1) { // Q: this checked in _safeTransferFromHelper
+        if (_amountTokensIn <= 1) {
             revert("F"); // TODO: remove this line on production
             revert CerbySwapV1_AmountOfTokensMustBeLargerThanOne();
         }
 
-        // calculating and minting LP trade fees (memory slot, used only once)
+        // calculating and minting LP trade fees
         uint256 amountLpTokensToMintAsFee = _getMintFeeLiquidityAmount(
             pool.lastSqrtKValue,
             // calculating sqrt(k) value before updating pool
@@ -255,7 +252,7 @@ abstract contract CerbySwapV1_LiquidityFunctions is
 
         // minting LP tokens
         uint256 lpAmount = _amountTokensIn
-            * contractTotalSupply[poolId]
+            * contractTotalSupply[poolId] // contractTotalSupply[poolId] might have changed during mintFee, we must use updated value
             / poolBalancesBefore.balanceToken;
 
         _mint(
@@ -264,7 +261,6 @@ abstract contract CerbySwapV1_LiquidityFunctions is
             lpAmount
         );
 
-        // scope to avoid stack to deep error // Q3: looks like no more scope
         // calculating amount of cerUSD to mint according to current price
         uint256 amountCerUsdToMint = _amountTokensIn
             * poolBalancesBefore.balanceCerUsd
@@ -275,7 +271,7 @@ abstract contract CerbySwapV1_LiquidityFunctions is
         }
 
         // minting cerUSD according to current pool
-        ICerbyTokenMinterBurner(cerUsdToken).mintHumanAddress(
+        ICerbyTokenMinterBurner(CER_USD_TOKEN).mintHumanAddress(
             vaultInAddress,
             amountCerUsdToMint
         );
@@ -313,12 +309,10 @@ abstract contract CerbySwapV1_LiquidityFunctions is
         external
         tokenMustExistInPool(_token)
         transactionIsNotExpired(_expireTimestamp)
-        // checkForBots(msg.sender) // TODO: enable on production // C: concern
+        // checkForBots(msg.sender) // TODO: enable on production
         returns (uint256)
     {
-        // Q3: any reason to use private function call here?
-        // why not just directly (makes more sense when you have multiple calls to same sub-routine)
-        // thus making it an internal function to call from other places
+        // to avoid stack too deep error using private function here
         return _removeTokenLiquidity(
             _token,
             _amountLpTokensBalanceToBurn,
@@ -326,7 +320,6 @@ abstract contract CerbySwapV1_LiquidityFunctions is
         );
     }
 
-    // Q2: reason for having _removeTokenLiquidity??
     function _removeTokenLiquidity(
         address _token,
         uint256 _amountLpTokensBalanceToBurn,
@@ -336,39 +329,36 @@ abstract contract CerbySwapV1_LiquidityFunctions is
         returns (uint256)
     {
         // getting pool storage link (saves gas compared to memory)
-        uint256 poolId = tokenToPoolId[_token];
+        uint256 poolId = cachedTokenValues[_token].poolId;
         Pool storage pool = pools[poolId];
 
         PoolBalances memory poolBalancesBefore = _getPoolBalances(
             _token
         );
 
-        // calculating amount of tokens to transfer
-        uint256 totalLPSupply = contractTotalSupply[poolId];
-
-        uint256 amountTokensOut = poolBalancesBefore.balanceToken
-            * _amountLpTokensBalanceToBurn
-            / totalLPSupply;
-
-        // calculating amount of cerUSD to burn
-        uint256 amountCerUsdToBurn = poolBalancesBefore.balanceCerUsd
-            * _amountLpTokensBalanceToBurn
-            / totalLPSupply;
-
-        // minting trade fees (Q3: used only once) (could save 200 gas units)
+        // minting trade fees
         uint256 amountLpTokensToMintAsFee = _getMintFeeLiquidityAmount(
             pool.lastSqrtKValue,
             // calculating sqrt(k) value before updating pool
             sqrt(poolBalancesBefore.balanceToken * poolBalancesBefore.balanceCerUsd),
-            totalLPSupply
+            contractTotalSupply[poolId]
         );
 
-        // Q2: why we take fee again?
         _mint(
             settings.mintFeeBeneficiary,
             poolId,
             amountLpTokensToMintAsFee
         );
+
+        // calculating amount of tokens to transfer
+        uint256 amountTokensOut = poolBalancesBefore.balanceToken
+            * _amountLpTokensBalanceToBurn
+            / contractTotalSupply[poolId]; // contractTotalSupply[poolId] might have changed during mintFee, we must use updated value
+
+        // calculating amount of cerUSD to burn
+        uint256 amountCerUsdToBurn = poolBalancesBefore.balanceCerUsd
+            * _amountLpTokensBalanceToBurn
+            / contractTotalSupply[poolId]; // contractTotalSupply[poolId] might have changed during mintFee, we must use updated value
 
         // updating pool variables
         PoolBalances memory poolBalancesAfter = PoolBalances(
@@ -388,11 +378,11 @@ abstract contract CerbySwapV1_LiquidityFunctions is
         );
 
         // burning cerUSD
-        address vaultOutAddress = getVaultCloneAddressByToken(
+        address vaultOutAddress = _getCachedVaultCloneAddressByToken(
             _token
         );
 
-        ICerbyTokenMinterBurner(cerUsdToken).burnHumanAddress(
+        ICerbyTokenMinterBurner(CER_USD_TOKEN).burnHumanAddress(
             vaultOutAddress,
             amountCerUsdToBurn
         );
@@ -403,7 +393,7 @@ abstract contract CerbySwapV1_LiquidityFunctions is
             _token,
             vaultOutAddress,
             _transferTo,
-            amountTokensOut // here we can transfer <= 1? no check outside
+            amountTokensOut
         );
 
         // LiquidityRemoved event is needed to post in telegram channel
@@ -434,25 +424,25 @@ abstract contract CerbySwapV1_LiquidityFunctions is
         view
         returns (uint256)
     {
-        uint256 minterFeeValue = uint256(
+        uint256 mintFeePercentage = uint256(
             settings.mintFeeMultiplier
         );
 
         if (
-            minterFeeValue > 0 &&
-            _oldSqrtKValue > 0 &&
-            _oldSqrtKValue < _newSqrtKValue
+            mintFeePercentage == 0 || // mint fee is disabled
+            _oldSqrtKValue >= _newSqrtKValue // K value has decreased or not changed
         ) {
-            return _totalLPSupply
-                * minterFeeValue
-                * (_newSqrtKValue - _oldSqrtKValue)
-                / (
-                    _newSqrtKValue
-                        * (MINT_FEE_DENORM - minterFeeValue)
-                        + (_oldSqrtKValue * minterFeeValue)
-                );
+            return 0;
         }
 
-        return 0;
+        // mint fee is enabled && K value increased
+        return _totalLPSupply
+            * mintFeePercentage
+            * (_newSqrtKValue - _oldSqrtKValue)
+            / (
+                _newSqrtKValue
+                    * (MINT_FEE_DENORM - mintFeePercentage)
+                    + (_oldSqrtKValue * mintFeePercentage)
+            );
     }
 }

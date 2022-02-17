@@ -12,23 +12,6 @@ const TestUsdcToken = artifacts.require("TestUsdcToken");
 const zeroAddr = "0x0000000000000000000000000000000000000000";
 
 module.exports = async function (deployer) {
-    const setup = async () => {
-        const cerbySwap = await CerbySwapV1.deployed();
-
-        await cerbySwap.testSetupTokens(
-            zeroAddr,
-            TestCerbyToken.address,
-
-            TestCerUsdToken.address,
-            TestUsdcToken.address,
-            zeroAddr
-            // Weth.address,
-        );
-
-        await cerbySwap.adminInitialize({ value: new BN((1e16).toString()) });
-    };
-
-    await setup();
 } as Truffle.Migration;
 
 export {};

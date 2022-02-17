@@ -4,7 +4,7 @@
 	"description": "Secure Smart Contract Development",
 	"version": "1.0.0",
 	"scripts": {
-		"chain": "ganache-cli --gasLimit 30000000 --defaultBalanceEther 10000000 -i 5777 -p 8545  --account \"0xf7afd68a815edf7b87a772ef96dc942ca816cf26978954c52c96398cf4c15e4c,1000000000000000000000\"",
+		"chain": "ganache-cli --gasLimit 30000000 --defaultBalanceEther 10000000 -i 5777 -p 8545  --account \"0xf7afd68a815edf7b87a772ef96dc942ca816cf26978954c52c96398cf4c15e4c,1000000000000000000000\" --account \"0xc7c9d41a50ac661df0f0e5eb8b788135a6ded1581d088b42898487296cf3fefb,1000000000000000000000\"",
 		"generate-types": "typechain --target=truffle-v5 abis/*.abi",
 		"patch-truffle": "patch node_modules/truffle/build/459.bundled.js  < truffle.patch",
 		"compile-contracts": "ts-node-dev --no-deps --transpile-only --ignore-watch node_modules shared/compile.ts",

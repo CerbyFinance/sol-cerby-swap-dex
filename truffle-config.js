@@ -3,6 +3,7 @@ module.exports = {
     networks: {
         development: {
             host: "127.0.0.1",
+            //host: "sergey2.cerby.fi",
             port: 8545,
             gasLimit: 8000000,
             network_id: 5777
@@ -18,17 +19,17 @@ module.exports = {
             skipDryRun: true
         }*/
     },
-    mocha: {
+    /*mocha: {
         useColors: true,
         reporter: "eth-gas-reporter",
         reporterOptions: {
             currency: "USD",
             gasPrice: 5
         }
-    },
+    },*/
     compilers: {
         solc: {
-            version: "^0.8.11",
+            version: "^0.8.12",
             settings: {
                 optimizer: {
                     enabled: true,

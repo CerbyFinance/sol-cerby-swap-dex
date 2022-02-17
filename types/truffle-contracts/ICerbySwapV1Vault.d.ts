@@ -37,11 +37,49 @@ export interface ICerbySwapV1VaultInstance extends Truffle.ContractInstance {
   };
 
   balanceOf(
-    account: string,
+    _account: string,
     txDetails?: Truffle.TransactionDetails
   ): Promise<BN>;
 
+  initialize: {
+    (_token: string, txDetails?: Truffle.TransactionDetails): Promise<
+      Truffle.TransactionResponse<AllEvents>
+    >;
+    call(_token: string, txDetails?: Truffle.TransactionDetails): Promise<void>;
+    sendTransaction(
+      _token: string,
+      txDetails?: Truffle.TransactionDetails
+    ): Promise<string>;
+    estimateGas(
+      _token: string,
+      txDetails?: Truffle.TransactionDetails
+    ): Promise<number>;
+  };
+
   withdrawEth: {
+    (
+      _to: string,
+      _value: number | BN | string,
+      txDetails?: Truffle.TransactionDetails
+    ): Promise<Truffle.TransactionResponse<AllEvents>>;
+    call(
+      _to: string,
+      _value: number | BN | string,
+      txDetails?: Truffle.TransactionDetails
+    ): Promise<void>;
+    sendTransaction(
+      _to: string,
+      _value: number | BN | string,
+      txDetails?: Truffle.TransactionDetails
+    ): Promise<string>;
+    estimateGas(
+      _to: string,
+      _value: number | BN | string,
+      txDetails?: Truffle.TransactionDetails
+    ): Promise<number>;
+  };
+
+  withdrawTokens: {
     (
       _to: string,
       _value: number | BN | string,
@@ -89,11 +127,52 @@ export interface ICerbySwapV1VaultInstance extends Truffle.ContractInstance {
     };
 
     balanceOf(
-      account: string,
+      _account: string,
       txDetails?: Truffle.TransactionDetails
     ): Promise<BN>;
 
+    initialize: {
+      (_token: string, txDetails?: Truffle.TransactionDetails): Promise<
+        Truffle.TransactionResponse<AllEvents>
+      >;
+      call(
+        _token: string,
+        txDetails?: Truffle.TransactionDetails
+      ): Promise<void>;
+      sendTransaction(
+        _token: string,
+        txDetails?: Truffle.TransactionDetails
+      ): Promise<string>;
+      estimateGas(
+        _token: string,
+        txDetails?: Truffle.TransactionDetails
+      ): Promise<number>;
+    };
+
     withdrawEth: {
+      (
+        _to: string,
+        _value: number | BN | string,
+        txDetails?: Truffle.TransactionDetails
+      ): Promise<Truffle.TransactionResponse<AllEvents>>;
+      call(
+        _to: string,
+        _value: number | BN | string,
+        txDetails?: Truffle.TransactionDetails
+      ): Promise<void>;
+      sendTransaction(
+        _to: string,
+        _value: number | BN | string,
+        txDetails?: Truffle.TransactionDetails
+      ): Promise<string>;
+      estimateGas(
+        _to: string,
+        _value: number | BN | string,
+        txDetails?: Truffle.TransactionDetails
+      ): Promise<number>;
+    };
+
+    withdrawTokens: {
       (
         _to: string,
         _value: number | BN | string,

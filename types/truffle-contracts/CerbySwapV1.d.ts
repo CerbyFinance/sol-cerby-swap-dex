@@ -79,8 +79,8 @@ export interface Swap {
     _sender: string;
     _amountTokensIn: BN;
     _amountCerUsdIn: BN;
-    __amountTokensOut: BN;
-    amountCerUsdOut: BN;
+    _amountTokensOut: BN;
+    _amountCerUsdOut: BN;
     _currentFee: BN;
     _transferTo: string;
     0: string;
@@ -235,15 +235,6 @@ export interface CerbySwapV1Instance extends Truffle.ContractInstance {
       _transferTo: string,
       txDetails?: Truffle.TransactionDetails
     ): Promise<number>;
-  };
-
-  adminInitialize: {
-    (txDetails?: Truffle.TransactionDetails): Promise<
-      Truffle.TransactionResponse<AllEvents>
-    >;
-    call(txDetails?: Truffle.TransactionDetails): Promise<void>;
-    sendTransaction(txDetails?: Truffle.TransactionDetails): Promise<string>;
-    estimateGas(txDetails?: Truffle.TransactionDetails): Promise<number>;
   };
 
   adminSetUrlPrefix: {
@@ -653,50 +644,6 @@ export interface CerbySwapV1Instance extends Truffle.ContractInstance {
 
   symbol(txDetails?: Truffle.TransactionDetails): Promise<string>;
 
-  testInit: {
-    (txDetails?: Truffle.TransactionDetails): Promise<
-      Truffle.TransactionResponse<AllEvents>
-    >;
-    call(txDetails?: Truffle.TransactionDetails): Promise<void>;
-    sendTransaction(txDetails?: Truffle.TransactionDetails): Promise<string>;
-    estimateGas(txDetails?: Truffle.TransactionDetails): Promise<number>;
-  };
-
-  testSetupTokens: {
-    (
-      arg0: string,
-      _testCerbyToken: string,
-      _cerUsdToken: string,
-      _testUsdcToken: string,
-      arg4: string,
-      txDetails?: Truffle.TransactionDetails
-    ): Promise<Truffle.TransactionResponse<AllEvents>>;
-    call(
-      arg0: string,
-      _testCerbyToken: string,
-      _cerUsdToken: string,
-      _testUsdcToken: string,
-      arg4: string,
-      txDetails?: Truffle.TransactionDetails
-    ): Promise<void>;
-    sendTransaction(
-      arg0: string,
-      _testCerbyToken: string,
-      _cerUsdToken: string,
-      _testUsdcToken: string,
-      arg4: string,
-      txDetails?: Truffle.TransactionDetails
-    ): Promise<string>;
-    estimateGas(
-      arg0: string,
-      _testCerbyToken: string,
-      _cerUsdToken: string,
-      _testUsdcToken: string,
-      arg4: string,
-      txDetails?: Truffle.TransactionDetails
-    ): Promise<number>;
-  };
-
   transferOwnership: {
     (_newOwner: string, txDetails?: Truffle.TransactionDetails): Promise<
       Truffle.TransactionResponse<AllEvents>
@@ -804,15 +751,6 @@ export interface CerbySwapV1Instance extends Truffle.ContractInstance {
         _transferTo: string,
         txDetails?: Truffle.TransactionDetails
       ): Promise<number>;
-    };
-
-    adminInitialize: {
-      (txDetails?: Truffle.TransactionDetails): Promise<
-        Truffle.TransactionResponse<AllEvents>
-      >;
-      call(txDetails?: Truffle.TransactionDetails): Promise<void>;
-      sendTransaction(txDetails?: Truffle.TransactionDetails): Promise<string>;
-      estimateGas(txDetails?: Truffle.TransactionDetails): Promise<number>;
     };
 
     adminSetUrlPrefix: {
@@ -1221,50 +1159,6 @@ export interface CerbySwapV1Instance extends Truffle.ContractInstance {
     };
 
     symbol(txDetails?: Truffle.TransactionDetails): Promise<string>;
-
-    testInit: {
-      (txDetails?: Truffle.TransactionDetails): Promise<
-        Truffle.TransactionResponse<AllEvents>
-      >;
-      call(txDetails?: Truffle.TransactionDetails): Promise<void>;
-      sendTransaction(txDetails?: Truffle.TransactionDetails): Promise<string>;
-      estimateGas(txDetails?: Truffle.TransactionDetails): Promise<number>;
-    };
-
-    testSetupTokens: {
-      (
-        arg0: string,
-        _testCerbyToken: string,
-        _cerUsdToken: string,
-        _testUsdcToken: string,
-        arg4: string,
-        txDetails?: Truffle.TransactionDetails
-      ): Promise<Truffle.TransactionResponse<AllEvents>>;
-      call(
-        arg0: string,
-        _testCerbyToken: string,
-        _cerUsdToken: string,
-        _testUsdcToken: string,
-        arg4: string,
-        txDetails?: Truffle.TransactionDetails
-      ): Promise<void>;
-      sendTransaction(
-        arg0: string,
-        _testCerbyToken: string,
-        _cerUsdToken: string,
-        _testUsdcToken: string,
-        arg4: string,
-        txDetails?: Truffle.TransactionDetails
-      ): Promise<string>;
-      estimateGas(
-        arg0: string,
-        _testCerbyToken: string,
-        _cerUsdToken: string,
-        _testUsdcToken: string,
-        arg4: string,
-        txDetails?: Truffle.TransactionDetails
-      ): Promise<number>;
-    };
 
     transferOwnership: {
       (_newOwner: string, txDetails?: Truffle.TransactionDetails): Promise<

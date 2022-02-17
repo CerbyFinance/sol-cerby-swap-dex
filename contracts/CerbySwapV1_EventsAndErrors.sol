@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: BUSL-1.1
 
-pragma solidity ^0.8.11;
+pragma solidity ^0.8.12;
 
 abstract contract CerbySwapV1_EventsAndErrors {
 
@@ -59,4 +59,5 @@ abstract contract CerbySwapV1_EventsAndErrors {
     error CerbySwapV1_TvlMultiplierIsWrong();
     error CerbySwapV1_MintFeeMultiplierMustNotBeLargerThan50Percent();
     error CerbySwapV1_CreditCerUsdMustNotBeBelowZero();
+    error CerbySwapV1_CreditCerUsdIsAlreadyMaximum();
 }

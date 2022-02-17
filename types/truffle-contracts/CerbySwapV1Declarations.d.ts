@@ -59,8 +59,8 @@ export interface Swap {
     _sender: string;
     _amountTokensIn: BN;
     _amountCerUsdIn: BN;
-    __amountTokensOut: BN;
-    amountCerUsdOut: BN;
+    _amountTokensOut: BN;
+    _amountCerUsdOut: BN;
     _currentFee: BN;
     _transferTo: string;
     0: string;

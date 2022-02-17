@@ -1,11 +1,10 @@
 // SPDX-License-Identifier: MIT
 // OpenZeppelin Contracts v4.4.1 (token/ERC20/ERC20.sol)
 
-pragma solidity ^0.8.0;
+pragma solidity ^0.8.12;
 
 import "./IERC20.sol";
 import "./extensions/IERC20Metadata.sol";
-import "../../utils/Context.sol";
 
 /**
  * @dev Implementation of the {IERC20} interface.
@@ -32,26 +31,23 @@ import "../../utils/Context.sol";
  * functions have been added to mitigate the well-known issues around setting
  * allowances. See {IERC20-approve}.
  */
-contract ERC20 is Context, IERC20, IERC20Metadata {
-    mapping(address => uint256) internal _balances;
+contract ERC20 is IERC20, IERC20Metadata {
+    mapping(address => uint256) erc20Balances;
 
-    mapping(address => mapping(address => uint256)) internal _allowances;
+    mapping(address => mapping(address => uint256)) erc20Allowances;
 
-    uint256 internal _totalSupply;
+    uint256 erc20TotalSupply;
 
-    string internal _name;
-    string internal _symbol;
+    string erc20Name;
+    string erc20Symbol;
 
     error ERC20_ApproveToTheZeroAddress();
     error ERC20_ApproveFromTheZeroAddress();
-    error ERC20_BurnAmountExceedsBalance();
     error ERC20_BurnFromTheZeroAddress();
     error ERC20_MintToTheZeroAddress();
-    error ERC20_TransferAmountExceedsBalance();
     error ERC20_TransferToTheZeroAddress();
     error ERC20_TransferFromTheZeroAddress();
     error ERC20_DecreasedAllowanceBelowZero();
-    error ERC20_TransferAmountExceedsAllowance();
 
     /**
      * @dev Sets the values for {name} and {symbol}.
@@ -62,24 +58,39 @@ contract ERC20 is Context, IERC20, IERC20Metadata {
      * All two of these values are immutable: they can only be set once during
      * construction.
      */
-    constructor(string memory name_, string memory symbol_) {
-        _name = name_;
-        _symbol = symbol_;
+    constructor(
+        string memory _name, 
+        string memory _symbol
+    ) {
+        erc20Name = _name;
+        erc20Symbol = _symbol;
     }
 
     /**
      * @dev Returns the name of the token.
      */
-    function name() public view virtual override returns (string memory) {
-        return _name;
+    function name() 
+        public 
+        view 
+        virtual 
+        override 
+        returns (string memory) 
+    {
+        return erc20Name;
     }
 
     /**
      * @dev Returns the symbol of the token, usually a shorter version of the
      * name.
      */
-    function symbol() public view virtual override returns (string memory) {
-        return _symbol;
+    function symbol() 
+        public 
+        view 
+        virtual 
+        override 
+        returns (string memory) 
+    {
+        return erc20Symbol;
     }
 
     /**
@@ -95,28 +106,40 @@ contract ERC20 is Context, IERC20, IERC20Metadata {
      * no way affects any of the arithmetic of the contract, including
      * {IERC20-balanceOf} and {IERC20-transfer}.
      */
-    function decimals() public view virtual override returns (uint8) {
+    function decimals() 
+        public 
+        view 
+        virtual 
+        override 
+        returns (uint8) 
+    {
         return 18;
     }
 
     /**
      * @dev See {IERC20-totalSupply}.
      */
-    function totalSupply() public view virtual override returns (uint256) {
-        return _totalSupply;
+    function totalSupply() 
+        public 
+        view 
+        virtual 
+        override 
+        returns (uint256) 
+    {
+        return erc20TotalSupply;
     }
 
     /**
      * @dev See {IERC20-balanceOf}.
      */
-    function balanceOf(address account)
+    function balanceOf(address _account)
         public
         view
         virtual
         override
         returns (uint256)
     {
-        return _balances[account];
+        return erc20Balances[_account];
     }
 
     /**
@@ -127,27 +150,27 @@ contract ERC20 is Context, IERC20, IERC20Metadata {
      * - `recipient` cannot be the zero address.
      * - the caller must have a balance of at least `amount`.
      */
-    function transfer(address recipient, uint256 amount)
+    function transfer(address _recipient, uint256 _amount)
         public
         virtual
         override
         returns (bool)
     {
-        _transfer(_msgSender(), recipient, amount);
+        _transfer(msg.sender, _recipient, _amount);
         return true;
     }
 
     /**
      * @dev See {IERC20-allowance}.
      */
-    function allowance(address owner, address spender)
+    function allowance(address _owner, address _spender)
         public
         view
         virtual
         override
         returns (uint256)
     {
-        return _allowances[owner][spender];
+        return erc20Allowances[_owner][_spender];
     }
 
     /**
@@ -157,13 +180,13 @@ contract ERC20 is Context, IERC20, IERC20Metadata {
      *
      * - `spender` cannot be the zero address.
      */
-    function approve(address spender, uint256 amount)
+    function approve(address _spender, uint256 _amount)
         public
         virtual
         override
         returns (bool)
     {
-        _approve(_msgSender(), spender, amount);
+        _approve(msg.sender, _spender, _amount);
         return true;
     }
 
@@ -181,19 +204,15 @@ contract ERC20 is Context, IERC20, IERC20Metadata {
      * `amount`.
      */
     function transferFrom(
-        address sender,
-        address recipient,
-        uint256 amount
+        address _sender,
+        address _recipient,
+        uint256 _amount
     ) public virtual override returns (bool) {
-        uint256 currentAllowance = _allowances[sender][_msgSender()];
-        if (currentAllowance < amount) {
-            revert ERC20_TransferAmountExceedsAllowance();
-        }
-        unchecked {
-            _approve(sender, _msgSender(), currentAllowance - amount);
+        if (erc20Allowances[_sender][msg.sender] != type(uint256).max) {
+            erc20Allowances[_sender][msg.sender] -= _amount;
         }
 
-        _transfer(sender, recipient, amount);
+        _transfer(_sender, _recipient, _amount);
 
         return true;
     }
@@ -210,15 +229,15 @@ contract ERC20 is Context, IERC20, IERC20Metadata {
      *
      * - `spender` cannot be the zero address.
      */
-    function increaseAllowance(address spender, uint256 addedValue)
+    function increaseAllowance(address _spender, uint256 _addedValue)
         public
         virtual
         returns (bool)
     {
         _approve(
-            _msgSender(),
-            spender,
-            _allowances[_msgSender()][spender] + addedValue
+            msg.sender,
+            _spender,
+            erc20Allowances[msg.sender][_spender] + _addedValue
         );
         return true;
     }
@@ -237,17 +256,17 @@ contract ERC20 is Context, IERC20, IERC20Metadata {
      * - `spender` must have allowance for the caller of at least
      * `subtractedValue`.
      */
-    function decreaseAllowance(address spender, uint256 subtractedValue)
+    function decreaseAllowance(address _spender, uint256 _subtractedValue)
         public
         virtual
         returns (bool)
     {
-        uint256 currentAllowance = _allowances[_msgSender()][spender];
-        if (currentAllowance < subtractedValue) {
+        uint256 currentAllowance = erc20Allowances[msg.sender][_spender];
+        if (currentAllowance < _subtractedValue) {
             revert ERC20_DecreasedAllowanceBelowZero();
         }
         unchecked {
-            _approve(_msgSender(), spender, currentAllowance - subtractedValue);
+            _approve(msg.sender, _spender, currentAllowance - _subtractedValue);
         }
 
         return true;
@@ -268,27 +287,26 @@ contract ERC20 is Context, IERC20, IERC20Metadata {
      * - `sender` must have a balance of at least `amount`.
      */
     function _transfer(
-        address sender,
-        address recipient,
-        uint256 amount
-    ) internal virtual {
-        if (sender == address(0)) {
+        address _sender,
+        address _recipient,
+        uint256 _amount
+    ) 
+        internal 
+        virtual 
+    {
+        if (_sender == address(0)) {
             revert ERC20_TransferFromTheZeroAddress();
         }
-        if (recipient == address(0)) {
+        if (_recipient == address(0)) {
             revert ERC20_TransferToTheZeroAddress();
         }
 
-        uint256 senderBalance = _balances[sender];
-        if (senderBalance < amount) {
-            revert ERC20_TransferAmountExceedsBalance();
-        }
+        erc20Balances[_sender] -= _amount;
         unchecked {
-            _balances[sender] = senderBalance - amount;
+            erc20Balances[_recipient] += _amount; // user can't posess _amount larger than total supply => can't overflow
         }
-        _balances[recipient] += amount;
 
-        emit Transfer(sender, recipient, amount);
+        emit Transfer(_sender, _recipient, _amount);
     }
 
     /** @dev Creates `amount` tokens and assigns them to `account`, increasing
@@ -300,14 +318,22 @@ contract ERC20 is Context, IERC20, IERC20Metadata {
      *
      * - `account` cannot be the zero address.
      */
-    function _mint(address account, uint256 amount) internal virtual {
-        if (account == address(0)) {
+    function _mint(
+        address _account, 
+        uint256 _amount
+    ) 
+        internal 
+        virtual 
+    {
+        if (_account == address(0)) {
             revert ERC20_MintToTheZeroAddress();
         }
 
-        _totalSupply += amount;
-        _balances[account] += amount;
-        emit Transfer(address(0), account, amount);
+        erc20TotalSupply += _amount; // will overflow earlier than erc20Balances[account]
+        unchecked {
+            erc20Balances[_account] += _amount;
+        }
+        emit Transfer(address(0), _account, _amount);
     }
 
     /**
@@ -321,22 +347,24 @@ contract ERC20 is Context, IERC20, IERC20Metadata {
      * - `account` cannot be the zero address.
      * - `account` must have at least `amount` tokens.
      */
-    function _burn(address account, uint256 amount) internal virtual {
-        if (account == address(0)) {
+    function _burn(
+        address _account, 
+        uint256 _amount
+    ) 
+        internal 
+        virtual 
+    {
+        if (_account == address(0)) {
             revert ERC20_BurnFromTheZeroAddress();
         }
 
-        uint256 accountBalance = _balances[account];
-        if (accountBalance < amount) {
-            revert ERC20_BurnAmountExceedsBalance();
-        }
+        erc20Balances[_account] -= _amount;
 
         unchecked {
-            _balances[account] = accountBalance - amount;
+            erc20TotalSupply -= _amount; // erc20Balances[_account] is not overflown then erc20TotalSupply isn't either
         }
-        _totalSupply -= amount;
 
-        emit Transfer(account, address(0), amount);
+        emit Transfer(_account, address(0), _amount);
     }
 
     /**
@@ -353,18 +381,27 @@ contract ERC20 is Context, IERC20, IERC20Metadata {
      * - `spender` cannot be the zero address.
      */
     function _approve(
-        address owner,
-        address spender,
-        uint256 amount
-    ) internal virtual {
-        if (owner == address(0)) {
+        address _owner,
+        address _spender,
+        uint256 _amount
+    ) 
+        internal 
+        virtual 
+    {
+        if (_owner == address(0)) {
             revert ERC20_ApproveFromTheZeroAddress();
         }
-        if (spender == address(0)) {
+        if (_spender == address(0)) {
             revert ERC20_ApproveToTheZeroAddress();
         }
 
-        _allowances[owner][spender] = amount;
-        emit Approval(owner, spender, amount);
+        // allowance must be equal to uint256.maxValue or zero
+        if (
+            erc20Allowances[_owner][_spender] != type(uint256).max ||
+            _amount == 0
+        ) {
+            erc20Allowances[_owner][_spender] = _amount;
+            emit Approval(_owner, _spender, _amount);
+        }
     }
 }
