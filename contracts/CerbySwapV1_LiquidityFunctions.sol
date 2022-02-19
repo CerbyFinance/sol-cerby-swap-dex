@@ -243,7 +243,7 @@ abstract contract CerbySwapV1_LiquidityFunctions is
             uint256(pool.lastSqrtKValue),
             // calculating sqrt(k) value before pool balances are updated
             sqrt(poolBalancesBefore.balanceToken * poolBalancesBefore.balanceCerUsd),
-            contractTotalSupply[poolId]
+            erc1155TotalSupply[poolId]
         );
 
         // minting protocol trade fees
@@ -278,7 +278,7 @@ abstract contract CerbySwapV1_LiquidityFunctions is
 
         // calculating LP tokens
         uint256 lpAmount = _amountTokensIn
-            * contractTotalSupply[poolId] // contractTotalSupply[poolId] might have changed during mintFee, we are using updated value
+            * erc1155TotalSupply[poolId] // erc1155TotalSupply[poolId] might have changed during mintFee, we are using updated value
             / poolBalancesBefore.balanceToken;
 
         // minting LP tokens (subject to re-entrancty attack, doing it last)
@@ -348,7 +348,7 @@ abstract contract CerbySwapV1_LiquidityFunctions is
             uint256(pool.lastSqrtKValue),
             // calculating sqrt(k) value before pool balances are updated
             sqrt(poolBalancesBefore.balanceToken * poolBalancesBefore.balanceCerUsd),
-            contractTotalSupply[poolId]
+            erc1155TotalSupply[poolId]
         );
 
         _mint(
@@ -360,12 +360,12 @@ abstract contract CerbySwapV1_LiquidityFunctions is
         // calculating amount of tokens to transfer
         uint256 amountTokensOut = poolBalancesBefore.balanceToken
             * _amountLpTokensBalanceToBurn
-            / contractTotalSupply[poolId]; // contractTotalSupply[poolId] might have changed during mintFee, we are using updated value
+            / erc1155TotalSupply[poolId]; // erc1155TotalSupply[poolId] might have changed during mintFee, we are using updated value
 
         // calculating amount of cerUSD to burn
         uint256 amountCerUsdToBurn = poolBalancesBefore.balanceCerUsd
             * _amountLpTokensBalanceToBurn
-            / contractTotalSupply[poolId]; // contractTotalSupply[poolId] might have changed during mintFee, we are using updated value
+            / erc1155TotalSupply[poolId]; // erc1155TotalSupply[poolId] might have changed during mintFee, we are using updated value
 
         // updating pool variables
         PoolBalances memory poolBalancesAfter = PoolBalances(

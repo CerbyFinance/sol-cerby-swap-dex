@@ -6,7 +6,7 @@ import "./CerbyCronJobsExecution.sol";
 
 abstract contract CerbySwapV1_ERC1155 is ERC1155, CerbyCronJobsExecution {
 
-    string contractName = "CerbySwapV1"; // Q: everything by default is
+    string contractName = "CerbySwapV1";
     string contractSymbol = "CS1";
     string urlPrefix = "https://data.cerby.fi/CerbySwap/v1/";
 
@@ -42,9 +42,9 @@ abstract contract CerbySwapV1_ERC1155 is ERC1155, CerbyCronJobsExecution {
         uint256 i;
         uint256 totalSupplyAmount;
 
-        // i starts from 1
-        while (contractTotalSupply[++i] > 0) {
-            totalSupplyAmount += contractTotalSupply[i];
+        // i starts from 1 (skipping 0th pool)
+        while (erc1155TotalSupply[++i] > 0) {
+            totalSupplyAmount += erc1155TotalSupply[i];
         }
 
         return totalSupplyAmount;
@@ -85,7 +85,7 @@ abstract contract CerbySwapV1_ERC1155 is ERC1155, CerbyCronJobsExecution {
         address _to,
         uint256 _id,
         uint256 _amount,
-        bytes calldata _data
+        bytes calldata 
     )
         external
         addressIsApproved(_from)
@@ -95,8 +95,7 @@ abstract contract CerbySwapV1_ERC1155 is ERC1155, CerbyCronJobsExecution {
             _from,
             _to,
             _id,
-            _amount,
-            _data
+            _amount
         );
     }
 

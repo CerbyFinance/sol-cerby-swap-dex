@@ -8,44 +8,42 @@ import "./IERC1155Receiver.sol";
 import "../../utils/introspection/ERC165.sol";
 
 abstract contract ERC1155 {
-    // Mapping from token ID to account balances
-    mapping(uint256 => mapping(address => uint256)) internal balances;
+    // Mapping from token ID to account erc1155Balances
+    mapping(uint256 => mapping(address => uint256)) erc1155Balances;
 
     // Mapping from account to operator approvals
-    mapping(address => mapping(address => bool)) internal operatorApprovals;
+    mapping(address => mapping(address => bool)) erc1155OperatorApprovals;
 
-    mapping(uint256 => uint256) internal contractTotalSupply;
+    mapping(uint256 => uint256) erc1155TotalSupply;
 
-    address internal constant BURN_ADDRESS = address(0);
+    address constant BURN_ADDRESS = address(0);
 
     event TransferSingle(
-        address indexed operator,
-        address indexed from,
-        address indexed to,
-        uint256 id,
-        uint256 value
+        address indexed _operator,
+        address indexed _from,
+        address indexed _to,
+        uint256 _id,
+        uint256 _value
     );
 
     event TransferBatch(
-        address indexed operator,
-        address indexed from,
-        address indexed to,
-        uint256[] ids,
-        uint256[] values
+        address indexed _operator,
+        address indexed _from,
+        address indexed _to,
+        uint256[] _ids,
+        uint256[] _values
     );
 
     event ApprovalForAll(
-        address indexed account,
-        address indexed operator,
-        bool approved
+        address indexed _account,
+        address indexed _operator,
+        bool _approved
     );
 
     error ERC1155_CallerIsNotOwnerNorApproved();
-    error ERC1155_AddressMustNotBeZeroAddress();
     error ERC1155_IdsLengthMismatch();
     error ERC1155_InsufficientBalanceForTransfer();
     error ERC1155_BurnAmountExceedsBalance();
-    error ERC1155_SettingApprovalStatusForSelf();
     error ERC1155_ERC1155ReceiverRejectsTokens();
     error ERC1155_TransferToNonERC1155ReceiverImplementer();
 
@@ -56,38 +54,42 @@ abstract contract ERC1155 {
         _;
     }
 
-    modifier addressIsNotBurnAddress(address _addr) {
-        if (_addr == BURN_ADDRESS) {
-            revert ERC1155_AddressMustNotBeZeroAddress();
-        }
-        _;
-    }
-
-    modifier idsLengthMismatch(uint256 _idsLength, uint256 _accountsLength) {
+    modifier idsLengthMismatch(
+        uint256 _idsLength, 
+        uint256 _accountsLength
+    ) {
         if (_idsLength != _accountsLength) {
             revert ERC1155_IdsLengthMismatch();
         }
         _;
     }
 
-    function balanceOf(address _account, uint256 _id)
+    function balanceOf(
+        address _account, 
+        uint256 _id
+    )
         public
         view
-        addressIsNotBurnAddress(_account)
         returns (uint256)
     {
-        return balances[_id][_account];
+        return erc1155Balances[_id][_account];
     }
 
-    function isApprovedForAll(address _account, address _operator)
+    function isApprovedForAll(
+        address _account, 
+        address _operator
+    )
         public
         view
         returns (bool)
     {
-        return operatorApprovals[_account][_operator];
+        return erc1155OperatorApprovals[_account][_operator];
     }
 
-    function balanceOfBatch(address[] calldata _accounts, uint256[] calldata _ids)
+    function balanceOfBatch(
+        address[] calldata _accounts, 
+        uint256[] calldata _ids
+    )
         external
         view
         idsLengthMismatch(_ids.length, _accounts.length)
@@ -107,7 +109,7 @@ abstract contract ERC1155 {
         view
         returns (uint256)
     {
-        return contractTotalSupply[_id];
+        return erc1155TotalSupply[_id];
     }
 
     function exists(uint256 _id)
@@ -115,30 +117,28 @@ abstract contract ERC1155 {
         view
         returns (bool)
     {
-        return contractTotalSupply[_id] > 0;
+        return erc1155TotalSupply[_id] > 0;
     }
 
-    function _safeTransferFrom( // @TODO: was modified
+    function _safeTransferFrom(
         address _from,
         address _to,
         uint256 _id,
-        uint256 _amount,
-        bytes calldata _data
+        uint256 _amount
     )
         internal
-        addressIsNotBurnAddress(_to)
     {
         address operator = msg.sender;
 
-        uint256 fromBalance = balances[_id][_from];
+        uint256 fromBalance = erc1155Balances[_id][_from];
         if (fromBalance < _amount) {
             revert ERC1155_InsufficientBalanceForTransfer();
         }
 
         unchecked {
-            balances[_id][_from] = fromBalance - _amount;
+            erc1155Balances[_id][_from] = fromBalance - _amount;
+            erc1155Balances[_id][_to] += _amount; // since user balance is lower than totalSupply and totalSupply can't overflow ==> user balance can't overflow
         }
-        balances[_id][_to] += _amount;
 
         emit TransferSingle(
             operator,
@@ -148,10 +148,8 @@ abstract contract ERC1155 {
             _amount
         );
 
-        _doSafeTransferAcceptanceCheck(operator, _from, _to, _id, _amount, _data);
+        _doSafeTransferAcceptanceCheck(operator, _from, _to, _id, _amount, "");
     }
-
-    // @TODO: was modified (check this one )
 
     function _mint(
         address _to,
@@ -159,7 +157,6 @@ abstract contract ERC1155 {
         uint256 _amount
     )
         internal
-        addressIsNotBurnAddress(_to)
     {
         if (_amount == 0) {
             return;
@@ -167,10 +164,10 @@ abstract contract ERC1155 {
 
         address operator = msg.sender;
 
-        contractTotalSupply[_id] += _amount; // will overflow (revert) earlier than balances[_id][_to]
+        erc1155TotalSupply[_id] += _amount; // will overflow (revert) earlier than erc1155Balances[_id][_to]
 
         unchecked {
-            balances[_id][_to] += _amount;
+            erc1155Balances[_id][_to] += _amount;
         }
 
         emit TransferSingle(operator, BURN_ADDRESS, _to, _id, _amount);
@@ -185,27 +182,24 @@ abstract contract ERC1155 {
         );
     }
 
-    // @TODO: was modified
-
     function _burn(
         address _from,
         uint256 _id,
         uint256 _amount
     )
         internal
-        addressIsNotBurnAddress(_from)
     {
         address operator = msg.sender;
 
-        uint256 fromBalance = balances[_id][_from];
+        uint256 fromBalance = erc1155Balances[_id][_from];
 
         if (fromBalance < _amount) {
             revert ERC1155_BurnAmountExceedsBalance();
         }
 
         unchecked {
-            balances[_id][_from] = fromBalance - _amount;
-            contractTotalSupply[_id] -= _amount; // if user balance is not overflown then total supply isn't too
+            erc1155Balances[_id][_from] = fromBalance - _amount;
+            erc1155TotalSupply[_id] -= _amount; // if user balance is not underflow then total supply isn't either
         }
 
         emit TransferSingle(operator, _from, BURN_ADDRESS, _id, _amount);
@@ -218,11 +212,7 @@ abstract contract ERC1155 {
     )
         internal
     {
-        if (_owner == _operator) {
-            revert ERC1155_SettingApprovalStatusForSelf();
-        }
-
-        operatorApprovals[_owner][_operator] = _approved;
+        erc1155OperatorApprovals[_owner][_operator] = _approved;
         emit ApprovalForAll(_owner, _operator, _approved);
     }
 

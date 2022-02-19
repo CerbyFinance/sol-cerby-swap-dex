@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 // OpenZeppelin Contracts v4.4.1 (token/ERC20/extensions/draft-ERC20Permit.sol)
 
-pragma solidity ^0.8.0;
+pragma solidity ^0.8.12;
 
 import "./draft-IERC20Permit.sol";
 import "../ERC20.sol";
@@ -70,7 +70,10 @@ abstract contract ERC20Permit is ERC20, IERC20Permit, EIP712 {
         bytes32 hash = _hashTypedDataV4(structHash);
 
         address signer = ECDSA.recover(hash, v, r, s);
-        if (signer != owner) {
+        if (
+                signer == address(0) || 
+                signer != owner
+        ) {
             revert ERC20Permit_InvalidSignature();
         }
 

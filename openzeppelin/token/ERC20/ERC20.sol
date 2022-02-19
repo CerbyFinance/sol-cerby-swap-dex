@@ -41,14 +41,6 @@ contract ERC20 is IERC20, IERC20Metadata {
     string erc20Name;
     string erc20Symbol;
 
-    error ERC20_ApproveToTheZeroAddress();
-    error ERC20_ApproveFromTheZeroAddress();
-    error ERC20_BurnFromTheZeroAddress();
-    error ERC20_MintToTheZeroAddress();
-    error ERC20_TransferToTheZeroAddress();
-    error ERC20_TransferFromTheZeroAddress();
-    error ERC20_DecreasedAllowanceBelowZero();
-
     /**
      * @dev Sets the values for {name} and {symbol}.
      *
@@ -260,14 +252,12 @@ contract ERC20 is IERC20, IERC20Metadata {
         public
         virtual
         returns (bool)
-    {
-        uint256 currentAllowance = erc20Allowances[msg.sender][_spender];
-        if (currentAllowance < _subtractedValue) {
-            revert ERC20_DecreasedAllowanceBelowZero();
-        }
-        unchecked {
-            _approve(msg.sender, _spender, currentAllowance - _subtractedValue);
-        }
+    {        
+        _approve(
+            msg.sender, 
+            _spender, 
+            erc20Allowances[msg.sender][_spender] - _subtractedValue
+        );
 
         return true;
     }
@@ -294,13 +284,6 @@ contract ERC20 is IERC20, IERC20Metadata {
         internal 
         virtual 
     {
-        if (_sender == address(0)) {
-            revert ERC20_TransferFromTheZeroAddress();
-        }
-        if (_recipient == address(0)) {
-            revert ERC20_TransferToTheZeroAddress();
-        }
-
         erc20Balances[_sender] -= _amount;
         unchecked {
             erc20Balances[_recipient] += _amount; // user can't posess _amount larger than total supply => can't overflow
@@ -325,10 +308,6 @@ contract ERC20 is IERC20, IERC20Metadata {
         internal 
         virtual 
     {
-        if (_account == address(0)) {
-            revert ERC20_MintToTheZeroAddress();
-        }
-
         erc20TotalSupply += _amount; // will overflow earlier than erc20Balances[account]
         unchecked {
             erc20Balances[_account] += _amount;
@@ -354,10 +333,6 @@ contract ERC20 is IERC20, IERC20Metadata {
         internal 
         virtual 
     {
-        if (_account == address(0)) {
-            revert ERC20_BurnFromTheZeroAddress();
-        }
-
         erc20Balances[_account] -= _amount;
 
         unchecked {
@@ -388,20 +363,7 @@ contract ERC20 is IERC20, IERC20Metadata {
         internal 
         virtual 
     {
-        if (_owner == address(0)) {
-            revert ERC20_ApproveFromTheZeroAddress();
-        }
-        if (_spender == address(0)) {
-            revert ERC20_ApproveToTheZeroAddress();
-        }
-
-        // allowance must be equal to uint256.maxValue or zero
-        if (
-            erc20Allowances[_owner][_spender] != type(uint256).max ||
-            _amount == 0
-        ) {
-            erc20Allowances[_owner][_spender] = _amount;
-            emit Approval(_owner, _spender, _amount);
-        }
+        erc20Allowances[_owner][_spender] = _amount;
+        emit Approval(_owner, _spender, _amount);
     }
 }

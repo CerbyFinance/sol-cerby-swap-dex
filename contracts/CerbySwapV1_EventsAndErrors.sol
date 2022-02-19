@@ -51,9 +51,7 @@ abstract contract CerbySwapV1_EventsAndErrors {
     error CerbySwapV1_SwappingTokenToSameTokenIsForbidden();
     error CerbySwapV1_InvariantKValueMustBeSameOrIncreasedOnAnySwaps();
     error CerbySwapV1_SafeTransferNativeFailed();
-    error CerbySwapV1_SafeTransferTokensFailed();
     error CerbySwapV1_SafeTransferFromFailed();
-    error CerbySwapV1_MsgValueProvidedMustBeLargerThanAmountTokensIn();
     error CerbySwapV1_AmountOfCerUsdOrTokensInMustBeLargerThanOne();
     error CerbySwapV1_FeeIsWrong();
     error CerbySwapV1_TvlMultiplierIsWrong();
