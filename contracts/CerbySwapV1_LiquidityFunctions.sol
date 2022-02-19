@@ -278,7 +278,7 @@ abstract contract CerbySwapV1_LiquidityFunctions is
 
         // calculating LP tokens
         uint256 lpAmount = _amountTokensIn
-            * erc1155TotalSupply[poolId] // erc1155TotalSupply[poolId] might have changed during mintFee, we are using updated value
+            * erc1155TotalSupply[poolId] // erc1155TotalSupply[poolId] might have changed during mintFee, we are using updated value, refer to line 143 https://github.com/Uniswap/v2-core/blob/master/contracts/UniswapV2Pair.sol
             / poolBalancesBefore.balanceToken;
 
         // minting LP tokens (subject to re-entrancty attack, doing it last)
@@ -360,12 +360,12 @@ abstract contract CerbySwapV1_LiquidityFunctions is
         // calculating amount of tokens to transfer
         uint256 amountTokensOut = poolBalancesBefore.balanceToken
             * _amountLpTokensBalanceToBurn
-            / erc1155TotalSupply[poolId]; // erc1155TotalSupply[poolId] might have changed during mintFee, we are using updated value
+            / erc1155TotalSupply[poolId]; // erc1155TotalSupply[poolId] might have changed during mintFee, we are using updated value, refer to line 143 https://github.com/Uniswap/v2-core/blob/master/contracts/UniswapV2Pair.sol
 
         // calculating amount of cerUSD to burn
         uint256 amountCerUsdToBurn = poolBalancesBefore.balanceCerUsd
             * _amountLpTokensBalanceToBurn
-            / erc1155TotalSupply[poolId]; // erc1155TotalSupply[poolId] might have changed during mintFee, we are using updated value
+            / erc1155TotalSupply[poolId]; // erc1155TotalSupply[poolId] might have changed during mintFee, we are using updated value, refer to line 143 https://github.com/Uniswap/v2-core/blob/master/contracts/UniswapV2Pair.sol
 
         // updating pool variables
         PoolBalances memory poolBalancesAfter = PoolBalances(
