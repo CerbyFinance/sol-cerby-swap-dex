@@ -37,8 +37,8 @@ abstract contract CerbySwapV1_AdminFunctions is
     {
         if (
             _settings.feeMinimum == 0 ||
-            _settings.feeMinimum > _settings.feeMaximum ||
-            _settings.feeMaximum > MAX_TRADE_FEE_POSSIBLE // 5.00% is hard limit on updating fee
+            _settings.feeMinimum > _settings.feeMaximum
+            // 2.56% is hard limit on updating fee
         ) {
             revert ("a1");
             revert CerbySwapV1_FeeIsWrong();
@@ -99,7 +99,7 @@ abstract contract CerbySwapV1_AdminFunctions is
         Pool storage pool = pools[cachedTokenValues[_token].poolId];
 
         // changing credit for user-created pool
-        pool.creditCerUsd = uint120(
+        pool.creditCerUsd = uint128(
             _amountCerUsdCredit
         );
 

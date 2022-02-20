@@ -61,16 +61,6 @@ contract CerbySwapV1_MinimalProxy is CerbySwapV1_Declarations {
         return vault;
     }
 
-    function generateVaultAddressByToken(
-        address _token
-    )
-        external
-        view
-        returns (address)
-    {
-        return _generateVaultAddressByToken(_token);
-    }
-
     function _generateVaultAddressByToken(
         address _token
     )

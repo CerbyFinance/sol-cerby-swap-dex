@@ -57,7 +57,7 @@ abstract contract CerbySwapV1_GetFunctions is
         return outputPools;
     }
 
-    function getCurrentOneMinusFeeBasedOnTrades(
+    function getCurrentFeeBasedOnTrades(
         address _token
     )
         external
@@ -71,7 +71,7 @@ abstract contract CerbySwapV1_GetFunctions is
             _token
         );
 
-        return _getCurrentOneMinusFeeBasedOnTrades(
+        return _getCurrentFeeBasedOnTrades(
             pool,
             poolBalances
         );
@@ -179,7 +179,7 @@ abstract contract CerbySwapV1_GetFunctions is
             % NUMBER_OF_TRADE_PERIODS;
     }
 
-    function _getCurrentOneMinusFeeBasedOnTrades(
+    function _getCurrentFeeBasedOnTrades(
         Pool storage _pool,
         PoolBalances memory _poolBalances
     )
@@ -215,17 +215,17 @@ abstract contract CerbySwapV1_GetFunctions is
             / TVL_MULTIPLIER_DENORM;
 
         if (volume <= tvlMin) {
-            return FEE_DENORM - uint256(settings.feeMaximum); // fee is maximum
+            return uint256(settings.feeMaximum); // fee is maximum
         }
 
         if (volume >= tvlMax) {
-            return FEE_DENORM - uint256(settings.feeMinimum); // fee is minimum
+            return uint256(settings.feeMinimum); // fee is minimum
         }
 
-        return (uint256(settings.feeMaximum) - uint256(settings.feeMinimum))
+        return uint256(settings.feeMaximum)
+            - (uint256(settings.feeMaximum) - uint256(settings.feeMinimum))
             * (volume - tvlMin)
-            / (tvlMax - tvlMin)
-            + FEE_DENORM - uint256(settings.feeMaximum); // fee is between minimum and maximum
+            / (tvlMax - tvlMin); // fee is between minimum and maximum
     }
 
     function _getOutputExactTokensForCerUsd(
@@ -244,7 +244,7 @@ abstract contract CerbySwapV1_GetFunctions is
             _amountTokensIn,
             uint256(poolBalances.balanceToken),
             uint256(poolBalances.balanceCerUsd),
-            _getCurrentOneMinusFeeBasedOnTrades(
+            _getCurrentFeeBasedOnTrades(
                 pool,
                 poolBalances
             )
@@ -263,7 +263,7 @@ abstract contract CerbySwapV1_GetFunctions is
             _amountCerUsdIn,
             uint256(poolBalances.balanceCerUsd),
             uint256(poolBalances.balanceToken),
-            FEE_DENORM // fee is zero for swaps cerUsd --> Any (oneMinusFee = FEE_DENORM)
+            0 // fee is zero for swaps cerUsd --> Any
         );
     }
 
@@ -271,7 +271,7 @@ abstract contract CerbySwapV1_GetFunctions is
         uint256 _amountIn,
         uint256 _reservesIn,
         uint256 _reservesOut,
-        uint256 _oneMinusFee
+        uint256 _fee
     )
         internal
         pure
@@ -279,7 +279,7 @@ abstract contract CerbySwapV1_GetFunctions is
     {
         // refer to https://github.com/Uniswap/v2-periphery/blob/master/contracts/libraries/UniswapV2Library.sol
         uint256 amountInWithFee = _amountIn
-            * _oneMinusFee;
+            * (FEE_DENORM - _fee);
 
         return amountInWithFee
             * _reservesOut
@@ -302,7 +302,7 @@ abstract contract CerbySwapV1_GetFunctions is
             _amountCerUsdOut,
             uint256(poolBalances.balanceToken),
             uint256(poolBalances.balanceCerUsd),
-            _getCurrentOneMinusFeeBasedOnTrades(
+            _getCurrentFeeBasedOnTrades(
                 pool,
                 poolBalances
             )
@@ -321,7 +321,7 @@ abstract contract CerbySwapV1_GetFunctions is
             _amountTokensOut,
             uint256(poolBalances.balanceCerUsd),
             uint256(poolBalances.balanceToken),
-            FEE_DENORM // fee is zero for swaps cerUsd --> Any (oneMinusFee = FEE_DENORM)
+            0 // fee is zero for swaps cerUsd --> Any
         );
     }
 
@@ -329,7 +329,7 @@ abstract contract CerbySwapV1_GetFunctions is
         uint256 _amountOut,
         uint256 _reservesIn,
         uint256 _reservesOut,
-        uint256 _oneMinusFee
+        uint256 _fee
     )
         internal
         pure
@@ -339,7 +339,7 @@ abstract contract CerbySwapV1_GetFunctions is
         return _reservesIn
             * _amountOut
             * FEE_DENORM
-            / _oneMinusFee
+            / (FEE_DENORM - _fee)
             / (_reservesOut - _amountOut) // or (_reservesOut - _amountOut) is also fine
             + 1; // adding +1 for any rounding trims
     }

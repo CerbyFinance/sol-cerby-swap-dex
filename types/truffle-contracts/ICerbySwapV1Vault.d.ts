@@ -81,21 +81,25 @@ export interface ICerbySwapV1VaultInstance extends Truffle.ContractInstance {
 
   withdrawTokens: {
     (
+      _token: string,
       _to: string,
       _value: number | BN | string,
       txDetails?: Truffle.TransactionDetails
     ): Promise<Truffle.TransactionResponse<AllEvents>>;
     call(
+      _token: string,
       _to: string,
       _value: number | BN | string,
       txDetails?: Truffle.TransactionDetails
     ): Promise<void>;
     sendTransaction(
+      _token: string,
       _to: string,
       _value: number | BN | string,
       txDetails?: Truffle.TransactionDetails
     ): Promise<string>;
     estimateGas(
+      _token: string,
       _to: string,
       _value: number | BN | string,
       txDetails?: Truffle.TransactionDetails
@@ -174,21 +178,25 @@ export interface ICerbySwapV1VaultInstance extends Truffle.ContractInstance {
 
     withdrawTokens: {
       (
+        _token: string,
         _to: string,
         _value: number | BN | string,
         txDetails?: Truffle.TransactionDetails
       ): Promise<Truffle.TransactionResponse<AllEvents>>;
       call(
+        _token: string,
         _to: string,
         _value: number | BN | string,
         txDetails?: Truffle.TransactionDetails
       ): Promise<void>;
       sendTransaction(
+        _token: string,
         _to: string,
         _value: number | BN | string,
         txDetails?: Truffle.TransactionDetails
       ): Promise<string>;
       estimateGas(
+        _token: string,
         _to: string,
         _value: number | BN | string,
         txDetails?: Truffle.TransactionDetails

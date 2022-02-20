@@ -15,9 +15,9 @@ export interface CerbySwapV1AdminFunctionsContract
 export interface ApprovalForAll {
   name: "ApprovalForAll";
   args: {
-    account: string;
-    operator: string;
-    approved: boolean;
+    _account: string;
+    _operator: string;
+    _approved: boolean;
     0: string;
     1: string;
     2: boolean;
@@ -113,11 +113,11 @@ export interface Sync {
 export interface TransferBatch {
   name: "TransferBatch";
   args: {
-    operator: string;
-    from: string;
-    to: string;
-    ids: BN[];
-    values: BN[];
+    _operator: string;
+    _from: string;
+    _to: string;
+    _ids: BN[];
+    _values: BN[];
     0: string;
     1: string;
     2: string;
@@ -129,11 +129,11 @@ export interface TransferBatch {
 export interface TransferSingle {
   name: "TransferSingle";
   args: {
-    operator: string;
-    from: string;
-    to: string;
-    id: BN;
-    value: BN;
+    _operator: string;
+    _from: string;
+    _to: string;
+    _id: BN;
+    _value: BN;
     0: string;
     1: string;
     2: string;
@@ -378,7 +378,7 @@ export interface CerbySwapV1AdminFunctionsInstance
     txDetails?: Truffle.TransactionDetails
   ): Promise<boolean>;
 
-  getCurrentOneMinusFeeBasedOnTrades(
+  getCurrentFeeBasedOnTrades(
     _token: string,
     txDetails?: Truffle.TransactionDetails
   ): Promise<BN>;
@@ -408,7 +408,7 @@ export interface CerbySwapV1AdminFunctionsInstance
   ): Promise<
     {
       tradeVolumePerPeriodInCerUsd: BN[];
-      lastCachedOneMinusFee: BN;
+      lastCachedFee: BN;
       lastCachedTradePeriod: BN;
       lastSqrtKValue: BN;
       creditCerUsd: BN;
@@ -515,7 +515,7 @@ export interface CerbySwapV1AdminFunctionsInstance
       _to: string,
       _id: number | BN | string,
       _amount: number | BN | string,
-      _data: string,
+      arg4: string,
       txDetails?: Truffle.TransactionDetails
     ): Promise<Truffle.TransactionResponse<AllEvents>>;
     call(
@@ -523,7 +523,7 @@ export interface CerbySwapV1AdminFunctionsInstance
       _to: string,
       _id: number | BN | string,
       _amount: number | BN | string,
-      _data: string,
+      arg4: string,
       txDetails?: Truffle.TransactionDetails
     ): Promise<void>;
     sendTransaction(
@@ -531,7 +531,7 @@ export interface CerbySwapV1AdminFunctionsInstance
       _to: string,
       _id: number | BN | string,
       _amount: number | BN | string,
-      _data: string,
+      arg4: string,
       txDetails?: Truffle.TransactionDetails
     ): Promise<string>;
     estimateGas(
@@ -539,7 +539,7 @@ export interface CerbySwapV1AdminFunctionsInstance
       _to: string,
       _id: number | BN | string,
       _amount: number | BN | string,
-      _data: string,
+      arg4: string,
       txDetails?: Truffle.TransactionDetails
     ): Promise<number>;
   };
@@ -894,7 +894,7 @@ export interface CerbySwapV1AdminFunctionsInstance
       txDetails?: Truffle.TransactionDetails
     ): Promise<boolean>;
 
-    getCurrentOneMinusFeeBasedOnTrades(
+    getCurrentFeeBasedOnTrades(
       _token: string,
       txDetails?: Truffle.TransactionDetails
     ): Promise<BN>;
@@ -924,7 +924,7 @@ export interface CerbySwapV1AdminFunctionsInstance
     ): Promise<
       {
         tradeVolumePerPeriodInCerUsd: BN[];
-        lastCachedOneMinusFee: BN;
+        lastCachedFee: BN;
         lastCachedTradePeriod: BN;
         lastSqrtKValue: BN;
         creditCerUsd: BN;
@@ -1031,7 +1031,7 @@ export interface CerbySwapV1AdminFunctionsInstance
         _to: string,
         _id: number | BN | string,
         _amount: number | BN | string,
-        _data: string,
+        arg4: string,
         txDetails?: Truffle.TransactionDetails
       ): Promise<Truffle.TransactionResponse<AllEvents>>;
       call(
@@ -1039,7 +1039,7 @@ export interface CerbySwapV1AdminFunctionsInstance
         _to: string,
         _id: number | BN | string,
         _amount: number | BN | string,
-        _data: string,
+        arg4: string,
         txDetails?: Truffle.TransactionDetails
       ): Promise<void>;
       sendTransaction(
@@ -1047,7 +1047,7 @@ export interface CerbySwapV1AdminFunctionsInstance
         _to: string,
         _id: number | BN | string,
         _amount: number | BN | string,
-        _data: string,
+        arg4: string,
         txDetails?: Truffle.TransactionDetails
       ): Promise<string>;
       estimateGas(
@@ -1055,7 +1055,7 @@ export interface CerbySwapV1AdminFunctionsInstance
         _to: string,
         _id: number | BN | string,
         _amount: number | BN | string,
-        _data: string,
+        arg4: string,
         txDetails?: Truffle.TransactionDetails
       ): Promise<number>;
     };

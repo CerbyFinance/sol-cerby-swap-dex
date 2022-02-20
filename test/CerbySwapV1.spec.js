@@ -2000,9 +2000,9 @@ contract('Cerby', (accounts) => {
         }
     });
     // ---------------------------------------------------------- //
-    // getCurrentOneMinusFeeBasedOnTrades tests //
+    // getCurrentFeeBasedOnTrades tests //
     // ---------------------------------------------------------- //
-    it('getCurrentOneMinusFeeBasedOnTrades: time travel, do small trade, time travel, check fee', async () => {
+    it('getCurrentFeeBasedOnTrades: time travel, do small trade, time travel, check fee', async () => {
         await delay(DELAY_BETWEEN_TESTS);
         const accounts = await web3.eth.getAccounts();
         const firstAccount = accounts[0];
@@ -2010,11 +2010,11 @@ contract('Cerby', (accounts) => {
         {
             const ONE_PERIOD = 17280; // 4.8 hours time travel
             await increaseTime(ONE_PERIOD * 13); // shifting 2.6 days to clear any fees stats
-            let actualOneMinusFee = await cerbySwap.getCurrentOneMinusFeeBasedOnTrades(CERBY_TOKEN_ADDRESS);
-            const ONE_MINUS_FEE_MINIMUM = FEE_DENORM.sub(_BN(200)); // 98.00%
-            const ONE_MINUS_FEE_MAXIMUM = FEE_DENORM.sub(_BN(1)); // 99.99%
-            // actualOneMinusFee must be == min
-            assert.deepEqual(actualOneMinusFee.toString(), ONE_MINUS_FEE_MINIMUM.toString());
+            let actualFee = await cerbySwap.getCurrentFeeBasedOnTrades(CERBY_TOKEN_ADDRESS);
+            const FEE_MINIMUM = _BN(1); // 0.01%
+            const FEE_MAXIMUM = _BN(200); // 2%
+            // actualFee must be == max
+            assert.deepEqual(actualFee.toString(), FEE_MAXIMUM.toString());
             const beforeCerbyPool = (await cerbySwap.getPoolsBalancesByTokens([CERBY_TOKEN_ADDRESS]))[0];
             let pool = (await cerbySwap.getPoolsByTokens([CERBY_TOKEN_ADDRESS]))[0];
             const cerbyToken = await TestCerbyToken.at(CERBY_TOKEN_ADDRESS);
@@ -2028,18 +2028,18 @@ contract('Cerby', (accounts) => {
             await cerbySwap.swapExactTokensForTokens(tokenIn, tokenOut, amountTokensIn, minAmountTokensOut, expireTimestamp, transferTo);
             await increaseTime(ONE_PERIOD * 2);
             pool = (await cerbySwap.getPoolsByTokens([CERBY_TOKEN_ADDRESS]))[0];
-            // actualOneMinusFee must be in range min - max
-            actualOneMinusFee = await cerbySwap.getCurrentOneMinusFeeBasedOnTrades(CERBY_TOKEN_ADDRESS);
-            assert.isTrue(actualOneMinusFee > ONE_MINUS_FEE_MINIMUM);
-            assert.isTrue(actualOneMinusFee < ONE_MINUS_FEE_MAXIMUM);
+            // actualFee must be in range min - max
+            actualFee = await cerbySwap.getCurrentFeeBasedOnTrades(CERBY_TOKEN_ADDRESS);
+            assert.isTrue(actualFee > FEE_MINIMUM);
+            assert.isTrue(actualFee < FEE_MAXIMUM);
             amountTokensIn = _BN(beforeCerbyPool.balanceToken).mul(_BN(30));
             await cerbySwap.swapExactTokensForTokens(tokenIn, tokenOut, amountTokensIn, minAmountTokensOut, expireTimestamp, transferTo);
             await increaseTime(ONE_PERIOD * 3);
             pool = (await cerbySwap.getPoolsByTokens([CERBY_TOKEN_ADDRESS]))[0];
-            // actualOneMinusFee must be == max
-            actualOneMinusFee = await cerbySwap.getCurrentOneMinusFeeBasedOnTrades(CERBY_TOKEN_ADDRESS);
-            // actualOneMinusFee must be == min
-            assert.deepEqual(actualOneMinusFee.toString(), ONE_MINUS_FEE_MAXIMUM.toString());
+            // actualFee must be == max
+            actualFee = await cerbySwap.getCurrentFeeBasedOnTrades(CERBY_TOKEN_ADDRESS);
+            // actualFee must be == min
+            assert.deepEqual(actualFee.toString(), FEE_MINIMUM.toString());
             amountTokensIn = _BN(beforeCerbyPool.balanceToken).mul(_BN(30));
             await cerbySwap.swapExactTokensForTokens(tokenIn, tokenOut, amountTokensIn, minAmountTokensOut, expireTimestamp, transferTo);
             await increaseTime(ONE_PERIOD * 1);
@@ -2059,8 +2059,8 @@ contract('Cerby', (accounts) => {
             amountTokensIn = _BN(1e9);
             await cerbySwap.swapExactTokensForTokens(tokenIn, tokenOut, amountTokensIn, minAmountTokensOut, expireTimestamp, transferTo);
             await increaseTime(ONE_PERIOD * 1);
-            actualOneMinusFee = await cerbySwap.getCurrentOneMinusFeeBasedOnTrades(CERBY_TOKEN_ADDRESS);
-            assert.deepEqual(actualOneMinusFee.toString(), ONE_MINUS_FEE_MINIMUM.toString());
+            actualFee = await cerbySwap.getCurrentFeeBasedOnTrades(CERBY_TOKEN_ADDRESS);
+            assert.deepEqual(actualFee.toString(), FEE_MAXIMUM.toString());
         }
     });
     // ---------------------------------------------------------- //

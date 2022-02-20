@@ -28,8 +28,8 @@ contract CerbySwapV1 is CerbySwapV1_AdminFunctions {
         settings = Settings({
             mintFeeBeneficiary: mintFeeBeneficiary,
             mintFeeMultiplier: uint32(mintFeeMultiplier),
-            feeMinimum: uint16(feeMinimum),
-            feeMaximum: uint16(feeMaximum),
+            feeMinimum: uint8(feeMinimum),
+            feeMaximum: uint8(feeMaximum),
             tvlMultiplierMinimum: uint64(tvlMultiplierMinimum),
             tvlMultiplierMaximum: uint64(tvlMultiplierMaximum)
         });
@@ -41,7 +41,7 @@ contract CerbySwapV1 is CerbySwapV1_AdminFunctions {
             Pool({
                 tradeVolumePerPeriodInCerUsd: tradeVolumePerPeriodInCerUsd,
                 lastCachedTradePeriod: 0,
-                lastCachedOneMinusFee: 0,
+                lastCachedFee: 0,
                 lastSqrtKValue: 0,
                 creditCerUsd: 0
             })

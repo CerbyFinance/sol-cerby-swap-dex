@@ -92,7 +92,7 @@ type AllEvents = LiquidityAdded | LiquidityRemoved | PoolCreated | Swap | Sync;
 
 export interface CerbySwapV1GetFunctionsInstance
   extends Truffle.ContractInstance {
-  getCurrentOneMinusFeeBasedOnTrades(
+  getCurrentFeeBasedOnTrades(
     _token: string,
     txDetails?: Truffle.TransactionDetails
   ): Promise<BN>;
@@ -122,7 +122,7 @@ export interface CerbySwapV1GetFunctionsInstance
   ): Promise<
     {
       tradeVolumePerPeriodInCerUsd: BN[];
-      lastCachedOneMinusFee: BN;
+      lastCachedFee: BN;
       lastCachedTradePeriod: BN;
       lastSqrtKValue: BN;
       creditCerUsd: BN;
@@ -146,7 +146,7 @@ export interface CerbySwapV1GetFunctionsInstance
   ): Promise<BN>;
 
   methods: {
-    getCurrentOneMinusFeeBasedOnTrades(
+    getCurrentFeeBasedOnTrades(
       _token: string,
       txDetails?: Truffle.TransactionDetails
     ): Promise<BN>;
@@ -176,7 +176,7 @@ export interface CerbySwapV1GetFunctionsInstance
     ): Promise<
       {
         tradeVolumePerPeriodInCerUsd: BN[];
-        lastCachedOneMinusFee: BN;
+        lastCachedFee: BN;
         lastCachedTradePeriod: BN;
         lastSqrtKValue: BN;
         creditCerUsd: BN;

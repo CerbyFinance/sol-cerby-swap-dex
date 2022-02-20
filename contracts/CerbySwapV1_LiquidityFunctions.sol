@@ -31,7 +31,7 @@ abstract contract CerbySwapV1_LiquidityFunctions is
         }
 
         // increasing credit for user-created pool
-        pool.creditCerUsd += uint120(
+        pool.creditCerUsd += uint128(
             _amountCerUsdCredit
         );
 
@@ -134,10 +134,10 @@ abstract contract CerbySwapV1_LiquidityFunctions is
 
         Pool memory pool = Pool({
             tradeVolumePerPeriodInCerUsd: tradeVolumePerPeriodInCerUsd,
-            lastCachedOneMinusFee: uint16(FEE_DENORM - settings.feeMaximum),
+            lastCachedFee: uint8(settings.feeMaximum),
             lastCachedTradePeriod: uint8(_getCurrentPeriod()),
-            lastSqrtKValue: uint120(newSqrtKValue),
-            creditCerUsd: uint120(_creditCerUsd)
+            lastSqrtKValue: uint128(newSqrtKValue),
+            creditCerUsd: uint128(_creditCerUsd)
         });
 
         // remembering the position where new pool will be pushed to
@@ -263,7 +263,7 @@ abstract contract CerbySwapV1_LiquidityFunctions is
         }
 
         // updating pool variables
-        pool.lastSqrtKValue = uint120(
+        pool.lastSqrtKValue = uint128(
             sqrt(
                 tokenBalanceAfter 
                 * (poolBalancesBefore.balanceCerUsd + amountCerUsdToMint) // cerUSD balance has increased by amountCerUsdToMint
@@ -373,7 +373,7 @@ abstract contract CerbySwapV1_LiquidityFunctions is
             poolBalancesBefore.balanceCerUsd - amountCerUsdToBurn
         );
 
-        pool.lastSqrtKValue = uint120(
+        pool.lastSqrtKValue = uint128(
             sqrt(poolBalancesAfter.balanceToken * poolBalancesAfter.balanceCerUsd)
         );
 

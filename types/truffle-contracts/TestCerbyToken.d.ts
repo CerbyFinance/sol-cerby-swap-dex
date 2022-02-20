@@ -38,36 +38,36 @@ type AllEvents = Approval | Transfer;
 
 export interface TestCerbyTokenInstance extends Truffle.ContractInstance {
   allowance(
-    owner: string,
-    spender: string,
+    _owner: string,
+    _spender: string,
     txDetails?: Truffle.TransactionDetails
   ): Promise<BN>;
 
   approve: {
     (
-      spender: string,
-      amount: number | BN | string,
+      _spender: string,
+      _amount: number | BN | string,
       txDetails?: Truffle.TransactionDetails
     ): Promise<Truffle.TransactionResponse<AllEvents>>;
     call(
-      spender: string,
-      amount: number | BN | string,
+      _spender: string,
+      _amount: number | BN | string,
       txDetails?: Truffle.TransactionDetails
     ): Promise<boolean>;
     sendTransaction(
-      spender: string,
-      amount: number | BN | string,
+      _spender: string,
+      _amount: number | BN | string,
       txDetails?: Truffle.TransactionDetails
     ): Promise<string>;
     estimateGas(
-      spender: string,
-      amount: number | BN | string,
+      _spender: string,
+      _amount: number | BN | string,
       txDetails?: Truffle.TransactionDetails
     ): Promise<number>;
   };
 
   balanceOf(
-    account: string,
+    _account: string,
     txDetails?: Truffle.TransactionDetails
   ): Promise<BN>;
 
@@ -121,46 +121,46 @@ export interface TestCerbyTokenInstance extends Truffle.ContractInstance {
 
   decreaseAllowance: {
     (
-      spender: string,
-      subtractedValue: number | BN | string,
+      _spender: string,
+      _subtractedValue: number | BN | string,
       txDetails?: Truffle.TransactionDetails
     ): Promise<Truffle.TransactionResponse<AllEvents>>;
     call(
-      spender: string,
-      subtractedValue: number | BN | string,
+      _spender: string,
+      _subtractedValue: number | BN | string,
       txDetails?: Truffle.TransactionDetails
     ): Promise<boolean>;
     sendTransaction(
-      spender: string,
-      subtractedValue: number | BN | string,
+      _spender: string,
+      _subtractedValue: number | BN | string,
       txDetails?: Truffle.TransactionDetails
     ): Promise<string>;
     estimateGas(
-      spender: string,
-      subtractedValue: number | BN | string,
+      _spender: string,
+      _subtractedValue: number | BN | string,
       txDetails?: Truffle.TransactionDetails
     ): Promise<number>;
   };
 
   increaseAllowance: {
     (
-      spender: string,
-      addedValue: number | BN | string,
+      _spender: string,
+      _addedValue: number | BN | string,
       txDetails?: Truffle.TransactionDetails
     ): Promise<Truffle.TransactionResponse<AllEvents>>;
     call(
-      spender: string,
-      addedValue: number | BN | string,
+      _spender: string,
+      _addedValue: number | BN | string,
       txDetails?: Truffle.TransactionDetails
     ): Promise<boolean>;
     sendTransaction(
-      spender: string,
-      addedValue: number | BN | string,
+      _spender: string,
+      _addedValue: number | BN | string,
       txDetails?: Truffle.TransactionDetails
     ): Promise<string>;
     estimateGas(
-      spender: string,
-      addedValue: number | BN | string,
+      _spender: string,
+      _addedValue: number | BN | string,
       txDetails?: Truffle.TransactionDetails
     ): Promise<number>;
   };
@@ -219,23 +219,23 @@ export interface TestCerbyTokenInstance extends Truffle.ContractInstance {
 
   transfer: {
     (
-      recipient: string,
-      amount: number | BN | string,
+      _recipient: string,
+      _amount: number | BN | string,
       txDetails?: Truffle.TransactionDetails
     ): Promise<Truffle.TransactionResponse<AllEvents>>;
     call(
-      recipient: string,
-      amount: number | BN | string,
+      _recipient: string,
+      _amount: number | BN | string,
       txDetails?: Truffle.TransactionDetails
     ): Promise<boolean>;
     sendTransaction(
-      recipient: string,
-      amount: number | BN | string,
+      _recipient: string,
+      _amount: number | BN | string,
       txDetails?: Truffle.TransactionDetails
     ): Promise<string>;
     estimateGas(
-      recipient: string,
-      amount: number | BN | string,
+      _recipient: string,
+      _amount: number | BN | string,
       txDetails?: Truffle.TransactionDetails
     ): Promise<number>;
   };
@@ -269,63 +269,63 @@ export interface TestCerbyTokenInstance extends Truffle.ContractInstance {
 
   transferFrom: {
     (
-      sender: string,
-      recipient: string,
-      amount: number | BN | string,
+      _sender: string,
+      _recipient: string,
+      _amount: number | BN | string,
       txDetails?: Truffle.TransactionDetails
     ): Promise<Truffle.TransactionResponse<AllEvents>>;
     call(
-      sender: string,
-      recipient: string,
-      amount: number | BN | string,
+      _sender: string,
+      _recipient: string,
+      _amount: number | BN | string,
       txDetails?: Truffle.TransactionDetails
     ): Promise<boolean>;
     sendTransaction(
-      sender: string,
-      recipient: string,
-      amount: number | BN | string,
+      _sender: string,
+      _recipient: string,
+      _amount: number | BN | string,
       txDetails?: Truffle.TransactionDetails
     ): Promise<string>;
     estimateGas(
-      sender: string,
-      recipient: string,
-      amount: number | BN | string,
+      _sender: string,
+      _recipient: string,
+      _amount: number | BN | string,
       txDetails?: Truffle.TransactionDetails
     ): Promise<number>;
   };
 
   methods: {
     allowance(
-      owner: string,
-      spender: string,
+      _owner: string,
+      _spender: string,
       txDetails?: Truffle.TransactionDetails
     ): Promise<BN>;
 
     approve: {
       (
-        spender: string,
-        amount: number | BN | string,
+        _spender: string,
+        _amount: number | BN | string,
         txDetails?: Truffle.TransactionDetails
       ): Promise<Truffle.TransactionResponse<AllEvents>>;
       call(
-        spender: string,
-        amount: number | BN | string,
+        _spender: string,
+        _amount: number | BN | string,
         txDetails?: Truffle.TransactionDetails
       ): Promise<boolean>;
       sendTransaction(
-        spender: string,
-        amount: number | BN | string,
+        _spender: string,
+        _amount: number | BN | string,
         txDetails?: Truffle.TransactionDetails
       ): Promise<string>;
       estimateGas(
-        spender: string,
-        amount: number | BN | string,
+        _spender: string,
+        _amount: number | BN | string,
         txDetails?: Truffle.TransactionDetails
       ): Promise<number>;
     };
 
     balanceOf(
-      account: string,
+      _account: string,
       txDetails?: Truffle.TransactionDetails
     ): Promise<BN>;
 
@@ -379,46 +379,46 @@ export interface TestCerbyTokenInstance extends Truffle.ContractInstance {
 
     decreaseAllowance: {
       (
-        spender: string,
-        subtractedValue: number | BN | string,
+        _spender: string,
+        _subtractedValue: number | BN | string,
         txDetails?: Truffle.TransactionDetails
       ): Promise<Truffle.TransactionResponse<AllEvents>>;
       call(
-        spender: string,
-        subtractedValue: number | BN | string,
+        _spender: string,
+        _subtractedValue: number | BN | string,
         txDetails?: Truffle.TransactionDetails
       ): Promise<boolean>;
       sendTransaction(
-        spender: string,
-        subtractedValue: number | BN | string,
+        _spender: string,
+        _subtractedValue: number | BN | string,
         txDetails?: Truffle.TransactionDetails
       ): Promise<string>;
       estimateGas(
-        spender: string,
-        subtractedValue: number | BN | string,
+        _spender: string,
+        _subtractedValue: number | BN | string,
         txDetails?: Truffle.TransactionDetails
       ): Promise<number>;
     };
 
     increaseAllowance: {
       (
-        spender: string,
-        addedValue: number | BN | string,
+        _spender: string,
+        _addedValue: number | BN | string,
         txDetails?: Truffle.TransactionDetails
       ): Promise<Truffle.TransactionResponse<AllEvents>>;
       call(
-        spender: string,
-        addedValue: number | BN | string,
+        _spender: string,
+        _addedValue: number | BN | string,
         txDetails?: Truffle.TransactionDetails
       ): Promise<boolean>;
       sendTransaction(
-        spender: string,
-        addedValue: number | BN | string,
+        _spender: string,
+        _addedValue: number | BN | string,
         txDetails?: Truffle.TransactionDetails
       ): Promise<string>;
       estimateGas(
-        spender: string,
-        addedValue: number | BN | string,
+        _spender: string,
+        _addedValue: number | BN | string,
         txDetails?: Truffle.TransactionDetails
       ): Promise<number>;
     };
@@ -477,23 +477,23 @@ export interface TestCerbyTokenInstance extends Truffle.ContractInstance {
 
     transfer: {
       (
-        recipient: string,
-        amount: number | BN | string,
+        _recipient: string,
+        _amount: number | BN | string,
         txDetails?: Truffle.TransactionDetails
       ): Promise<Truffle.TransactionResponse<AllEvents>>;
       call(
-        recipient: string,
-        amount: number | BN | string,
+        _recipient: string,
+        _amount: number | BN | string,
         txDetails?: Truffle.TransactionDetails
       ): Promise<boolean>;
       sendTransaction(
-        recipient: string,
-        amount: number | BN | string,
+        _recipient: string,
+        _amount: number | BN | string,
         txDetails?: Truffle.TransactionDetails
       ): Promise<string>;
       estimateGas(
-        recipient: string,
-        amount: number | BN | string,
+        _recipient: string,
+        _amount: number | BN | string,
         txDetails?: Truffle.TransactionDetails
       ): Promise<number>;
     };
@@ -527,27 +527,27 @@ export interface TestCerbyTokenInstance extends Truffle.ContractInstance {
 
     transferFrom: {
       (
-        sender: string,
-        recipient: string,
-        amount: number | BN | string,
+        _sender: string,
+        _recipient: string,
+        _amount: number | BN | string,
         txDetails?: Truffle.TransactionDetails
       ): Promise<Truffle.TransactionResponse<AllEvents>>;
       call(
-        sender: string,
-        recipient: string,
-        amount: number | BN | string,
+        _sender: string,
+        _recipient: string,
+        _amount: number | BN | string,
         txDetails?: Truffle.TransactionDetails
       ): Promise<boolean>;
       sendTransaction(
-        sender: string,
-        recipient: string,
-        amount: number | BN | string,
+        _sender: string,
+        _recipient: string,
+        _amount: number | BN | string,
         txDetails?: Truffle.TransactionDetails
       ): Promise<string>;
       estimateGas(
-        sender: string,
-        recipient: string,
-        amount: number | BN | string,
+        _sender: string,
+        _recipient: string,
+        _amount: number | BN | string,
         txDetails?: Truffle.TransactionDetails
       ): Promise<number>;
     };

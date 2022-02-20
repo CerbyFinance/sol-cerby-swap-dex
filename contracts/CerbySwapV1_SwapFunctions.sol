@@ -399,12 +399,12 @@ abstract contract CerbySwapV1_SwapFunctions is CerbySwapV1_LiquidityFunctions {
         }
 
         uint256 currentPeriod = _getCurrentPeriod();
-        uint256 oneMinusFee = FEE_DENORM;
+        uint256 fee;
 
         {
             // calculating fees
             // if swap is ANY --> cerUSD, fee is calculated
-            // else swap is cerUSD --> ANY, fee is zero (oneMinusFee = FEE_DENORM)
+            // else swap is cerUSD --> ANY, fee is zero
             if (amountCerUsdIn <= 1 && amountTokensIn > 1) {
 
                 // updating cache while gas estimations to avoid out of gas error by artificially inflating gas limit
@@ -420,14 +420,14 @@ abstract contract CerbySwapV1_SwapFunctions is CerbySwapV1_LiquidityFunctions {
                     uint256 endPeriod = currentPeriod < lastPeriodI
                         ? currentPeriod + NUMBER_OF_TRADE_PERIODS
                         : currentPeriod;
-
+                    
                     while(++lastPeriodI <= endPeriod) {
                         pool.tradeVolumePerPeriodInCerUsd[lastPeriodI % NUMBER_OF_TRADE_PERIODS] = 1;
                     }
 
-                    // caching oneMinusFee
-                    pool.lastCachedOneMinusFee = uint16(
-                        _getCurrentOneMinusFeeBasedOnTrades(
+                    // caching fee
+                    pool.lastCachedFee = uint8(
+                        _getCurrentFeeBasedOnTrades(
                             pool,
                             _poolBalancesBefore
                         )
@@ -438,7 +438,7 @@ abstract contract CerbySwapV1_SwapFunctions is CerbySwapV1_LiquidityFunctions {
                     );
                 }
 
-                oneMinusFee = pool.lastCachedOneMinusFee;
+                fee = uint256(pool.lastCachedFee);
             }
 
             // calculating old K value including trade fees (multiplied by FEE_DENORM^2)
@@ -448,7 +448,6 @@ abstract contract CerbySwapV1_SwapFunctions is CerbySwapV1_LiquidityFunctions {
 
             // calculating new K value including trade fees
             // refer to 3.2.1 Adjustment for fee https://uniswap.org/whitepaper.pdf
-            uint256 fee = FEE_DENORM - oneMinusFee;
             uint256 afterKValueDenormed = (
                     poolBalancesAfter.balanceCerUsd
                     * FEE_DENORM // = 1000 in uniswap wp
@@ -469,7 +468,7 @@ abstract contract CerbySwapV1_SwapFunctions is CerbySwapV1_LiquidityFunctions {
 
             // updating creditCerUsd only if pool is user-created
             if (pool.creditCerUsd < MAX_CER_USD_CREDIT) {
-                pool.creditCerUsd = uint120(
+                pool.creditCerUsd = uint128(
                     uint256(pool.creditCerUsd)
                         + amountCerUsdIn
                         - _amountCerUsdOut
@@ -522,7 +521,7 @@ abstract contract CerbySwapV1_SwapFunctions is CerbySwapV1_LiquidityFunctions {
             amountCerUsdIn,
             _amountTokensOut,
             _amountCerUsdOut,
-            FEE_DENORM - oneMinusFee, // = fee * FEE_DENORM
+            fee,
             _transferTo
         );
 
