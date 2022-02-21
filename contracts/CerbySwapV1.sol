@@ -13,7 +13,7 @@ contract CerbySwapV1 is CerbySwapV1_AdminFunctions {
             msg.sender
         );
 
-        address mintFeeBeneficiary = 0xdEF78a28c78A461598d948bc0c689ce88f812AD8; // CerbyBridge fees wallet
+        /*address mintFeeBeneficiary = 0xdEF78a28c78A461598d948bc0c689ce88f812AD8; // CerbyBridge fees wallet
         uint256 mintFeeMultiplier = MINT_FEE_DENORM * 20 / 100; // means 20% of fees goes to buyback & burn Cerby
         uint256 tvlMultiplier = 1369863014; // 0.1369863014
 
@@ -32,7 +32,7 @@ contract CerbySwapV1 is CerbySwapV1_AdminFunctions {
             feeMaximum: uint8(feeMaximum),
             tvlMultiplierMinimum: uint64(tvlMultiplierMinimum),
             tvlMultiplierMaximum: uint64(tvlMultiplierMaximum)
-        });
+        });*/
 
         // Filling with empty pool 0th id
         uint40[NUMBER_OF_TRADE_PERIODS] memory tradeVolumePerPeriodInCerUsd;

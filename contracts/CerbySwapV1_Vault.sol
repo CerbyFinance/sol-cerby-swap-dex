@@ -7,8 +7,8 @@ import "./interfaces/IBasicERC20.sol";
 contract CerbySwapV1_Vault {
 
     address token;
-    address constant CER_USD_TOKEN = 0x3B69b8C5c6a4c8c2a90dc93F3B0238BF70cC9640;
-    address constant factory = 0xfAf360f184788b00623828165405D7F52820D789;
+    address constant CER_USD_TOKEN = 0x333333f9E4ba7303f1ac0BF8fE1F47d582629194;
+    address constant factory = 0x7777777358160876be06b6cb9dd66984d5ade55e;
 
     error CerbySwapV1_Vault_SafeTransferNativeFailed();
     error CerbySwapV1_Vault_CallerIsNotFactory();

@@ -10,9 +10,9 @@ abstract contract CerbySwapV1_Declarations is CerbySwapV1_EventsAndErrors {
 
     mapping(address => TokenCache) cachedTokenValues;
     
-    address constant CER_USD_TOKEN = 0x3B69b8C5c6a4c8c2a90dc93F3B0238BF70cC9640;
-    address constant VAULT_IMPLEMENTATION = 0x029581a9121998fcBb096ceafA92E3E10057878f;
-    address constant NATIVE_TOKEN = 0x14769F96e57B80c66837701DE0B43686Fb4632De;
+    address constant CER_USD_TOKEN = 0x333333f9E4ba7303f1ac0BF8fE1F47d582629194;
+    address constant VAULT_IMPLEMENTATION = 0xc0de7771a6f7029d62e8071e331b36136534d70d;
+    address constant NATIVE_TOKEN = 0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2; // Ethereum
 
 
     // address constant NATIVE_TOKEN = 0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2; // Ethereum
