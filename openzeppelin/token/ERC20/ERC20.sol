@@ -199,7 +199,12 @@ contract ERC20 is IERC20, IERC20Metadata {
         address _sender,
         address _recipient,
         uint256 _amount
-    ) public virtual override returns (bool) {
+    ) 
+        public 
+        virtual 
+        override 
+        returns (bool) 
+    {
         if (erc20Allowances[_sender][msg.sender] != type(uint256).max) {
             erc20Allowances[_sender][msg.sender] -= _amount;
         }
@@ -231,6 +236,7 @@ contract ERC20 is IERC20, IERC20Metadata {
             _spender,
             erc20Allowances[msg.sender][_spender] + _addedValue
         );
+
         return true;
     }
 
