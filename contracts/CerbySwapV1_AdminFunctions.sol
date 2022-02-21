@@ -40,17 +40,17 @@ abstract contract CerbySwapV1_AdminFunctions is
             _settings.feeMinimum > _settings.feeMaximum
             // 2.56% is hard limit on updating fee
         ) {
-            revert ("a1");
+            //revert ("a1"); 
             revert CerbySwapV1_FeeIsWrong();
         }
 
         if (_settings.tvlMultiplierMinimum > _settings.tvlMultiplierMaximum) {
-            revert ("a2");
+            //revert ("a2");
             revert CerbySwapV1_TvlMultiplierIsWrong();
         }
 
         if (_settings.mintFeeMultiplier >= MINT_FEE_DENORM / 2) {
-            revert ("a3");
+            //revert ("a3");
             revert CerbySwapV1_MintFeeMultiplierMustNotBeLargerThan50Percent();
         }
 
@@ -59,7 +59,7 @@ abstract contract CerbySwapV1_AdminFunctions is
 
     // only admins are allowed to create new pools with creditCerUsd = unlimitted
     // this is only for trusted tokens such as ETH, BNB, UNI, etc
-    function adminCreatePool( // Q3: is it used somewhere?
+    function adminCreatePool(
         address _token,
         uint256 _amountTokensIn,
         uint256 _amountCerUsdToMint,
@@ -83,7 +83,7 @@ abstract contract CerbySwapV1_AdminFunctions is
     // admins will be able to fix it by increasing credit
     // and swapping extra tokens + adding back to liquidity
     // using external contract assigned with admin role
-    function adminChangeCerUsdCreditInPool( // Q3: is it used somewhere?
+    function adminChangeCerUsdCreditInPool(
         address _token,
         uint256 _amountCerUsdCredit
     )

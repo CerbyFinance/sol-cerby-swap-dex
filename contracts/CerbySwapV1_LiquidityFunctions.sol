@@ -54,7 +54,7 @@ abstract contract CerbySwapV1_LiquidityFunctions is
     }
 
     // users are allowed to create new pools but only with creditCerUsd = 0
-    function createPool( // C: never tested (this seems critical to test user actions)
+    function createPool(
         address _token,
         uint256 _amountTokensIn,
         uint256 _amountCerUsdToMint,
@@ -62,6 +62,7 @@ abstract contract CerbySwapV1_LiquidityFunctions is
     )
         external
         payable
+        detectBotTransactionThenRegisterTransactionAndExecuteCronJobsAfter(_token, msg.sender, _token, _transferTo)
     {
         _createPool(
             _token,
@@ -82,7 +83,7 @@ abstract contract CerbySwapV1_LiquidityFunctions is
         internal
     {
         if (cachedTokenValues[_token].poolId > 0) {
-            revert ("saddsasadsdaasd");
+            //revert("saddsasadsdaasd");
             revert CerbySwapV1_TokenAlreadyExists();
         }
 
@@ -116,7 +117,7 @@ abstract contract CerbySwapV1_LiquidityFunctions is
         );
 
         if (_amountTokensIn <= 1) {
-            revert("F"); // TODO: remove this line on production // C: concern
+            //revert("F"); // TODO: remove this line on production // C: concern
             revert CerbySwapV1_AmountOfTokensMustBeLargerThanOne();
         }
 
@@ -197,9 +198,25 @@ abstract contract CerbySwapV1_LiquidityFunctions is
     )
         external
         payable
+        detectBotTransactionThenRegisterTransactionAndExecuteCronJobsAfter(_token, msg.sender, _token, _transferTo)
         tokenMustExistInPool(_token)
         transactionIsNotExpired(_expireTimestamp)
-        // checkForBots(msg.sender) // TODO: enable on production // C: concern
+        returns (uint256)
+    {
+        // to avoid stack too deep error using private function here
+        return _addTokenLiquidity(
+            _token,
+            _amountTokensIn,
+            _transferTo
+        );
+    }
+
+    function _addTokenLiquidity(
+        address _token,
+        uint256 _amountTokensIn,
+        address _transferTo
+    )
+        private
         returns (uint256)
     {
         // getting pool storage link (saves gas compared to memory)
@@ -234,7 +251,7 @@ abstract contract CerbySwapV1_LiquidityFunctions is
             - poolBalancesBefore.balanceToken;
 
         if (_amountTokensIn <= 1) {
-            revert("F"); // TODO: remove this line on production
+            //revert("F"); // TODO: remove this line on production
             revert CerbySwapV1_AmountOfTokensMustBeLargerThanOne();
         }
 
@@ -314,9 +331,9 @@ abstract contract CerbySwapV1_LiquidityFunctions is
         address _transferTo
     )
         external
+        detectBotTransactionThenRegisterTransactionAndExecuteCronJobsAfter(_token, msg.sender, _token, _transferTo)
         tokenMustExistInPool(_token)
         transactionIsNotExpired(_expireTimestamp)
-        // checkForBots(msg.sender) // TODO: enable on production
         returns (uint256)
     {
         // to avoid stack too deep error using private function here

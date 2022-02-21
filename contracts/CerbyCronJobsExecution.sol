@@ -15,25 +15,45 @@ abstract contract CerbyCronJobsExecution {
 
     error CerbyCronJobsExecution_TransactionsAreTemporarilyDisabled();
 
-    modifier checkForBotsAndExecuteCronJobs(
-        address _addr
+    modifier detectBotTransactionThenRegisterTransactionAndExecuteCronJobsAfter(
+        address _tokenIn,
+        address _from,
+        address _tokenOut,
+        address _to
     ) {
         ICerbyBotDetection iCerbyBotDetection = ICerbyBotDetection(
-            getUtilsContractAtPos(CERBY_BOT_DETECTION_CONTRACT_ID)
+            getUtilsContractAtPos(
+                CERBY_BOT_DETECTION_CONTRACT_ID
+            )
         );
-        if (iCerbyBotDetection.isBotAddress(_addr)) {
+        if (iCerbyBotDetection.detectBotTransaction(_tokenIn, _from)) {
             revert CerbyCronJobsExecution_TransactionsAreTemporarilyDisabled();
         }
-        iCerbyBotDetection.executeCronJobs();
+        iCerbyBotDetection.registerTransaction(
+            _tokenOut,
+            _to
+        );
+
         _;
+
+        iCerbyBotDetection.executeCronJobs();
     }
 
-    modifier executeCronJobs() {
+    modifier checkForBotsAndExecuteCronJobsAfter(
+        address _from
+    ) {
         ICerbyBotDetection iCerbyBotDetection = ICerbyBotDetection(
-            getUtilsContractAtPos(CERBY_BOT_DETECTION_CONTRACT_ID)
+            getUtilsContractAtPos(
+                CERBY_BOT_DETECTION_CONTRACT_ID
+            )
         );
-        iCerbyBotDetection.executeCronJobs();
+        if (iCerbyBotDetection.isBotAddress(_from)) {
+            revert CerbyCronJobsExecution_TransactionsAreTemporarilyDisabled();
+        }
+
         _;
+
+        iCerbyBotDetection.executeCronJobs();
     }
 
     function getUtilsContractAtPos(
@@ -45,64 +65,5 @@ abstract contract CerbyCronJobsExecution {
         returns (address)
     {
         return CERBY_TOKEN_INSTANCE.getUtilsContractAtPos(_pos);
-    }
-
-    modifier checkForBots(
-        address _addr
-    ) {
-        ICerbyBotDetection iCerbyBotDetection = ICerbyBotDetection(
-            CERBY_TOKEN_INSTANCE.getUtilsContractAtPos(
-                CERBY_BOT_DETECTION_CONTRACT_ID
-            )
-        );
-
-        if (iCerbyBotDetection.isBotAddress(_addr)) {
-            revert CerbyCronJobsExecution_TransactionsAreTemporarilyDisabled();
-        }
-
-        _;
-    }
-
-    modifier checkTransactionAndExecuteCron(
-        address _tokenAddr,
-        address _addr
-    ) {
-        ICerbyBotDetection iCerbyBotDetection = ICerbyBotDetection(
-            CERBY_TOKEN_INSTANCE.getUtilsContractAtPos(
-                CERBY_BOT_DETECTION_CONTRACT_ID
-            )
-        );
-
-        if (iCerbyBotDetection.detectBotTransaction(_tokenAddr, _addr)) {
-            revert CerbyCronJobsExecution_TransactionsAreTemporarilyDisabled();
-        }
-
-        iCerbyBotDetection.executeCronJobs();
-        _;
-    }
-
-    function checkTransactionForBots(
-        address _token,
-        address _from,
-        address _to
-    )
-        internal
-    {
-        ICerbyBotDetection iCerbyBotDetection = ICerbyBotDetection(
-            CERBY_TOKEN_INSTANCE.getUtilsContractAtPos(
-                CERBY_BOT_DETECTION_CONTRACT_ID
-            )
-        );
-
-        if (iCerbyBotDetection.detectBotTransaction(_token, _from)) {
-            revert CerbyCronJobsExecution_TransactionsAreTemporarilyDisabled();
-        }
-
-        if (_to == address(this)) return;
-
-        iCerbyBotDetection.registerTransaction(
-            _token,
-            _to
-        );
     }
 }

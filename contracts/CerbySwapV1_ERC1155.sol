@@ -60,7 +60,7 @@ abstract contract CerbySwapV1_ERC1155 is ERC1155, CerbyCronJobsExecution {
         return string(
             abi.encodePacked(
                 urlPrefix,
-                uint2str(_id), ".json"
+                _uint2str(_id), ".json"
             )
         );
     }
@@ -70,7 +70,7 @@ abstract contract CerbySwapV1_ERC1155 is ERC1155, CerbyCronJobsExecution {
         bool _approved
     )
         external
-        executeCronJobs
+        checkForBotsAndExecuteCronJobsAfter(msg.sender)
     {
         _setApprovalForAll(
             msg.sender,
@@ -88,8 +88,8 @@ abstract contract CerbySwapV1_ERC1155 is ERC1155, CerbyCronJobsExecution {
         bytes calldata 
     )
         external
+        checkForBotsAndExecuteCronJobsAfter(_from)
         addressIsApproved(_from)
-        executeCronJobs
     {
         _safeTransferFrom(
             _from,
@@ -99,7 +99,7 @@ abstract contract CerbySwapV1_ERC1155 is ERC1155, CerbyCronJobsExecution {
         );
     }
 
-    function uint2str(
+    function _uint2str(
         uint256 _i
     )
         private

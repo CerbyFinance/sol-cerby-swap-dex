@@ -44,7 +44,6 @@ abstract contract Ownable {
      */
     modifier onlyOwner() {
         if (contractOwner != msg.sender) {
-            revert("asdsdadsasd");
             revert Ownable_CallerIsNotOwner();
         }
         _;

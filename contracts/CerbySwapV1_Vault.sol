@@ -8,7 +8,7 @@ contract CerbySwapV1_Vault {
 
     address token;
     address constant CER_USD_TOKEN = 0x333333f9E4ba7303f1ac0BF8fE1F47d582629194;
-    address constant factory = 0x7777777358160876be06b6cb9dd66984d5ade55e;
+    address constant factory = 0x7777777358160876BE06b6CB9dd66984d5aDe55e;
 
     error CerbySwapV1_Vault_SafeTransferNativeFailed();
     error CerbySwapV1_Vault_CallerIsNotFactory();

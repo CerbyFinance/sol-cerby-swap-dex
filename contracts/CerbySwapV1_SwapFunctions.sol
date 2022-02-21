@@ -16,13 +16,33 @@ abstract contract CerbySwapV1_SwapFunctions is CerbySwapV1_LiquidityFunctions {
     )
         external
         payable
+        detectBotTransactionThenRegisterTransactionAndExecuteCronJobsAfter(_tokenIn, msg.sender, _tokenOut, _transferTo)
         transactionIsNotExpired(_expireTimestamp)
-        // checkForBots(msg.sender) // TODO: enable on production
+        returns (uint256[] memory)
+    {
+        // to avoid stack too deep error using private function here
+        return _swapExactTokensForTokens(
+            _tokenIn,
+            _tokenOut,
+            _amountTokensIn,
+            _minAmountTokensOut,
+            _transferTo
+        );
+    }
+
+    function _swapExactTokensForTokens(
+        address _tokenIn,
+        address _tokenOut,
+        uint256 _amountTokensIn,
+        uint256 _minAmountTokensOut,
+        address _transferTo
+    )
+        private
         returns (uint256[] memory)
     {
         // does not make sense to do the swap ANY --> ANY
         if (_tokenIn == _tokenOut) {
-            revert("L"); // TODO: remove this line on production
+            //revert("L"); // TODO: remove this line on production
             revert CerbySwapV1_SwappingTokenToSameTokenIsForbidden();
         }
 
@@ -51,7 +71,7 @@ abstract contract CerbySwapV1_SwapFunctions is CerbySwapV1_LiquidityFunctions {
 
             // checking slippage
             if (amounts[1] < _minAmountTokensOut) {
-                revert("H"); // TODO: remove this line on production
+                //revert("H"); // TODO: remove this line on production
                 revert CerbySwapV1_OutputCerUsdAmountIsLowerThanMinimumSpecified();
             }
 
@@ -96,7 +116,7 @@ abstract contract CerbySwapV1_SwapFunctions is CerbySwapV1_LiquidityFunctions {
 
             // checking slippage
             if (amounts[1] < _minAmountTokensOut) {
-                revert("i"); // TODO: remove this line on production
+                //revert("i"); // TODO: remove this line on production
                 revert CerbySwapV1_OutputTokensAmountIsLowerThanMinimumSpecified();
             }
 
@@ -147,7 +167,7 @@ abstract contract CerbySwapV1_SwapFunctions is CerbySwapV1_LiquidityFunctions {
 
         // checking slippage
         if (amounts[1] < _minAmountTokensOut) {
-            revert("i"); // TODO: remove this line on production
+            //revert("i"); // TODO: remove this line on production
             revert CerbySwapV1_OutputTokensAmountIsLowerThanMinimumSpecified();
         }
 
@@ -191,12 +211,32 @@ abstract contract CerbySwapV1_SwapFunctions is CerbySwapV1_LiquidityFunctions {
     )
         external
         payable
+        detectBotTransactionThenRegisterTransactionAndExecuteCronJobsAfter(_tokenIn, msg.sender, _tokenOut, _transferTo)
         transactionIsNotExpired(_expireTimestamp)
-        // checkForBots(msg.sender) // TODO: enable on production
+        returns (uint256[] memory)
+    {
+        // to avoid stack too deep error using private function here
+        return _swapTokensForExactTokens(
+            _tokenIn,
+            _tokenOut,
+            _amountTokensOut,
+            _maxAmountTokensIn,
+            _transferTo
+        );
+    }
+
+    function _swapTokensForExactTokens(
+        address _tokenIn,
+        address _tokenOut,
+        uint256 _amountTokensOut,
+        uint256 _maxAmountTokensIn,
+        address _transferTo
+    )
+        private
         returns (uint256[] memory)
     {
         if (_tokenIn == _tokenOut) {
-            revert("L"); // TODO: remove this line on production
+            //revert("L"); // TODO: remove this line on production
             revert CerbySwapV1_SwappingTokenToSameTokenIsForbidden();
         }
 
@@ -225,7 +265,7 @@ abstract contract CerbySwapV1_SwapFunctions is CerbySwapV1_LiquidityFunctions {
 
             // checking slippage
             if (amounts[0] > _maxAmountTokensIn) {
-                revert("K"); // TODO: remove this line on production
+                //revert("K"); // TODO: remove this line on production
                 revert CerbySwapV1_InputTokensAmountIsLargerThanMaximumSpecified();
             }
 
@@ -270,7 +310,7 @@ abstract contract CerbySwapV1_SwapFunctions is CerbySwapV1_LiquidityFunctions {
 
             // checking slippage
             if (amounts[0] > _maxAmountTokensIn) {
-                revert("J"); // TODO: remove this line on production
+                //revert("J"); // TODO: remove this line on production
                 revert CerbySwapV1_InputCerUsdAmountIsLargerThanMaximumSpecified();
             }
 
@@ -310,7 +350,7 @@ abstract contract CerbySwapV1_SwapFunctions is CerbySwapV1_LiquidityFunctions {
 
         // amountCerUsdOut must be larger than 1 to avoid rounding errors
         if (amountCerUsdOut <= 1) {
-            revert("U"); // TODO: remove this line on production
+            //revert("U"); // TODO: remove this line on production
             revert CerbySwapV1_AmountOfCerUsdMustBeLargerThanOne();
         }
 
@@ -327,7 +367,7 @@ abstract contract CerbySwapV1_SwapFunctions is CerbySwapV1_LiquidityFunctions {
 
         // checking slippage
         if (amounts[0] > _maxAmountTokensIn) {
-            revert("K"); // TODO: remove this line on production
+            //revert("K"); // TODO: remove this line on production
             revert CerbySwapV1_InputTokensAmountIsLargerThanMaximumSpecified();
         }
 
@@ -383,7 +423,7 @@ abstract contract CerbySwapV1_SwapFunctions is CerbySwapV1_LiquidityFunctions {
 
         // at least one of amountTokensIn or amountCerUsdIn must be larger than zero
         if (amountTokensIn + amountCerUsdIn <= 1) {
-            revert("2");
+            //revert("2");
             revert CerbySwapV1_AmountOfCerUsdOrTokensInMustBeLargerThanOne();
         }
 
@@ -394,7 +434,7 @@ abstract contract CerbySwapV1_SwapFunctions is CerbySwapV1_LiquidityFunctions {
             pool.creditCerUsd < MAX_CER_USD_CREDIT &&
             uint256(pool.creditCerUsd) + amountCerUsdIn < _amountCerUsdOut
         ) {
-            revert("Z");
+            //revert("Z");
             revert CerbySwapV1_CreditCerUsdMustNotBeBelowZero();
         }
 
@@ -462,7 +502,7 @@ abstract contract CerbySwapV1_SwapFunctions is CerbySwapV1_LiquidityFunctions {
                 );
 
             if (afterKValueDenormed < beforeKValueDenormed) {
-                revert("1"); // TODO: remove on production
+                //revert("1"); // TODO: remove on production
                 revert CerbySwapV1_InvariantKValueMustBeSameOrIncreasedOnAnySwaps();
             }
 

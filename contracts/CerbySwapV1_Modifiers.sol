@@ -10,7 +10,7 @@ abstract contract CerbySwapV1_Modifiers is CerbySwapV1_Declarations {
         address _token
     ) {
         if (cachedTokenValues[_token].poolId == 0 || _token == CER_USD_TOKEN) {
-            revert("C"); // TODO: remove this line on production
+            //revert("C"); // TODO: remove this line on production
             revert CerbySwapV1_TokenDoesNotExist();
         }
         _;
@@ -20,7 +20,7 @@ abstract contract CerbySwapV1_Modifiers is CerbySwapV1_Declarations {
         uint256 _expireTimestamp
     ) {
         if (block.timestamp > _expireTimestamp) {
-            revert("D"); // TODO: remove this line on production
+            //revert("D"); // TODO: remove this line on production
             revert CerbySwapV1_TransactionIsExpired();
         }
         _;
