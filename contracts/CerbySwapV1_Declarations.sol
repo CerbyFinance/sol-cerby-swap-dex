@@ -10,10 +10,10 @@ abstract contract CerbySwapV1_Declarations is CerbySwapV1_EventsAndErrors {
 
     mapping(address => TokenCache) cachedTokenValues;
     
-    // deploy 22 Feb 2022 Ethereum
+    // deploy 22 Feb 2022 Bsc
     address constant CER_USD_TOKEN = 0x333333f9E4ba7303f1ac0BF8fE1F47d582629194;
     address constant VAULT_IMPLEMENTATION = 0xc0DE7771A6F7029d62E8071e331B36136534D70D;
-    address constant NATIVE_TOKEN = 0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2; // Ethereum
+    address constant NATIVE_TOKEN = 0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c; // Bsc
 
 
     // address constant NATIVE_TOKEN = 0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2; // Ethereum
