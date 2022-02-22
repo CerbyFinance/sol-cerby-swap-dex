@@ -9,18 +9,16 @@ abstract contract CerbySwapV1_Declarations is CerbySwapV1_EventsAndErrors {
     Pool[] pools;
 
     mapping(address => TokenCache) cachedTokenValues;
+
+    uint256 constant ETH_MAINNET_CHAIN_ID = 1;
+    uint256 constant BSC_MAINNET_CHAIN_ID = 56;
+    uint256 constant POLYGON_MAINNET_CHAIN_ID = 137;
+    uint256 constant AVALANCHE_MAINNET_CHAIN_ID = 43114;
+    uint256 constant FANTOM_MAINNET_CHAIN_ID = 250;
     
-    // deploy 22 Feb 2022 Avalanche
     address constant CER_USD_TOKEN = 0x333333f9E4ba7303f1ac0BF8fE1F47d582629194;
     address constant VAULT_IMPLEMENTATION = 0xc0DE7771A6F7029d62E8071e331B36136534D70D;
-    address constant NATIVE_TOKEN = 0xB31f66AA3C1e785363F0875A1B74E27b85FD66c7; // Avalanche
-
-
-    // address constant NATIVE_TOKEN = 0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2; // Ethereum
-    // address constant NATIVE_TOKEN = 0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c; // BSC
-    // address constant NATIVE_TOKEN = 0x0d500B1d8E8eF31E21C99d1Db9A6444d3ADf1270; // Polygon
-    // address constant NATIVE_TOKEN = 0xB31f66AA3C1e785363F0875A1B74E27b85FD66c7; // Avalanche
-    // address constant NATIVE_TOKEN = 0x21be370D5312f44cB42ce377BC9b8a0cEF1A4C83; // Fantom
+    address NATIVE_TOKEN;
 
     uint256 constant MINT_FEE_DENORM = 10000;
     uint256 constant MAX_CER_USD_CREDIT = type(uint128).max;

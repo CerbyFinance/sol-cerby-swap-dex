@@ -13,6 +13,18 @@ contract CerbySwapV1 is CerbySwapV1_AdminFunctions {
             msg.sender
         );
 
+        if (block.chainid == ETH_MAINNET_CHAIN_ID) {
+            NATIVE_TOKEN = 0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2;
+        } else if (block.chainid == BSC_MAINNET_CHAIN_ID) {
+            NATIVE_TOKEN = 0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c;
+        } else if (block.chainid == POLYGON_MAINNET_CHAIN_ID) {
+            NATIVE_TOKEN = 0x0d500B1d8E8eF31E21C99d1Db9A6444d3ADf1270;
+        } else if (block.chainid == AVALANCHE_MAINNET_CHAIN_ID) {
+            NATIVE_TOKEN = 0xB31f66AA3C1e785363F0875A1B74E27b85FD66c7;
+        } else if (block.chainid == FANTOM_MAINNET_CHAIN_ID) {
+            NATIVE_TOKEN = 0x21be370D5312f44cB42ce377BC9b8a0cEF1A4C83;
+        }
+
         /*address mintFeeBeneficiary = 0xdEF78a28c78A461598d948bc0c689ce88f812AD8; // CerbyBridge fees wallet
         uint256 mintFeeMultiplier = MINT_FEE_DENORM * 20 / 100; // means 20% of fees goes to buyback & burn Cerby
         uint256 tvlMultiplier = 1369863014; // 0.1369863014
