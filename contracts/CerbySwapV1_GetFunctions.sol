@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: BUSL-1.1
 
-pragma solidity ^0.8.12;
+pragma solidity ^0.8.13;
 
 import "./CerbySwapV1_Modifiers.sol";
 import "./CerbySwapV1_SafeFunctions.sol";
@@ -35,9 +35,12 @@ abstract contract CerbySwapV1_GetFunctions is
         returns (Pool[] memory)
     {
         Pool[] memory outputPools = new Pool[](_tokens.length);
-        for (uint256 i; i < _tokens.length; i++) {
-            address token = _tokens[i];
-            outputPools[i] = pools[cachedTokenValues[token].poolId];
+        for (uint256 i; i < _tokens.length; ) {
+            outputPools[i] = pools[cachedTokenValues[_tokens[i]].poolId];
+
+            unchecked { 
+                i++; 
+            }
         }
         return outputPools;
     }
@@ -50,9 +53,12 @@ abstract contract CerbySwapV1_GetFunctions is
         returns (PoolBalances[] memory)
     {
         PoolBalances[] memory outputPools = new PoolBalances[](_tokens.length);
-        for (uint256 i; i < _tokens.length; i++) {
-            address token = _tokens[i];
-            outputPools[i] = _getPoolBalances(token);
+        for (uint256 i; i < _tokens.length; ) {
+            outputPools[i] = _getPoolBalances(_tokens[i]);
+
+            unchecked { 
+                i++; 
+            }
         }
         return outputPools;
     }
@@ -191,11 +197,15 @@ abstract contract CerbySwapV1_GetFunctions is
         uint256 currentPeriod = _getCurrentPeriod();
         uint256 volume;
 
-        for (uint256 i; i < NUMBER_OF_TRADE_PERIODS; i++) {
+        for (uint256 i; i < NUMBER_OF_TRADE_PERIODS; ) {
             // skipping current because this value is currently updating
             // and must be skipped
             if (i == currentPeriod) continue;
             volume += _pool.tradeVolumePerPeriodInCerUsd[i];
+
+            unchecked { 
+                i++; 
+            }
         }
 
         // substracting 5 because in _swap function
@@ -278,12 +288,10 @@ abstract contract CerbySwapV1_GetFunctions is
         returns (uint256)
     {
         // refer to https://github.com/Uniswap/v2-periphery/blob/master/contracts/libraries/UniswapV2Library.sol
-        uint256 amountInWithFee = _amountIn
-            * (FEE_DENORM - _fee);
+        uint256 amountInWithFee = _amountIn * (FEE_DENORM - _fee);
 
-        return amountInWithFee
-            * _reservesOut
-            / (_reservesIn * FEE_DENORM + amountInWithFee);
+        return amountInWithFee * _reservesOut / 
+            (_reservesIn * FEE_DENORM + amountInWithFee);
     }
 
     function _getInputTokensForExactCerUsd(
@@ -336,11 +344,8 @@ abstract contract CerbySwapV1_GetFunctions is
         returns (uint256)
     {
         // refer to https://github.com/Uniswap/v2-periphery/blob/master/contracts/libraries/UniswapV2Library.sol
-        return _reservesIn
-            * _amountOut
-            * FEE_DENORM
-            / (FEE_DENORM - _fee)
-            / (_reservesOut - _amountOut) // or (_reservesOut - _amountOut) is also fine
-            + 1; // adding +1 for any rounding trims
+        return _reservesIn * _amountOut * FEE_DENORM /
+            ((FEE_DENORM - _fee) * (_reservesOut - _amountOut)) +
+            1; // adding +1 for any rounding trims
     }
 }

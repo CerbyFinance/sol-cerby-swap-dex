@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 // OpenZeppelin Contracts v4.4.1 (token/ERC20/ERC20.sol)
 
-pragma solidity ^0.8.12;
+pragma solidity ^0.8.13;
 
 import "./IERC20.sol";
 import "./extensions/IERC20Metadata.sol";
@@ -334,7 +334,6 @@ contract ERC20 is IERC20, IERC20Metadata {
         virtual 
     {
         erc20Balances[_account] -= _amount;
-
         unchecked {
             erc20TotalSupply -= _amount; // erc20Balances[_account] is not overflown then erc20TotalSupply isn't either
         }

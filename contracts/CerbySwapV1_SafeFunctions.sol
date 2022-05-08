@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: BUSL-1.1
 
-pragma solidity ^0.8.12;
+pragma solidity ^0.8.13;
 
 import "./interfaces/IBasicERC20.sol";
 import "./interfaces/ICerbySwapV1_Vault.sol";
@@ -12,15 +12,15 @@ abstract contract CerbySwapV1_SafeFunctions is
     CerbySwapV1_MinimalProxy
 {
     function _getPoolBalances(
-        address _token
+        address _token // TODO: IERC20
     )
         internal
         view
         returns (PoolBalances memory)
     {
-        address vault = cachedTokenValues[_token].vaultAddress == address(0)
-            ? _generateVaultAddressByToken(_token)
-            : cachedTokenValues[_token].vaultAddress;
+        address vault = cachedTokenValues[_token].vaultAddress == address(0) ? 
+            _generateVaultAddressByToken(_token) :
+                cachedTokenValues[_token].vaultAddress;
 
         return PoolBalances(
             _getTokenBalance(_token, vault),
@@ -29,20 +29,19 @@ abstract contract CerbySwapV1_SafeFunctions is
     }
 
     function _getTokenBalance(
-        address _token,
+        address _token, // TODO: IERC20
         address _vault
     )
         internal
         view
         returns (uint256)
     {
-        return _token == NATIVE_TOKEN
-            ? _vault.balance
-            : IBasicERC20(_token).balanceOf(_vault);
+        return _token == NATIVE_TOKEN ? _vault.balance :
+            IBasicERC20(_token).balanceOf(_vault);
     }
 
     function _safeTransferFromHelper(
-        address _token,
+        address _token, // TODO: IERC20
         address _from,
         address _to,
         uint256 _amountTokens
@@ -99,7 +98,7 @@ abstract contract CerbySwapV1_SafeFunctions is
     }
 
     function _safeCoreTransferFrom(
-        address _token,
+        address _token, // TODO: IERC20
         address _from,
         address _to,
         uint256 _value

@@ -1,14 +1,14 @@
 // SPDX-License-Identifier: BUSL-1.1
 
-pragma solidity ^0.8.12;
+pragma solidity ^0.8.13;
 
 import "./CerbySwapV1_LiquidityFunctions.sol";
 
 abstract contract CerbySwapV1_SwapFunctions is CerbySwapV1_LiquidityFunctions {
 
     function swapExactTokensForTokens(
-        address _tokenIn,
-        address _tokenOut,
+        address _tokenIn, // TODO: IERC20
+        address _tokenOut, // TODO: IERC20
         uint256 _amountTokensIn,
         uint256 _minAmountTokensOut,
         uint256 _expireTimestamp,
@@ -182,8 +182,8 @@ abstract contract CerbySwapV1_SwapFunctions is CerbySwapV1_LiquidityFunctions {
     }
 
     function swapTokensForExactTokens(
-        address _tokenIn,
-        address _tokenOut,
+        address _tokenIn, // TODO: IERC20
+        address _tokenOut, // TODO: IERC20
         uint256 _amountTokensOut,
         uint256 _maxAmountTokensIn,
         uint256 _expireTimestamp,
@@ -361,7 +361,7 @@ abstract contract CerbySwapV1_SwapFunctions is CerbySwapV1_LiquidityFunctions {
     }
 
     function _swap(
-        address _token,
+        address _token, // TODO: IERC20
         PoolBalances memory _poolBalancesBefore,
         uint256 _amountTokensOut,
         uint256 _amountCerUsdOut,
@@ -374,12 +374,12 @@ abstract contract CerbySwapV1_SwapFunctions is CerbySwapV1_LiquidityFunctions {
         );
 
         // finding out how many amountCerUsdIn we received
-        uint256 amountCerUsdIn = poolBalancesAfter.balanceCerUsd
-            - _poolBalancesBefore.balanceCerUsd;
+        uint256 amountCerUsdIn = poolBalancesAfter.balanceCerUsd - 
+            _poolBalancesBefore.balanceCerUsd;
 
         // finding out how many amountTokensIn we received
-        uint256 amountTokensIn = poolBalancesAfter.balanceToken
-            - _poolBalancesBefore.balanceToken;
+        uint256 amountTokensIn = poolBalancesAfter.balanceToken -
+            _poolBalancesBefore.balanceToken;
 
         // at least one of amountTokensIn or amountCerUsdIn must be larger than zero
         if (amountTokensIn + amountCerUsdIn <= 1) {
@@ -417,9 +417,9 @@ abstract contract CerbySwapV1_SwapFunctions is CerbySwapV1_LiquidityFunctions {
 
                     // setting trade volume periods to 1
                     // iterating from (lastCachedTradePeriod+1) to currentPeriod (inclusive)
-                    uint256 endPeriod = currentPeriod < lastPeriodI
-                        ? currentPeriod + NUMBER_OF_TRADE_PERIODS
-                        : currentPeriod;
+                    uint256 endPeriod = currentPeriod < lastPeriodI ? 
+                        currentPeriod + NUMBER_OF_TRADE_PERIODS :
+                            currentPeriod;
                     
                     while(++lastPeriodI <= endPeriod) {
                         pool.tradeVolumePerPeriodInCerUsd[lastPeriodI % NUMBER_OF_TRADE_PERIODS] = 1;
@@ -442,23 +442,18 @@ abstract contract CerbySwapV1_SwapFunctions is CerbySwapV1_LiquidityFunctions {
             }
 
             // calculating old K value including trade fees (multiplied by FEE_DENORM^2)
-            uint256 beforeKValueDenormed = _poolBalancesBefore.balanceToken
-                * _poolBalancesBefore.balanceCerUsd
-                * FEE_DENORM_SQUARED;
+            uint256 beforeKValueDenormed = _poolBalancesBefore.balanceToken * 
+                _poolBalancesBefore.balanceCerUsd * FEE_DENORM_SQUARED;
 
             // calculating new K value including trade fees
             // refer to 3.2.1 Adjustment for fee https://uniswap.org/whitepaper.pdf
             uint256 afterKValueDenormed = (
-                    poolBalancesAfter.balanceCerUsd
-                    * FEE_DENORM // = 1000 in uniswap wp
-                        - amountCerUsdIn
-                        * fee // = 3 in uniswap wp
-                ) 
-                * (
-                    poolBalancesAfter.balanceToken 
-                    * FEE_DENORM // = 1000 in uniswap wp
-                        - amountTokensIn 
-                        * fee // = 3 in uniswap wp
+                    poolBalancesAfter.balanceCerUsd * FEE_DENORM - // FEE_DENORM = 1000 in uniswap wp                    
+                        amountCerUsdIn * fee // fee = 3 in uniswap wp
+                ) *
+                (
+                    poolBalancesAfter.balanceToken * FEE_DENORM - // FEE_DENORM = 1000 in uniswap wp
+                        amountTokensIn * fee // fee = 3 in uniswap wp
                 );
 
             if (afterKValueDenormed < beforeKValueDenormed) {
@@ -469,9 +464,8 @@ abstract contract CerbySwapV1_SwapFunctions is CerbySwapV1_LiquidityFunctions {
             // updating creditCerUsd only if pool is user-created
             if (pool.creditCerUsd < MAX_CER_USD_CREDIT) {
                 pool.creditCerUsd = uint128(
-                    uint256(pool.creditCerUsd)
-                        + amountCerUsdIn
-                        - _amountCerUsdOut
+                    uint256(pool.creditCerUsd) + amountCerUsdIn -
+                        _amountCerUsdOut
                 );
             }
 
@@ -480,14 +474,13 @@ abstract contract CerbySwapV1_SwapFunctions is CerbySwapV1_LiquidityFunctions {
             if (_amountCerUsdOut > TRADE_VOLUME_DENORM) {
                 // or else amountCerUsdOut / TRADE_VOLUME_DENORM == 0
                 // stores in 10xUSD value, up-to $40B per 4 hours per pair will be stored correctly
-                uint256 updatedTradeVolume = _amountCerUsdOut
-                    / TRADE_VOLUME_DENORM
-                    + uint256(pool.tradeVolumePerPeriodInCerUsd[currentPeriod]); // if ANY --> cerUSD, then output is cerUSD only
+                uint256 updatedTradeVolume = _amountCerUsdOut / TRADE_VOLUME_DENORM +
+                    uint256(pool.tradeVolumePerPeriodInCerUsd[currentPeriod]); // if ANY --> cerUSD, then output is cerUSD only
 
                 // handling overflow just in case
-                pool.tradeVolumePerPeriodInCerUsd[currentPeriod] = updatedTradeVolume < type(uint40).max
-                    ? uint40(updatedTradeVolume)
-                    : type(uint40).max;
+                pool.tradeVolumePerPeriodInCerUsd[currentPeriod] = 
+                    updatedTradeVolume < type(uint40).max ? uint40(updatedTradeVolume) :
+                        type(uint40).max;
             }
         }
 

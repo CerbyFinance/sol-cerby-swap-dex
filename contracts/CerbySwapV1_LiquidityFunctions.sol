@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: BUSL-1.1
 
-pragma solidity ^0.8.12;
+pragma solidity ^0.8.13;
 
 import "./CerbySwapV1_GetFunctions.sol";
 import "./CerbySwapV1_Modifiers.sol";
@@ -17,7 +17,7 @@ abstract contract CerbySwapV1_LiquidityFunctions is
 {
     // user can increase cerUsd credit in the pool
     function increaseCerUsdCreditInPool(
-        address _token,
+        address _token, // TODO: IERC20
         uint256 _amountCerUsdCredit
     )
         external
@@ -54,8 +54,8 @@ abstract contract CerbySwapV1_LiquidityFunctions is
     }
 
     // users are allowed to create new pools but only with creditCerUsd = 0
-    function createPool( // C: never tested (this seems critical to test user actions)
-        address _token,
+    function createPool(
+        address _token, // TODO: IERC20
         uint256 _amountTokensIn,
         uint256 _amountCerUsdToMint,
         address _transferTo
@@ -73,7 +73,7 @@ abstract contract CerbySwapV1_LiquidityFunctions is
     }
 
     function _createPool(
-        address _token,
+        address _token, // TODO: IERC20
         uint256 _amountTokensIn,
         uint256 _amountCerUsdToMint,
         uint256 _creditCerUsd,
@@ -87,7 +87,7 @@ abstract contract CerbySwapV1_LiquidityFunctions is
         }
 
         // creating vault contract to safely store tokens
-        address vaultAddress = cloneVault(
+        address vaultAddress = cloneVault( // TODO: ICerbySwapV1_Vault
             _token
         );
 
@@ -124,8 +124,12 @@ abstract contract CerbySwapV1_LiquidityFunctions is
         // filling trade volume with 1 (gas savings in runtime)
         uint40[NUMBER_OF_TRADE_PERIODS] memory tradeVolumePerPeriodInCerUsd;
 
-        for (uint256 i; i < NUMBER_OF_TRADE_PERIODS; i++) {
+        for (uint256 i; i < NUMBER_OF_TRADE_PERIODS; ) {
             tradeVolumePerPeriodInCerUsd[i] = 1;
+
+            unchecked {
+                i++;
+            }
         }
 
         uint256 newSqrtKValue = sqrt(
@@ -190,7 +194,7 @@ abstract contract CerbySwapV1_LiquidityFunctions is
     }
 
     function addTokenLiquidity(
-        address _token,
+        address _token, // TODO: IERC20
         uint256 _amountTokensIn,
         uint256 _expireTimestamp,
         address _transferTo
@@ -199,7 +203,7 @@ abstract contract CerbySwapV1_LiquidityFunctions is
         payable
         tokenMustExistInPool(_token)
         transactionIsNotExpired(_expireTimestamp)
-        // checkForBots(msg.sender) // TODO: enable on production // C: concern
+        // checkForBots(msg.sender) // TODO: enable on production
         returns (uint256)
     {
         // getting pool storage link (saves gas compared to memory)
@@ -254,9 +258,8 @@ abstract contract CerbySwapV1_LiquidityFunctions is
         );
 
         // calculating amount of cerUSD to mint according to current price
-        uint256 amountCerUsdToMint = _amountTokensIn
-            * poolBalancesBefore.balanceCerUsd
-            / poolBalancesBefore.balanceToken;
+        uint256 amountCerUsdToMint = _amountTokensIn * poolBalancesBefore.balanceCerUsd / 
+            poolBalancesBefore.balanceToken;
 
         if (amountCerUsdToMint <= 1) {
             revert CerbySwapV1_AmountOfCerUsdMustBeLargerThanOne();
@@ -265,8 +268,8 @@ abstract contract CerbySwapV1_LiquidityFunctions is
         // updating pool variables
         pool.lastSqrtKValue = uint128(
             sqrt(
-                tokenBalanceAfter 
-                * (poolBalancesBefore.balanceCerUsd + amountCerUsdToMint) // cerUSD balance has increased by amountCerUsdToMint
+                // cerUSD balance has increased by amountCerUsdToMint
+                tokenBalanceAfter * (poolBalancesBefore.balanceCerUsd + amountCerUsdToMint)
             )
         );
 
@@ -277,9 +280,9 @@ abstract contract CerbySwapV1_LiquidityFunctions is
         );
 
         // calculating LP tokens
-        uint256 lpAmount = _amountTokensIn
-            * erc1155TotalSupply[poolId] // erc1155TotalSupply[poolId] might have changed during mintFee, we are using updated value, refer to line 143 https://github.com/Uniswap/v2-core/blob/master/contracts/UniswapV2Pair.sol
-            / poolBalancesBefore.balanceToken;
+        // erc1155TotalSupply[poolId] might have changed during mintFee, we are using updated value, refer to line 143 https://github.com/Uniswap/v2-core/blob/master/contracts/UniswapV2Pair.sol
+        uint256 lpAmount = _amountTokensIn * erc1155TotalSupply[poolId] / 
+            poolBalancesBefore.balanceToken;
 
         // minting LP tokens (subject to re-entrancty attack, doing it last)
         _mint(
@@ -308,7 +311,7 @@ abstract contract CerbySwapV1_LiquidityFunctions is
     }
 
     function removeTokenLiquidity(
-        address _token,
+        address _token, // TODO: IERC20
         uint256 _amountLpTokensBalanceToBurn,
         uint256 _expireTimestamp,
         address _transferTo
@@ -328,7 +331,7 @@ abstract contract CerbySwapV1_LiquidityFunctions is
     }
 
     function _removeTokenLiquidity(
-        address _token,
+        address _token, // TODO: IERC20
         uint256 _amountLpTokensBalanceToBurn,
         address _transferTo
     )
@@ -358,14 +361,12 @@ abstract contract CerbySwapV1_LiquidityFunctions is
         );
 
         // calculating amount of tokens to transfer
-        uint256 amountTokensOut = poolBalancesBefore.balanceToken
-            * _amountLpTokensBalanceToBurn
-            / erc1155TotalSupply[poolId]; // erc1155TotalSupply[poolId] might have changed during mintFee, we are using updated value, refer to line 143 https://github.com/Uniswap/v2-core/blob/master/contracts/UniswapV2Pair.sol
+        uint256 amountTokensOut = poolBalancesBefore.balanceToken * _amountLpTokensBalanceToBurn / 
+            erc1155TotalSupply[poolId]; // erc1155TotalSupply[poolId] might have changed during mintFee, we are using updated value, refer to line 143 https://github.com/Uniswap/v2-core/blob/master/contracts/UniswapV2Pair.sol
 
         // calculating amount of cerUSD to burn
-        uint256 amountCerUsdToBurn = poolBalancesBefore.balanceCerUsd
-            * _amountLpTokensBalanceToBurn
-            / erc1155TotalSupply[poolId]; // erc1155TotalSupply[poolId] might have changed during mintFee, we are using updated value, refer to line 143 https://github.com/Uniswap/v2-core/blob/master/contracts/UniswapV2Pair.sol
+        uint256 amountCerUsdToBurn = poolBalancesBefore.balanceCerUsd * _amountLpTokensBalanceToBurn /
+            erc1155TotalSupply[poolId]; // erc1155TotalSupply[poolId] might have changed during mintFee, we are using updated value, refer to line 143 https://github.com/Uniswap/v2-core/blob/master/contracts/UniswapV2Pair.sol
 
         // updating pool variables
         PoolBalances memory poolBalancesAfter = PoolBalances(
@@ -444,13 +445,10 @@ abstract contract CerbySwapV1_LiquidityFunctions is
 
         // mint fee is enabled && K value increased
         // refer to 2.4 Protocol fee https://uniswap.org/whitepaper.pdf
-        return _totalLPSupply
-            * mintFeePercentage
-            * (_newSqrtKValue - _oldSqrtKValue)
-            / (
-                _newSqrtKValue
-                * (MINT_FEE_DENORM - mintFeePercentage)
-                    + _oldSqrtKValue * mintFeePercentage
+        return _totalLPSupply * mintFeePercentage * (_newSqrtKValue - _oldSqrtKValue) /
+            (
+                _newSqrtKValue * (MINT_FEE_DENORM - mintFeePercentage) +
+                    _oldSqrtKValue * mintFeePercentage
             );
     }
 }

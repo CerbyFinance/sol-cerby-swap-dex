@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.12;
+pragma solidity ^0.8.13;
 
 // original code
 // https://github.com/optionality/clone-factory/blob/master/contracts/CloneFactory.sol
@@ -9,10 +9,10 @@ import "./CerbySwapV1_Declarations.sol";
 contract CerbySwapV1_MinimalProxy is CerbySwapV1_Declarations {
 
     function cloneVault(
-        address _token
+        address _token // TODO: IERC20
     )
         internal
-        returns (address)
+        returns (address) // TODO: return IVault type
     {       
         bytes32 salt = _getSaltByToken(_token);
 
@@ -44,11 +44,11 @@ contract CerbySwapV1_MinimalProxy is CerbySwapV1_Declarations {
     }
 
     function _getCachedVaultCloneAddressByToken(
-        address _token
+        address _token // TODO: IERC20
     )
         internal
         // Notice: not view because it has to update cache on first run
-        returns(address)
+        returns(address) // TODO: return IVault type
     {
         address vault = cachedTokenValues[_token].vaultAddress;
         if (vault == address(0)) {
@@ -62,11 +62,11 @@ contract CerbySwapV1_MinimalProxy is CerbySwapV1_Declarations {
     }
 
     function _generateVaultAddressByToken(
-        address _token
+        address _token // TODO: IERC20
     )
         internal
         view
-        returns (address)
+        returns (address) // TODO: return IVault type
     {
         bytes32 salt = _getSaltByToken(_token);
 
@@ -93,7 +93,7 @@ contract CerbySwapV1_MinimalProxy is CerbySwapV1_Declarations {
     }
 
     function _getSaltByToken(
-        address _token
+        address _token // TODO: IERC20
     )
         internal
         view

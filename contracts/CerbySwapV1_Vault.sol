@@ -1,13 +1,13 @@
 // SPDX-License-Identifier: BUSL-1.1
 
-pragma solidity ^0.8.12;
+pragma solidity ^0.8.13;
 
 import "./interfaces/IBasicERC20.sol";
 
 contract CerbySwapV1_Vault {
 
-    address token;
-    address constant CER_USD_TOKEN = 0x3B69b8C5c6a4c8c2a90dc93F3B0238BF70cC9640;
+    address token; // TODO: IERC20
+    address constant CER_USD_TOKEN = 0x3B69b8C5c6a4c8c2a90dc93F3B0238BF70cC9640; // TODO: IERC20
     address constant factory = 0xfAf360f184788b00623828165405D7F52820D789;
 
     error CerbySwapV1_Vault_SafeTransferNativeFailed();

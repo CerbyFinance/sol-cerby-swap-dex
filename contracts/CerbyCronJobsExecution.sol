@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: BUSL-1.1
 
-pragma solidity ^0.8.12;
+pragma solidity ^0.8.13;
 
 import "./interfaces/ICerbyToken.sol";
 import "./interfaces/ICerbyBotDetection.sol";
@@ -64,7 +64,7 @@ abstract contract CerbyCronJobsExecution {
     }
 
     modifier checkTransactionAndExecuteCron(
-        address _tokenAddr,
+        address _tokenAddr, // TODO: IERC20
         address _addr
     ) {
         ICerbyBotDetection iCerbyBotDetection = ICerbyBotDetection(
@@ -82,7 +82,7 @@ abstract contract CerbyCronJobsExecution {
     }
 
     function checkTransactionForBots(
-        address _token,
+        address _token, // TODO: IERC20
         address _from,
         address _to
     )

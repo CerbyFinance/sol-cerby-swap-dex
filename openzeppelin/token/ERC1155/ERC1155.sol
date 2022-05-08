@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 // OpenZeppelin Contracts v4.4.1 (token/ERC1155/ERC1155.sol)
 
-pragma solidity ^0.8.12;
+pragma solidity ^0.8.13;
 
 import "./IERC1155.sol";
 import "./IERC1155Receiver.sol";
@@ -97,8 +97,12 @@ abstract contract ERC1155 {
     {
         uint256[] memory batchBalances = new uint256[](_accounts.length);
 
-        for (uint256 i = 0; i < _ids.length; ++i) {
+        for (uint256 i; i < _ids.length; ) {
             batchBalances[i] = balanceOf(_accounts[i], _ids[i]);
+
+            unchecked {
+                i++;
+            }
         }
 
         return batchBalances;
@@ -226,6 +230,7 @@ abstract contract ERC1155 {
     )
         private
     {
+        // TODO: add caching
         if (isContract(_to)) {
             try
                 IERC1155Receiver(_to).onERC1155Received(
