@@ -10,7 +10,7 @@ abstract contract CerbySwapV1_GetFunctions is
     CerbySwapV1_SafeFunctions
 {
     function getTokenToPoolId(
-        address _token
+        ICerbyERC20 _token
     )
         external
         view
@@ -28,14 +28,15 @@ abstract contract CerbySwapV1_GetFunctions is
     }
 
     function getPoolsByTokens(
-        address[] calldata _tokens
+        ICerbyERC20[] calldata _tokens
     )
         external
         view
         returns (Pool[] memory)
     {
         Pool[] memory outputPools = new Pool[](_tokens.length);
-        for (uint256 i; i < _tokens.length; ) {
+        uint256 tokensLength = _tokens.length;
+        for (uint256 i; i < tokensLength; ) {
             outputPools[i] = pools[cachedTokenValues[_tokens[i]].poolId];
 
             unchecked { 
@@ -46,25 +47,26 @@ abstract contract CerbySwapV1_GetFunctions is
     }
 
     function getPoolsBalancesByTokens(
-        address[] calldata _tokens
+        ICerbyERC20[] calldata _tokens
     )
         external
         view
         returns (PoolBalances[] memory)
     {
         PoolBalances[] memory outputPools = new PoolBalances[](_tokens.length);
-        for (uint256 i; i < _tokens.length; ) {
+        uint256 tokensLength = _tokens.length;
+        for (uint256 i; i < tokensLength; ) {
             outputPools[i] = _getPoolBalances(_tokens[i]);
 
             unchecked { 
-                i++; 
+                ++i; 
             }
         }
         return outputPools;
     }
 
     function getCurrentFeeBasedOnTrades(
-        address _token
+        ICerbyERC20 _token
     )
         external
         view
@@ -84,8 +86,8 @@ abstract contract CerbySwapV1_GetFunctions is
     }
 
     function getOutputExactTokensForTokens(
-        address _tokenIn,
-        address _tokenOut,
+        ICerbyERC20 _tokenIn,
+        ICerbyERC20 _tokenOut,
         uint256 _amountTokensIn
     )
         external
@@ -95,43 +97,43 @@ abstract contract CerbySwapV1_GetFunctions is
         // caller responsibility to provide
         // _tokenIn != _tokenOut
 
-        // direction XXX --> cerUSD
-        if (_tokenOut == CER_USD_TOKEN) {
+        // direction XXX --> CERBY
+        if (_tokenOut == CERBY_TOKEN) {
             // getting amountTokensOut
-            return _getOutputExactTokensForCerUsd(
+            return _getOutputExactTokensForCerby(
                 _getPoolBalances(_tokenIn),
                 _tokenIn,
                 _amountTokensIn
             );
         }
 
-        // direction cerUSD --> YYY
-        if (_tokenIn == CER_USD_TOKEN) {
+        // direction CERBY --> YYY
+        if (_tokenIn == CERBY_TOKEN) {
             // getting amountTokensOut
-            return _getOutputExactCerUsdForTokens(
+            return _getOutputExactCerbyForTokens(
                 _getPoolBalances(_tokenOut),
                 _amountTokensIn
             );
         }
 
-        // tokenIn != CER_USD_TOKEN && tokenIn != CER_USD_TOKEN clause
-        // direction XXX --> cerUSD --> YYY (or XXX --> YYY)
+        // tokenIn != CERBY_TOKEN && tokenOut != CERBY_TOKEN clause
+        // direction XXX --> CERBY --> YYY (or XXX --> YYY)
         // getting amountTokensOut
-        uint256 amountCerUsdOut = _getOutputExactTokensForCerUsd(
+        uint256 amountCerbyOut = _getOutputExactTokensForCerby(
             _getPoolBalances(_tokenIn),
             _tokenIn,
             _amountTokensIn
         );
 
-        return _getOutputExactCerUsdForTokens(
+        return _getOutputExactCerbyForTokens(
             _getPoolBalances(_tokenOut),
-            amountCerUsdOut
+            amountCerbyOut
         );
     }
 
     function getInputTokensForExactTokens(
-        address _tokenIn,
-        address _tokenOut,
+        ICerbyERC20 _tokenIn,
+        ICerbyERC20 _tokenOut,
         uint256 _amountTokensOut
     )
         external
@@ -141,37 +143,37 @@ abstract contract CerbySwapV1_GetFunctions is
         // caller responsibility to provide
         // _tokenIn != _tokenOut
 
-        // direction XXX --> cerUSD
-        if (_tokenOut == CER_USD_TOKEN) {
+        // direction XXX --> CERBY
+        if (_tokenOut == CERBY_TOKEN) {
             // getting amountTokensOut
-            return _getInputTokensForExactCerUsd(
+            return _getInputTokensForExactCerby(
                 _getPoolBalances(_tokenIn),
                 _tokenIn,
                 _amountTokensOut
             );
         }
 
-        // direction cerUSD --> YYY
-        if (_tokenIn == CER_USD_TOKEN) {
+        // direction CERBY --> YYY
+        if (_tokenIn == CERBY_TOKEN) {
             // getting amountTokensOut
-            return _getInputCerUsdForExactTokens(
+            return _getInputCerbyForExactTokens(
                 _getPoolBalances(_tokenOut),
                 _amountTokensOut
             );
         }
 
-        // tokenIn != CER_USD_TOKEN && tokenIn != CER_USD_TOKEN clause
-        // direction XXX --> cerUSD --> YYY (or XXX --> YYY)
+        // tokenIn != CERBY_TOKEN && tokenIn != CERBY_TOKEN clause
+        // direction XXX --> CERBY --> YYY (or XXX --> YYY)
         // getting amountTokensOut
-        uint256 amountCerUsdOut = _getInputCerUsdForExactTokens(
+        uint256 amountCerbyOut = _getInputCerbyForExactTokens(
             _getPoolBalances(_tokenOut),
             _amountTokensOut
         );
 
-        return _getInputTokensForExactCerUsd(
+        return _getInputTokensForExactCerby(
             _getPoolBalances(_tokenIn),
             _tokenIn,
-            amountCerUsdOut
+            amountCerbyOut
         );
     }
 
@@ -180,9 +182,7 @@ abstract contract CerbySwapV1_GetFunctions is
         view
         returns (uint256)
     {
-        return block.timestamp
-            / ONE_PERIOD_IN_SECONDS
-            % NUMBER_OF_TRADE_PERIODS;
+        return (block.timestamp / ONE_PERIOD_IN_SECONDS) % NUMBER_OF_TRADE_PERIODS;
     }
 
     function _getCurrentFeeBasedOnTrades(
@@ -201,10 +201,11 @@ abstract contract CerbySwapV1_GetFunctions is
             // skipping current because this value is currently updating
             // and must be skipped
             if (i == currentPeriod) continue;
-            volume += _pool.tradeVolumePerPeriodInCerUsd[i];
+
+            volume += _pool.tradeVolumePerPeriodInCerby[i];
 
             unchecked { 
-                i++; 
+                ++i; 
             }
         }
 
@@ -216,13 +217,11 @@ abstract contract CerbySwapV1_GetFunctions is
         // trades <= TVL * min              ---> fee = feeMaximum
         // TVL * min < trades < TVL * max   ---> fee is between feeMaximum and feeMinimum
         // trades >= TVL * max              ---> fee = feeMinimum
-        uint256 tvlMin = _poolBalances.balanceCerUsd
-            * uint256(settings.tvlMultiplierMinimum)
-            / TVL_MULTIPLIER_DENORM;
+        uint256 tvlMin = _poolBalances.balanceCerby * uint256(settings.tvlMultiplierMinimum) / 
+            TVL_MULTIPLIER_DENORM;
 
-        uint256 tvlMax = _poolBalances.balanceCerUsd
-            * uint256(settings.tvlMultiplierMaximum)
-            / TVL_MULTIPLIER_DENORM;
+        uint256 tvlMax = _poolBalances.balanceCerby * uint256(settings.tvlMultiplierMaximum) /
+            TVL_MULTIPLIER_DENORM;
 
         if (volume <= tvlMin) {
             return uint256(settings.feeMaximum); // fee is maximum
@@ -232,15 +231,14 @@ abstract contract CerbySwapV1_GetFunctions is
             return uint256(settings.feeMinimum); // fee is minimum
         }
 
-        return uint256(settings.feeMaximum)
-            - (uint256(settings.feeMaximum) - uint256(settings.feeMinimum))
-            * (volume - tvlMin)
-            / (tvlMax - tvlMin); // fee is between minimum and maximum
+        return uint256(settings.feeMaximum) - 
+            (uint256(settings.feeMaximum) - uint256(settings.feeMinimum)) * 
+            (volume - tvlMin) / (tvlMax - tvlMin); // fee is between minimum and maximum
     }
 
-    function _getOutputExactTokensForCerUsd(
+    function _getOutputExactTokensForCerby(
         PoolBalances memory poolBalances,
-        address _token,
+        ICerbyERC20 _token,
         uint256 _amountTokensIn
     )
         internal
@@ -253,7 +251,7 @@ abstract contract CerbySwapV1_GetFunctions is
         return _getOutput(
             _amountTokensIn,
             uint256(poolBalances.balanceToken),
-            uint256(poolBalances.balanceCerUsd),
+            uint256(poolBalances.balanceCerby),
             _getCurrentFeeBasedOnTrades(
                 pool,
                 poolBalances
@@ -261,19 +259,19 @@ abstract contract CerbySwapV1_GetFunctions is
         );
     }
 
-    function _getOutputExactCerUsdForTokens(
+    function _getOutputExactCerbyForTokens(
         PoolBalances memory poolBalances,
-        uint256 _amountCerUsdIn
+        uint256 _amountCerbyIn
     )
         internal
         pure
         returns (uint256)
     {
         return _getOutput(
-            _amountCerUsdIn,
-            uint256(poolBalances.balanceCerUsd),
+            _amountCerbyIn,
+            uint256(poolBalances.balanceCerby),
             uint256(poolBalances.balanceToken),
-            0 // fee is zero for swaps cerUsd --> Any
+            0 // fee is zero for swaps CERBY --> Any
         );
     }
 
@@ -294,10 +292,10 @@ abstract contract CerbySwapV1_GetFunctions is
             (_reservesIn * FEE_DENORM + amountInWithFee);
     }
 
-    function _getInputTokensForExactCerUsd(
+    function _getInputTokensForExactCerby(
         PoolBalances memory poolBalances,
-        address _token,
-        uint256 _amountCerUsdOut
+        ICerbyERC20 _token,
+        uint256 _amountCerbyOut
     )
         internal
         view
@@ -307,9 +305,9 @@ abstract contract CerbySwapV1_GetFunctions is
         Pool storage pool = pools[cachedTokenValues[_token].poolId];
 
         return _getInput(
-            _amountCerUsdOut,
+            _amountCerbyOut,
             uint256(poolBalances.balanceToken),
-            uint256(poolBalances.balanceCerUsd),
+            uint256(poolBalances.balanceCerby),
             _getCurrentFeeBasedOnTrades(
                 pool,
                 poolBalances
@@ -317,7 +315,7 @@ abstract contract CerbySwapV1_GetFunctions is
         );
     }
 
-    function _getInputCerUsdForExactTokens(
+    function _getInputCerbyForExactTokens(
         PoolBalances memory poolBalances,
         uint256 _amountTokensOut
     )
@@ -327,9 +325,9 @@ abstract contract CerbySwapV1_GetFunctions is
     {
         return _getInput(
             _amountTokensOut,
-            uint256(poolBalances.balanceCerUsd),
+            uint256(poolBalances.balanceCerby),
             uint256(poolBalances.balanceToken),
-            0 // fee is zero for swaps cerUsd --> Any
+            0 // fee is zero for swaps CERBY --> Any
         );
     }
 

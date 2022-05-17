@@ -9,15 +9,15 @@ import "./CerbySwapV1_Declarations.sol";
 contract CerbySwapV1_MinimalProxy is CerbySwapV1_Declarations {
 
     function cloneVault(
-        address _token // TODO: IERC20
+        ICerbyERC20 _token
     )
         internal
-        returns (address) // TODO: return IVault type
+        returns (ICerbySwapV1_Vault)
     {       
         bytes32 salt = _getSaltByToken(_token);
 
         bytes20 vaultImplementationBytes = bytes20(
-            VAULT_IMPLEMENTATION
+            address(VAULT_IMPLEMENTATION)
         );
 
         address resultVaultAddress;
@@ -40,18 +40,18 @@ contract CerbySwapV1_MinimalProxy is CerbySwapV1_Declarations {
             )
         }
 
-        return resultVaultAddress;
+        return ICerbySwapV1_Vault(resultVaultAddress);
     }
 
     function _getCachedVaultCloneAddressByToken(
-        address _token // TODO: IERC20
+        ICerbyERC20 _token
     )
         internal
         // Notice: not view because it has to update cache on first run
-        returns(address) // TODO: return IVault type
+        returns(ICerbySwapV1_Vault)
     {
-        address vault = cachedTokenValues[_token].vaultAddress;
-        if (vault == address(0)) {
+        ICerbySwapV1_Vault vault = cachedTokenValues[_token].vaultAddress;
+        if (address(vault) == address(0)) {
             vault = _generateVaultAddressByToken(
                 _token
             );
@@ -62,23 +62,24 @@ contract CerbySwapV1_MinimalProxy is CerbySwapV1_Declarations {
     }
 
     function _generateVaultAddressByToken(
-        address _token // TODO: IERC20
+        ICerbyERC20 _token
     )
         internal
         view
-        returns (address) // TODO: return IVault type
+        returns(ICerbySwapV1_Vault)
     {
         bytes32 salt = _getSaltByToken(_token);
 
         address factory = address(this);
-        address vaultCloneAddress;        
+        address vaultCloneAddress;  
+        address vaultImplementationAddress = address(VAULT_IMPLEMENTATION);
         assembly {
             let ptr := mload(0x40)
             mstore(
                 ptr,
                 0x3d602d80600a3d3981f3363d3d373d3d3d363d73000000000000000000000000
             )
-            mstore(add(ptr, 0x14), shl(0x60, VAULT_IMPLEMENTATION))
+            mstore(add(ptr, 0x14), shl(0x60, vaultImplementationAddress))
             mstore(
                 add(ptr, 0x28),
                 0x5af43d82803e903d91602b57fd5bf3ff00000000000000000000000000000000
@@ -89,11 +90,11 @@ contract CerbySwapV1_MinimalProxy is CerbySwapV1_Declarations {
             vaultCloneAddress := keccak256(add(ptr, 0x37), 0x55)
         }
 
-        return vaultCloneAddress;
+        return ICerbySwapV1_Vault(vaultCloneAddress);
     }
 
     function _getSaltByToken(
-        address _token // TODO: IERC20
+        ICerbyERC20 _token
     )
         internal
         view

@@ -2,52 +2,52 @@
 
 pragma solidity ^0.8.13;
 
-import "./interfaces/IBasicERC20.sol";
+import "./interfaces/ICerbyERC20.sol";
 import "./interfaces/ICerbySwapV1_Vault.sol";
 import "./CerbySwapV1_MinimalProxy.sol";
-import "./CerbySwapV1_EventsAndErrors.sol";
 
-abstract contract CerbySwapV1_SafeFunctions is
-    CerbySwapV1_EventsAndErrors,
-    CerbySwapV1_MinimalProxy
+abstract contract CerbySwapV1_SafeFunctions is CerbySwapV1_MinimalProxy
 {
     function _getPoolBalances(
-        address _token // TODO: IERC20
+        ICerbyERC20 _token
     )
         internal
         view
         returns (PoolBalances memory)
     {
-        address vault = cachedTokenValues[_token].vaultAddress == address(0) ? 
-            _generateVaultAddressByToken(_token) :
+        ICerbySwapV1_Vault vault = 
+            address(cachedTokenValues[_token].vaultAddress) == address(0) ? 
+                _generateVaultAddressByToken(_token) :
                 cachedTokenValues[_token].vaultAddress;
 
         return PoolBalances(
             _getTokenBalance(_token, vault),
-            _getTokenBalance(CER_USD_TOKEN, vault)
+            _getTokenBalance(CERBY_TOKEN, vault)
         );
     }
 
     function _getTokenBalance(
-        address _token, // TODO: IERC20
-        address _vault
+        ICerbyERC20 _token,
+        ICerbySwapV1_Vault _vault
     )
         internal
         view
         returns (uint256)
     {
-        return _token == NATIVE_TOKEN ? _vault.balance :
-            IBasicERC20(_token).balanceOf(_vault);
+        return _token == NATIVE_TOKEN ? address(_vault).balance :
+            _token.balanceOf(address(_vault));
     }
 
     function _safeTransferFromHelper(
-        address _token, // TODO: IERC20
+        ICerbyERC20 _token,
         address _from,
         address _to,
         uint256 _amountTokens
     )
         internal
     {
+        if (_amountTokens == 0) return;
+
         if (_from == msg.sender) {
             if (_token != NATIVE_TOKEN) {
                 // transferring tokens from user to vault
@@ -98,7 +98,7 @@ abstract contract CerbySwapV1_SafeFunctions is
     }
 
     function _safeCoreTransferFrom(
-        address _token, // TODO: IERC20
+        ICerbyERC20 _token,
         address _from,
         address _to,
         uint256 _value
@@ -106,7 +106,7 @@ abstract contract CerbySwapV1_SafeFunctions is
         internal
     {
         // refer to https://github.com/Uniswap/solidity-lib/blob/master/contracts/libraries/TransferHelper.sol
-        (bool success, bytes memory data) = _token.call(
+        (bool success, bytes memory data) = address(_token).call(
             abi.encodeWithSelector(
                 0x23b872dd,
                 _from,

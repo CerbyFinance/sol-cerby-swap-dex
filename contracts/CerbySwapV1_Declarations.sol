@@ -2,18 +2,19 @@
 
 pragma solidity ^0.8.13;
 
-import "./CerbySwapV1_EventsAndErrors.sol";
+import "./interfaces/ICerbyERC20.sol";
+import "./interfaces/ICerbySwapV1_Vault.sol";
 
-abstract contract CerbySwapV1_Declarations is CerbySwapV1_EventsAndErrors {
+abstract contract CerbySwapV1_Declarations {
 
     Pool[] pools;
 
-    mapping(address => TokenCache) cachedTokenValues;
+    mapping(ICerbyERC20 => TokenCache) cachedTokenValues;
     
-    // TODO: IERC20
-    address constant CER_USD_TOKEN = 0x3B69b8C5c6a4c8c2a90dc93F3B0238BF70cC9640;
-    address constant VAULT_IMPLEMENTATION = 0x029581a9121998fcBb096ceafA92E3E10057878f;
-    address constant NATIVE_TOKEN = 0x14769F96e57B80c66837701DE0B43686Fb4632De;
+    ICerbyERC20 constant CERBY_TOKEN = ICerbyERC20(0x3B69b8C5c6a4c8c2a90dc93F3B0238BF70cC9640);
+    ICerbySwapV1_Vault constant VAULT_IMPLEMENTATION = 
+        ICerbySwapV1_Vault(0x029581a9121998fcBb096ceafA92E3E10057878f);
+    ICerbyERC20 constant NATIVE_TOKEN = ICerbyERC20(0x14769F96e57B80c66837701DE0B43686Fb4632De);
 
 
     // address constant NATIVE_TOKEN = 0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2; // Ethereum
@@ -23,16 +24,16 @@ abstract contract CerbySwapV1_Declarations is CerbySwapV1_EventsAndErrors {
     // address constant NATIVE_TOKEN = 0x21be370D5312f44cB42ce377BC9b8a0cEF1A4C83; // Fantom
 
     uint256 constant MINT_FEE_DENORM = 10_000;
-    uint256 constant MAX_CER_USD_CREDIT = type(uint128).max;
+    uint256 constant MAX_CERBY_CREDIT = type(uint128).max;
 
     uint256 constant FEE_DENORM = 10_000;
     uint256 constant FEE_DENORM_SQUARED = FEE_DENORM * FEE_DENORM;
-    uint256 constant TRADE_VOLUME_DENORM = 1e18; // TODO: move to Settings
+    uint256 constant TRADE_VOLUME_DENORM = 1e18; // TODO: move to pool storage?
 
     uint256 constant TVL_MULTIPLIER_DENORM = 1e10;
 
     // 6 x 4.8hours + 1 x current 4.8hour = 7 x periods
-    uint256 constant NUMBER_OF_TRADE_PERIODS = 6;
+    uint256 constant NUMBER_OF_TRADE_PERIODS = 6; // TODO: reconsider because using CERBY token
     uint256 constant NUMBER_OF_TRADE_PERIODS_MINUS_ONE = NUMBER_OF_TRADE_PERIODS - 1; // equals 5 which is exactly how many periods in 24 hours = 5 * 4.8 hours
     uint256 constant ONE_PERIOD_IN_SECONDS = 288 minutes; // 4.8 hours
 
@@ -42,7 +43,7 @@ abstract contract CerbySwapV1_Declarations is CerbySwapV1_EventsAndErrors {
     Settings settings;
 
     struct TokenCache {
-        address vaultAddress;
+        ICerbySwapV1_Vault vaultAddress;
         uint96 poolId;
     }
 
@@ -56,15 +57,72 @@ abstract contract CerbySwapV1_Declarations is CerbySwapV1_EventsAndErrors {
     }
 
     struct Pool {
-        uint40[NUMBER_OF_TRADE_PERIODS] tradeVolumePerPeriodInCerUsd;
+        uint40[NUMBER_OF_TRADE_PERIODS] tradeVolumePerPeriodInCerby;
         uint8 lastCachedFee;
         uint8 lastCachedTradePeriod;
         uint128 lastSqrtKValue;
-        uint128 creditCerUsd;
+        uint128 creditCerby;
     }
 
     struct PoolBalances {
         uint256 balanceToken;
-        uint256 balanceCerUsd;
+        uint256 balanceCerby;
     }
+
+
+    event PoolCreated(
+        ICerbyERC20 _token,
+        ICerbySwapV1_Vault _vaultAddress,
+        uint256 _poolId
+    );
+
+    event LiquidityAdded(
+        ICerbyERC20 _token,
+        uint256 _amountTokensIn,
+        uint256 _amountCerbyToMint,
+        uint256 _lpAmount
+    );
+    event LiquidityRemoved(
+        ICerbyERC20 _token,
+        uint256 _amountTokensOut,
+        uint256 _amountCerbyToBurn,
+        uint256 _amountLpTokensBalanceToBurn
+    );
+    event Swap(
+        ICerbyERC20 _token,
+        address _sender,
+        uint256 _amountTokensIn,
+        uint256 _amountCerbyIn,
+        uint256 _amountTokensOut,
+        uint256 _amountCerbyOut,
+        uint256 _currentFee,
+        address _transferTo
+    );
+    event Sync(
+        ICerbyERC20 _token,
+        uint256 _newBalanceToken,
+        uint256 _newBalanceCerby,
+        uint256 _newCreditCerby
+    );
+
+    error CerbySwapV1_TokenAlreadyExists();
+    error CerbySwapV1_TokenDoesNotExist();
+    error CerbySwapV1_TransactionIsExpired();
+    error CerbySwapV1_AmountOfTokensMustBeLargerThanOne();
+    error CerbySwapV1_AmountOfCerbyMustBeLargerThanOne();
+    error CerbySwapV1_OutputCerbyAmountIsLowerThanMinimumSpecified();
+    error CerbySwapV1_OutputTokensAmountIsLowerThanMinimumSpecified();
+    error CerbySwapV1_InputCerbyAmountIsLargerThanMaximumSpecified();
+    error CerbySwapV1_InputTokensAmountIsLargerThanMaximumSpecified();
+    error CerbySwapV1_SwappingTokenToSameTokenIsForbidden();
+    error CerbySwapV1_InvariantKValueMustBeSameOrIncreasedOnAnySwaps();
+    error CerbySwapV1_SafeTransferNativeFailed();
+    error CerbySwapV1_SafeTransferFromFailed();
+    error CerbySwapV1_AmountOfCerbyOrTokensInMustBeLargerThanOne();
+    error CerbySwapV1_FeeIsWrong();
+    error CerbySwapV1_TvlMultiplierIsWrong();
+    error CerbySwapV1_MintFeeMultiplierMustNotBeLargerThan50Percent();
+    error CerbySwapV1_CreditCerbyMustNotBeBelowZero();
+    error CerbySwapV1_CreditCerbyIsAlreadyMaximum();
+    error CerbySwapV1_FeeOnTransferTokensAreForbidden();
 }

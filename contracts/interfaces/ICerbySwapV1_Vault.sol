@@ -1,11 +1,13 @@
 // SPDX-License-Identifier: MIT
 
-pragma solidity ^0.8.12;
+pragma solidity ^0.8.13;
+
+import "./ICerbyERC20.sol";
 
 interface ICerbySwapV1_Vault {
 
     function initialize(
-        address _token
+        ICerbyERC20 _token
     )
         external;
 
@@ -30,7 +32,7 @@ interface ICerbySwapV1_Vault {
         external;
 
     function withdrawTokens(
-        address _token,
+        ICerbyERC20 _token,
         address _to,
         uint256 _value
     )

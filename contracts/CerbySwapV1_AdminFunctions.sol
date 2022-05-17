@@ -56,12 +56,12 @@ abstract contract CerbySwapV1_AdminFunctions is
         settings = _settings;
     }
 
-    // only admins are allowed to create new pools with creditCerUsd = unlimitted
+    // only admins are allowed to create new pools with creditCerby = unlimitted
     // this is only for trusted tokens such as ETH, BNB, UNI, etc
     function adminCreatePool( // Q3: is it used somewhere?
-        address _token,
+        ICerbyERC20 _token,
         uint256 _amountTokensIn,
-        uint256 _amountCerUsdToMint,
+        uint256 _amountCerbyToMint,
         address _transferTo
     )
         external
@@ -71,20 +71,20 @@ abstract contract CerbySwapV1_AdminFunctions is
         _createPool(
             _token,
             _amountTokensIn,
-            _amountCerUsdToMint,
-            MAX_CER_USD_CREDIT, // creditCerUsd
+            _amountCerbyToMint,
+            MAX_CERBY_CREDIT, // creditCerby
             _transferTo
         );
     }
 
-    // admin can change cerUsd credit in the pool
+    // admin can change CERBY credit in the pool
     // just in case user adds a token with too high price
     // admins will be able to fix it by increasing credit
     // and swapping extra tokens + adding back to liquidity
     // using external contract assigned with admin role
-    function adminChangeCerUsdCreditInPool( // Q3: is it used somewhere?
-        address _token,
-        uint256 _amountCerUsdCredit
+    function adminChangeCerbyCreditInPool( // Q3: is it used somewhere?
+        ICerbyERC20 _token,
+        uint256 _amountCerbyCredit
     )
         external
         onlyOwner
@@ -98,16 +98,16 @@ abstract contract CerbySwapV1_AdminFunctions is
         Pool storage pool = pools[cachedTokenValues[_token].poolId];
 
         // changing credit for user-created pool
-        pool.creditCerUsd = uint128(
-            _amountCerUsdCredit
+        pool.creditCerby = uint128(
+            _amountCerbyCredit
         );
 
         // Sync event to update pool variables in the graph node
         emit Sync(
             _token,
             poolBalances.balanceToken,
-            poolBalances.balanceCerUsd,
-            _amountCerUsdCredit
+            poolBalances.balanceCerby,
+            _amountCerbyCredit
         );
     }
 }

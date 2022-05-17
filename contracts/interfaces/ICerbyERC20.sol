@@ -1,8 +1,8 @@
-// SPDX-License-Identifier: BSD-2-Clause
+// SPDX-License-Identifier: MIT
 
-pragma solidity ^0.8.12;
+pragma solidity ^0.8.13;
 
-interface ICerbyTokenMinterBurner {
+interface ICerbyERC20 {
 
     function balanceOf(
         address _account
@@ -11,6 +11,13 @@ interface ICerbyTokenMinterBurner {
         view
         returns (uint256);
 
+    function approve(
+        address _spender,
+        uint256 _value
+    )
+        external
+        returns (bool success);
+        
     function totalSupply()
         external
         view

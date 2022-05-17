@@ -33,15 +33,15 @@ contract CerbySwapV1 is CerbySwapV1_AdminFunctions {
         });
 
         // Filling with empty pool 0th id
-        uint40[NUMBER_OF_TRADE_PERIODS] memory tradeVolumePerPeriodInCerUsd;
+        uint40[NUMBER_OF_TRADE_PERIODS] memory tradeVolumePerPeriodInCerby;
 
         pools.push(
             Pool({
-                tradeVolumePerPeriodInCerUsd: tradeVolumePerPeriodInCerUsd,
+                tradeVolumePerPeriodInCerby: tradeVolumePerPeriodInCerby,
                 lastCachedTradePeriod: 0,
                 lastCachedFee: 0,
                 lastSqrtKValue: 0,
-                creditCerUsd: 0
+                creditCerby: 0
             })
         );
     }

@@ -7,9 +7,9 @@ import "./CerbySwapV1_Declarations.sol";
 abstract contract CerbySwapV1_Modifiers is CerbySwapV1_Declarations {
 
     modifier tokenMustExistInPool(
-        address _token // TODO: IERC20
+        ICerbyERC20 _token
     ) {
-        if (cachedTokenValues[_token].poolId == 0 || _token == CER_USD_TOKEN) {
+        if (cachedTokenValues[_token].poolId == 0 || _token == CERBY_TOKEN) {
             revert("C"); // TODO: remove this line on production
             revert CerbySwapV1_TokenDoesNotExist();
         }

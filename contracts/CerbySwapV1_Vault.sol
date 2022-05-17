@@ -2,12 +2,12 @@
 
 pragma solidity ^0.8.13;
 
-import "./interfaces/IBasicERC20.sol";
+import "./interfaces/ICerbyERC20.sol";
 
 contract CerbySwapV1_Vault {
 
-    address token; // TODO: IERC20
-    address constant CER_USD_TOKEN = 0x3B69b8C5c6a4c8c2a90dc93F3B0238BF70cC9640; // TODO: IERC20
+    ICerbyERC20 token;
+    ICerbyERC20 constant CERBY_TOKEN = ICerbyERC20(0x3B69b8C5c6a4c8c2a90dc93F3B0238BF70cC9640);
     address constant factory = 0xfAf360f184788b00623828165405D7F52820D789;
 
     error CerbySwapV1_Vault_SafeTransferNativeFailed();
@@ -25,12 +25,12 @@ contract CerbySwapV1_Vault {
     }
 
     function initialize(
-        address _token
+        ICerbyERC20 _token
     )
         external
     {
         // initialize contract only once
-        if (token != address(0)) {
+        if (address(token) != address(0)) {
             revert CerbySwapV1_Vault_AlreadyInitialized();
         }
 
@@ -54,7 +54,7 @@ contract CerbySwapV1_Vault {
     }
 
     function withdrawTokens(
-        address _token,
+        ICerbyERC20 _token,
         address _to,
         uint256 _value
     )
@@ -62,7 +62,7 @@ contract CerbySwapV1_Vault {
         onlyFactory
     {
         // refer to https://github.com/Uniswap/solidity-lib/blob/master/contracts/libraries/TransferHelper.sol
-        (bool success, bytes memory data) = _token.call(abi.encodeWithSelector(0xa9059cbb, _to, _value));
+        (bool success, bytes memory data) = address(_token).call(abi.encodeWithSelector(0xa9059cbb, _to, _value));
         
         // we allow successfull calls with (true) or without return data
         if (!(success && (data.length == 0 || abi.decode(data, (bool))))) {
@@ -73,7 +73,7 @@ contract CerbySwapV1_Vault {
     function token0()
         external
         view
-        returns (address)
+        returns (ICerbyERC20)
     {
         return token;
     }
@@ -81,8 +81,8 @@ contract CerbySwapV1_Vault {
     function token1()
         external
         pure
-        returns (address)
+        returns (ICerbyERC20)
     {
-        return CER_USD_TOKEN;
+        return CERBY_TOKEN;
     }
 }
