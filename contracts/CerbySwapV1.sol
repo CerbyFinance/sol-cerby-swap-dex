@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: BUSL-1.1
 
-pragma solidity ^0.8.13;
+pragma solidity ^0.8.14;
 
 import "./CerbySwapV1_AdminFunctions.sol";
 import "./CerbySwapV1_SwapFunctions.sol";
@@ -24,6 +24,7 @@ contract CerbySwapV1 is CerbySwapV1_AdminFunctions {
         uint256 tvlMultiplierMaximum = tvlMultiplier * feeMaximum / feeMinimum; // TVL * 27.397260274
 
         settings = Settings({
+            onePeriodInSeconds: 12 hours,
             mintFeeBeneficiary: mintFeeBeneficiary,
             mintFeeMultiplier: uint32(mintFeeMultiplier),
             feeMinimum: uint8(feeMinimum),
@@ -32,14 +33,11 @@ contract CerbySwapV1 is CerbySwapV1_AdminFunctions {
             tvlMultiplierMaximum: uint64(tvlMultiplierMaximum)
         });
 
-        // Filling with empty pool 0th id
-        uint40[NUMBER_OF_TRADE_PERIODS] memory tradeVolumePerPeriodInCerby;
-
         pools.push(
             Pool({
-                tradeVolumePerPeriodInCerby: tradeVolumePerPeriodInCerby,
-                lastCachedTradePeriod: 0,
+                tradeVolumeThisPeriodInCerby: 0,
                 lastCachedFee: 0,
+                nextUpdateWillBeAt: 0,
                 lastSqrtKValue: 0,
                 creditCerby: 0
             })

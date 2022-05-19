@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.13;
+pragma solidity ^0.8.14;
 
 // original code
 // https://github.com/optionality/clone-factory/blob/master/contracts/CloneFactory.sol
@@ -40,25 +40,8 @@ contract CerbySwapV1_MinimalProxy is CerbySwapV1_Declarations {
             )
         }
 
+        cachedTokenValues[_token].vaultAddress = ICerbySwapV1_Vault(resultVaultAddress);
         return ICerbySwapV1_Vault(resultVaultAddress);
-    }
-
-    function _getCachedVaultCloneAddressByToken(
-        ICerbyERC20 _token
-    )
-        internal
-        // Notice: not view because it has to update cache on first run
-        returns(ICerbySwapV1_Vault)
-    {
-        ICerbySwapV1_Vault vault = cachedTokenValues[_token].vaultAddress;
-        if (address(vault) == address(0)) {
-            vault = _generateVaultAddressByToken(
-                _token
-            );
-            cachedTokenValues[_token].vaultAddress = vault;
-        }
-
-        return vault;
     }
 
     function _generateVaultAddressByToken(

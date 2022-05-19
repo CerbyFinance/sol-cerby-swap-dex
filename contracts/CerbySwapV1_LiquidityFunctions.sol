@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: BUSL-1.1
 
-pragma solidity ^0.8.13;
+pragma solidity ^0.8.14;
 
 import "./CerbySwapV1_GetFunctions.sol";
 import "./CerbySwapV1_Modifiers.sol";
@@ -131,26 +131,15 @@ abstract contract CerbySwapV1_LiquidityFunctions is
             _amountCerbyToMint
         );
 
-        // preparing pool object to push into storage
-        // filling trade volume with 1 (gas savings in runtime)
-        uint40[NUMBER_OF_TRADE_PERIODS] memory tradeVolumePerPeriodInCerby;
-
-        for (uint256 i; i < NUMBER_OF_TRADE_PERIODS; ) {
-            tradeVolumePerPeriodInCerby[i] = 1;
-
-            unchecked {
-                ++i;
-            }
-        }
 
         uint256 newSqrtKValue = sqrt(
             _amountTokensIn * _amountCerbyToMint
         );
 
         Pool memory pool = Pool({
-            tradeVolumePerPeriodInCerby: tradeVolumePerPeriodInCerby,
+            tradeVolumeThisPeriodInCerby: 0,
             lastCachedFee: uint8(settings.feeMaximum),
-            lastCachedTradePeriod: uint8(_getCurrentPeriod()),
+            nextUpdateWillBeAt: uint32(block.timestamp) + settings.onePeriodInSeconds,
             lastSqrtKValue: uint128(newSqrtKValue),
             creditCerby: uint128(_creditCerby)
         });
@@ -225,9 +214,7 @@ abstract contract CerbySwapV1_LiquidityFunctions is
         uint256 poolId = cachedTokenValues[_token].poolId;
         Pool storage pool = pools[poolId];
 
-        ICerbySwapV1_Vault vaultInAddress = _getCachedVaultCloneAddressByToken(
-            _token
-        );
+        ICerbySwapV1_Vault vaultInAddress = cachedTokenValues[_token].vaultAddress;
 
         // remembering balance before the transfer
         PoolBalances memory poolBalancesBefore = _getPoolBalances(
@@ -391,9 +378,8 @@ abstract contract CerbySwapV1_LiquidityFunctions is
         );
 
         // burning CERBY
-        ICerbySwapV1_Vault vaultOutAddress = _getCachedVaultCloneAddressByToken(
-            _token
-        );
+        ICerbySwapV1_Vault vaultOutAddress = cachedTokenValues[_token].vaultAddress;
+
         CERBY_TOKEN.burnHumanAddress(
             address(vaultOutAddress),
             amountCerbyToBurn

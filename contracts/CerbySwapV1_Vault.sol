@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: BUSL-1.1
 
-pragma solidity ^0.8.13;
+pragma solidity ^0.8.14;
 
 import "./interfaces/ICerbyERC20.sol";
 
@@ -44,7 +44,7 @@ contract CerbySwapV1_Vault {
         external
         onlyFactory
     {
-        // refer to https://github.com/Uniswap/solidity-lib/blob/master/contracts/libraries/TransferHelper.sol
+        // refer to https://github.com/Uniswap/solidity-lib/blob/c01640b0f0f1d8a85cba8de378cc48469fcfd9a6/contracts/libraries/TransferHelper.sol#L47-L50
         (bool success, ) = _to.call{value: _value}(new bytes(0));
 
         // we allow only successfull calls
@@ -61,7 +61,7 @@ contract CerbySwapV1_Vault {
         external
         onlyFactory
     {
-        // refer to https://github.com/Uniswap/solidity-lib/blob/master/contracts/libraries/TransferHelper.sol
+        // refer to https://github.com/Uniswap/solidity-lib/blob/c01640b0f0f1d8a85cba8de378cc48469fcfd9a6/contracts/libraries/TransferHelper.sol#L20-L31
         (bool success, bytes memory data) = address(_token).call(abi.encodeWithSelector(0xa9059cbb, _to, _value));
         
         // we allow successfull calls with (true) or without return data

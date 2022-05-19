@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: BUSL-1.1
 
-pragma solidity ^0.8.13;
+pragma solidity ^0.8.14;
 
 import "./CerbySwapV1_LiquidityFunctions.sol";
 
@@ -68,9 +68,7 @@ abstract contract CerbySwapV1_SwapFunctions is CerbySwapV1_LiquidityFunctions {
             revert CerbySwapV1_SwappingTokenToSameTokenIsForbidden();
         }
 
-        ICerbySwapV1_Vault vaultAddressIn = _getCachedVaultCloneAddressByToken(
-            _tokenIn
-        );
+        ICerbySwapV1_Vault vaultAddressIn = cachedTokenValues[_tokenIn].vaultAddress;
 
         uint256[] memory amounts = new uint256[](2);
         amounts[0] = _amountTokensIn;
@@ -87,7 +85,6 @@ abstract contract CerbySwapV1_SwapFunctions is CerbySwapV1_LiquidityFunctions {
             // getting amountTokensOut
             amounts[1] = _getOutputExactTokensForCerby(
                 poolInBalancesBefore,
-                _tokenIn,
                 _amountTokensIn
             );
 
@@ -120,9 +117,7 @@ abstract contract CerbySwapV1_SwapFunctions is CerbySwapV1_LiquidityFunctions {
         }
 
         // swaping CERBY --> YYY
-        ICerbySwapV1_Vault vaultAddressOut = _getCachedVaultCloneAddressByToken(
-            _tokenOut
-        );
+        ICerbySwapV1_Vault vaultAddressOut = cachedTokenValues[_tokenOut].vaultAddress;
 
         PoolBalances memory poolOutBalancesBefore;
 
@@ -135,6 +130,7 @@ abstract contract CerbySwapV1_SwapFunctions is CerbySwapV1_LiquidityFunctions {
             // getting amountTokensOut
             amounts[1] = _getOutputExactCerbyForTokens(
                 poolOutBalancesBefore,
+                _tokenOut,
                 _amountTokensIn
             );
 
@@ -174,10 +170,9 @@ abstract contract CerbySwapV1_SwapFunctions is CerbySwapV1_LiquidityFunctions {
             _tokenIn
         );
 
-        // getting amountTokensOut=
+        // getting amountTokensOut
         uint256 amountCerbyOut = _getOutputExactTokensForCerby(
             poolInBalancesBefore,
-            _tokenIn,
             _amountTokensIn
         );
 
@@ -188,6 +183,7 @@ abstract contract CerbySwapV1_SwapFunctions is CerbySwapV1_LiquidityFunctions {
 
         amounts[1] = _getOutputExactCerbyForTokens(
             poolOutBalancesBefore,
+            _tokenOut,
             amountCerbyOut
         );
 
@@ -246,9 +242,7 @@ abstract contract CerbySwapV1_SwapFunctions is CerbySwapV1_LiquidityFunctions {
             revert CerbySwapV1_SwappingTokenToSameTokenIsForbidden();
         }
 
-        ICerbySwapV1_Vault vaultAddressIn = _getCachedVaultCloneAddressByToken(
-            _tokenIn
-        );
+        ICerbySwapV1_Vault vaultAddressIn = cachedTokenValues[_tokenIn].vaultAddress;
 
         uint256[] memory amounts = new uint256[](2);
         amounts[1] = _amountTokensOut;
@@ -265,7 +259,6 @@ abstract contract CerbySwapV1_SwapFunctions is CerbySwapV1_LiquidityFunctions {
             // getting amountTokensOut
             amounts[0] = _getInputTokensForExactCerby(
                 poolInBalancesBefore,
-                _tokenIn,
                 _amountTokensOut
             );
 
@@ -298,9 +291,7 @@ abstract contract CerbySwapV1_SwapFunctions is CerbySwapV1_LiquidityFunctions {
         }
 
         // swapping CERBY --> YYY
-        ICerbySwapV1_Vault vaultAddressOut = _getCachedVaultCloneAddressByToken(
-            _tokenOut
-        );
+        ICerbySwapV1_Vault vaultAddressOut = cachedTokenValues[_tokenOut].vaultAddress;
 
         PoolBalances memory poolOutBalancesBefore;
 
@@ -313,6 +304,7 @@ abstract contract CerbySwapV1_SwapFunctions is CerbySwapV1_LiquidityFunctions {
             // getting amountTokensOut
             amounts[0] = _getInputCerbyForExactTokens(
                 poolOutBalancesBefore,
+                _tokenOut,
                 _amountTokensOut
             );
 
@@ -355,6 +347,7 @@ abstract contract CerbySwapV1_SwapFunctions is CerbySwapV1_LiquidityFunctions {
         // getting amountTokensOut
         uint256 amountCerbyOut = _getInputCerbyForExactTokens(
             poolOutBalancesBefore,
+            _tokenOut,
             _amountTokensOut
         );
 
@@ -372,7 +365,6 @@ abstract contract CerbySwapV1_SwapFunctions is CerbySwapV1_LiquidityFunctions {
         // amounts[0] is amountTokensIn
         amounts[0] = _getInputTokensForExactCerby(
             poolInBalancesBefore,
-            _tokenIn,
             amountCerbyOut
         );
 
@@ -443,99 +435,70 @@ abstract contract CerbySwapV1_SwapFunctions is CerbySwapV1_LiquidityFunctions {
             revert CerbySwapV1_CreditCerbyMustNotBeBelowZero();
         }
 
-        uint256 currentPeriod = _getCurrentPeriod();
-        uint256 fee;
+        // storing in memory updated balances after the swap
         PoolBalances memory poolBalancesAfter = PoolBalances({
             balanceToken: _poolBalancesBefore.balanceToken + _amountTokensIn - _amountTokensOut,
             balanceCerby: _poolBalancesBefore.balanceCerby + _amountCerbyIn - _amountCerbyOut
         });
 
-        {
-            // calculating fees
-            // if swap is XXX --> CERBY, fee is calculated
-            // else swap is CERBY --> XXX, fee is zero
-            if (_amountCerbyIn <= 1 && _amountTokensIn > 1) {
+        // calculating fees
+        // if swap is XXX --> CERBY, fee is zero
+        // else swap is CERBY --> XXX, fee is calculated
+        uint256 fee;
+        if (_amountCerbyIn > 1 && _amountTokensIn <= 1) {
 
-                // caching it for whole current period
-                uint256 lastPeriodI = uint256(
-                    pool.lastCachedTradePeriod
+            if (block.timestamp > pool.nextUpdateWillBeAt) {
+                // saving the fee to use it in the current period
+                pool.lastCachedFee = uint8(
+                    _getCurrentFeeBasedOnTrades(
+                        pool.tradeVolumeThisPeriodInCerby, 
+                        _poolBalancesBefore
+                    )
                 );
 
-                if (lastPeriodI != currentPeriod) {
+                // emptying current trade volume
+                pool.tradeVolumeThisPeriodInCerby = 0;
 
-                    uint256 endPeriod = currentPeriod < lastPeriodI ? 
-                        currentPeriod + NUMBER_OF_TRADE_PERIODS :
-                            currentPeriod;
-                    
-                    // setting trade volume periods to 1
-                    // iterating from (lastCachedTradePeriod+1) to currentPeriod (inclusive)
-                    while(++lastPeriodI <= endPeriod) {
-                        pool.tradeVolumePerPeriodInCerby[lastPeriodI % NUMBER_OF_TRADE_PERIODS] = 1;
-                    }
-
-                    // caching fee
-                    pool.lastCachedFee = uint8(
-                        _getCurrentFeeBasedOnTrades(
-                            pool,
-                            _poolBalancesBefore
-                        )
-                    );
-
-                    pool.lastCachedTradePeriod = uint8(
-                        currentPeriod
-                    );
-                }
-
-                fee = uint256(pool.lastCachedFee);
+                // scheduling next update
+                pool.nextUpdateWillBeAt = uint32(block.timestamp) + settings.onePeriodInSeconds;
             }
-
-            // calculating old K value including trade fees (multiplied by FEE_DENORM^2)
-            uint256 beforeKValueDenormed = _poolBalancesBefore.balanceToken * 
-                _poolBalancesBefore.balanceCerby * FEE_DENORM_SQUARED;
-
-            // calculating new K value including trade fees
-            // refer to 3.2.1 Adjustment for fee https://uniswap.org/whitepaper.pdf
-            uint256 afterKValueDenormed = (
-                    poolBalancesAfter.balanceCerby * FEE_DENORM - // FEE_DENORM = 1000 in uniswap wp                    
-                        _amountCerbyIn * fee // fee = 3 in uniswap wp
-                ) *
-                (
-                    poolBalancesAfter.balanceToken * FEE_DENORM - // FEE_DENORM = 1000 in uniswap wp
-                        _amountTokensIn * fee // fee = 3 in uniswap wp
-                );
-
-            if (afterKValueDenormed < beforeKValueDenormed) {
-                revert("1"); // TODO: remove on production
-                revert CerbySwapV1_InvariantKValueMustBeSameOrIncreasedOnAnySwaps();
-            }
-
-            // updating creditCerby only if pool is user-created
-            if (pool.creditCerby < MAX_CERBY_CREDIT) {
-                pool.creditCerby = uint128(
-                    uint256(pool.creditCerby) + _amountCerbyIn -
-                        _amountCerbyOut
-                );
-            }
-
-            // updating 1 hour trade pool values
-            // only for direction ANY --> CERBY
-            if (_amountCerbyOut > TRADE_VOLUME_DENORM) {
-                // or else amountCerbyOut / TRADE_VOLUME_DENORM == 0
-                // stores in 10xUSD value, up-to $40B per 4 hours per pair will be stored correctly
-                uint256 updatedTradeVolume = _amountCerbyOut / TRADE_VOLUME_DENORM +
-                    uint256(pool.tradeVolumePerPeriodInCerby[currentPeriod]); // if ANY --> CERBY, then output is CERBY only
-
-                // handling overflow just in case
-                pool.tradeVolumePerPeriodInCerby[currentPeriod] = 
-                    updatedTradeVolume < type(uint40).max ? uint40(updatedTradeVolume) :
-                        type(uint40).max;
-            }
+            
+            // getting updated fee from storage
+            fee = uint256(pool.lastCachedFee);           
         }
 
-        // updating vault cache if needed
-        ICerbySwapV1_Vault vaultAddress = _getCachedVaultCloneAddressByToken(
-            _token
-        );
+        // calculating old K value including trade fees (multiplied by FEE_DENORM^2)
+        uint256 beforeKValueDenormed = _poolBalancesBefore.balanceToken * 
+            _poolBalancesBefore.balanceCerby * FEE_DENORM_SQUARED;
+
+        // calculating new K value including trade fees
+        // refer to 3.2.1 Adjustment for fee https://uniswap.org/whitepaper.pdf
+        uint256 afterKValueDenormed = (
+                poolBalancesAfter.balanceCerby * FEE_DENORM - // FEE_DENORM = 1000 in uniswap wp                    
+                    _amountCerbyIn * fee // fee = 3 in uniswap wp
+            ) * (
+                poolBalancesAfter.balanceToken * FEE_DENORM - // FEE_DENORM = 1000 in uniswap wp
+                    _amountTokensIn * fee // fee = 3 in uniswap wp
+            );
+
+        if (afterKValueDenormed < beforeKValueDenormed) {
+            revert("1"); // TODO: remove on production
+            revert CerbySwapV1_InvariantKValueMustBeSameOrIncreasedOnAnySwaps();
+        }
+
+        // updating creditCerby only if pool is user-created
+        if (pool.creditCerby < MAX_CERBY_CREDIT) {
+            pool.creditCerby = uint128(
+                uint256(pool.creditCerby) + _amountCerbyIn -
+                    _amountCerbyOut
+            );
+        }
+
+        // 
+        pool.tradeVolumeThisPeriodInCerby += uint216(_amountCerbyIn + _amountCerbyOut);        
+
+        // getting cached vault address to not calculate each time
+        ICerbySwapV1_Vault vaultAddress = cachedTokenValues[_token].vaultAddress;
 
         // safely transfering CERBY
         _safeTransferFromHelper(

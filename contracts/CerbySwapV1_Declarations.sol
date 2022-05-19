@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: BUSL-1.1
 
-pragma solidity ^0.8.13;
+pragma solidity ^0.8.14;
 
 import "./interfaces/ICerbyERC20.sol";
 import "./interfaces/ICerbySwapV1_Vault.sol";
@@ -28,14 +28,8 @@ abstract contract CerbySwapV1_Declarations {
 
     uint256 constant FEE_DENORM = 10_000;
     uint256 constant FEE_DENORM_SQUARED = FEE_DENORM * FEE_DENORM;
-    uint256 constant TRADE_VOLUME_DENORM = 1e18; // TODO: move to pool storage?
 
     uint256 constant TVL_MULTIPLIER_DENORM = 1e10;
-
-    // 6 x 4.8hours + 1 x current 4.8hour = 7 x periods
-    uint256 constant NUMBER_OF_TRADE_PERIODS = 6; // TODO: reconsider because using CERBY token
-    uint256 constant NUMBER_OF_TRADE_PERIODS_MINUS_ONE = NUMBER_OF_TRADE_PERIODS - 1; // equals 5 which is exactly how many periods in 24 hours = 5 * 4.8 hours
-    uint256 constant ONE_PERIOD_IN_SECONDS = 288 minutes; // 4.8 hours
 
     uint256 constant MINIMUM_LIQUIDITY = 1_000;
     address constant DEAD_ADDRESS = address(0xdead);
@@ -48,6 +42,7 @@ abstract contract CerbySwapV1_Declarations {
     }
 
     struct Settings {
+        uint32 onePeriodInSeconds;
         address mintFeeBeneficiary;
         uint32 mintFeeMultiplier;
         uint8 feeMinimum;
@@ -57,9 +52,9 @@ abstract contract CerbySwapV1_Declarations {
     }
 
     struct Pool {
-        uint40[NUMBER_OF_TRADE_PERIODS] tradeVolumePerPeriodInCerby;
+        uint216 tradeVolumeThisPeriodInCerby;
         uint8 lastCachedFee;
-        uint8 lastCachedTradePeriod;
+        uint32 nextUpdateWillBeAt;
         uint128 lastSqrtKValue;
         uint128 creditCerby;
     }

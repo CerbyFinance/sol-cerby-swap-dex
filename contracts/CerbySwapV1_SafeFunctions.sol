@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: BUSL-1.1
 
-pragma solidity ^0.8.13;
+pragma solidity ^0.8.14;
 
 import "./interfaces/ICerbyERC20.sol";
 import "./interfaces/ICerbySwapV1_Vault.sol";
@@ -8,6 +8,16 @@ import "./CerbySwapV1_MinimalProxy.sol";
 
 abstract contract CerbySwapV1_SafeFunctions is CerbySwapV1_MinimalProxy
 {
+    function getPoolBalancesByToken(
+        ICerbyERC20 _token
+    )
+        external
+        view
+        returns (PoolBalances memory)
+    {
+        return _getPoolBalances(_token);
+    }
+
     function _getPoolBalances(
         ICerbyERC20 _token
     )
@@ -105,10 +115,10 @@ abstract contract CerbySwapV1_SafeFunctions is CerbySwapV1_MinimalProxy
     )
         internal
     {
-        // refer to https://github.com/Uniswap/solidity-lib/blob/master/contracts/libraries/TransferHelper.sol
+        // refer to https://github.com/Uniswap/solidity-lib/blob/c01640b0f0f1d8a85cba8de378cc48469fcfd9a6/contracts/libraries/TransferHelper.sol#L33-L45
         (bool success, bytes memory data) = address(_token).call(
             abi.encodeWithSelector(
-                0x23b872dd,
+                0x23b872dd, // bytes4(keccak256(bytes('transferFrom(address,address,uint256)')));
                 _from,
                 _to,
                 _value
@@ -128,7 +138,7 @@ abstract contract CerbySwapV1_SafeFunctions is CerbySwapV1_MinimalProxy
     )
         internal
     {
-        // refer to https://github.com/Uniswap/solidity-lib/blob/master/contracts/libraries/TransferHelper.sol
+        // refer to https://github.com/Uniswap/solidity-lib/blob/c01640b0f0f1d8a85cba8de378cc48469fcfd9a6/contracts/libraries/TransferHelper.sol#L47-L50
         (bool success, ) = _to.call{value: _value}(new bytes(0));
 
         // we allow only successfull calls
