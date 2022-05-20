@@ -4705,8 +4705,8 @@ contract('Cerby', (accounts) => {
     {
       const tokenIn = BTC_TOKEN_ADDRESS
       const tokenOut = CERBY_TOKEN_ADDRESS
-      const amountTokensIn = _BN(10).mul(bn1e18)
-      const amountTokensOut = await cerbySwap.getOutputExactTokensForTokens(
+      const amountTokensIn = _BN(109).mul(bn1e18)
+      let amountTokensOut = await cerbySwap.getOutputExactTokensForTokens(
         tokenIn,
         tokenOut,
         amountTokensIn,
@@ -4715,10 +4715,13 @@ contract('Cerby', (accounts) => {
       const expireTimestamp = currentTimestamp() + 86400
       const transferTo = firstAccount
 
+      let pool = (await cerbySwap.getPoolsByTokens([BTC_TOKEN_ADDRESS]))[0]
+      let maxCreditCerby = pool.creditCerby
+
       // buying CERBY
       await cerbySwap.swapTokensForExactTokens(
-        ETH_TOKEN_ADDRESS,
-        BTC_TOKEN_ADDRESS,
+        tokenIn,
+        tokenOut,
         amountTokensIn,
         bn1e18,
         expireTimestamp,
@@ -4727,6 +4730,13 @@ contract('Cerby', (accounts) => {
       )
 
       await cerbySwap.adminChangeCerbyCreditInPool(tokenIn, 0)
+
+      pool = (await cerbySwap.getPoolsByTokens([BTC_TOKEN_ADDRESS]))[0]
+      assert.deepEqual(
+        pool.creditCerby.toString(),
+        '0'
+      )
+
 
       const CerbySwapV1_CreditCerUsdMustNotBeBelowZero = 'Z'
 
@@ -4742,9 +4752,21 @@ contract('Cerby', (accounts) => {
         CerbySwapV1_CreditCerUsdMustNotBeBelowZero,
       )
 
+      amountTokensOut = await cerbySwap.getOutputExactTokensForTokens(
+        tokenIn,
+        tokenOut,
+        amountTokensIn,
+      )
+      var increaseBy = amountTokensOut.sub(_BN(100))
       await cerbySwap.increaseCerbyCreditInPool(
         tokenIn,
-        amountTokensOut.sub(_BN(1)),
+        increaseBy,
+      )
+
+      pool = (await cerbySwap.getPoolsByTokens([BTC_TOKEN_ADDRESS]))[0]
+      assert.deepEqual(
+        pool.creditCerby.toString(),
+        increaseBy.toString()
       )
 
       await truffleAssert.reverts(
@@ -4757,6 +4779,28 @@ contract('Cerby', (accounts) => {
           transferTo,
         ),
         CerbySwapV1_CreditCerUsdMustNotBeBelowZero,
+      )
+
+      await cerbySwap.adminChangeCerbyCreditInPool(tokenIn, 0)
+
+      amountTokensOut = await cerbySwap.getOutputExactTokensForTokens(
+        tokenIn,
+        tokenOut,
+        amountTokensIn,
+      )
+      increaseBy = amountTokensOut
+      await cerbySwap.increaseCerbyCreditInPool(
+        tokenIn,
+        increaseBy,
+      )
+
+      cerbySwap.swapExactTokensForTokens(
+        tokenIn,
+        tokenOut,
+        amountTokensIn,
+        minAmountTokensOut,
+        expireTimestamp,
+        transferTo,
       )
     }
   })

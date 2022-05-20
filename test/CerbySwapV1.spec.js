@@ -2076,18 +2076,31 @@ contract('Cerby', (accounts) => {
         {
             const tokenIn = BTC_TOKEN_ADDRESS;
             const tokenOut = CERBY_TOKEN_ADDRESS;
-            const amountTokensIn = _BN(10).mul(bn1e18);
-            const amountTokensOut = await cerbySwap.getOutputExactTokensForTokens(tokenIn, tokenOut, amountTokensIn);
+            const amountTokensIn = _BN(109).mul(bn1e18);
+            let amountTokensOut = await cerbySwap.getOutputExactTokensForTokens(tokenIn, tokenOut, amountTokensIn);
             const minAmountTokensOut = 0;
             const expireTimestamp = currentTimestamp() + 86400;
             const transferTo = firstAccount;
+            let pool = (await cerbySwap.getPoolsByTokens([BTC_TOKEN_ADDRESS]))[0];
+            let maxCreditCerby = pool.creditCerby;
             // buying CERBY
-            await cerbySwap.swapTokensForExactTokens(ETH_TOKEN_ADDRESS, BTC_TOKEN_ADDRESS, amountTokensIn, bn1e18, expireTimestamp, transferTo, { value: bn1e18, gas: '30000000' });
+            await cerbySwap.swapTokensForExactTokens(tokenIn, tokenOut, amountTokensIn, bn1e18, expireTimestamp, transferTo, { value: bn1e18, gas: '30000000' });
             await cerbySwap.adminChangeCerbyCreditInPool(tokenIn, 0);
+            pool = (await cerbySwap.getPoolsByTokens([BTC_TOKEN_ADDRESS]))[0];
+            assert.deepEqual(pool.creditCerby.toString(), '0');
             const CerbySwapV1_CreditCerUsdMustNotBeBelowZero = 'Z';
             await truffleAssert.reverts(cerbySwap.swapExactTokensForTokens(tokenIn, tokenOut, amountTokensIn, minAmountTokensOut, expireTimestamp, transferTo), CerbySwapV1_CreditCerUsdMustNotBeBelowZero);
-            await cerbySwap.increaseCerbyCreditInPool(tokenIn, amountTokensOut.sub(_BN(1)));
+            amountTokensOut = await cerbySwap.getOutputExactTokensForTokens(tokenIn, tokenOut, amountTokensIn);
+            var increaseBy = amountTokensOut.sub(_BN(100));
+            await cerbySwap.increaseCerbyCreditInPool(tokenIn, increaseBy);
+            pool = (await cerbySwap.getPoolsByTokens([BTC_TOKEN_ADDRESS]))[0];
+            assert.deepEqual(pool.creditCerby.toString(), increaseBy.toString());
             await truffleAssert.reverts(cerbySwap.swapExactTokensForTokens(tokenIn, tokenOut, amountTokensIn, minAmountTokensOut, expireTimestamp, transferTo), CerbySwapV1_CreditCerUsdMustNotBeBelowZero);
+            await cerbySwap.adminChangeCerbyCreditInPool(tokenIn, 0);
+            amountTokensOut = await cerbySwap.getOutputExactTokensForTokens(tokenIn, tokenOut, amountTokensIn);
+            increaseBy = amountTokensOut;
+            await cerbySwap.increaseCerbyCreditInPool(tokenIn, increaseBy);
+            cerbySwap.swapExactTokensForTokens(tokenIn, tokenOut, amountTokensIn, minAmountTokensOut, expireTimestamp, transferTo);
         }
     });
     // ---------------------------------------------------------- //
