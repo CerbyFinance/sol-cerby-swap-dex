@@ -11,7 +11,7 @@ abstract contract CerbySwapV1_Declarations {
 
     mapping(ICerbyERC20 => TokenCache) cachedTokenValues;
     
-    ICerbyERC20 constant CERBY_TOKEN = ICerbyERC20(0x3B69b8C5c6a4c8c2a90dc93F3B0238BF70cC9640);
+    ICerbyERC20 constant CERBY_TOKEN = ICerbyERC20(0xE7126C0Fb4B1f5F79E5Bbec3948139dCF348B49C);
     ICerbySwapV1_Vault constant VAULT_IMPLEMENTATION = 
         ICerbySwapV1_Vault(0x029581a9121998fcBb096ceafA92E3E10057878f);
     ICerbyERC20 constant NATIVE_TOKEN = ICerbyERC20(0x14769F96e57B80c66837701DE0B43686Fb4632De);

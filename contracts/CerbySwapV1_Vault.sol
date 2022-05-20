@@ -7,7 +7,7 @@ import "./interfaces/ICerbyERC20.sol";
 contract CerbySwapV1_Vault {
 
     ICerbyERC20 token;
-    ICerbyERC20 constant CERBY_TOKEN = ICerbyERC20(0x3B69b8C5c6a4c8c2a90dc93F3B0238BF70cC9640);
+    ICerbyERC20 constant CERBY_TOKEN = ICerbyERC20(0xE7126C0Fb4B1f5F79E5Bbec3948139dCF348B49C);
     address constant factory = 0xfAf360f184788b00623828165405D7F52820D789;
 
     error CerbySwapV1_Vault_SafeTransferNativeFailed();

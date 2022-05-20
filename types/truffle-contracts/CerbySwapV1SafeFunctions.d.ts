@@ -17,7 +17,7 @@ export interface LiquidityAdded {
   args: {
     _token: string;
     _amountTokensIn: BN;
-    _amountCerUsdToMint: BN;
+    _amountCerbyToMint: BN;
     _lpAmount: BN;
     0: string;
     1: BN;
@@ -31,7 +31,7 @@ export interface LiquidityRemoved {
   args: {
     _token: string;
     _amountTokensOut: BN;
-    _amountCerUsdToBurn: BN;
+    _amountCerbyToBurn: BN;
     _amountLpTokensBalanceToBurn: BN;
     0: string;
     1: BN;
@@ -58,9 +58,9 @@ export interface Swap {
     _token: string;
     _sender: string;
     _amountTokensIn: BN;
-    _amountCerUsdIn: BN;
+    _amountCerbyIn: BN;
     _amountTokensOut: BN;
-    _amountCerUsdOut: BN;
+    _amountCerbyOut: BN;
     _currentFee: BN;
     _transferTo: string;
     0: string;
@@ -79,8 +79,8 @@ export interface Sync {
   args: {
     _token: string;
     _newBalanceToken: BN;
-    _newBalanceCerUsd: BN;
-    _newCreditCerUsd: BN;
+    _newBalanceCerby: BN;
+    _newCreditCerby: BN;
     0: string;
     1: BN;
     2: BN;
@@ -92,7 +92,17 @@ type AllEvents = LiquidityAdded | LiquidityRemoved | PoolCreated | Swap | Sync;
 
 export interface CerbySwapV1SafeFunctionsInstance
   extends Truffle.ContractInstance {
-  methods: {};
+  getPoolBalancesByToken(
+    _token: string,
+    txDetails?: Truffle.TransactionDetails
+  ): Promise<{ balanceToken: BN; balanceCerby: BN }>;
+
+  methods: {
+    getPoolBalancesByToken(
+      _token: string,
+      txDetails?: Truffle.TransactionDetails
+    ): Promise<{ balanceToken: BN; balanceCerby: BN }>;
+  };
 
   getPastEvents(event: string): Promise<EventData[]>;
   getPastEvents(

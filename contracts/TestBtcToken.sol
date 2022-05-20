@@ -3,13 +3,13 @@ pragma solidity ^0.8.10;
 
 import "../openzeppelin/token/ERC20/ERC20.sol";
 
-contract TestCerUsdToken is ERC20 {
+contract TestBtcToken is ERC20 {
     address owner;
 
     constructor()
         //ERC20("Cerby Token", "CERBY")
-        ERC20("Cerby USD Token", "cerUSD")
-    //ERC20("USD Coin", "USDC")
+        ERC20("Wrapped BTC Token", "WBTC")
+        //ERC20("USD Coin", "USDC")
     {
         owner = msg.sender;
         _mint(0xDc15Ca882F975c33D8f20AB3669D27195B8D87a6, 1e18 * 1e9);

@@ -3,12 +3,12 @@
   "abi": [
     {
       "inputs": [],
-      "name": "CerbySwapV1_AmountOfCerUsdMustBeLargerThanOne",
+      "name": "CerbySwapV1_AmountOfCerbyMustBeLargerThanOne",
       "type": "error"
     },
     {
       "inputs": [],
-      "name": "CerbySwapV1_AmountOfCerUsdOrTokensInMustBeLargerThanOne",
+      "name": "CerbySwapV1_AmountOfCerbyOrTokensInMustBeLargerThanOne",
       "type": "error"
     },
     {
@@ -18,12 +18,12 @@
     },
     {
       "inputs": [],
-      "name": "CerbySwapV1_CreditCerUsdIsAlreadyMaximum",
+      "name": "CerbySwapV1_CreditCerbyIsAlreadyMaximum",
       "type": "error"
     },
     {
       "inputs": [],
-      "name": "CerbySwapV1_CreditCerUsdMustNotBeBelowZero",
+      "name": "CerbySwapV1_CreditCerbyMustNotBeBelowZero",
       "type": "error"
     },
     {
@@ -33,7 +33,12 @@
     },
     {
       "inputs": [],
-      "name": "CerbySwapV1_InputCerUsdAmountIsLargerThanMaximumSpecified",
+      "name": "CerbySwapV1_FeeOnTransferTokensAreForbidden",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "CerbySwapV1_InputCerbyAmountIsLargerThanMaximumSpecified",
       "type": "error"
     },
     {
@@ -53,12 +58,7 @@
     },
     {
       "inputs": [],
-      "name": "CerbySwapV1_MsgValueProvidedMustBeLargerThanAmountTokensIn",
-      "type": "error"
-    },
-    {
-      "inputs": [],
-      "name": "CerbySwapV1_OutputCerUsdAmountIsLowerThanMinimumSpecified",
+      "name": "CerbySwapV1_OutputCerbyAmountIsLowerThanMinimumSpecified",
       "type": "error"
     },
     {
@@ -74,11 +74,6 @@
     {
       "inputs": [],
       "name": "CerbySwapV1_SafeTransferNativeFailed",
-      "type": "error"
-    },
-    {
-      "inputs": [],
-      "name": "CerbySwapV1_SafeTransferTokensFailed",
       "type": "error"
     },
     {
@@ -110,8 +105,8 @@
       "anonymous": false,
       "inputs": [
         {
-          "indexed": false,
-          "internalType": "address",
+          "indexed": true,
+          "internalType": "contract ICerbyERC20",
           "name": "_token",
           "type": "address"
         },
@@ -124,7 +119,7 @@
         {
           "indexed": false,
           "internalType": "uint256",
-          "name": "_amountCerUsdToMint",
+          "name": "_amountCerbyToMint",
           "type": "uint256"
         },
         {
@@ -141,8 +136,8 @@
       "anonymous": false,
       "inputs": [
         {
-          "indexed": false,
-          "internalType": "address",
+          "indexed": true,
+          "internalType": "contract ICerbyERC20",
           "name": "_token",
           "type": "address"
         },
@@ -155,7 +150,7 @@
         {
           "indexed": false,
           "internalType": "uint256",
-          "name": "_amountCerUsdToBurn",
+          "name": "_amountCerbyToBurn",
           "type": "uint256"
         },
         {
@@ -172,14 +167,14 @@
       "anonymous": false,
       "inputs": [
         {
-          "indexed": false,
-          "internalType": "address",
+          "indexed": true,
+          "internalType": "contract ICerbyERC20",
           "name": "_token",
           "type": "address"
         },
         {
           "indexed": false,
-          "internalType": "address",
+          "internalType": "contract ICerbySwapV1_Vault",
           "name": "_vaultAddress",
           "type": "address"
         },
@@ -197,8 +192,8 @@
       "anonymous": false,
       "inputs": [
         {
-          "indexed": false,
-          "internalType": "address",
+          "indexed": true,
+          "internalType": "contract ICerbyERC20",
           "name": "_token",
           "type": "address"
         },
@@ -217,7 +212,7 @@
         {
           "indexed": false,
           "internalType": "uint256",
-          "name": "_amountCerUsdIn",
+          "name": "_amountCerbyIn",
           "type": "uint256"
         },
         {
@@ -229,7 +224,7 @@
         {
           "indexed": false,
           "internalType": "uint256",
-          "name": "_amountCerUsdOut",
+          "name": "_amountCerbyOut",
           "type": "uint256"
         },
         {
@@ -252,8 +247,8 @@
       "anonymous": false,
       "inputs": [
         {
-          "indexed": false,
-          "internalType": "address",
+          "indexed": true,
+          "internalType": "contract ICerbyERC20",
           "name": "_token",
           "type": "address"
         },
@@ -266,13 +261,13 @@
         {
           "indexed": false,
           "internalType": "uint256",
-          "name": "_newBalanceCerUsd",
+          "name": "_newBalanceCerby",
           "type": "uint256"
         },
         {
           "indexed": false,
           "internalType": "uint256",
-          "name": "_newCreditCerUsd",
+          "name": "_newCreditCerby",
           "type": "uint256"
         }
       ],
@@ -280,7 +275,7 @@
       "type": "event"
     }
   ],
-  "metadata": "{\"compiler\":{\"version\":\"0.8.11+commit.d7f03943\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[],\"name\":\"CerbySwapV1_AmountOfCerUsdMustBeLargerThanOne\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"CerbySwapV1_AmountOfCerUsdOrTokensInMustBeLargerThanOne\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"CerbySwapV1_AmountOfTokensMustBeLargerThanOne\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"CerbySwapV1_CreditCerUsdIsAlreadyMaximum\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"CerbySwapV1_CreditCerUsdMustNotBeBelowZero\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"CerbySwapV1_FeeIsWrong\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"CerbySwapV1_InputCerUsdAmountIsLargerThanMaximumSpecified\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"CerbySwapV1_InputTokensAmountIsLargerThanMaximumSpecified\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"CerbySwapV1_InvariantKValueMustBeSameOrIncreasedOnAnySwaps\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"CerbySwapV1_MintFeeMultiplierMustNotBeLargerThan50Percent\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"CerbySwapV1_MsgValueProvidedMustBeLargerThanAmountTokensIn\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"CerbySwapV1_OutputCerUsdAmountIsLowerThanMinimumSpecified\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"CerbySwapV1_OutputTokensAmountIsLowerThanMinimumSpecified\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"CerbySwapV1_SafeTransferFromFailed\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"CerbySwapV1_SafeTransferNativeFailed\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"CerbySwapV1_SafeTransferTokensFailed\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"CerbySwapV1_SwappingTokenToSameTokenIsForbidden\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"CerbySwapV1_TokenAlreadyExists\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"CerbySwapV1_TokenDoesNotExist\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"CerbySwapV1_TransactionIsExpired\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"CerbySwapV1_TvlMultiplierIsWrong\",\"type\":\"error\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_token\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_amountTokensIn\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_amountCerUsdToMint\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_lpAmount\",\"type\":\"uint256\"}],\"name\":\"LiquidityAdded\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_token\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_amountTokensOut\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_amountCerUsdToBurn\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_amountLpTokensBalanceToBurn\",\"type\":\"uint256\"}],\"name\":\"LiquidityRemoved\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_token\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_vaultAddress\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_poolId\",\"type\":\"uint256\"}],\"name\":\"PoolCreated\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_token\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_sender\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_amountTokensIn\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_amountCerUsdIn\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_amountTokensOut\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_amountCerUsdOut\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_currentFee\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_transferTo\",\"type\":\"address\"}],\"name\":\"Swap\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_token\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_newBalanceToken\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_newBalanceCerUsd\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_newCreditCerUsd\",\"type\":\"uint256\"}],\"name\":\"Sync\",\"type\":\"event\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"project:/contracts/CerbySwapV1_Declarations.sol\":\"CerbySwapV1_Declarations\"},\"evmVersion\":\"london\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[]},\"sources\":{\"project:/contracts/CerbySwapV1_Declarations.sol\":{\"keccak256\":\"0x38223e928243cb2a3748d07afe1dc12f4a4e914f1fd0bdebb9fcd9b9006e2bce\",\"license\":\"BUSL-1.1\",\"urls\":[\"bzz-raw://2c937fd3d0befbfe47ee5eb98325bfdf13f46114845b7187f20f8793e69f8b5a\",\"dweb:/ipfs/QmYF5zozKdoTRSQYeyXdikwNpaU2Mye6j6fpyPyFgMdD8y\"]},\"project:/contracts/CerbySwapV1_EventsAndErrors.sol\":{\"keccak256\":\"0x709c3713cd96ddda6798985364b563442a2bebc4f5df34d9b1d7ffb4a9a58508\",\"license\":\"BUSL-1.1\",\"urls\":[\"bzz-raw://1e8c971e939979ef4c4849e95eec7336bf0b702b4d3b388ab79f0f379ae3615f\",\"dweb:/ipfs/QmV8WzHbdhcHwNdy1hXp7zUSz4UD6uvzQSpFJDvEREx3ts\"]}},\"version\":1}",
+  "metadata": "{\"compiler\":{\"version\":\"0.8.14+commit.80d49f37\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[],\"name\":\"CerbySwapV1_AmountOfCerbyMustBeLargerThanOne\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"CerbySwapV1_AmountOfCerbyOrTokensInMustBeLargerThanOne\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"CerbySwapV1_AmountOfTokensMustBeLargerThanOne\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"CerbySwapV1_CreditCerbyIsAlreadyMaximum\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"CerbySwapV1_CreditCerbyMustNotBeBelowZero\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"CerbySwapV1_FeeIsWrong\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"CerbySwapV1_FeeOnTransferTokensAreForbidden\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"CerbySwapV1_InputCerbyAmountIsLargerThanMaximumSpecified\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"CerbySwapV1_InputTokensAmountIsLargerThanMaximumSpecified\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"CerbySwapV1_InvariantKValueMustBeSameOrIncreasedOnAnySwaps\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"CerbySwapV1_MintFeeMultiplierMustNotBeLargerThan50Percent\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"CerbySwapV1_OutputCerbyAmountIsLowerThanMinimumSpecified\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"CerbySwapV1_OutputTokensAmountIsLowerThanMinimumSpecified\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"CerbySwapV1_SafeTransferFromFailed\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"CerbySwapV1_SafeTransferNativeFailed\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"CerbySwapV1_SwappingTokenToSameTokenIsForbidden\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"CerbySwapV1_TokenAlreadyExists\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"CerbySwapV1_TokenDoesNotExist\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"CerbySwapV1_TransactionIsExpired\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"CerbySwapV1_TvlMultiplierIsWrong\",\"type\":\"error\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"contract ICerbyERC20\",\"name\":\"_token\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_amountTokensIn\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_amountCerbyToMint\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_lpAmount\",\"type\":\"uint256\"}],\"name\":\"LiquidityAdded\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"contract ICerbyERC20\",\"name\":\"_token\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_amountTokensOut\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_amountCerbyToBurn\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_amountLpTokensBalanceToBurn\",\"type\":\"uint256\"}],\"name\":\"LiquidityRemoved\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"contract ICerbyERC20\",\"name\":\"_token\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"contract ICerbySwapV1_Vault\",\"name\":\"_vaultAddress\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_poolId\",\"type\":\"uint256\"}],\"name\":\"PoolCreated\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"contract ICerbyERC20\",\"name\":\"_token\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_sender\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_amountTokensIn\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_amountCerbyIn\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_amountTokensOut\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_amountCerbyOut\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_currentFee\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_transferTo\",\"type\":\"address\"}],\"name\":\"Swap\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"contract ICerbyERC20\",\"name\":\"_token\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_newBalanceToken\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_newBalanceCerby\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_newCreditCerby\",\"type\":\"uint256\"}],\"name\":\"Sync\",\"type\":\"event\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"project:/contracts/CerbySwapV1_Declarations.sol\":\"CerbySwapV1_Declarations\"},\"evmVersion\":\"london\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[]},\"sources\":{\"project:/contracts/CerbySwapV1_Declarations.sol\":{\"keccak256\":\"0x4dc37292510859c5985c3a39bd4aca2a0671dad84f8bd2a01f02fba27fe2e6b0\",\"license\":\"BUSL-1.1\",\"urls\":[\"bzz-raw://2b6facccc94d73f97d5f23e1b35c648c5cec0442c767f3ba94bd1d0222fda9ba\",\"dweb:/ipfs/QmNPNbppsWMbdWKSG2XK18a6RBpBtopSvV59t225vEyAyo\"]},\"project:/contracts/interfaces/ICerbyERC20.sol\":{\"keccak256\":\"0xf1ff4af9d58f7ad71784eab554ce3840ce0b4580e8d2d4070f363a173c50edcb\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://e2fcf00345ab051feea91a4f704dc0b1d71ef5bdc4fa97282db4645a351a37b1\",\"dweb:/ipfs/Qmd3s8iLKv2tq6S9GGs2AoDNmyXHznDQSn6fXWGkHDB4EC\"]},\"project:/contracts/interfaces/ICerbySwapV1_Vault.sol\":{\"keccak256\":\"0x3347c0b2c866c6dee870af5a6842cb213f7da4f8dfd4dcbf769f7688de2e5109\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://bb27afe1579aeb1c12a4d8052eed87962fbf6f5bcb150680dcb67170b2a08d36\",\"dweb:/ipfs/QmUmoE623AsFJ6Tb9mJ28JLVwtjP2c8EHuGUPD53Q2zp55\"]}},\"version\":1}",
   "bytecode": "0x",
   "deployedBytecode": "0x",
   "immutableReferences": {},
@@ -288,112 +283,113 @@
   "deployedGeneratedSources": [],
   "sourceMap": "",
   "deployedSourceMap": "",
-  "source": "// SPDX-License-Identifier: BUSL-1.1\n\npragma solidity ^0.8.11;\n\nimport \"./CerbySwapV1_EventsAndErrors.sol\";\n\nabstract contract CerbySwapV1_Declarations is CerbySwapV1_EventsAndErrors {\n\n    Pool[] pools;\n\n    mapping(address => uint256) tokenToPoolId;\n        \n    address constant CER_USD_TOKEN = 0x79c382879e8C996C1Bda2c6508E69640Ac712d48;\n    address constant VAULT_IMPLEMENTATION = 0x8631ADDBDEc5BC143807fC9d7A21B94Fb9601A95;\n    address constant NATIVE_TOKEN = 0x14769F96e57B80c66837701DE0B43686Fb4632De;\n\n\n    // address constant NATIVE_TOKEN = 0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2; // Ethereum\n    // address constant NATIVE_TOKEN = 0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c; // BSC\n    // address constant NATIVE_TOKEN = 0x0d500B1d8E8eF31E21C99d1Db9A6444d3ADf1270; // Polygon\n    // address constant NATIVE_TOKEN = 0xB31f66AA3C1e785363F0875A1B74E27b85FD66c7; // Avalanche\n    // address constant NATIVE_TOKEN = 0x21be370D5312f44cB42ce377BC9b8a0cEF1A4C83; // Fantom\n\n    uint256 constant MINT_FEE_DENORM = 10000;\n    uint256 constant MAX_CER_USD_CREDIT = type(uint120).max;\n\n    uint256 constant FEE_DENORM = 10000;\n    uint256 constant FEE_DENORM_SQUARED = FEE_DENORM * FEE_DENORM;\n    uint256 constant MAX_TRADE_FEE_POSSIBLE = 500; // 5%\n    uint256 constant TRADE_VOLUME_DENORM = 1e18;\n\n    uint256 constant TVL_MULTIPLIER_DENORM = 1e10;\n\n    // 6 x 4.8hours + 1 x current 4.8hour = 7 x periods\n    uint256 constant NUMBER_OF_TRADE_PERIODS = 6;\n    uint256 constant NUMBER_OF_TRADE_PERIODS_MINUS_ONE = NUMBER_OF_TRADE_PERIODS - 1; // equals 5 which is exactly how many periods in 24 hours = 5 * 4.8 hours\n    uint256 constant ONE_PERIOD_IN_SECONDS = 288 minutes; // 4.8 hours\n\n    uint256 constant MINIMUM_LIQUIDITY = 1000;\n    address constant DEAD_ADDRESS = address(0xdead);\n\n    Settings settings;\n\n    struct Settings {\n        address mintFeeBeneficiary;\n        uint32 mintFeeMultiplier;\n        uint16 feeMinimum;\n        uint16 feeMaximum;\n        uint64 tvlMultiplierMinimum;\n        uint64 tvlMultiplierMaximum;\n    }\n\n    struct Pool {\n        uint40[NUMBER_OF_TRADE_PERIODS] tradeVolumePerPeriodInCerUsd;\n        uint16 lastCachedOneMinusFee;\n        uint8 lastCachedTradePeriod;\n        uint120 lastSqrtKValue;\n        uint120 creditCerUsd;\n    }\n\n    struct PoolBalances {\n        uint256 balanceToken;\n        uint256 balanceCerUsd;\n    }\n}\n",
+  "source": "// SPDX-License-Identifier: BUSL-1.1\n\npragma solidity ^0.8.14;\n\nimport \"./interfaces/ICerbyERC20.sol\";\nimport \"./interfaces/ICerbySwapV1_Vault.sol\";\n\nabstract contract CerbySwapV1_Declarations {\n\n    Pool[] pools;\n\n    mapping(ICerbyERC20 => TokenCache) cachedTokenValues;\n    \n    ICerbyERC20 constant CERBY_TOKEN = ICerbyERC20(0x3B69b8C5c6a4c8c2a90dc93F3B0238BF70cC9640);\n    ICerbySwapV1_Vault constant VAULT_IMPLEMENTATION = \n        ICerbySwapV1_Vault(0x029581a9121998fcBb096ceafA92E3E10057878f);\n    ICerbyERC20 constant NATIVE_TOKEN = ICerbyERC20(0x14769F96e57B80c66837701DE0B43686Fb4632De);\n\n\n    // address constant NATIVE_TOKEN = 0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2; // Ethereum\n    // address constant NATIVE_TOKEN = 0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c; // BSC\n    // address constant NATIVE_TOKEN = 0x0d500B1d8E8eF31E21C99d1Db9A6444d3ADf1270; // Polygon\n    // address constant NATIVE_TOKEN = 0xB31f66AA3C1e785363F0875A1B74E27b85FD66c7; // Avalanche\n    // address constant NATIVE_TOKEN = 0x21be370D5312f44cB42ce377BC9b8a0cEF1A4C83; // Fantom\n\n    uint256 constant MINT_FEE_DENORM = 10_000;\n    uint256 constant MAX_CERBY_CREDIT = type(uint128).max;\n\n    uint256 constant FEE_DENORM = 10_000;\n    uint256 constant FEE_DENORM_SQUARED = FEE_DENORM * FEE_DENORM;\n\n    uint256 constant TVL_MULTIPLIER_DENORM = 1e10;\n\n    uint256 constant MINIMUM_LIQUIDITY = 1_000;\n    address constant DEAD_ADDRESS = address(0xdead);\n\n    Settings settings;\n\n    struct TokenCache {\n        ICerbySwapV1_Vault vaultAddress;\n        uint96 poolId;\n    }\n\n    struct Settings {\n        uint32 onePeriodInSeconds;\n        address mintFeeBeneficiary;\n        uint32 mintFeeMultiplier;\n        uint8 feeMinimum;\n        uint8 feeMaximum;\n        uint64 tvlMultiplierMinimum;\n        uint64 tvlMultiplierMaximum;\n    }\n\n    struct Pool {\n        uint216 sellVolumeThisPeriodInCerby;\n        uint8 lastCachedFee;\n        uint32 nextUpdateWillBeAt;\n        uint128 lastSqrtKValue;\n        uint128 creditCerby;\n    }\n\n    struct PoolBalances {\n        uint256 balanceToken;\n        uint256 balanceCerby;\n    }\n\n\n    event PoolCreated(\n        ICerbyERC20 indexed _token,\n        ICerbySwapV1_Vault _vaultAddress,\n        uint256 _poolId\n    );\n\n    event LiquidityAdded(\n        ICerbyERC20 indexed _token,\n        uint256 _amountTokensIn,\n        uint256 _amountCerbyToMint,\n        uint256 _lpAmount\n    );\n    event LiquidityRemoved(\n        ICerbyERC20 indexed _token,\n        uint256 _amountTokensOut,\n        uint256 _amountCerbyToBurn,\n        uint256 _amountLpTokensBalanceToBurn\n    );\n    event Swap(\n        ICerbyERC20 indexed _token,\n        address _sender,\n        uint256 _amountTokensIn,\n        uint256 _amountCerbyIn,\n        uint256 _amountTokensOut,\n        uint256 _amountCerbyOut,\n        uint256 _currentFee,\n        address _transferTo\n    );\n    event Sync(\n        ICerbyERC20 indexed _token,\n        uint256 _newBalanceToken,\n        uint256 _newBalanceCerby,\n        uint256 _newCreditCerby\n    );\n\n    error CerbySwapV1_TokenAlreadyExists();\n    error CerbySwapV1_TokenDoesNotExist();\n    error CerbySwapV1_TransactionIsExpired();\n    error CerbySwapV1_AmountOfTokensMustBeLargerThanOne();\n    error CerbySwapV1_AmountOfCerbyMustBeLargerThanOne();\n    error CerbySwapV1_OutputCerbyAmountIsLowerThanMinimumSpecified();\n    error CerbySwapV1_OutputTokensAmountIsLowerThanMinimumSpecified();\n    error CerbySwapV1_InputCerbyAmountIsLargerThanMaximumSpecified();\n    error CerbySwapV1_InputTokensAmountIsLargerThanMaximumSpecified();\n    error CerbySwapV1_SwappingTokenToSameTokenIsForbidden();\n    error CerbySwapV1_InvariantKValueMustBeSameOrIncreasedOnAnySwaps();\n    error CerbySwapV1_SafeTransferNativeFailed();\n    error CerbySwapV1_SafeTransferFromFailed();\n    error CerbySwapV1_AmountOfCerbyOrTokensInMustBeLargerThanOne();\n    error CerbySwapV1_FeeIsWrong();\n    error CerbySwapV1_TvlMultiplierIsWrong();\n    error CerbySwapV1_MintFeeMultiplierMustNotBeLargerThan50Percent();\n    error CerbySwapV1_CreditCerbyMustNotBeBelowZero();\n    error CerbySwapV1_CreditCerbyIsAlreadyMaximum();\n    error CerbySwapV1_FeeOnTransferTokensAreForbidden();\n}\n",
   "sourcePath": "/Users/numwan/Documents/Remix/bitbucket/sol-cerby-swap-v1/contracts/CerbySwapV1_Declarations.sol",
   "ast": {
     "absolutePath": "project:/contracts/CerbySwapV1_Declarations.sol",
     "exportedSymbols": {
       "CerbySwapV1_Declarations": [
-        557
+        650
       ],
-      "CerbySwapV1_EventsAndErrors": [
-        873
+      "ICerbyERC20": [
+        4245
+      ],
+      "ICerbySwapV1_Vault": [
+        4288
       ]
     },
-    "id": 558,
+    "id": 651,
     "license": "BUSL-1.1",
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 455,
+        "id": 447,
         "literals": [
           "solidity",
           "^",
           "0.8",
-          ".11"
+          ".14"
         ],
         "nodeType": "PragmaDirective",
         "src": "38:24:3"
       },
       {
-        "absolutePath": "project:/contracts/CerbySwapV1_EventsAndErrors.sol",
-        "file": "./CerbySwapV1_EventsAndErrors.sol",
-        "id": 456,
+        "absolutePath": "project:/contracts/interfaces/ICerbyERC20.sol",
+        "file": "./interfaces/ICerbyERC20.sol",
+        "id": 448,
         "nameLocation": "-1:-1:-1",
         "nodeType": "ImportDirective",
-        "scope": 558,
-        "sourceUnit": 874,
-        "src": "64:43:3",
+        "scope": 651,
+        "sourceUnit": 4246,
+        "src": "64:38:3",
+        "symbolAliases": [],
+        "unitAlias": ""
+      },
+      {
+        "absolutePath": "project:/contracts/interfaces/ICerbySwapV1_Vault.sol",
+        "file": "./interfaces/ICerbySwapV1_Vault.sol",
+        "id": 449,
+        "nameLocation": "-1:-1:-1",
+        "nodeType": "ImportDirective",
+        "scope": 651,
+        "sourceUnit": 4289,
+        "src": "103:45:3",
         "symbolAliases": [],
         "unitAlias": ""
       },
       {
         "abstract": true,
-        "baseContracts": [
-          {
-            "baseName": {
-              "id": 457,
-              "name": "CerbySwapV1_EventsAndErrors",
-              "nodeType": "IdentifierPath",
-              "referencedDeclaration": 873,
-              "src": "155:27:3"
-            },
-            "id": 458,
-            "nodeType": "InheritanceSpecifier",
-            "src": "155:27:3"
-          }
-        ],
+        "baseContracts": [],
         "canonicalName": "CerbySwapV1_Declarations",
         "contractDependencies": [],
         "contractKind": "contract",
         "fullyImplemented": true,
-        "id": 557,
+        "id": 650,
         "linearizedBaseContracts": [
-          557,
-          873
+          650
         ],
         "name": "CerbySwapV1_Declarations",
-        "nameLocation": "127:24:3",
+        "nameLocation": "168:24:3",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
             "constant": false,
-            "id": 462,
+            "id": 453,
             "mutability": "mutable",
             "name": "pools",
-            "nameLocation": "197:5:3",
+            "nameLocation": "207:5:3",
             "nodeType": "VariableDeclaration",
-            "scope": 557,
-            "src": "190:12:3",
+            "scope": 650,
+            "src": "200:12:3",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
-              "typeIdentifier": "t_array$_t_struct$_Pool_$551_storage_$dyn_storage",
+              "typeIdentifier": "t_array$_t_struct$_Pool_$542_storage_$dyn_storage",
               "typeString": "struct CerbySwapV1_Declarations.Pool[]"
             },
             "typeName": {
               "baseType": {
-                "id": 460,
+                "id": 451,
                 "nodeType": "UserDefinedTypeName",
                 "pathNode": {
-                  "id": 459,
+                  "id": 450,
                   "name": "Pool",
                   "nodeType": "IdentifierPath",
-                  "referencedDeclaration": 551,
-                  "src": "190:4:3"
+                  "referencedDeclaration": 542,
+                  "src": "200:4:3"
                 },
-                "referencedDeclaration": 551,
-                "src": "190:4:3",
+                "referencedDeclaration": 542,
+                "src": "200:4:3",
                 "typeDescriptions": {
-                  "typeIdentifier": "t_struct$_Pool_$551_storage_ptr",
+                  "typeIdentifier": "t_struct$_Pool_$542_storage_ptr",
                   "typeString": "struct CerbySwapV1_Declarations.Pool"
                 }
               },
-              "id": 461,
+              "id": 452,
               "nodeType": "ArrayTypeName",
-              "src": "190:6:3",
+              "src": "200:6:3",
               "typeDescriptions": {
-                "typeIdentifier": "t_array$_t_struct$_Pool_$551_storage_$dyn_storage_ptr",
+                "typeIdentifier": "t_array$_t_struct$_Pool_$542_storage_$dyn_storage_ptr",
                 "typeString": "struct CerbySwapV1_Declarations.Pool[]"
               }
             },
@@ -401,45 +397,59 @@
           },
           {
             "constant": false,
-            "id": 466,
+            "id": 459,
             "mutability": "mutable",
-            "name": "tokenToPoolId",
-            "nameLocation": "237:13:3",
+            "name": "cachedTokenValues",
+            "nameLocation": "254:17:3",
             "nodeType": "VariableDeclaration",
-            "scope": 557,
-            "src": "209:41:3",
+            "scope": 650,
+            "src": "219:52:3",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
-              "typeIdentifier": "t_mapping$_t_address_$_t_uint256_$",
-              "typeString": "mapping(address => uint256)"
+              "typeIdentifier": "t_mapping$_t_contract$_ICerbyERC20_$4245_$_t_struct$_TokenCache_$516_storage_$",
+              "typeString": "mapping(contract ICerbyERC20 => struct CerbySwapV1_Declarations.TokenCache)"
             },
             "typeName": {
-              "id": 465,
+              "id": 458,
               "keyType": {
-                "id": 463,
-                "name": "address",
-                "nodeType": "ElementaryTypeName",
-                "src": "217:7:3",
+                "id": 455,
+                "nodeType": "UserDefinedTypeName",
+                "pathNode": {
+                  "id": 454,
+                  "name": "ICerbyERC20",
+                  "nodeType": "IdentifierPath",
+                  "referencedDeclaration": 4245,
+                  "src": "227:11:3"
+                },
+                "referencedDeclaration": 4245,
+                "src": "227:11:3",
                 "typeDescriptions": {
-                  "typeIdentifier": "t_address",
-                  "typeString": "address"
+                  "typeIdentifier": "t_contract$_ICerbyERC20_$4245",
+                  "typeString": "contract ICerbyERC20"
                 }
               },
               "nodeType": "Mapping",
-              "src": "209:27:3",
+              "src": "219:34:3",
               "typeDescriptions": {
-                "typeIdentifier": "t_mapping$_t_address_$_t_uint256_$",
-                "typeString": "mapping(address => uint256)"
+                "typeIdentifier": "t_mapping$_t_contract$_ICerbyERC20_$4245_$_t_struct$_TokenCache_$516_storage_$",
+                "typeString": "mapping(contract ICerbyERC20 => struct CerbySwapV1_Declarations.TokenCache)"
               },
               "valueType": {
-                "id": 464,
-                "name": "uint256",
-                "nodeType": "ElementaryTypeName",
-                "src": "228:7:3",
+                "id": 457,
+                "nodeType": "UserDefinedTypeName",
+                "pathNode": {
+                  "id": 456,
+                  "name": "TokenCache",
+                  "nodeType": "IdentifierPath",
+                  "referencedDeclaration": 516,
+                  "src": "242:10:3"
+                },
+                "referencedDeclaration": 516,
+                "src": "242:10:3",
                 "typeDescriptions": {
-                  "typeIdentifier": "t_uint256",
-                  "typeString": "uint256"
+                  "typeIdentifier": "t_struct$_TokenCache_$516_storage_ptr",
+                  "typeString": "struct CerbySwapV1_Declarations.TokenCache"
                 }
               }
             },
@@ -447,145 +457,271 @@
           },
           {
             "constant": true,
-            "id": 469,
+            "id": 465,
             "mutability": "constant",
-            "name": "CER_USD_TOKEN",
-            "nameLocation": "282:13:3",
+            "name": "CERBY_TOKEN",
+            "nameLocation": "303:11:3",
             "nodeType": "VariableDeclaration",
-            "scope": 557,
-            "src": "265:75:3",
+            "scope": 650,
+            "src": "282:90:3",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
-              "typeIdentifier": "t_address",
-              "typeString": "address"
+              "typeIdentifier": "t_contract$_ICerbyERC20_$4245",
+              "typeString": "contract ICerbyERC20"
+            },
+            "typeName": {
+              "id": 461,
+              "nodeType": "UserDefinedTypeName",
+              "pathNode": {
+                "id": 460,
+                "name": "ICerbyERC20",
+                "nodeType": "IdentifierPath",
+                "referencedDeclaration": 4245,
+                "src": "282:11:3"
+              },
+              "referencedDeclaration": 4245,
+              "src": "282:11:3",
+              "typeDescriptions": {
+                "typeIdentifier": "t_contract$_ICerbyERC20_$4245",
+                "typeString": "contract ICerbyERC20"
+              }
+            },
+            "value": {
+              "arguments": [
+                {
+                  "hexValue": "307833423639623843356336613463386332613930646339334633423032333842463730634339363430",
+                  "id": 463,
+                  "isConstant": false,
+                  "isLValue": false,
+                  "isPure": true,
+                  "kind": "number",
+                  "lValueRequested": false,
+                  "nodeType": "Literal",
+                  "src": "329:42:3",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "value": "0x3B69b8C5c6a4c8c2a90dc93F3B0238BF70cC9640"
+                }
+              ],
+              "expression": {
+                "argumentTypes": [
+                  {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  }
+                ],
+                "id": 462,
+                "name": "ICerbyERC20",
+                "nodeType": "Identifier",
+                "overloadedDeclarations": [],
+                "referencedDeclaration": 4245,
+                "src": "317:11:3",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_type$_t_contract$_ICerbyERC20_$4245_$",
+                  "typeString": "type(contract ICerbyERC20)"
+                }
+              },
+              "id": 464,
+              "isConstant": false,
+              "isLValue": false,
+              "isPure": true,
+              "kind": "typeConversion",
+              "lValueRequested": false,
+              "names": [],
+              "nodeType": "FunctionCall",
+              "src": "317:55:3",
+              "tryCall": false,
+              "typeDescriptions": {
+                "typeIdentifier": "t_contract$_ICerbyERC20_$4245",
+                "typeString": "contract ICerbyERC20"
+              }
+            },
+            "visibility": "internal"
+          },
+          {
+            "constant": true,
+            "id": 471,
+            "mutability": "constant",
+            "name": "VAULT_IMPLEMENTATION",
+            "nameLocation": "406:20:3",
+            "nodeType": "VariableDeclaration",
+            "scope": 650,
+            "src": "378:122:3",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_contract$_ICerbySwapV1_Vault_$4288",
+              "typeString": "contract ICerbySwapV1_Vault"
             },
             "typeName": {
               "id": 467,
-              "name": "address",
-              "nodeType": "ElementaryTypeName",
-              "src": "265:7:3",
-              "stateMutability": "nonpayable",
+              "nodeType": "UserDefinedTypeName",
+              "pathNode": {
+                "id": 466,
+                "name": "ICerbySwapV1_Vault",
+                "nodeType": "IdentifierPath",
+                "referencedDeclaration": 4288,
+                "src": "378:18:3"
+              },
+              "referencedDeclaration": 4288,
+              "src": "378:18:3",
               "typeDescriptions": {
-                "typeIdentifier": "t_address",
-                "typeString": "address"
+                "typeIdentifier": "t_contract$_ICerbySwapV1_Vault_$4288",
+                "typeString": "contract ICerbySwapV1_Vault"
               }
             },
             "value": {
-              "hexValue": "307837396333383238373965384339393643314264613263363530384536393634304163373132643438",
-              "id": 468,
-              "isConstant": false,
-              "isLValue": false,
-              "isPure": true,
-              "kind": "number",
-              "lValueRequested": false,
-              "nodeType": "Literal",
-              "src": "298:42:3",
-              "typeDescriptions": {
-                "typeIdentifier": "t_address",
-                "typeString": "address"
+              "arguments": [
+                {
+                  "hexValue": "307830323935383161393132313939386663426230393663656166413932453345313030353738373866",
+                  "id": 469,
+                  "isConstant": false,
+                  "isLValue": false,
+                  "isPure": true,
+                  "kind": "number",
+                  "lValueRequested": false,
+                  "nodeType": "Literal",
+                  "src": "457:42:3",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "value": "0x029581a9121998fcBb096ceafA92E3E10057878f"
+                }
+              ],
+              "expression": {
+                "argumentTypes": [
+                  {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  }
+                ],
+                "id": 468,
+                "name": "ICerbySwapV1_Vault",
+                "nodeType": "Identifier",
+                "overloadedDeclarations": [],
+                "referencedDeclaration": 4288,
+                "src": "438:18:3",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_type$_t_contract$_ICerbySwapV1_Vault_$4288_$",
+                  "typeString": "type(contract ICerbySwapV1_Vault)"
+                }
               },
-              "value": "0x79c382879e8C996C1Bda2c6508E69640Ac712d48"
-            },
-            "visibility": "internal"
-          },
-          {
-            "constant": true,
-            "id": 472,
-            "mutability": "constant",
-            "name": "VAULT_IMPLEMENTATION",
-            "nameLocation": "363:20:3",
-            "nodeType": "VariableDeclaration",
-            "scope": 557,
-            "src": "346:82:3",
-            "stateVariable": true,
-            "storageLocation": "default",
-            "typeDescriptions": {
-              "typeIdentifier": "t_address",
-              "typeString": "address"
-            },
-            "typeName": {
               "id": 470,
-              "name": "address",
-              "nodeType": "ElementaryTypeName",
-              "src": "346:7:3",
-              "stateMutability": "nonpayable",
-              "typeDescriptions": {
-                "typeIdentifier": "t_address",
-                "typeString": "address"
-              }
-            },
-            "value": {
-              "hexValue": "307838363331414444424445633542433134333830376643396437413231423934466239363031413935",
-              "id": 471,
               "isConstant": false,
               "isLValue": false,
               "isPure": true,
-              "kind": "number",
+              "kind": "typeConversion",
               "lValueRequested": false,
-              "nodeType": "Literal",
-              "src": "386:42:3",
+              "names": [],
+              "nodeType": "FunctionCall",
+              "src": "438:62:3",
+              "tryCall": false,
               "typeDescriptions": {
-                "typeIdentifier": "t_address",
-                "typeString": "address"
-              },
-              "value": "0x8631ADDBDEc5BC143807fC9d7A21B94Fb9601A95"
+                "typeIdentifier": "t_contract$_ICerbySwapV1_Vault_$4288",
+                "typeString": "contract ICerbySwapV1_Vault"
+              }
             },
             "visibility": "internal"
           },
           {
             "constant": true,
-            "id": 475,
+            "id": 477,
             "mutability": "constant",
             "name": "NATIVE_TOKEN",
-            "nameLocation": "451:12:3",
+            "nameLocation": "527:12:3",
             "nodeType": "VariableDeclaration",
-            "scope": 557,
-            "src": "434:74:3",
+            "scope": 650,
+            "src": "506:91:3",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
-              "typeIdentifier": "t_address",
-              "typeString": "address"
+              "typeIdentifier": "t_contract$_ICerbyERC20_$4245",
+              "typeString": "contract ICerbyERC20"
             },
             "typeName": {
               "id": 473,
-              "name": "address",
-              "nodeType": "ElementaryTypeName",
-              "src": "434:7:3",
-              "stateMutability": "nonpayable",
+              "nodeType": "UserDefinedTypeName",
+              "pathNode": {
+                "id": 472,
+                "name": "ICerbyERC20",
+                "nodeType": "IdentifierPath",
+                "referencedDeclaration": 4245,
+                "src": "506:11:3"
+              },
+              "referencedDeclaration": 4245,
+              "src": "506:11:3",
               "typeDescriptions": {
-                "typeIdentifier": "t_address",
-                "typeString": "address"
+                "typeIdentifier": "t_contract$_ICerbyERC20_$4245",
+                "typeString": "contract ICerbyERC20"
               }
             },
             "value": {
-              "hexValue": "307831343736394639366535374238306336363833373730314445304234333638364662343633324465",
-              "id": 474,
+              "arguments": [
+                {
+                  "hexValue": "307831343736394639366535374238306336363833373730314445304234333638364662343633324465",
+                  "id": 475,
+                  "isConstant": false,
+                  "isLValue": false,
+                  "isPure": true,
+                  "kind": "number",
+                  "lValueRequested": false,
+                  "nodeType": "Literal",
+                  "src": "554:42:3",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "value": "0x14769F96e57B80c66837701DE0B43686Fb4632De"
+                }
+              ],
+              "expression": {
+                "argumentTypes": [
+                  {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  }
+                ],
+                "id": 474,
+                "name": "ICerbyERC20",
+                "nodeType": "Identifier",
+                "overloadedDeclarations": [],
+                "referencedDeclaration": 4245,
+                "src": "542:11:3",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_type$_t_contract$_ICerbyERC20_$4245_$",
+                  "typeString": "type(contract ICerbyERC20)"
+                }
+              },
+              "id": 476,
               "isConstant": false,
               "isLValue": false,
               "isPure": true,
-              "kind": "number",
+              "kind": "typeConversion",
               "lValueRequested": false,
-              "nodeType": "Literal",
-              "src": "466:42:3",
+              "names": [],
+              "nodeType": "FunctionCall",
+              "src": "542:55:3",
+              "tryCall": false,
               "typeDescriptions": {
-                "typeIdentifier": "t_address",
-                "typeString": "address"
-              },
-              "value": "0x14769F96e57B80c66837701DE0B43686Fb4632De"
+                "typeIdentifier": "t_contract$_ICerbyERC20_$4245",
+                "typeString": "contract ICerbyERC20"
+              }
             },
             "visibility": "internal"
           },
           {
             "constant": true,
-            "id": 478,
+            "id": 480,
             "mutability": "constant",
             "name": "MINT_FEE_DENORM",
-            "nameLocation": "1002:15:3",
+            "nameLocation": "1091:15:3",
             "nodeType": "VariableDeclaration",
-            "scope": 557,
-            "src": "985:40:3",
+            "scope": 650,
+            "src": "1074:41:3",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
@@ -593,42 +729,42 @@
               "typeString": "uint256"
             },
             "typeName": {
-              "id": 476,
+              "id": 478,
               "name": "uint256",
               "nodeType": "ElementaryTypeName",
-              "src": "985:7:3",
+              "src": "1074:7:3",
               "typeDescriptions": {
                 "typeIdentifier": "t_uint256",
                 "typeString": "uint256"
               }
             },
             "value": {
-              "hexValue": "3130303030",
-              "id": 477,
+              "hexValue": "31305f303030",
+              "id": 479,
               "isConstant": false,
               "isLValue": false,
               "isPure": true,
               "kind": "number",
               "lValueRequested": false,
               "nodeType": "Literal",
-              "src": "1020:5:3",
+              "src": "1109:6:3",
               "typeDescriptions": {
                 "typeIdentifier": "t_rational_10000_by_1",
                 "typeString": "int_const 10000"
               },
-              "value": "10000"
+              "value": "10_000"
             },
             "visibility": "internal"
           },
           {
             "constant": true,
-            "id": 485,
+            "id": 487,
             "mutability": "constant",
-            "name": "MAX_CER_USD_CREDIT",
-            "nameLocation": "1048:18:3",
+            "name": "MAX_CERBY_CREDIT",
+            "nameLocation": "1138:16:3",
             "nodeType": "VariableDeclaration",
-            "scope": 557,
-            "src": "1031:55:3",
+            "scope": 650,
+            "src": "1121:53:3",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
@@ -636,10 +772,10 @@
               "typeString": "uint256"
             },
             "typeName": {
-              "id": 479,
+              "id": 481,
               "name": "uint256",
               "nodeType": "ElementaryTypeName",
-              "src": "1031:7:3",
+              "src": "1121:7:3",
               "typeDescriptions": {
                 "typeIdentifier": "t_uint256",
                 "typeString": "uint256"
@@ -649,22 +785,22 @@
               "expression": {
                 "arguments": [
                   {
-                    "id": 482,
+                    "id": 484,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": true,
                     "lValueRequested": false,
                     "nodeType": "ElementaryTypeNameExpression",
-                    "src": "1074:7:3",
+                    "src": "1162:7:3",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_type$_t_uint120_$",
-                      "typeString": "type(uint120)"
+                      "typeIdentifier": "t_type$_t_uint128_$",
+                      "typeString": "type(uint128)"
                     },
                     "typeName": {
-                      "id": 481,
-                      "name": "uint120",
+                      "id": 483,
+                      "name": "uint128",
                       "nodeType": "ElementaryTypeName",
-                      "src": "1074:7:3",
+                      "src": "1162:7:3",
                       "typeDescriptions": {}
                     }
                   }
@@ -672,22 +808,22 @@
                 "expression": {
                   "argumentTypes": [
                     {
-                      "typeIdentifier": "t_type$_t_uint120_$",
-                      "typeString": "type(uint120)"
+                      "typeIdentifier": "t_type$_t_uint128_$",
+                      "typeString": "type(uint128)"
                     }
                   ],
-                  "id": 480,
+                  "id": 482,
                   "name": "type",
                   "nodeType": "Identifier",
                   "overloadedDeclarations": [],
                   "referencedDeclaration": 4294967269,
-                  "src": "1069:4:3",
+                  "src": "1157:4:3",
                   "typeDescriptions": {
                     "typeIdentifier": "t_function_metatype_pure$__$returns$__$",
                     "typeString": "function () pure"
                   }
                 },
-                "id": 483,
+                "id": 485,
                 "isConstant": false,
                 "isLValue": false,
                 "isPure": true,
@@ -695,37 +831,37 @@
                 "lValueRequested": false,
                 "names": [],
                 "nodeType": "FunctionCall",
-                "src": "1069:13:3",
+                "src": "1157:13:3",
                 "tryCall": false,
                 "typeDescriptions": {
-                  "typeIdentifier": "t_magic_meta_type_t_uint120",
-                  "typeString": "type(uint120)"
+                  "typeIdentifier": "t_magic_meta_type_t_uint128",
+                  "typeString": "type(uint128)"
                 }
               },
-              "id": 484,
+              "id": 486,
               "isConstant": false,
               "isLValue": false,
               "isPure": true,
               "lValueRequested": false,
               "memberName": "max",
               "nodeType": "MemberAccess",
-              "src": "1069:17:3",
+              "src": "1157:17:3",
               "typeDescriptions": {
-                "typeIdentifier": "t_uint120",
-                "typeString": "uint120"
+                "typeIdentifier": "t_uint128",
+                "typeString": "uint128"
               }
             },
             "visibility": "internal"
           },
           {
             "constant": true,
-            "id": 488,
+            "id": 490,
             "mutability": "constant",
             "name": "FEE_DENORM",
-            "nameLocation": "1110:10:3",
+            "nameLocation": "1198:10:3",
             "nodeType": "VariableDeclaration",
-            "scope": 557,
-            "src": "1093:35:3",
+            "scope": 650,
+            "src": "1181:36:3",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
@@ -733,42 +869,42 @@
               "typeString": "uint256"
             },
             "typeName": {
-              "id": 486,
+              "id": 488,
               "name": "uint256",
               "nodeType": "ElementaryTypeName",
-              "src": "1093:7:3",
+              "src": "1181:7:3",
               "typeDescriptions": {
                 "typeIdentifier": "t_uint256",
                 "typeString": "uint256"
               }
             },
             "value": {
-              "hexValue": "3130303030",
-              "id": 487,
+              "hexValue": "31305f303030",
+              "id": 489,
               "isConstant": false,
               "isLValue": false,
               "isPure": true,
               "kind": "number",
               "lValueRequested": false,
               "nodeType": "Literal",
-              "src": "1123:5:3",
+              "src": "1211:6:3",
               "typeDescriptions": {
                 "typeIdentifier": "t_rational_10000_by_1",
                 "typeString": "int_const 10000"
               },
-              "value": "10000"
+              "value": "10_000"
             },
             "visibility": "internal"
           },
           {
             "constant": true,
-            "id": 493,
+            "id": 495,
             "mutability": "constant",
             "name": "FEE_DENORM_SQUARED",
-            "nameLocation": "1151:18:3",
+            "nameLocation": "1240:18:3",
             "nodeType": "VariableDeclaration",
-            "scope": 557,
-            "src": "1134:61:3",
+            "scope": 650,
+            "src": "1223:61:3",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
@@ -776,10 +912,10 @@
               "typeString": "uint256"
             },
             "typeName": {
-              "id": 489,
+              "id": 491,
               "name": "uint256",
               "nodeType": "ElementaryTypeName",
-              "src": "1134:7:3",
+              "src": "1223:7:3",
               "typeDescriptions": {
                 "typeIdentifier": "t_uint256",
                 "typeString": "uint256"
@@ -790,18 +926,18 @@
                 "typeIdentifier": "t_uint256",
                 "typeString": "uint256"
               },
-              "id": 492,
+              "id": 494,
               "isConstant": false,
               "isLValue": false,
               "isPure": true,
               "lValueRequested": false,
               "leftExpression": {
-                "id": 490,
+                "id": 492,
                 "name": "FEE_DENORM",
                 "nodeType": "Identifier",
                 "overloadedDeclarations": [],
-                "referencedDeclaration": 488,
-                "src": "1172:10:3",
+                "referencedDeclaration": 490,
+                "src": "1261:10:3",
                 "typeDescriptions": {
                   "typeIdentifier": "t_uint256",
                   "typeString": "uint256"
@@ -810,18 +946,18 @@
               "nodeType": "BinaryOperation",
               "operator": "*",
               "rightExpression": {
-                "id": 491,
+                "id": 493,
                 "name": "FEE_DENORM",
                 "nodeType": "Identifier",
                 "overloadedDeclarations": [],
-                "referencedDeclaration": 488,
-                "src": "1185:10:3",
+                "referencedDeclaration": 490,
+                "src": "1274:10:3",
                 "typeDescriptions": {
                   "typeIdentifier": "t_uint256",
                   "typeString": "uint256"
                 }
               },
-              "src": "1172:23:3",
+              "src": "1261:23:3",
               "typeDescriptions": {
                 "typeIdentifier": "t_uint256",
                 "typeString": "uint256"
@@ -831,99 +967,13 @@
           },
           {
             "constant": true,
-            "id": 496,
-            "mutability": "constant",
-            "name": "MAX_TRADE_FEE_POSSIBLE",
-            "nameLocation": "1218:22:3",
-            "nodeType": "VariableDeclaration",
-            "scope": 557,
-            "src": "1201:45:3",
-            "stateVariable": true,
-            "storageLocation": "default",
-            "typeDescriptions": {
-              "typeIdentifier": "t_uint256",
-              "typeString": "uint256"
-            },
-            "typeName": {
-              "id": 494,
-              "name": "uint256",
-              "nodeType": "ElementaryTypeName",
-              "src": "1201:7:3",
-              "typeDescriptions": {
-                "typeIdentifier": "t_uint256",
-                "typeString": "uint256"
-              }
-            },
-            "value": {
-              "hexValue": "353030",
-              "id": 495,
-              "isConstant": false,
-              "isLValue": false,
-              "isPure": true,
-              "kind": "number",
-              "lValueRequested": false,
-              "nodeType": "Literal",
-              "src": "1243:3:3",
-              "typeDescriptions": {
-                "typeIdentifier": "t_rational_500_by_1",
-                "typeString": "int_const 500"
-              },
-              "value": "500"
-            },
-            "visibility": "internal"
-          },
-          {
-            "constant": true,
-            "id": 499,
-            "mutability": "constant",
-            "name": "TRADE_VOLUME_DENORM",
-            "nameLocation": "1275:19:3",
-            "nodeType": "VariableDeclaration",
-            "scope": 557,
-            "src": "1258:43:3",
-            "stateVariable": true,
-            "storageLocation": "default",
-            "typeDescriptions": {
-              "typeIdentifier": "t_uint256",
-              "typeString": "uint256"
-            },
-            "typeName": {
-              "id": 497,
-              "name": "uint256",
-              "nodeType": "ElementaryTypeName",
-              "src": "1258:7:3",
-              "typeDescriptions": {
-                "typeIdentifier": "t_uint256",
-                "typeString": "uint256"
-              }
-            },
-            "value": {
-              "hexValue": "31653138",
-              "id": 498,
-              "isConstant": false,
-              "isLValue": false,
-              "isPure": true,
-              "kind": "number",
-              "lValueRequested": false,
-              "nodeType": "Literal",
-              "src": "1297:4:3",
-              "typeDescriptions": {
-                "typeIdentifier": "t_rational_1000000000000000000_by_1",
-                "typeString": "int_const 1000000000000000000"
-              },
-              "value": "1e18"
-            },
-            "visibility": "internal"
-          },
-          {
-            "constant": true,
-            "id": 502,
+            "id": 498,
             "mutability": "constant",
             "name": "TVL_MULTIPLIER_DENORM",
-            "nameLocation": "1325:21:3",
+            "nameLocation": "1308:21:3",
             "nodeType": "VariableDeclaration",
-            "scope": 557,
-            "src": "1308:45:3",
+            "scope": 650,
+            "src": "1291:45:3",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
@@ -931,10 +981,10 @@
               "typeString": "uint256"
             },
             "typeName": {
-              "id": 500,
+              "id": 496,
               "name": "uint256",
               "nodeType": "ElementaryTypeName",
-              "src": "1308:7:3",
+              "src": "1291:7:3",
               "typeDescriptions": {
                 "typeIdentifier": "t_uint256",
                 "typeString": "uint256"
@@ -942,14 +992,14 @@
             },
             "value": {
               "hexValue": "31653130",
-              "id": 501,
+              "id": 497,
               "isConstant": false,
               "isLValue": false,
               "isPure": true,
               "kind": "number",
               "lValueRequested": false,
               "nodeType": "Literal",
-              "src": "1349:4:3",
+              "src": "1332:4:3",
               "typeDescriptions": {
                 "typeIdentifier": "t_rational_10000000000_by_1",
                 "typeString": "int_const 10000000000"
@@ -960,173 +1010,13 @@
           },
           {
             "constant": true,
-            "id": 505,
-            "mutability": "constant",
-            "name": "NUMBER_OF_TRADE_PERIODS",
-            "nameLocation": "1433:23:3",
-            "nodeType": "VariableDeclaration",
-            "scope": 557,
-            "src": "1416:44:3",
-            "stateVariable": true,
-            "storageLocation": "default",
-            "typeDescriptions": {
-              "typeIdentifier": "t_uint256",
-              "typeString": "uint256"
-            },
-            "typeName": {
-              "id": 503,
-              "name": "uint256",
-              "nodeType": "ElementaryTypeName",
-              "src": "1416:7:3",
-              "typeDescriptions": {
-                "typeIdentifier": "t_uint256",
-                "typeString": "uint256"
-              }
-            },
-            "value": {
-              "hexValue": "36",
-              "id": 504,
-              "isConstant": false,
-              "isLValue": false,
-              "isPure": true,
-              "kind": "number",
-              "lValueRequested": false,
-              "nodeType": "Literal",
-              "src": "1459:1:3",
-              "typeDescriptions": {
-                "typeIdentifier": "t_rational_6_by_1",
-                "typeString": "int_const 6"
-              },
-              "value": "6"
-            },
-            "visibility": "internal"
-          },
-          {
-            "constant": true,
-            "id": 510,
-            "mutability": "constant",
-            "name": "NUMBER_OF_TRADE_PERIODS_MINUS_ONE",
-            "nameLocation": "1483:33:3",
-            "nodeType": "VariableDeclaration",
-            "scope": 557,
-            "src": "1466:80:3",
-            "stateVariable": true,
-            "storageLocation": "default",
-            "typeDescriptions": {
-              "typeIdentifier": "t_uint256",
-              "typeString": "uint256"
-            },
-            "typeName": {
-              "id": 506,
-              "name": "uint256",
-              "nodeType": "ElementaryTypeName",
-              "src": "1466:7:3",
-              "typeDescriptions": {
-                "typeIdentifier": "t_uint256",
-                "typeString": "uint256"
-              }
-            },
-            "value": {
-              "commonType": {
-                "typeIdentifier": "t_uint256",
-                "typeString": "uint256"
-              },
-              "id": 509,
-              "isConstant": false,
-              "isLValue": false,
-              "isPure": true,
-              "lValueRequested": false,
-              "leftExpression": {
-                "id": 507,
-                "name": "NUMBER_OF_TRADE_PERIODS",
-                "nodeType": "Identifier",
-                "overloadedDeclarations": [],
-                "referencedDeclaration": 505,
-                "src": "1519:23:3",
-                "typeDescriptions": {
-                  "typeIdentifier": "t_uint256",
-                  "typeString": "uint256"
-                }
-              },
-              "nodeType": "BinaryOperation",
-              "operator": "-",
-              "rightExpression": {
-                "hexValue": "31",
-                "id": 508,
-                "isConstant": false,
-                "isLValue": false,
-                "isPure": true,
-                "kind": "number",
-                "lValueRequested": false,
-                "nodeType": "Literal",
-                "src": "1545:1:3",
-                "typeDescriptions": {
-                  "typeIdentifier": "t_rational_1_by_1",
-                  "typeString": "int_const 1"
-                },
-                "value": "1"
-              },
-              "src": "1519:27:3",
-              "typeDescriptions": {
-                "typeIdentifier": "t_uint256",
-                "typeString": "uint256"
-              }
-            },
-            "visibility": "internal"
-          },
-          {
-            "constant": true,
-            "id": 513,
-            "mutability": "constant",
-            "name": "ONE_PERIOD_IN_SECONDS",
-            "nameLocation": "1643:21:3",
-            "nodeType": "VariableDeclaration",
-            "scope": 557,
-            "src": "1626:52:3",
-            "stateVariable": true,
-            "storageLocation": "default",
-            "typeDescriptions": {
-              "typeIdentifier": "t_uint256",
-              "typeString": "uint256"
-            },
-            "typeName": {
-              "id": 511,
-              "name": "uint256",
-              "nodeType": "ElementaryTypeName",
-              "src": "1626:7:3",
-              "typeDescriptions": {
-                "typeIdentifier": "t_uint256",
-                "typeString": "uint256"
-              }
-            },
-            "value": {
-              "hexValue": "323838",
-              "id": 512,
-              "isConstant": false,
-              "isLValue": false,
-              "isPure": true,
-              "kind": "number",
-              "lValueRequested": false,
-              "nodeType": "Literal",
-              "src": "1667:11:3",
-              "subdenomination": "minutes",
-              "typeDescriptions": {
-                "typeIdentifier": "t_rational_17280_by_1",
-                "typeString": "int_const 17280"
-              },
-              "value": "288"
-            },
-            "visibility": "internal"
-          },
-          {
-            "constant": true,
-            "id": 516,
+            "id": 501,
             "mutability": "constant",
             "name": "MINIMUM_LIQUIDITY",
-            "nameLocation": "1715:17:3",
+            "nameLocation": "1360:17:3",
             "nodeType": "VariableDeclaration",
-            "scope": 557,
-            "src": "1698:41:3",
+            "scope": 650,
+            "src": "1343:42:3",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
@@ -1134,42 +1024,42 @@
               "typeString": "uint256"
             },
             "typeName": {
-              "id": 514,
+              "id": 499,
               "name": "uint256",
               "nodeType": "ElementaryTypeName",
-              "src": "1698:7:3",
+              "src": "1343:7:3",
               "typeDescriptions": {
                 "typeIdentifier": "t_uint256",
                 "typeString": "uint256"
               }
             },
             "value": {
-              "hexValue": "31303030",
-              "id": 515,
+              "hexValue": "315f303030",
+              "id": 500,
               "isConstant": false,
               "isLValue": false,
               "isPure": true,
               "kind": "number",
               "lValueRequested": false,
               "nodeType": "Literal",
-              "src": "1735:4:3",
+              "src": "1380:5:3",
               "typeDescriptions": {
                 "typeIdentifier": "t_rational_1000_by_1",
                 "typeString": "int_const 1000"
               },
-              "value": "1000"
+              "value": "1_000"
             },
             "visibility": "internal"
           },
           {
             "constant": true,
-            "id": 522,
+            "id": 507,
             "mutability": "constant",
             "name": "DEAD_ADDRESS",
-            "nameLocation": "1762:12:3",
+            "nameLocation": "1408:12:3",
             "nodeType": "VariableDeclaration",
-            "scope": 557,
-            "src": "1745:47:3",
+            "scope": 650,
+            "src": "1391:47:3",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
@@ -1177,10 +1067,10 @@
               "typeString": "address"
             },
             "typeName": {
-              "id": 517,
+              "id": 502,
               "name": "address",
               "nodeType": "ElementaryTypeName",
-              "src": "1745:7:3",
+              "src": "1391:7:3",
               "stateMutability": "nonpayable",
               "typeDescriptions": {
                 "typeIdentifier": "t_address",
@@ -1191,14 +1081,14 @@
               "arguments": [
                 {
                   "hexValue": "307864656164",
-                  "id": 520,
+                  "id": 505,
                   "isConstant": false,
                   "isLValue": false,
                   "isPure": true,
                   "kind": "number",
                   "lValueRequested": false,
                   "nodeType": "Literal",
-                  "src": "1785:6:3",
+                  "src": "1431:6:3",
                   "typeDescriptions": {
                     "typeIdentifier": "t_rational_57005_by_1",
                     "typeString": "int_const 57005"
@@ -1213,26 +1103,26 @@
                     "typeString": "int_const 57005"
                   }
                 ],
-                "id": 519,
+                "id": 504,
                 "isConstant": false,
                 "isLValue": false,
                 "isPure": true,
                 "lValueRequested": false,
                 "nodeType": "ElementaryTypeNameExpression",
-                "src": "1777:7:3",
+                "src": "1423:7:3",
                 "typeDescriptions": {
                   "typeIdentifier": "t_type$_t_address_$",
                   "typeString": "type(address)"
                 },
                 "typeName": {
-                  "id": 518,
+                  "id": 503,
                   "name": "address",
                   "nodeType": "ElementaryTypeName",
-                  "src": "1777:7:3",
+                  "src": "1423:7:3",
                   "typeDescriptions": {}
                 }
               },
-              "id": 521,
+              "id": 506,
               "isConstant": false,
               "isLValue": false,
               "isPure": true,
@@ -1240,7 +1130,7 @@
               "lValueRequested": false,
               "names": [],
               "nodeType": "FunctionCall",
-              "src": "1777:15:3",
+              "src": "1423:15:3",
               "tryCall": false,
               "typeDescriptions": {
                 "typeIdentifier": "t_address",
@@ -1251,51 +1141,151 @@
           },
           {
             "constant": false,
-            "id": 525,
+            "id": 510,
             "mutability": "mutable",
             "name": "settings",
-            "nameLocation": "1808:8:3",
+            "nameLocation": "1454:8:3",
             "nodeType": "VariableDeclaration",
-            "scope": 557,
-            "src": "1799:17:3",
+            "scope": 650,
+            "src": "1445:17:3",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
-              "typeIdentifier": "t_struct$_Settings_$538_storage",
+              "typeIdentifier": "t_struct$_Settings_$531_storage",
               "typeString": "struct CerbySwapV1_Declarations.Settings"
             },
             "typeName": {
-              "id": 524,
+              "id": 509,
               "nodeType": "UserDefinedTypeName",
               "pathNode": {
-                "id": 523,
+                "id": 508,
                 "name": "Settings",
                 "nodeType": "IdentifierPath",
-                "referencedDeclaration": 538,
-                "src": "1799:8:3"
+                "referencedDeclaration": 531,
+                "src": "1445:8:3"
               },
-              "referencedDeclaration": 538,
-              "src": "1799:8:3",
+              "referencedDeclaration": 531,
+              "src": "1445:8:3",
               "typeDescriptions": {
-                "typeIdentifier": "t_struct$_Settings_$538_storage_ptr",
+                "typeIdentifier": "t_struct$_Settings_$531_storage_ptr",
                 "typeString": "struct CerbySwapV1_Declarations.Settings"
               }
             },
             "visibility": "internal"
           },
           {
-            "canonicalName": "CerbySwapV1_Declarations.Settings",
-            "id": 538,
+            "canonicalName": "CerbySwapV1_Declarations.TokenCache",
+            "id": 516,
             "members": [
               {
                 "constant": false,
-                "id": 527,
+                "id": 513,
+                "mutability": "mutable",
+                "name": "vaultAddress",
+                "nameLocation": "1516:12:3",
+                "nodeType": "VariableDeclaration",
+                "scope": 516,
+                "src": "1497:31:3",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_contract$_ICerbySwapV1_Vault_$4288",
+                  "typeString": "contract ICerbySwapV1_Vault"
+                },
+                "typeName": {
+                  "id": 512,
+                  "nodeType": "UserDefinedTypeName",
+                  "pathNode": {
+                    "id": 511,
+                    "name": "ICerbySwapV1_Vault",
+                    "nodeType": "IdentifierPath",
+                    "referencedDeclaration": 4288,
+                    "src": "1497:18:3"
+                  },
+                  "referencedDeclaration": 4288,
+                  "src": "1497:18:3",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_contract$_ICerbySwapV1_Vault_$4288",
+                    "typeString": "contract ICerbySwapV1_Vault"
+                  }
+                },
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 515,
+                "mutability": "mutable",
+                "name": "poolId",
+                "nameLocation": "1545:6:3",
+                "nodeType": "VariableDeclaration",
+                "scope": 516,
+                "src": "1538:13:3",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint96",
+                  "typeString": "uint96"
+                },
+                "typeName": {
+                  "id": 514,
+                  "name": "uint96",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "1538:6:3",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint96",
+                    "typeString": "uint96"
+                  }
+                },
+                "visibility": "internal"
+              }
+            ],
+            "name": "TokenCache",
+            "nameLocation": "1476:10:3",
+            "nodeType": "StructDefinition",
+            "scope": 650,
+            "src": "1469:89:3",
+            "visibility": "public"
+          },
+          {
+            "canonicalName": "CerbySwapV1_Declarations.Settings",
+            "id": 531,
+            "members": [
+              {
+                "constant": false,
+                "id": 518,
+                "mutability": "mutable",
+                "name": "onePeriodInSeconds",
+                "nameLocation": "1597:18:3",
+                "nodeType": "VariableDeclaration",
+                "scope": 531,
+                "src": "1590:25:3",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint32",
+                  "typeString": "uint32"
+                },
+                "typeName": {
+                  "id": 517,
+                  "name": "uint32",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "1590:6:3",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint32",
+                    "typeString": "uint32"
+                  }
+                },
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 520,
                 "mutability": "mutable",
                 "name": "mintFeeBeneficiary",
-                "nameLocation": "1857:18:3",
+                "nameLocation": "1633:18:3",
                 "nodeType": "VariableDeclaration",
-                "scope": 538,
-                "src": "1849:26:3",
+                "scope": 531,
+                "src": "1625:26:3",
                 "stateVariable": false,
                 "storageLocation": "default",
                 "typeDescriptions": {
@@ -1303,10 +1293,10 @@
                   "typeString": "address"
                 },
                 "typeName": {
-                  "id": 526,
+                  "id": 519,
                   "name": "address",
                   "nodeType": "ElementaryTypeName",
-                  "src": "1849:7:3",
+                  "src": "1625:7:3",
                   "stateMutability": "nonpayable",
                   "typeDescriptions": {
                     "typeIdentifier": "t_address",
@@ -1317,13 +1307,13 @@
               },
               {
                 "constant": false,
-                "id": 529,
+                "id": 522,
                 "mutability": "mutable",
                 "name": "mintFeeMultiplier",
-                "nameLocation": "1892:17:3",
+                "nameLocation": "1668:17:3",
                 "nodeType": "VariableDeclaration",
-                "scope": 538,
-                "src": "1885:24:3",
+                "scope": 531,
+                "src": "1661:24:3",
                 "stateVariable": false,
                 "storageLocation": "default",
                 "typeDescriptions": {
@@ -1331,10 +1321,10 @@
                   "typeString": "uint32"
                 },
                 "typeName": {
-                  "id": 528,
+                  "id": 521,
                   "name": "uint32",
                   "nodeType": "ElementaryTypeName",
-                  "src": "1885:6:3",
+                  "src": "1661:6:3",
                   "typeDescriptions": {
                     "typeIdentifier": "t_uint32",
                     "typeString": "uint32"
@@ -1344,208 +1334,13 @@
               },
               {
                 "constant": false,
-                "id": 531,
+                "id": 524,
                 "mutability": "mutable",
                 "name": "feeMinimum",
-                "nameLocation": "1926:10:3",
+                "nameLocation": "1701:10:3",
                 "nodeType": "VariableDeclaration",
-                "scope": 538,
-                "src": "1919:17:3",
-                "stateVariable": false,
-                "storageLocation": "default",
-                "typeDescriptions": {
-                  "typeIdentifier": "t_uint16",
-                  "typeString": "uint16"
-                },
-                "typeName": {
-                  "id": 530,
-                  "name": "uint16",
-                  "nodeType": "ElementaryTypeName",
-                  "src": "1919:6:3",
-                  "typeDescriptions": {
-                    "typeIdentifier": "t_uint16",
-                    "typeString": "uint16"
-                  }
-                },
-                "visibility": "internal"
-              },
-              {
-                "constant": false,
-                "id": 533,
-                "mutability": "mutable",
-                "name": "feeMaximum",
-                "nameLocation": "1953:10:3",
-                "nodeType": "VariableDeclaration",
-                "scope": 538,
-                "src": "1946:17:3",
-                "stateVariable": false,
-                "storageLocation": "default",
-                "typeDescriptions": {
-                  "typeIdentifier": "t_uint16",
-                  "typeString": "uint16"
-                },
-                "typeName": {
-                  "id": 532,
-                  "name": "uint16",
-                  "nodeType": "ElementaryTypeName",
-                  "src": "1946:6:3",
-                  "typeDescriptions": {
-                    "typeIdentifier": "t_uint16",
-                    "typeString": "uint16"
-                  }
-                },
-                "visibility": "internal"
-              },
-              {
-                "constant": false,
-                "id": 535,
-                "mutability": "mutable",
-                "name": "tvlMultiplierMinimum",
-                "nameLocation": "1980:20:3",
-                "nodeType": "VariableDeclaration",
-                "scope": 538,
-                "src": "1973:27:3",
-                "stateVariable": false,
-                "storageLocation": "default",
-                "typeDescriptions": {
-                  "typeIdentifier": "t_uint64",
-                  "typeString": "uint64"
-                },
-                "typeName": {
-                  "id": 534,
-                  "name": "uint64",
-                  "nodeType": "ElementaryTypeName",
-                  "src": "1973:6:3",
-                  "typeDescriptions": {
-                    "typeIdentifier": "t_uint64",
-                    "typeString": "uint64"
-                  }
-                },
-                "visibility": "internal"
-              },
-              {
-                "constant": false,
-                "id": 537,
-                "mutability": "mutable",
-                "name": "tvlMultiplierMaximum",
-                "nameLocation": "2017:20:3",
-                "nodeType": "VariableDeclaration",
-                "scope": 538,
-                "src": "2010:27:3",
-                "stateVariable": false,
-                "storageLocation": "default",
-                "typeDescriptions": {
-                  "typeIdentifier": "t_uint64",
-                  "typeString": "uint64"
-                },
-                "typeName": {
-                  "id": 536,
-                  "name": "uint64",
-                  "nodeType": "ElementaryTypeName",
-                  "src": "2010:6:3",
-                  "typeDescriptions": {
-                    "typeIdentifier": "t_uint64",
-                    "typeString": "uint64"
-                  }
-                },
-                "visibility": "internal"
-              }
-            ],
-            "name": "Settings",
-            "nameLocation": "1830:8:3",
-            "nodeType": "StructDefinition",
-            "scope": 557,
-            "src": "1823:221:3",
-            "visibility": "public"
-          },
-          {
-            "canonicalName": "CerbySwapV1_Declarations.Pool",
-            "id": 551,
-            "members": [
-              {
-                "constant": false,
-                "id": 542,
-                "mutability": "mutable",
-                "name": "tradeVolumePerPeriodInCerUsd",
-                "nameLocation": "2104:28:3",
-                "nodeType": "VariableDeclaration",
-                "scope": 551,
-                "src": "2072:60:3",
-                "stateVariable": false,
-                "storageLocation": "default",
-                "typeDescriptions": {
-                  "typeIdentifier": "t_array$_t_uint40_$6_storage_ptr",
-                  "typeString": "uint40[6]"
-                },
-                "typeName": {
-                  "baseType": {
-                    "id": 539,
-                    "name": "uint40",
-                    "nodeType": "ElementaryTypeName",
-                    "src": "2072:6:3",
-                    "typeDescriptions": {
-                      "typeIdentifier": "t_uint40",
-                      "typeString": "uint40"
-                    }
-                  },
-                  "id": 541,
-                  "length": {
-                    "id": 540,
-                    "name": "NUMBER_OF_TRADE_PERIODS",
-                    "nodeType": "Identifier",
-                    "overloadedDeclarations": [],
-                    "referencedDeclaration": 505,
-                    "src": "2079:23:3",
-                    "typeDescriptions": {
-                      "typeIdentifier": "t_uint256",
-                      "typeString": "uint256"
-                    }
-                  },
-                  "nodeType": "ArrayTypeName",
-                  "src": "2072:31:3",
-                  "typeDescriptions": {
-                    "typeIdentifier": "t_array$_t_uint40_$6_storage_ptr",
-                    "typeString": "uint40[6]"
-                  }
-                },
-                "visibility": "internal"
-              },
-              {
-                "constant": false,
-                "id": 544,
-                "mutability": "mutable",
-                "name": "lastCachedOneMinusFee",
-                "nameLocation": "2149:21:3",
-                "nodeType": "VariableDeclaration",
-                "scope": 551,
-                "src": "2142:28:3",
-                "stateVariable": false,
-                "storageLocation": "default",
-                "typeDescriptions": {
-                  "typeIdentifier": "t_uint16",
-                  "typeString": "uint16"
-                },
-                "typeName": {
-                  "id": 543,
-                  "name": "uint16",
-                  "nodeType": "ElementaryTypeName",
-                  "src": "2142:6:3",
-                  "typeDescriptions": {
-                    "typeIdentifier": "t_uint16",
-                    "typeString": "uint16"
-                  }
-                },
-                "visibility": "internal"
-              },
-              {
-                "constant": false,
-                "id": 546,
-                "mutability": "mutable",
-                "name": "lastCachedTradePeriod",
-                "nameLocation": "2186:21:3",
-                "nodeType": "VariableDeclaration",
-                "scope": 551,
-                "src": "2180:27:3",
+                "scope": 531,
+                "src": "1695:16:3",
                 "stateVariable": false,
                 "storageLocation": "default",
                 "typeDescriptions": {
@@ -1553,10 +1348,10 @@
                   "typeString": "uint8"
                 },
                 "typeName": {
-                  "id": 545,
+                  "id": 523,
                   "name": "uint8",
                   "nodeType": "ElementaryTypeName",
-                  "src": "2180:5:3",
+                  "src": "1695:5:3",
                   "typeDescriptions": {
                     "typeIdentifier": "t_uint8",
                     "typeString": "uint8"
@@ -1566,79 +1361,253 @@
               },
               {
                 "constant": false,
-                "id": 548,
+                "id": 526,
                 "mutability": "mutable",
-                "name": "lastSqrtKValue",
-                "nameLocation": "2225:14:3",
+                "name": "feeMaximum",
+                "nameLocation": "1727:10:3",
                 "nodeType": "VariableDeclaration",
-                "scope": 551,
-                "src": "2217:22:3",
+                "scope": 531,
+                "src": "1721:16:3",
                 "stateVariable": false,
                 "storageLocation": "default",
                 "typeDescriptions": {
-                  "typeIdentifier": "t_uint120",
-                  "typeString": "uint120"
+                  "typeIdentifier": "t_uint8",
+                  "typeString": "uint8"
                 },
                 "typeName": {
-                  "id": 547,
-                  "name": "uint120",
+                  "id": 525,
+                  "name": "uint8",
                   "nodeType": "ElementaryTypeName",
-                  "src": "2217:7:3",
+                  "src": "1721:5:3",
                   "typeDescriptions": {
-                    "typeIdentifier": "t_uint120",
-                    "typeString": "uint120"
+                    "typeIdentifier": "t_uint8",
+                    "typeString": "uint8"
                   }
                 },
                 "visibility": "internal"
               },
               {
                 "constant": false,
-                "id": 550,
+                "id": 528,
                 "mutability": "mutable",
-                "name": "creditCerUsd",
-                "nameLocation": "2257:12:3",
+                "name": "tvlMultiplierMinimum",
+                "nameLocation": "1754:20:3",
                 "nodeType": "VariableDeclaration",
-                "scope": 551,
-                "src": "2249:20:3",
+                "scope": 531,
+                "src": "1747:27:3",
                 "stateVariable": false,
                 "storageLocation": "default",
                 "typeDescriptions": {
-                  "typeIdentifier": "t_uint120",
-                  "typeString": "uint120"
+                  "typeIdentifier": "t_uint64",
+                  "typeString": "uint64"
                 },
                 "typeName": {
-                  "id": 549,
-                  "name": "uint120",
+                  "id": 527,
+                  "name": "uint64",
                   "nodeType": "ElementaryTypeName",
-                  "src": "2249:7:3",
+                  "src": "1747:6:3",
                   "typeDescriptions": {
-                    "typeIdentifier": "t_uint120",
-                    "typeString": "uint120"
+                    "typeIdentifier": "t_uint64",
+                    "typeString": "uint64"
+                  }
+                },
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 530,
+                "mutability": "mutable",
+                "name": "tvlMultiplierMaximum",
+                "nameLocation": "1791:20:3",
+                "nodeType": "VariableDeclaration",
+                "scope": 531,
+                "src": "1784:27:3",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint64",
+                  "typeString": "uint64"
+                },
+                "typeName": {
+                  "id": 529,
+                  "name": "uint64",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "1784:6:3",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint64",
+                    "typeString": "uint64"
+                  }
+                },
+                "visibility": "internal"
+              }
+            ],
+            "name": "Settings",
+            "nameLocation": "1571:8:3",
+            "nodeType": "StructDefinition",
+            "scope": 650,
+            "src": "1564:254:3",
+            "visibility": "public"
+          },
+          {
+            "canonicalName": "CerbySwapV1_Declarations.Pool",
+            "id": 542,
+            "members": [
+              {
+                "constant": false,
+                "id": 533,
+                "mutability": "mutable",
+                "name": "sellVolumeThisPeriodInCerby",
+                "nameLocation": "1854:27:3",
+                "nodeType": "VariableDeclaration",
+                "scope": 542,
+                "src": "1846:35:3",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint216",
+                  "typeString": "uint216"
+                },
+                "typeName": {
+                  "id": 532,
+                  "name": "uint216",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "1846:7:3",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint216",
+                    "typeString": "uint216"
+                  }
+                },
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 535,
+                "mutability": "mutable",
+                "name": "lastCachedFee",
+                "nameLocation": "1897:13:3",
+                "nodeType": "VariableDeclaration",
+                "scope": 542,
+                "src": "1891:19:3",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint8",
+                  "typeString": "uint8"
+                },
+                "typeName": {
+                  "id": 534,
+                  "name": "uint8",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "1891:5:3",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint8",
+                    "typeString": "uint8"
+                  }
+                },
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 537,
+                "mutability": "mutable",
+                "name": "nextUpdateWillBeAt",
+                "nameLocation": "1927:18:3",
+                "nodeType": "VariableDeclaration",
+                "scope": 542,
+                "src": "1920:25:3",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint32",
+                  "typeString": "uint32"
+                },
+                "typeName": {
+                  "id": 536,
+                  "name": "uint32",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "1920:6:3",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint32",
+                    "typeString": "uint32"
+                  }
+                },
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 539,
+                "mutability": "mutable",
+                "name": "lastSqrtKValue",
+                "nameLocation": "1963:14:3",
+                "nodeType": "VariableDeclaration",
+                "scope": 542,
+                "src": "1955:22:3",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint128",
+                  "typeString": "uint128"
+                },
+                "typeName": {
+                  "id": 538,
+                  "name": "uint128",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "1955:7:3",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint128",
+                    "typeString": "uint128"
+                  }
+                },
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 541,
+                "mutability": "mutable",
+                "name": "creditCerby",
+                "nameLocation": "1995:11:3",
+                "nodeType": "VariableDeclaration",
+                "scope": 542,
+                "src": "1987:19:3",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint128",
+                  "typeString": "uint128"
+                },
+                "typeName": {
+                  "id": 540,
+                  "name": "uint128",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "1987:7:3",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint128",
+                    "typeString": "uint128"
                   }
                 },
                 "visibility": "internal"
               }
             ],
             "name": "Pool",
-            "nameLocation": "2057:4:3",
+            "nameLocation": "1831:4:3",
             "nodeType": "StructDefinition",
-            "scope": 557,
-            "src": "2050:226:3",
+            "scope": 650,
+            "src": "1824:189:3",
             "visibility": "public"
           },
           {
             "canonicalName": "CerbySwapV1_Declarations.PoolBalances",
-            "id": 556,
+            "id": 547,
             "members": [
               {
                 "constant": false,
-                "id": 553,
+                "id": 544,
                 "mutability": "mutable",
                 "name": "balanceToken",
-                "nameLocation": "2320:12:3",
+                "nameLocation": "2057:12:3",
                 "nodeType": "VariableDeclaration",
-                "scope": 556,
-                "src": "2312:20:3",
+                "scope": 547,
+                "src": "2049:20:3",
                 "stateVariable": false,
                 "storageLocation": "default",
                 "typeDescriptions": {
@@ -1646,10 +1615,10 @@
                   "typeString": "uint256"
                 },
                 "typeName": {
-                  "id": 552,
+                  "id": 543,
                   "name": "uint256",
                   "nodeType": "ElementaryTypeName",
-                  "src": "2312:7:3",
+                  "src": "2049:7:3",
                   "typeDescriptions": {
                     "typeIdentifier": "t_uint256",
                     "typeString": "uint256"
@@ -1659,13 +1628,13 @@
               },
               {
                 "constant": false,
-                "id": 555,
+                "id": 546,
                 "mutability": "mutable",
-                "name": "balanceCerUsd",
-                "nameLocation": "2350:13:3",
+                "name": "balanceCerby",
+                "nameLocation": "2087:12:3",
                 "nodeType": "VariableDeclaration",
-                "scope": 556,
-                "src": "2342:21:3",
+                "scope": 547,
+                "src": "2079:20:3",
                 "stateVariable": false,
                 "storageLocation": "default",
                 "typeDescriptions": {
@@ -1673,10 +1642,10 @@
                   "typeString": "uint256"
                 },
                 "typeName": {
-                  "id": 554,
+                  "id": 545,
                   "name": "uint256",
                   "nodeType": "ElementaryTypeName",
-                  "src": "2342:7:3",
+                  "src": "2079:7:3",
                   "typeDescriptions": {
                     "typeIdentifier": "t_uint256",
                     "typeString": "uint256"
@@ -1686,1481 +1655,1096 @@
               }
             ],
             "name": "PoolBalances",
-            "nameLocation": "2289:12:3",
+            "nameLocation": "2026:12:3",
             "nodeType": "StructDefinition",
-            "scope": 557,
-            "src": "2282:88:3",
+            "scope": 650,
+            "src": "2019:87:3",
             "visibility": "public"
-          }
-        ],
-        "scope": 558,
-        "src": "109:2263:3",
-        "usedErrors": [
-          832,
-          834,
-          836,
-          838,
-          840,
-          842,
-          844,
-          846,
-          848,
-          850,
-          852,
-          854,
-          856,
-          858,
-          860,
-          862,
-          864,
-          866,
-          868,
-          870,
-          872
-        ]
-      }
-    ],
-    "src": "38:2335:3"
-  },
-  "legacyAST": {
-    "absolutePath": "project:/contracts/CerbySwapV1_Declarations.sol",
-    "exportedSymbols": {
-      "CerbySwapV1_Declarations": [
-        557
-      ],
-      "CerbySwapV1_EventsAndErrors": [
-        873
-      ]
-    },
-    "id": 558,
-    "license": "BUSL-1.1",
-    "nodeType": "SourceUnit",
-    "nodes": [
-      {
-        "id": 455,
-        "literals": [
-          "solidity",
-          "^",
-          "0.8",
-          ".11"
-        ],
-        "nodeType": "PragmaDirective",
-        "src": "38:24:3"
-      },
-      {
-        "absolutePath": "project:/contracts/CerbySwapV1_EventsAndErrors.sol",
-        "file": "./CerbySwapV1_EventsAndErrors.sol",
-        "id": 456,
-        "nameLocation": "-1:-1:-1",
-        "nodeType": "ImportDirective",
-        "scope": 558,
-        "sourceUnit": 874,
-        "src": "64:43:3",
-        "symbolAliases": [],
-        "unitAlias": ""
-      },
-      {
-        "abstract": true,
-        "baseContracts": [
-          {
-            "baseName": {
-              "id": 457,
-              "name": "CerbySwapV1_EventsAndErrors",
-              "nodeType": "IdentifierPath",
-              "referencedDeclaration": 873,
-              "src": "155:27:3"
-            },
-            "id": 458,
-            "nodeType": "InheritanceSpecifier",
-            "src": "155:27:3"
-          }
-        ],
-        "canonicalName": "CerbySwapV1_Declarations",
-        "contractDependencies": [],
-        "contractKind": "contract",
-        "fullyImplemented": true,
-        "id": 557,
-        "linearizedBaseContracts": [
-          557,
-          873
-        ],
-        "name": "CerbySwapV1_Declarations",
-        "nameLocation": "127:24:3",
-        "nodeType": "ContractDefinition",
-        "nodes": [
-          {
-            "constant": false,
-            "id": 462,
-            "mutability": "mutable",
-            "name": "pools",
-            "nameLocation": "197:5:3",
-            "nodeType": "VariableDeclaration",
-            "scope": 557,
-            "src": "190:12:3",
-            "stateVariable": true,
-            "storageLocation": "default",
-            "typeDescriptions": {
-              "typeIdentifier": "t_array$_t_struct$_Pool_$551_storage_$dyn_storage",
-              "typeString": "struct CerbySwapV1_Declarations.Pool[]"
-            },
-            "typeName": {
-              "baseType": {
-                "id": 460,
-                "nodeType": "UserDefinedTypeName",
-                "pathNode": {
-                  "id": 459,
-                  "name": "Pool",
-                  "nodeType": "IdentifierPath",
-                  "referencedDeclaration": 551,
-                  "src": "190:4:3"
-                },
-                "referencedDeclaration": 551,
-                "src": "190:4:3",
-                "typeDescriptions": {
-                  "typeIdentifier": "t_struct$_Pool_$551_storage_ptr",
-                  "typeString": "struct CerbySwapV1_Declarations.Pool"
-                }
-              },
-              "id": 461,
-              "nodeType": "ArrayTypeName",
-              "src": "190:6:3",
-              "typeDescriptions": {
-                "typeIdentifier": "t_array$_t_struct$_Pool_$551_storage_$dyn_storage_ptr",
-                "typeString": "struct CerbySwapV1_Declarations.Pool[]"
-              }
-            },
-            "visibility": "internal"
           },
           {
-            "constant": false,
-            "id": 466,
-            "mutability": "mutable",
-            "name": "tokenToPoolId",
-            "nameLocation": "237:13:3",
-            "nodeType": "VariableDeclaration",
-            "scope": 557,
-            "src": "209:41:3",
-            "stateVariable": true,
-            "storageLocation": "default",
-            "typeDescriptions": {
-              "typeIdentifier": "t_mapping$_t_address_$_t_uint256_$",
-              "typeString": "mapping(address => uint256)"
-            },
-            "typeName": {
-              "id": 465,
-              "keyType": {
-                "id": 463,
-                "name": "address",
-                "nodeType": "ElementaryTypeName",
-                "src": "217:7:3",
-                "typeDescriptions": {
-                  "typeIdentifier": "t_address",
-                  "typeString": "address"
-                }
-              },
-              "nodeType": "Mapping",
-              "src": "209:27:3",
-              "typeDescriptions": {
-                "typeIdentifier": "t_mapping$_t_address_$_t_uint256_$",
-                "typeString": "mapping(address => uint256)"
-              },
-              "valueType": {
-                "id": 464,
-                "name": "uint256",
-                "nodeType": "ElementaryTypeName",
-                "src": "228:7:3",
-                "typeDescriptions": {
-                  "typeIdentifier": "t_uint256",
-                  "typeString": "uint256"
-                }
-              }
-            },
-            "visibility": "internal"
-          },
-          {
-            "constant": true,
-            "id": 469,
-            "mutability": "constant",
-            "name": "CER_USD_TOKEN",
-            "nameLocation": "282:13:3",
-            "nodeType": "VariableDeclaration",
-            "scope": 557,
-            "src": "265:75:3",
-            "stateVariable": true,
-            "storageLocation": "default",
-            "typeDescriptions": {
-              "typeIdentifier": "t_address",
-              "typeString": "address"
-            },
-            "typeName": {
-              "id": 467,
-              "name": "address",
-              "nodeType": "ElementaryTypeName",
-              "src": "265:7:3",
-              "stateMutability": "nonpayable",
-              "typeDescriptions": {
-                "typeIdentifier": "t_address",
-                "typeString": "address"
-              }
-            },
-            "value": {
-              "hexValue": "307837396333383238373965384339393643314264613263363530384536393634304163373132643438",
-              "id": 468,
-              "isConstant": false,
-              "isLValue": false,
-              "isPure": true,
-              "kind": "number",
-              "lValueRequested": false,
-              "nodeType": "Literal",
-              "src": "298:42:3",
-              "typeDescriptions": {
-                "typeIdentifier": "t_address",
-                "typeString": "address"
-              },
-              "value": "0x79c382879e8C996C1Bda2c6508E69640Ac712d48"
-            },
-            "visibility": "internal"
-          },
-          {
-            "constant": true,
-            "id": 472,
-            "mutability": "constant",
-            "name": "VAULT_IMPLEMENTATION",
-            "nameLocation": "363:20:3",
-            "nodeType": "VariableDeclaration",
-            "scope": 557,
-            "src": "346:82:3",
-            "stateVariable": true,
-            "storageLocation": "default",
-            "typeDescriptions": {
-              "typeIdentifier": "t_address",
-              "typeString": "address"
-            },
-            "typeName": {
-              "id": 470,
-              "name": "address",
-              "nodeType": "ElementaryTypeName",
-              "src": "346:7:3",
-              "stateMutability": "nonpayable",
-              "typeDescriptions": {
-                "typeIdentifier": "t_address",
-                "typeString": "address"
-              }
-            },
-            "value": {
-              "hexValue": "307838363331414444424445633542433134333830376643396437413231423934466239363031413935",
-              "id": 471,
-              "isConstant": false,
-              "isLValue": false,
-              "isPure": true,
-              "kind": "number",
-              "lValueRequested": false,
-              "nodeType": "Literal",
-              "src": "386:42:3",
-              "typeDescriptions": {
-                "typeIdentifier": "t_address",
-                "typeString": "address"
-              },
-              "value": "0x8631ADDBDEc5BC143807fC9d7A21B94Fb9601A95"
-            },
-            "visibility": "internal"
-          },
-          {
-            "constant": true,
-            "id": 475,
-            "mutability": "constant",
-            "name": "NATIVE_TOKEN",
-            "nameLocation": "451:12:3",
-            "nodeType": "VariableDeclaration",
-            "scope": 557,
-            "src": "434:74:3",
-            "stateVariable": true,
-            "storageLocation": "default",
-            "typeDescriptions": {
-              "typeIdentifier": "t_address",
-              "typeString": "address"
-            },
-            "typeName": {
-              "id": 473,
-              "name": "address",
-              "nodeType": "ElementaryTypeName",
-              "src": "434:7:3",
-              "stateMutability": "nonpayable",
-              "typeDescriptions": {
-                "typeIdentifier": "t_address",
-                "typeString": "address"
-              }
-            },
-            "value": {
-              "hexValue": "307831343736394639366535374238306336363833373730314445304234333638364662343633324465",
-              "id": 474,
-              "isConstant": false,
-              "isLValue": false,
-              "isPure": true,
-              "kind": "number",
-              "lValueRequested": false,
-              "nodeType": "Literal",
-              "src": "466:42:3",
-              "typeDescriptions": {
-                "typeIdentifier": "t_address",
-                "typeString": "address"
-              },
-              "value": "0x14769F96e57B80c66837701DE0B43686Fb4632De"
-            },
-            "visibility": "internal"
-          },
-          {
-            "constant": true,
-            "id": 478,
-            "mutability": "constant",
-            "name": "MINT_FEE_DENORM",
-            "nameLocation": "1002:15:3",
-            "nodeType": "VariableDeclaration",
-            "scope": 557,
-            "src": "985:40:3",
-            "stateVariable": true,
-            "storageLocation": "default",
-            "typeDescriptions": {
-              "typeIdentifier": "t_uint256",
-              "typeString": "uint256"
-            },
-            "typeName": {
-              "id": 476,
-              "name": "uint256",
-              "nodeType": "ElementaryTypeName",
-              "src": "985:7:3",
-              "typeDescriptions": {
-                "typeIdentifier": "t_uint256",
-                "typeString": "uint256"
-              }
-            },
-            "value": {
-              "hexValue": "3130303030",
-              "id": 477,
-              "isConstant": false,
-              "isLValue": false,
-              "isPure": true,
-              "kind": "number",
-              "lValueRequested": false,
-              "nodeType": "Literal",
-              "src": "1020:5:3",
-              "typeDescriptions": {
-                "typeIdentifier": "t_rational_10000_by_1",
-                "typeString": "int_const 10000"
-              },
-              "value": "10000"
-            },
-            "visibility": "internal"
-          },
-          {
-            "constant": true,
-            "id": 485,
-            "mutability": "constant",
-            "name": "MAX_CER_USD_CREDIT",
-            "nameLocation": "1048:18:3",
-            "nodeType": "VariableDeclaration",
-            "scope": 557,
-            "src": "1031:55:3",
-            "stateVariable": true,
-            "storageLocation": "default",
-            "typeDescriptions": {
-              "typeIdentifier": "t_uint256",
-              "typeString": "uint256"
-            },
-            "typeName": {
-              "id": 479,
-              "name": "uint256",
-              "nodeType": "ElementaryTypeName",
-              "src": "1031:7:3",
-              "typeDescriptions": {
-                "typeIdentifier": "t_uint256",
-                "typeString": "uint256"
-              }
-            },
-            "value": {
-              "expression": {
-                "arguments": [
-                  {
-                    "id": 482,
-                    "isConstant": false,
-                    "isLValue": false,
-                    "isPure": true,
-                    "lValueRequested": false,
-                    "nodeType": "ElementaryTypeNameExpression",
-                    "src": "1074:7:3",
-                    "typeDescriptions": {
-                      "typeIdentifier": "t_type$_t_uint120_$",
-                      "typeString": "type(uint120)"
-                    },
-                    "typeName": {
-                      "id": 481,
-                      "name": "uint120",
-                      "nodeType": "ElementaryTypeName",
-                      "src": "1074:7:3",
-                      "typeDescriptions": {}
-                    }
-                  }
-                ],
-                "expression": {
-                  "argumentTypes": [
-                    {
-                      "typeIdentifier": "t_type$_t_uint120_$",
-                      "typeString": "type(uint120)"
-                    }
-                  ],
-                  "id": 480,
-                  "name": "type",
-                  "nodeType": "Identifier",
-                  "overloadedDeclarations": [],
-                  "referencedDeclaration": 4294967269,
-                  "src": "1069:4:3",
-                  "typeDescriptions": {
-                    "typeIdentifier": "t_function_metatype_pure$__$returns$__$",
-                    "typeString": "function () pure"
-                  }
-                },
-                "id": 483,
-                "isConstant": false,
-                "isLValue": false,
-                "isPure": true,
-                "kind": "functionCall",
-                "lValueRequested": false,
-                "names": [],
-                "nodeType": "FunctionCall",
-                "src": "1069:13:3",
-                "tryCall": false,
-                "typeDescriptions": {
-                  "typeIdentifier": "t_magic_meta_type_t_uint120",
-                  "typeString": "type(uint120)"
-                }
-              },
-              "id": 484,
-              "isConstant": false,
-              "isLValue": false,
-              "isPure": true,
-              "lValueRequested": false,
-              "memberName": "max",
-              "nodeType": "MemberAccess",
-              "src": "1069:17:3",
-              "typeDescriptions": {
-                "typeIdentifier": "t_uint120",
-                "typeString": "uint120"
-              }
-            },
-            "visibility": "internal"
-          },
-          {
-            "constant": true,
-            "id": 488,
-            "mutability": "constant",
-            "name": "FEE_DENORM",
-            "nameLocation": "1110:10:3",
-            "nodeType": "VariableDeclaration",
-            "scope": 557,
-            "src": "1093:35:3",
-            "stateVariable": true,
-            "storageLocation": "default",
-            "typeDescriptions": {
-              "typeIdentifier": "t_uint256",
-              "typeString": "uint256"
-            },
-            "typeName": {
-              "id": 486,
-              "name": "uint256",
-              "nodeType": "ElementaryTypeName",
-              "src": "1093:7:3",
-              "typeDescriptions": {
-                "typeIdentifier": "t_uint256",
-                "typeString": "uint256"
-              }
-            },
-            "value": {
-              "hexValue": "3130303030",
-              "id": 487,
-              "isConstant": false,
-              "isLValue": false,
-              "isPure": true,
-              "kind": "number",
-              "lValueRequested": false,
-              "nodeType": "Literal",
-              "src": "1123:5:3",
-              "typeDescriptions": {
-                "typeIdentifier": "t_rational_10000_by_1",
-                "typeString": "int_const 10000"
-              },
-              "value": "10000"
-            },
-            "visibility": "internal"
-          },
-          {
-            "constant": true,
-            "id": 493,
-            "mutability": "constant",
-            "name": "FEE_DENORM_SQUARED",
-            "nameLocation": "1151:18:3",
-            "nodeType": "VariableDeclaration",
-            "scope": 557,
-            "src": "1134:61:3",
-            "stateVariable": true,
-            "storageLocation": "default",
-            "typeDescriptions": {
-              "typeIdentifier": "t_uint256",
-              "typeString": "uint256"
-            },
-            "typeName": {
-              "id": 489,
-              "name": "uint256",
-              "nodeType": "ElementaryTypeName",
-              "src": "1134:7:3",
-              "typeDescriptions": {
-                "typeIdentifier": "t_uint256",
-                "typeString": "uint256"
-              }
-            },
-            "value": {
-              "commonType": {
-                "typeIdentifier": "t_uint256",
-                "typeString": "uint256"
-              },
-              "id": 492,
-              "isConstant": false,
-              "isLValue": false,
-              "isPure": true,
-              "lValueRequested": false,
-              "leftExpression": {
-                "id": 490,
-                "name": "FEE_DENORM",
-                "nodeType": "Identifier",
-                "overloadedDeclarations": [],
-                "referencedDeclaration": 488,
-                "src": "1172:10:3",
-                "typeDescriptions": {
-                  "typeIdentifier": "t_uint256",
-                  "typeString": "uint256"
-                }
-              },
-              "nodeType": "BinaryOperation",
-              "operator": "*",
-              "rightExpression": {
-                "id": 491,
-                "name": "FEE_DENORM",
-                "nodeType": "Identifier",
-                "overloadedDeclarations": [],
-                "referencedDeclaration": 488,
-                "src": "1185:10:3",
-                "typeDescriptions": {
-                  "typeIdentifier": "t_uint256",
-                  "typeString": "uint256"
-                }
-              },
-              "src": "1172:23:3",
-              "typeDescriptions": {
-                "typeIdentifier": "t_uint256",
-                "typeString": "uint256"
-              }
-            },
-            "visibility": "internal"
-          },
-          {
-            "constant": true,
-            "id": 496,
-            "mutability": "constant",
-            "name": "MAX_TRADE_FEE_POSSIBLE",
-            "nameLocation": "1218:22:3",
-            "nodeType": "VariableDeclaration",
-            "scope": 557,
-            "src": "1201:45:3",
-            "stateVariable": true,
-            "storageLocation": "default",
-            "typeDescriptions": {
-              "typeIdentifier": "t_uint256",
-              "typeString": "uint256"
-            },
-            "typeName": {
-              "id": 494,
-              "name": "uint256",
-              "nodeType": "ElementaryTypeName",
-              "src": "1201:7:3",
-              "typeDescriptions": {
-                "typeIdentifier": "t_uint256",
-                "typeString": "uint256"
-              }
-            },
-            "value": {
-              "hexValue": "353030",
-              "id": 495,
-              "isConstant": false,
-              "isLValue": false,
-              "isPure": true,
-              "kind": "number",
-              "lValueRequested": false,
-              "nodeType": "Literal",
-              "src": "1243:3:3",
-              "typeDescriptions": {
-                "typeIdentifier": "t_rational_500_by_1",
-                "typeString": "int_const 500"
-              },
-              "value": "500"
-            },
-            "visibility": "internal"
-          },
-          {
-            "constant": true,
-            "id": 499,
-            "mutability": "constant",
-            "name": "TRADE_VOLUME_DENORM",
-            "nameLocation": "1275:19:3",
-            "nodeType": "VariableDeclaration",
-            "scope": 557,
-            "src": "1258:43:3",
-            "stateVariable": true,
-            "storageLocation": "default",
-            "typeDescriptions": {
-              "typeIdentifier": "t_uint256",
-              "typeString": "uint256"
-            },
-            "typeName": {
-              "id": 497,
-              "name": "uint256",
-              "nodeType": "ElementaryTypeName",
-              "src": "1258:7:3",
-              "typeDescriptions": {
-                "typeIdentifier": "t_uint256",
-                "typeString": "uint256"
-              }
-            },
-            "value": {
-              "hexValue": "31653138",
-              "id": 498,
-              "isConstant": false,
-              "isLValue": false,
-              "isPure": true,
-              "kind": "number",
-              "lValueRequested": false,
-              "nodeType": "Literal",
-              "src": "1297:4:3",
-              "typeDescriptions": {
-                "typeIdentifier": "t_rational_1000000000000000000_by_1",
-                "typeString": "int_const 1000000000000000000"
-              },
-              "value": "1e18"
-            },
-            "visibility": "internal"
-          },
-          {
-            "constant": true,
-            "id": 502,
-            "mutability": "constant",
-            "name": "TVL_MULTIPLIER_DENORM",
-            "nameLocation": "1325:21:3",
-            "nodeType": "VariableDeclaration",
-            "scope": 557,
-            "src": "1308:45:3",
-            "stateVariable": true,
-            "storageLocation": "default",
-            "typeDescriptions": {
-              "typeIdentifier": "t_uint256",
-              "typeString": "uint256"
-            },
-            "typeName": {
-              "id": 500,
-              "name": "uint256",
-              "nodeType": "ElementaryTypeName",
-              "src": "1308:7:3",
-              "typeDescriptions": {
-                "typeIdentifier": "t_uint256",
-                "typeString": "uint256"
-              }
-            },
-            "value": {
-              "hexValue": "31653130",
-              "id": 501,
-              "isConstant": false,
-              "isLValue": false,
-              "isPure": true,
-              "kind": "number",
-              "lValueRequested": false,
-              "nodeType": "Literal",
-              "src": "1349:4:3",
-              "typeDescriptions": {
-                "typeIdentifier": "t_rational_10000000000_by_1",
-                "typeString": "int_const 10000000000"
-              },
-              "value": "1e10"
-            },
-            "visibility": "internal"
-          },
-          {
-            "constant": true,
-            "id": 505,
-            "mutability": "constant",
-            "name": "NUMBER_OF_TRADE_PERIODS",
-            "nameLocation": "1433:23:3",
-            "nodeType": "VariableDeclaration",
-            "scope": 557,
-            "src": "1416:44:3",
-            "stateVariable": true,
-            "storageLocation": "default",
-            "typeDescriptions": {
-              "typeIdentifier": "t_uint256",
-              "typeString": "uint256"
-            },
-            "typeName": {
-              "id": 503,
-              "name": "uint256",
-              "nodeType": "ElementaryTypeName",
-              "src": "1416:7:3",
-              "typeDescriptions": {
-                "typeIdentifier": "t_uint256",
-                "typeString": "uint256"
-              }
-            },
-            "value": {
-              "hexValue": "36",
-              "id": 504,
-              "isConstant": false,
-              "isLValue": false,
-              "isPure": true,
-              "kind": "number",
-              "lValueRequested": false,
-              "nodeType": "Literal",
-              "src": "1459:1:3",
-              "typeDescriptions": {
-                "typeIdentifier": "t_rational_6_by_1",
-                "typeString": "int_const 6"
-              },
-              "value": "6"
-            },
-            "visibility": "internal"
-          },
-          {
-            "constant": true,
-            "id": 510,
-            "mutability": "constant",
-            "name": "NUMBER_OF_TRADE_PERIODS_MINUS_ONE",
-            "nameLocation": "1483:33:3",
-            "nodeType": "VariableDeclaration",
-            "scope": 557,
-            "src": "1466:80:3",
-            "stateVariable": true,
-            "storageLocation": "default",
-            "typeDescriptions": {
-              "typeIdentifier": "t_uint256",
-              "typeString": "uint256"
-            },
-            "typeName": {
-              "id": 506,
-              "name": "uint256",
-              "nodeType": "ElementaryTypeName",
-              "src": "1466:7:3",
-              "typeDescriptions": {
-                "typeIdentifier": "t_uint256",
-                "typeString": "uint256"
-              }
-            },
-            "value": {
-              "commonType": {
-                "typeIdentifier": "t_uint256",
-                "typeString": "uint256"
-              },
-              "id": 509,
-              "isConstant": false,
-              "isLValue": false,
-              "isPure": true,
-              "lValueRequested": false,
-              "leftExpression": {
-                "id": 507,
-                "name": "NUMBER_OF_TRADE_PERIODS",
-                "nodeType": "Identifier",
-                "overloadedDeclarations": [],
-                "referencedDeclaration": 505,
-                "src": "1519:23:3",
-                "typeDescriptions": {
-                  "typeIdentifier": "t_uint256",
-                  "typeString": "uint256"
-                }
-              },
-              "nodeType": "BinaryOperation",
-              "operator": "-",
-              "rightExpression": {
-                "hexValue": "31",
-                "id": 508,
-                "isConstant": false,
-                "isLValue": false,
-                "isPure": true,
-                "kind": "number",
-                "lValueRequested": false,
-                "nodeType": "Literal",
-                "src": "1545:1:3",
-                "typeDescriptions": {
-                  "typeIdentifier": "t_rational_1_by_1",
-                  "typeString": "int_const 1"
-                },
-                "value": "1"
-              },
-              "src": "1519:27:3",
-              "typeDescriptions": {
-                "typeIdentifier": "t_uint256",
-                "typeString": "uint256"
-              }
-            },
-            "visibility": "internal"
-          },
-          {
-            "constant": true,
-            "id": 513,
-            "mutability": "constant",
-            "name": "ONE_PERIOD_IN_SECONDS",
-            "nameLocation": "1643:21:3",
-            "nodeType": "VariableDeclaration",
-            "scope": 557,
-            "src": "1626:52:3",
-            "stateVariable": true,
-            "storageLocation": "default",
-            "typeDescriptions": {
-              "typeIdentifier": "t_uint256",
-              "typeString": "uint256"
-            },
-            "typeName": {
-              "id": 511,
-              "name": "uint256",
-              "nodeType": "ElementaryTypeName",
-              "src": "1626:7:3",
-              "typeDescriptions": {
-                "typeIdentifier": "t_uint256",
-                "typeString": "uint256"
-              }
-            },
-            "value": {
-              "hexValue": "323838",
-              "id": 512,
-              "isConstant": false,
-              "isLValue": false,
-              "isPure": true,
-              "kind": "number",
-              "lValueRequested": false,
-              "nodeType": "Literal",
-              "src": "1667:11:3",
-              "subdenomination": "minutes",
-              "typeDescriptions": {
-                "typeIdentifier": "t_rational_17280_by_1",
-                "typeString": "int_const 17280"
-              },
-              "value": "288"
-            },
-            "visibility": "internal"
-          },
-          {
-            "constant": true,
-            "id": 516,
-            "mutability": "constant",
-            "name": "MINIMUM_LIQUIDITY",
-            "nameLocation": "1715:17:3",
-            "nodeType": "VariableDeclaration",
-            "scope": 557,
-            "src": "1698:41:3",
-            "stateVariable": true,
-            "storageLocation": "default",
-            "typeDescriptions": {
-              "typeIdentifier": "t_uint256",
-              "typeString": "uint256"
-            },
-            "typeName": {
-              "id": 514,
-              "name": "uint256",
-              "nodeType": "ElementaryTypeName",
-              "src": "1698:7:3",
-              "typeDescriptions": {
-                "typeIdentifier": "t_uint256",
-                "typeString": "uint256"
-              }
-            },
-            "value": {
-              "hexValue": "31303030",
-              "id": 515,
-              "isConstant": false,
-              "isLValue": false,
-              "isPure": true,
-              "kind": "number",
-              "lValueRequested": false,
-              "nodeType": "Literal",
-              "src": "1735:4:3",
-              "typeDescriptions": {
-                "typeIdentifier": "t_rational_1000_by_1",
-                "typeString": "int_const 1000"
-              },
-              "value": "1000"
-            },
-            "visibility": "internal"
-          },
-          {
-            "constant": true,
-            "id": 522,
-            "mutability": "constant",
-            "name": "DEAD_ADDRESS",
-            "nameLocation": "1762:12:3",
-            "nodeType": "VariableDeclaration",
-            "scope": 557,
-            "src": "1745:47:3",
-            "stateVariable": true,
-            "storageLocation": "default",
-            "typeDescriptions": {
-              "typeIdentifier": "t_address",
-              "typeString": "address"
-            },
-            "typeName": {
-              "id": 517,
-              "name": "address",
-              "nodeType": "ElementaryTypeName",
-              "src": "1745:7:3",
-              "stateMutability": "nonpayable",
-              "typeDescriptions": {
-                "typeIdentifier": "t_address",
-                "typeString": "address"
-              }
-            },
-            "value": {
-              "arguments": [
+            "anonymous": false,
+            "eventSelector": "f8a0462f666b427ea753848be7e91f9ce413975906f6f39950be296ca9a4d524",
+            "id": 557,
+            "name": "PoolCreated",
+            "nameLocation": "2119:11:3",
+            "nodeType": "EventDefinition",
+            "parameters": {
+              "id": 556,
+              "nodeType": "ParameterList",
+              "parameters": [
                 {
-                  "hexValue": "307864656164",
-                  "id": 520,
-                  "isConstant": false,
-                  "isLValue": false,
-                  "isPure": true,
-                  "kind": "number",
-                  "lValueRequested": false,
-                  "nodeType": "Literal",
-                  "src": "1785:6:3",
+                  "constant": false,
+                  "id": 550,
+                  "indexed": true,
+                  "mutability": "mutable",
+                  "name": "_token",
+                  "nameLocation": "2160:6:3",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 557,
+                  "src": "2140:26:3",
+                  "stateVariable": false,
+                  "storageLocation": "default",
                   "typeDescriptions": {
-                    "typeIdentifier": "t_rational_57005_by_1",
-                    "typeString": "int_const 57005"
+                    "typeIdentifier": "t_contract$_ICerbyERC20_$4245",
+                    "typeString": "contract ICerbyERC20"
                   },
-                  "value": "0xdead"
+                  "typeName": {
+                    "id": 549,
+                    "nodeType": "UserDefinedTypeName",
+                    "pathNode": {
+                      "id": 548,
+                      "name": "ICerbyERC20",
+                      "nodeType": "IdentifierPath",
+                      "referencedDeclaration": 4245,
+                      "src": "2140:11:3"
+                    },
+                    "referencedDeclaration": 4245,
+                    "src": "2140:11:3",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_contract$_ICerbyERC20_$4245",
+                      "typeString": "contract ICerbyERC20"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 553,
+                  "indexed": false,
+                  "mutability": "mutable",
+                  "name": "_vaultAddress",
+                  "nameLocation": "2195:13:3",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 557,
+                  "src": "2176:32:3",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_contract$_ICerbySwapV1_Vault_$4288",
+                    "typeString": "contract ICerbySwapV1_Vault"
+                  },
+                  "typeName": {
+                    "id": 552,
+                    "nodeType": "UserDefinedTypeName",
+                    "pathNode": {
+                      "id": 551,
+                      "name": "ICerbySwapV1_Vault",
+                      "nodeType": "IdentifierPath",
+                      "referencedDeclaration": 4288,
+                      "src": "2176:18:3"
+                    },
+                    "referencedDeclaration": 4288,
+                    "src": "2176:18:3",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_contract$_ICerbySwapV1_Vault_$4288",
+                      "typeString": "contract ICerbySwapV1_Vault"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 555,
+                  "indexed": false,
+                  "mutability": "mutable",
+                  "name": "_poolId",
+                  "nameLocation": "2226:7:3",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 557,
+                  "src": "2218:15:3",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 554,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "2218:7:3",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
                 }
               ],
-              "expression": {
-                "argumentTypes": [
-                  {
-                    "typeIdentifier": "t_rational_57005_by_1",
-                    "typeString": "int_const 57005"
-                  }
-                ],
-                "id": 519,
-                "isConstant": false,
-                "isLValue": false,
-                "isPure": true,
-                "lValueRequested": false,
-                "nodeType": "ElementaryTypeNameExpression",
-                "src": "1777:7:3",
-                "typeDescriptions": {
-                  "typeIdentifier": "t_type$_t_address_$",
-                  "typeString": "type(address)"
-                },
-                "typeName": {
-                  "id": 518,
-                  "name": "address",
-                  "nodeType": "ElementaryTypeName",
-                  "src": "1777:7:3",
-                  "typeDescriptions": {}
-                }
-              },
-              "id": 521,
-              "isConstant": false,
-              "isLValue": false,
-              "isPure": true,
-              "kind": "typeConversion",
-              "lValueRequested": false,
-              "names": [],
-              "nodeType": "FunctionCall",
-              "src": "1777:15:3",
-              "tryCall": false,
-              "typeDescriptions": {
-                "typeIdentifier": "t_address",
-                "typeString": "address"
-              }
+              "src": "2130:109:3"
             },
-            "visibility": "internal"
+            "src": "2113:127:3"
           },
           {
-            "constant": false,
-            "id": 525,
-            "mutability": "mutable",
-            "name": "settings",
-            "nameLocation": "1808:8:3",
-            "nodeType": "VariableDeclaration",
-            "scope": 557,
-            "src": "1799:17:3",
-            "stateVariable": true,
-            "storageLocation": "default",
-            "typeDescriptions": {
-              "typeIdentifier": "t_struct$_Settings_$538_storage",
-              "typeString": "struct CerbySwapV1_Declarations.Settings"
-            },
-            "typeName": {
-              "id": 524,
-              "nodeType": "UserDefinedTypeName",
-              "pathNode": {
-                "id": 523,
-                "name": "Settings",
-                "nodeType": "IdentifierPath",
-                "referencedDeclaration": 538,
-                "src": "1799:8:3"
-              },
-              "referencedDeclaration": 538,
-              "src": "1799:8:3",
-              "typeDescriptions": {
-                "typeIdentifier": "t_struct$_Settings_$538_storage_ptr",
-                "typeString": "struct CerbySwapV1_Declarations.Settings"
-              }
-            },
-            "visibility": "internal"
-          },
-          {
-            "canonicalName": "CerbySwapV1_Declarations.Settings",
-            "id": 538,
-            "members": [
-              {
-                "constant": false,
-                "id": 527,
-                "mutability": "mutable",
-                "name": "mintFeeBeneficiary",
-                "nameLocation": "1857:18:3",
-                "nodeType": "VariableDeclaration",
-                "scope": 538,
-                "src": "1849:26:3",
-                "stateVariable": false,
-                "storageLocation": "default",
-                "typeDescriptions": {
-                  "typeIdentifier": "t_address",
-                  "typeString": "address"
-                },
-                "typeName": {
-                  "id": 526,
-                  "name": "address",
-                  "nodeType": "ElementaryTypeName",
-                  "src": "1849:7:3",
-                  "stateMutability": "nonpayable",
+            "anonymous": false,
+            "eventSelector": "64b83944e79c3ce8d4c297411de637c3e102d064677aac0c163976ebdcd6f50e",
+            "id": 568,
+            "name": "LiquidityAdded",
+            "nameLocation": "2252:14:3",
+            "nodeType": "EventDefinition",
+            "parameters": {
+              "id": 567,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 560,
+                  "indexed": true,
+                  "mutability": "mutable",
+                  "name": "_token",
+                  "nameLocation": "2296:6:3",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 568,
+                  "src": "2276:26:3",
+                  "stateVariable": false,
+                  "storageLocation": "default",
                   "typeDescriptions": {
-                    "typeIdentifier": "t_address",
-                    "typeString": "address"
-                  }
-                },
-                "visibility": "internal"
-              },
-              {
-                "constant": false,
-                "id": 529,
-                "mutability": "mutable",
-                "name": "mintFeeMultiplier",
-                "nameLocation": "1892:17:3",
-                "nodeType": "VariableDeclaration",
-                "scope": 538,
-                "src": "1885:24:3",
-                "stateVariable": false,
-                "storageLocation": "default",
-                "typeDescriptions": {
-                  "typeIdentifier": "t_uint32",
-                  "typeString": "uint32"
-                },
-                "typeName": {
-                  "id": 528,
-                  "name": "uint32",
-                  "nodeType": "ElementaryTypeName",
-                  "src": "1885:6:3",
-                  "typeDescriptions": {
-                    "typeIdentifier": "t_uint32",
-                    "typeString": "uint32"
-                  }
-                },
-                "visibility": "internal"
-              },
-              {
-                "constant": false,
-                "id": 531,
-                "mutability": "mutable",
-                "name": "feeMinimum",
-                "nameLocation": "1926:10:3",
-                "nodeType": "VariableDeclaration",
-                "scope": 538,
-                "src": "1919:17:3",
-                "stateVariable": false,
-                "storageLocation": "default",
-                "typeDescriptions": {
-                  "typeIdentifier": "t_uint16",
-                  "typeString": "uint16"
-                },
-                "typeName": {
-                  "id": 530,
-                  "name": "uint16",
-                  "nodeType": "ElementaryTypeName",
-                  "src": "1919:6:3",
-                  "typeDescriptions": {
-                    "typeIdentifier": "t_uint16",
-                    "typeString": "uint16"
-                  }
-                },
-                "visibility": "internal"
-              },
-              {
-                "constant": false,
-                "id": 533,
-                "mutability": "mutable",
-                "name": "feeMaximum",
-                "nameLocation": "1953:10:3",
-                "nodeType": "VariableDeclaration",
-                "scope": 538,
-                "src": "1946:17:3",
-                "stateVariable": false,
-                "storageLocation": "default",
-                "typeDescriptions": {
-                  "typeIdentifier": "t_uint16",
-                  "typeString": "uint16"
-                },
-                "typeName": {
-                  "id": 532,
-                  "name": "uint16",
-                  "nodeType": "ElementaryTypeName",
-                  "src": "1946:6:3",
-                  "typeDescriptions": {
-                    "typeIdentifier": "t_uint16",
-                    "typeString": "uint16"
-                  }
-                },
-                "visibility": "internal"
-              },
-              {
-                "constant": false,
-                "id": 535,
-                "mutability": "mutable",
-                "name": "tvlMultiplierMinimum",
-                "nameLocation": "1980:20:3",
-                "nodeType": "VariableDeclaration",
-                "scope": 538,
-                "src": "1973:27:3",
-                "stateVariable": false,
-                "storageLocation": "default",
-                "typeDescriptions": {
-                  "typeIdentifier": "t_uint64",
-                  "typeString": "uint64"
-                },
-                "typeName": {
-                  "id": 534,
-                  "name": "uint64",
-                  "nodeType": "ElementaryTypeName",
-                  "src": "1973:6:3",
-                  "typeDescriptions": {
-                    "typeIdentifier": "t_uint64",
-                    "typeString": "uint64"
-                  }
-                },
-                "visibility": "internal"
-              },
-              {
-                "constant": false,
-                "id": 537,
-                "mutability": "mutable",
-                "name": "tvlMultiplierMaximum",
-                "nameLocation": "2017:20:3",
-                "nodeType": "VariableDeclaration",
-                "scope": 538,
-                "src": "2010:27:3",
-                "stateVariable": false,
-                "storageLocation": "default",
-                "typeDescriptions": {
-                  "typeIdentifier": "t_uint64",
-                  "typeString": "uint64"
-                },
-                "typeName": {
-                  "id": 536,
-                  "name": "uint64",
-                  "nodeType": "ElementaryTypeName",
-                  "src": "2010:6:3",
-                  "typeDescriptions": {
-                    "typeIdentifier": "t_uint64",
-                    "typeString": "uint64"
-                  }
-                },
-                "visibility": "internal"
-              }
-            ],
-            "name": "Settings",
-            "nameLocation": "1830:8:3",
-            "nodeType": "StructDefinition",
-            "scope": 557,
-            "src": "1823:221:3",
-            "visibility": "public"
-          },
-          {
-            "canonicalName": "CerbySwapV1_Declarations.Pool",
-            "id": 551,
-            "members": [
-              {
-                "constant": false,
-                "id": 542,
-                "mutability": "mutable",
-                "name": "tradeVolumePerPeriodInCerUsd",
-                "nameLocation": "2104:28:3",
-                "nodeType": "VariableDeclaration",
-                "scope": 551,
-                "src": "2072:60:3",
-                "stateVariable": false,
-                "storageLocation": "default",
-                "typeDescriptions": {
-                  "typeIdentifier": "t_array$_t_uint40_$6_storage_ptr",
-                  "typeString": "uint40[6]"
-                },
-                "typeName": {
-                  "baseType": {
-                    "id": 539,
-                    "name": "uint40",
-                    "nodeType": "ElementaryTypeName",
-                    "src": "2072:6:3",
+                    "typeIdentifier": "t_contract$_ICerbyERC20_$4245",
+                    "typeString": "contract ICerbyERC20"
+                  },
+                  "typeName": {
+                    "id": 559,
+                    "nodeType": "UserDefinedTypeName",
+                    "pathNode": {
+                      "id": 558,
+                      "name": "ICerbyERC20",
+                      "nodeType": "IdentifierPath",
+                      "referencedDeclaration": 4245,
+                      "src": "2276:11:3"
+                    },
+                    "referencedDeclaration": 4245,
+                    "src": "2276:11:3",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_uint40",
-                      "typeString": "uint40"
+                      "typeIdentifier": "t_contract$_ICerbyERC20_$4245",
+                      "typeString": "contract ICerbyERC20"
                     }
                   },
-                  "id": 541,
-                  "length": {
-                    "id": 540,
-                    "name": "NUMBER_OF_TRADE_PERIODS",
-                    "nodeType": "Identifier",
-                    "overloadedDeclarations": [],
-                    "referencedDeclaration": 505,
-                    "src": "2079:23:3",
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 562,
+                  "indexed": false,
+                  "mutability": "mutable",
+                  "name": "_amountTokensIn",
+                  "nameLocation": "2320:15:3",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 568,
+                  "src": "2312:23:3",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 561,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "2312:7:3",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
                     }
                   },
-                  "nodeType": "ArrayTypeName",
-                  "src": "2072:31:3",
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 564,
+                  "indexed": false,
+                  "mutability": "mutable",
+                  "name": "_amountCerbyToMint",
+                  "nameLocation": "2353:18:3",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 568,
+                  "src": "2345:26:3",
+                  "stateVariable": false,
+                  "storageLocation": "default",
                   "typeDescriptions": {
-                    "typeIdentifier": "t_array$_t_uint40_$6_storage_ptr",
-                    "typeString": "uint40[6]"
-                  }
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 563,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "2345:7:3",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
                 },
-                "visibility": "internal"
-              },
-              {
-                "constant": false,
-                "id": 544,
-                "mutability": "mutable",
-                "name": "lastCachedOneMinusFee",
-                "nameLocation": "2149:21:3",
-                "nodeType": "VariableDeclaration",
-                "scope": 551,
-                "src": "2142:28:3",
-                "stateVariable": false,
-                "storageLocation": "default",
-                "typeDescriptions": {
-                  "typeIdentifier": "t_uint16",
-                  "typeString": "uint16"
-                },
-                "typeName": {
-                  "id": 543,
-                  "name": "uint16",
-                  "nodeType": "ElementaryTypeName",
-                  "src": "2142:6:3",
+                {
+                  "constant": false,
+                  "id": 566,
+                  "indexed": false,
+                  "mutability": "mutable",
+                  "name": "_lpAmount",
+                  "nameLocation": "2389:9:3",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 568,
+                  "src": "2381:17:3",
+                  "stateVariable": false,
+                  "storageLocation": "default",
                   "typeDescriptions": {
-                    "typeIdentifier": "t_uint16",
-                    "typeString": "uint16"
-                  }
-                },
-                "visibility": "internal"
-              },
-              {
-                "constant": false,
-                "id": 546,
-                "mutability": "mutable",
-                "name": "lastCachedTradePeriod",
-                "nameLocation": "2186:21:3",
-                "nodeType": "VariableDeclaration",
-                "scope": 551,
-                "src": "2180:27:3",
-                "stateVariable": false,
-                "storageLocation": "default",
-                "typeDescriptions": {
-                  "typeIdentifier": "t_uint8",
-                  "typeString": "uint8"
-                },
-                "typeName": {
-                  "id": 545,
-                  "name": "uint8",
-                  "nodeType": "ElementaryTypeName",
-                  "src": "2180:5:3",
-                  "typeDescriptions": {
-                    "typeIdentifier": "t_uint8",
-                    "typeString": "uint8"
-                  }
-                },
-                "visibility": "internal"
-              },
-              {
-                "constant": false,
-                "id": 548,
-                "mutability": "mutable",
-                "name": "lastSqrtKValue",
-                "nameLocation": "2225:14:3",
-                "nodeType": "VariableDeclaration",
-                "scope": 551,
-                "src": "2217:22:3",
-                "stateVariable": false,
-                "storageLocation": "default",
-                "typeDescriptions": {
-                  "typeIdentifier": "t_uint120",
-                  "typeString": "uint120"
-                },
-                "typeName": {
-                  "id": 547,
-                  "name": "uint120",
-                  "nodeType": "ElementaryTypeName",
-                  "src": "2217:7:3",
-                  "typeDescriptions": {
-                    "typeIdentifier": "t_uint120",
-                    "typeString": "uint120"
-                  }
-                },
-                "visibility": "internal"
-              },
-              {
-                "constant": false,
-                "id": 550,
-                "mutability": "mutable",
-                "name": "creditCerUsd",
-                "nameLocation": "2257:12:3",
-                "nodeType": "VariableDeclaration",
-                "scope": 551,
-                "src": "2249:20:3",
-                "stateVariable": false,
-                "storageLocation": "default",
-                "typeDescriptions": {
-                  "typeIdentifier": "t_uint120",
-                  "typeString": "uint120"
-                },
-                "typeName": {
-                  "id": 549,
-                  "name": "uint120",
-                  "nodeType": "ElementaryTypeName",
-                  "src": "2249:7:3",
-                  "typeDescriptions": {
-                    "typeIdentifier": "t_uint120",
-                    "typeString": "uint120"
-                  }
-                },
-                "visibility": "internal"
-              }
-            ],
-            "name": "Pool",
-            "nameLocation": "2057:4:3",
-            "nodeType": "StructDefinition",
-            "scope": 557,
-            "src": "2050:226:3",
-            "visibility": "public"
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 565,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "2381:7:3",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "2266:138:3"
+            },
+            "src": "2246:159:3"
           },
           {
-            "canonicalName": "CerbySwapV1_Declarations.PoolBalances",
-            "id": 556,
-            "members": [
-              {
-                "constant": false,
-                "id": 553,
-                "mutability": "mutable",
-                "name": "balanceToken",
-                "nameLocation": "2320:12:3",
-                "nodeType": "VariableDeclaration",
-                "scope": 556,
-                "src": "2312:20:3",
-                "stateVariable": false,
-                "storageLocation": "default",
-                "typeDescriptions": {
-                  "typeIdentifier": "t_uint256",
-                  "typeString": "uint256"
+            "anonymous": false,
+            "eventSelector": "1dc8bb69df2b8e91fbdcbfcf93d951b3f0000f085a95fe3f7946d6161439245d",
+            "id": 579,
+            "name": "LiquidityRemoved",
+            "nameLocation": "2416:16:3",
+            "nodeType": "EventDefinition",
+            "parameters": {
+              "id": 578,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 571,
+                  "indexed": true,
+                  "mutability": "mutable",
+                  "name": "_token",
+                  "nameLocation": "2462:6:3",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 579,
+                  "src": "2442:26:3",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_contract$_ICerbyERC20_$4245",
+                    "typeString": "contract ICerbyERC20"
+                  },
+                  "typeName": {
+                    "id": 570,
+                    "nodeType": "UserDefinedTypeName",
+                    "pathNode": {
+                      "id": 569,
+                      "name": "ICerbyERC20",
+                      "nodeType": "IdentifierPath",
+                      "referencedDeclaration": 4245,
+                      "src": "2442:11:3"
+                    },
+                    "referencedDeclaration": 4245,
+                    "src": "2442:11:3",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_contract$_ICerbyERC20_$4245",
+                      "typeString": "contract ICerbyERC20"
+                    }
+                  },
+                  "visibility": "internal"
                 },
-                "typeName": {
-                  "id": 552,
-                  "name": "uint256",
-                  "nodeType": "ElementaryTypeName",
-                  "src": "2312:7:3",
+                {
+                  "constant": false,
+                  "id": 573,
+                  "indexed": false,
+                  "mutability": "mutable",
+                  "name": "_amountTokensOut",
+                  "nameLocation": "2486:16:3",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 579,
+                  "src": "2478:24:3",
+                  "stateVariable": false,
+                  "storageLocation": "default",
                   "typeDescriptions": {
                     "typeIdentifier": "t_uint256",
                     "typeString": "uint256"
-                  }
+                  },
+                  "typeName": {
+                    "id": 572,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "2478:7:3",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
                 },
-                "visibility": "internal"
-              },
-              {
-                "constant": false,
-                "id": 555,
-                "mutability": "mutable",
-                "name": "balanceCerUsd",
-                "nameLocation": "2350:13:3",
-                "nodeType": "VariableDeclaration",
-                "scope": 556,
-                "src": "2342:21:3",
-                "stateVariable": false,
-                "storageLocation": "default",
-                "typeDescriptions": {
-                  "typeIdentifier": "t_uint256",
-                  "typeString": "uint256"
-                },
-                "typeName": {
-                  "id": 554,
-                  "name": "uint256",
-                  "nodeType": "ElementaryTypeName",
-                  "src": "2342:7:3",
+                {
+                  "constant": false,
+                  "id": 575,
+                  "indexed": false,
+                  "mutability": "mutable",
+                  "name": "_amountCerbyToBurn",
+                  "nameLocation": "2520:18:3",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 579,
+                  "src": "2512:26:3",
+                  "stateVariable": false,
+                  "storageLocation": "default",
                   "typeDescriptions": {
                     "typeIdentifier": "t_uint256",
                     "typeString": "uint256"
-                  }
+                  },
+                  "typeName": {
+                    "id": 574,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "2512:7:3",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
                 },
-                "visibility": "internal"
-              }
-            ],
-            "name": "PoolBalances",
-            "nameLocation": "2289:12:3",
-            "nodeType": "StructDefinition",
-            "scope": 557,
-            "src": "2282:88:3",
-            "visibility": "public"
+                {
+                  "constant": false,
+                  "id": 577,
+                  "indexed": false,
+                  "mutability": "mutable",
+                  "name": "_amountLpTokensBalanceToBurn",
+                  "nameLocation": "2556:28:3",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 579,
+                  "src": "2548:36:3",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 576,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "2548:7:3",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "2432:158:3"
+            },
+            "src": "2410:181:3"
+          },
+          {
+            "anonymous": false,
+            "eventSelector": "4ab7f3f4678bf8f6cbe4d85e4007b7c64df8e1d5d97de1628f4a6416f9d1db03",
+            "id": 598,
+            "name": "Swap",
+            "nameLocation": "2602:4:3",
+            "nodeType": "EventDefinition",
+            "parameters": {
+              "id": 597,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 582,
+                  "indexed": true,
+                  "mutability": "mutable",
+                  "name": "_token",
+                  "nameLocation": "2636:6:3",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 598,
+                  "src": "2616:26:3",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_contract$_ICerbyERC20_$4245",
+                    "typeString": "contract ICerbyERC20"
+                  },
+                  "typeName": {
+                    "id": 581,
+                    "nodeType": "UserDefinedTypeName",
+                    "pathNode": {
+                      "id": 580,
+                      "name": "ICerbyERC20",
+                      "nodeType": "IdentifierPath",
+                      "referencedDeclaration": 4245,
+                      "src": "2616:11:3"
+                    },
+                    "referencedDeclaration": 4245,
+                    "src": "2616:11:3",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_contract$_ICerbyERC20_$4245",
+                      "typeString": "contract ICerbyERC20"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 584,
+                  "indexed": false,
+                  "mutability": "mutable",
+                  "name": "_sender",
+                  "nameLocation": "2660:7:3",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 598,
+                  "src": "2652:15:3",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 583,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "2652:7:3",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 586,
+                  "indexed": false,
+                  "mutability": "mutable",
+                  "name": "_amountTokensIn",
+                  "nameLocation": "2685:15:3",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 598,
+                  "src": "2677:23:3",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 585,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "2677:7:3",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 588,
+                  "indexed": false,
+                  "mutability": "mutable",
+                  "name": "_amountCerbyIn",
+                  "nameLocation": "2718:14:3",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 598,
+                  "src": "2710:22:3",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 587,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "2710:7:3",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 590,
+                  "indexed": false,
+                  "mutability": "mutable",
+                  "name": "_amountTokensOut",
+                  "nameLocation": "2750:16:3",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 598,
+                  "src": "2742:24:3",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 589,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "2742:7:3",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 592,
+                  "indexed": false,
+                  "mutability": "mutable",
+                  "name": "_amountCerbyOut",
+                  "nameLocation": "2784:15:3",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 598,
+                  "src": "2776:23:3",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 591,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "2776:7:3",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 594,
+                  "indexed": false,
+                  "mutability": "mutable",
+                  "name": "_currentFee",
+                  "nameLocation": "2817:11:3",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 598,
+                  "src": "2809:19:3",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 593,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "2809:7:3",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 596,
+                  "indexed": false,
+                  "mutability": "mutable",
+                  "name": "_transferTo",
+                  "nameLocation": "2846:11:3",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 598,
+                  "src": "2838:19:3",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 595,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "2838:7:3",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "2606:257:3"
+            },
+            "src": "2596:268:3"
+          },
+          {
+            "anonymous": false,
+            "eventSelector": "51ab1232a73b82b6b0acb0fa91b834cf6e258a1858c4e23c72ce97241c71aa0d",
+            "id": 609,
+            "name": "Sync",
+            "nameLocation": "2875:4:3",
+            "nodeType": "EventDefinition",
+            "parameters": {
+              "id": 608,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 601,
+                  "indexed": true,
+                  "mutability": "mutable",
+                  "name": "_token",
+                  "nameLocation": "2909:6:3",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 609,
+                  "src": "2889:26:3",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_contract$_ICerbyERC20_$4245",
+                    "typeString": "contract ICerbyERC20"
+                  },
+                  "typeName": {
+                    "id": 600,
+                    "nodeType": "UserDefinedTypeName",
+                    "pathNode": {
+                      "id": 599,
+                      "name": "ICerbyERC20",
+                      "nodeType": "IdentifierPath",
+                      "referencedDeclaration": 4245,
+                      "src": "2889:11:3"
+                    },
+                    "referencedDeclaration": 4245,
+                    "src": "2889:11:3",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_contract$_ICerbyERC20_$4245",
+                      "typeString": "contract ICerbyERC20"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 603,
+                  "indexed": false,
+                  "mutability": "mutable",
+                  "name": "_newBalanceToken",
+                  "nameLocation": "2933:16:3",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 609,
+                  "src": "2925:24:3",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 602,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "2925:7:3",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 605,
+                  "indexed": false,
+                  "mutability": "mutable",
+                  "name": "_newBalanceCerby",
+                  "nameLocation": "2967:16:3",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 609,
+                  "src": "2959:24:3",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 604,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "2959:7:3",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 607,
+                  "indexed": false,
+                  "mutability": "mutable",
+                  "name": "_newCreditCerby",
+                  "nameLocation": "3001:15:3",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 609,
+                  "src": "2993:23:3",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 606,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "2993:7:3",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "2879:143:3"
+            },
+            "src": "2869:154:3"
+          },
+          {
+            "errorSelector": "402670df",
+            "id": 611,
+            "name": "CerbySwapV1_TokenAlreadyExists",
+            "nameLocation": "3035:30:3",
+            "nodeType": "ErrorDefinition",
+            "parameters": {
+              "id": 610,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "3065:2:3"
+            },
+            "src": "3029:39:3"
+          },
+          {
+            "errorSelector": "98608ebe",
+            "id": 613,
+            "name": "CerbySwapV1_TokenDoesNotExist",
+            "nameLocation": "3079:29:3",
+            "nodeType": "ErrorDefinition",
+            "parameters": {
+              "id": 612,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "3108:2:3"
+            },
+            "src": "3073:38:3"
+          },
+          {
+            "errorSelector": "68ba8393",
+            "id": 615,
+            "name": "CerbySwapV1_TransactionIsExpired",
+            "nameLocation": "3122:32:3",
+            "nodeType": "ErrorDefinition",
+            "parameters": {
+              "id": 614,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "3154:2:3"
+            },
+            "src": "3116:41:3"
+          },
+          {
+            "errorSelector": "8715c950",
+            "id": 617,
+            "name": "CerbySwapV1_AmountOfTokensMustBeLargerThanOne",
+            "nameLocation": "3168:45:3",
+            "nodeType": "ErrorDefinition",
+            "parameters": {
+              "id": 616,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "3213:2:3"
+            },
+            "src": "3162:54:3"
+          },
+          {
+            "errorSelector": "515ab85f",
+            "id": 619,
+            "name": "CerbySwapV1_AmountOfCerbyMustBeLargerThanOne",
+            "nameLocation": "3227:44:3",
+            "nodeType": "ErrorDefinition",
+            "parameters": {
+              "id": 618,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "3271:2:3"
+            },
+            "src": "3221:53:3"
+          },
+          {
+            "errorSelector": "5cce2b8a",
+            "id": 621,
+            "name": "CerbySwapV1_OutputCerbyAmountIsLowerThanMinimumSpecified",
+            "nameLocation": "3285:56:3",
+            "nodeType": "ErrorDefinition",
+            "parameters": {
+              "id": 620,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "3341:2:3"
+            },
+            "src": "3279:65:3"
+          },
+          {
+            "errorSelector": "412cfe86",
+            "id": 623,
+            "name": "CerbySwapV1_OutputTokensAmountIsLowerThanMinimumSpecified",
+            "nameLocation": "3355:57:3",
+            "nodeType": "ErrorDefinition",
+            "parameters": {
+              "id": 622,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "3412:2:3"
+            },
+            "src": "3349:66:3"
+          },
+          {
+            "errorSelector": "691ee320",
+            "id": 625,
+            "name": "CerbySwapV1_InputCerbyAmountIsLargerThanMaximumSpecified",
+            "nameLocation": "3426:56:3",
+            "nodeType": "ErrorDefinition",
+            "parameters": {
+              "id": 624,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "3482:2:3"
+            },
+            "src": "3420:65:3"
+          },
+          {
+            "errorSelector": "c673254c",
+            "id": 627,
+            "name": "CerbySwapV1_InputTokensAmountIsLargerThanMaximumSpecified",
+            "nameLocation": "3496:57:3",
+            "nodeType": "ErrorDefinition",
+            "parameters": {
+              "id": 626,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "3553:2:3"
+            },
+            "src": "3490:66:3"
+          },
+          {
+            "errorSelector": "7492f3cd",
+            "id": 629,
+            "name": "CerbySwapV1_SwappingTokenToSameTokenIsForbidden",
+            "nameLocation": "3567:47:3",
+            "nodeType": "ErrorDefinition",
+            "parameters": {
+              "id": 628,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "3614:2:3"
+            },
+            "src": "3561:56:3"
+          },
+          {
+            "errorSelector": "2000fd65",
+            "id": 631,
+            "name": "CerbySwapV1_InvariantKValueMustBeSameOrIncreasedOnAnySwaps",
+            "nameLocation": "3628:58:3",
+            "nodeType": "ErrorDefinition",
+            "parameters": {
+              "id": 630,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "3686:2:3"
+            },
+            "src": "3622:67:3"
+          },
+          {
+            "errorSelector": "30667aab",
+            "id": 633,
+            "name": "CerbySwapV1_SafeTransferNativeFailed",
+            "nameLocation": "3700:36:3",
+            "nodeType": "ErrorDefinition",
+            "parameters": {
+              "id": 632,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "3736:2:3"
+            },
+            "src": "3694:45:3"
+          },
+          {
+            "errorSelector": "6050fe29",
+            "id": 635,
+            "name": "CerbySwapV1_SafeTransferFromFailed",
+            "nameLocation": "3750:34:3",
+            "nodeType": "ErrorDefinition",
+            "parameters": {
+              "id": 634,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "3784:2:3"
+            },
+            "src": "3744:43:3"
+          },
+          {
+            "errorSelector": "295a206e",
+            "id": 637,
+            "name": "CerbySwapV1_AmountOfCerbyOrTokensInMustBeLargerThanOne",
+            "nameLocation": "3798:54:3",
+            "nodeType": "ErrorDefinition",
+            "parameters": {
+              "id": 636,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "3852:2:3"
+            },
+            "src": "3792:63:3"
+          },
+          {
+            "errorSelector": "e8404b1a",
+            "id": 639,
+            "name": "CerbySwapV1_FeeIsWrong",
+            "nameLocation": "3866:22:3",
+            "nodeType": "ErrorDefinition",
+            "parameters": {
+              "id": 638,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "3888:2:3"
+            },
+            "src": "3860:31:3"
+          },
+          {
+            "errorSelector": "ebc2e016",
+            "id": 641,
+            "name": "CerbySwapV1_TvlMultiplierIsWrong",
+            "nameLocation": "3902:32:3",
+            "nodeType": "ErrorDefinition",
+            "parameters": {
+              "id": 640,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "3934:2:3"
+            },
+            "src": "3896:41:3"
+          },
+          {
+            "errorSelector": "28af8786",
+            "id": 643,
+            "name": "CerbySwapV1_MintFeeMultiplierMustNotBeLargerThan50Percent",
+            "nameLocation": "3948:57:3",
+            "nodeType": "ErrorDefinition",
+            "parameters": {
+              "id": 642,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "4005:2:3"
+            },
+            "src": "3942:66:3"
+          },
+          {
+            "errorSelector": "0f520f05",
+            "id": 645,
+            "name": "CerbySwapV1_CreditCerbyMustNotBeBelowZero",
+            "nameLocation": "4019:41:3",
+            "nodeType": "ErrorDefinition",
+            "parameters": {
+              "id": 644,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "4060:2:3"
+            },
+            "src": "4013:50:3"
+          },
+          {
+            "errorSelector": "e737c767",
+            "id": 647,
+            "name": "CerbySwapV1_CreditCerbyIsAlreadyMaximum",
+            "nameLocation": "4074:39:3",
+            "nodeType": "ErrorDefinition",
+            "parameters": {
+              "id": 646,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "4113:2:3"
+            },
+            "src": "4068:48:3"
+          },
+          {
+            "errorSelector": "23f4864d",
+            "id": 649,
+            "name": "CerbySwapV1_FeeOnTransferTokensAreForbidden",
+            "nameLocation": "4127:43:3",
+            "nodeType": "ErrorDefinition",
+            "parameters": {
+              "id": 648,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "4170:2:3"
+            },
+            "src": "4121:52:3"
           }
         ],
-        "scope": 558,
-        "src": "109:2263:3",
+        "scope": 651,
+        "src": "150:4025:3",
         "usedErrors": [
-          832,
-          834,
-          836,
-          838,
-          840,
-          842,
-          844,
-          846,
-          848,
-          850,
-          852,
-          854,
-          856,
-          858,
-          860,
-          862,
-          864,
-          866,
-          868,
-          870,
-          872
+          611,
+          613,
+          615,
+          617,
+          619,
+          621,
+          623,
+          625,
+          627,
+          629,
+          631,
+          633,
+          635,
+          637,
+          639,
+          641,
+          643,
+          645,
+          647,
+          649
         ]
       }
     ],
-    "src": "38:2335:3"
+    "src": "38:4138:3"
   },
   "compiler": {
     "name": "solc",
-    "version": "0.8.11+commit.d7f03943.Emscripten.clang"
+    "version": "0.8.14+commit.80d49f37.Emscripten.clang"
   },
   "networks": {},
-  "schemaVersion": "3.4.4",
-  "updatedAt": "2022-02-16T13:18:53.054Z",
+  "schemaVersion": "3.4.7",
+  "updatedAt": "2022-05-20T07:31:48.872Z",
   "devdoc": {
     "kind": "dev",
     "methods": {},

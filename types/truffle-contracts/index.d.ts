@@ -27,6 +27,7 @@ import { IAccessControlContract } from "./IAccessControl";
 import { IAccessControlEnumerableContract } from "./IAccessControlEnumerable";
 import { IBasicERC20Contract } from "./IBasicERC20";
 import { ICerbyBotDetectionContract } from "./ICerbyBotDetection";
+import { ICerbyERC20Contract } from "./ICerbyERC20";
 import { ICerbySwapV1VaultContract } from "./ICerbySwapV1Vault";
 import { ICerbySwapV1VaultImplementationContract } from "./ICerbySwapV1VaultImplementation";
 import { ICerbyTokenContract } from "./ICerbyToken";
@@ -39,6 +40,7 @@ import { IERC20Contract } from "./IERC20";
 import { IERC20MetadataContract } from "./IERC20Metadata";
 import { MigrationsContract } from "./Migrations";
 import { OwnableContract } from "./Ownable";
+import { TestBtcTokenContract } from "./TestBtcToken";
 import { TestCerUsdTokenContract } from "./TestCerUsdToken";
 import { TestCerbyTokenContract } from "./TestCerbyToken";
 import { TestUsdcTokenContract } from "./TestUsdcToken";
@@ -91,6 +93,7 @@ declare global {
       ): IAccessControlEnumerableContract;
       require(name: "IBasicERC20"): IBasicERC20Contract;
       require(name: "ICerbyBotDetection"): ICerbyBotDetectionContract;
+      require(name: "ICerbyERC20"): ICerbyERC20Contract;
       require(name: "ICerbySwapV1_Vault"): ICerbySwapV1VaultContract;
       require(
         name: "ICerbySwapV1_VaultImplementation"
@@ -105,6 +108,7 @@ declare global {
       require(name: "IERC20Metadata"): IERC20MetadataContract;
       require(name: "Migrations"): MigrationsContract;
       require(name: "Ownable"): OwnableContract;
+      require(name: "TestBtcToken"): TestBtcTokenContract;
       require(name: "TestCerUsdToken"): TestCerUsdTokenContract;
       require(name: "TestCerbyToken"): TestCerbyTokenContract;
       require(name: "TestUsdcToken"): TestUsdcTokenContract;
@@ -191,6 +195,7 @@ export {
   ICerbyBotDetectionContract,
   ICerbyBotDetectionInstance,
 } from "./ICerbyBotDetection";
+export { ICerbyERC20Contract, ICerbyERC20Instance } from "./ICerbyERC20";
 export {
   ICerbySwapV1VaultContract,
   ICerbySwapV1VaultInstance,
@@ -221,6 +226,7 @@ export {
 } from "./IERC20Metadata";
 export { MigrationsContract, MigrationsInstance } from "./Migrations";
 export { OwnableContract, OwnableInstance } from "./Ownable";
+export { TestBtcTokenContract, TestBtcTokenInstance } from "./TestBtcToken";
 export {
   TestCerUsdTokenContract,
   TestCerUsdTokenInstance,
