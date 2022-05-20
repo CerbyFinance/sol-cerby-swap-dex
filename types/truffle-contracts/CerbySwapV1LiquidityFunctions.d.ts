@@ -225,11 +225,6 @@ export interface CerbySwapV1LiquidityFunctionsInstance
     txDetails?: Truffle.TransactionDetails
   ): Promise<boolean>;
 
-  getCurrentSellFee(
-    _token: string,
-    txDetails?: Truffle.TransactionDetails
-  ): Promise<BN>;
-
   getInputTokensForExactTokens(
     _tokenIn: string,
     _tokenOut: string,
@@ -497,11 +492,6 @@ export interface CerbySwapV1LiquidityFunctionsInstance
       _id: number | BN | string,
       txDetails?: Truffle.TransactionDetails
     ): Promise<boolean>;
-
-    getCurrentSellFee(
-      _token: string,
-      txDetails?: Truffle.TransactionDetails
-    ): Promise<BN>;
 
     getInputTokensForExactTokens(
       _tokenIn: string,

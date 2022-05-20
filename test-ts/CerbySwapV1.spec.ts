@@ -28,6 +28,7 @@ const _BN = (value: any) => {
 }
 const FEE_DENORM = _BN(10000)
 const UINT256_MAX_VALUE = _BN('115792089237316195423570985008687907853269984665640564039457584007913129639935');
+const ONE_PERIOD_IN_SECONDS = 86400 / 2
 
 const bn1e18 = _BN((1e18).toString())
 
@@ -100,15 +101,15 @@ contract('Cerby', (accounts) => {
     {
       await TestBtcTokenInst.mintHumanAddress(
         firstAccount,
-        _BN(1e9).mul(bn1e18).add(_BN(1)),
+        _BN(1e15).mul(bn1e18).add(_BN(1)),
       )
       await TestCerbyTokenInst.mintHumanAddress(
         firstAccount,
-        _BN(1e9).mul(bn1e18).add(_BN(2)),
+        _BN(1e15).mul(bn1e18).add(_BN(2)),
       )
       await TestUsdcTokenInst.mintHumanAddress(
         firstAccount,
-        _BN(1e9).mul(bn1e18).add(_BN(3)),
+        _BN(1e15).mul(bn1e18).add(_BN(3)),
       )
 
       await TestBtcTokenInst.approve(cerbySwap.address, UINT256_MAX_VALUE, { from: accounts[0] })
@@ -192,7 +193,7 @@ contract('Cerby', (accounts) => {
       console.log(oldSettings)
       let newSettings = oldSettings
       newSettings = {
-        onePeriodInSeconds: _BN(86400),
+        onePeriodInSeconds: _BN(ONE_PERIOD_IN_SECONDS),
         mintFeeBeneficiary: '0xdEF78a28c78A461598d948bc0c689ce88f812AD8',
         mintFeeMultiplier: _BN((10000 * 20) / 100),
         feeMinimum: _BN(1),
@@ -257,7 +258,7 @@ contract('Cerby', (accounts) => {
       console.log(oldSettings)
       let newSettings = oldSettings
       newSettings = {
-        onePeriodInSeconds: _BN(86400),
+        onePeriodInSeconds: _BN(ONE_PERIOD_IN_SECONDS),
         mintFeeBeneficiary: BTC_TOKEN_ADDRESS,
         mintFeeMultiplier: _BN(oldSettings.mintFeeMultiplier).add(_BN(1)),
         feeMinimum: _BN(oldSettings.feeMinimum).add(_BN(1)),
@@ -4539,19 +4540,17 @@ contract('Cerby', (accounts) => {
 
     const cerbySwap = await CerbySwapV1.deployed()
     {
-      const ONE_PERIOD = 86400 / 2 // 12 hours one period
 
-
-      let actualFee = await cerbySwap.getCurrentSellFee(
-        BTC_TOKEN_ADDRESS,
-      )
 
       const FEE_MINIMUM = _BN(1); // 0.01%
       const FEE_MAXIMUM = _BN(200) // 2%
 
+
+      let pool = (await cerbySwap.getPoolsByTokens([BTC_TOKEN_ADDRESS]))[0]
+
       // actualFee must be == max
       assert.deepEqual(
-        actualFee.toString(),
+        pool.lastCachedFee.toString(),
         FEE_MAXIMUM.toString(),
       )
 
@@ -4559,7 +4558,6 @@ contract('Cerby', (accounts) => {
         await cerbySwap.getPoolsBalancesByTokens([BTC_TOKEN_ADDRESS])
       )[0]
 
-      let pool = (await cerbySwap.getPoolsByTokens([BTC_TOKEN_ADDRESS]))[0]
 
       const cerbyToken = await TestBtcToken.at(BTC_TOKEN_ADDRESS)
       await cerbyToken.mintHumanAddress(
@@ -4569,8 +4567,8 @@ contract('Cerby', (accounts) => {
 
       const tokenIn = CERBY_TOKEN_ADDRESS
       const tokenOut = BTC_TOKEN_ADDRESS
-      let amountTokensIn = beforeCerbyPool.balanceCerby
-      const minAmountTokensOut = 0
+      let amountTokensIn = _BN(0)
+      const minAmountTokensOut = _BN(0)
       const expireTimestamp = bn1e18
       const transferTo = firstAccount
 
@@ -4584,7 +4582,7 @@ contract('Cerby', (accounts) => {
         expireTimestamp,
         transferTo,
       )
-      await increaseTime(ONE_PERIOD * 2) // shifting 2 days to clear any fees stats
+      await increaseTime(ONE_PERIOD_IN_SECONDS * 2) // shifting 2 days to clear any fees stats
 
       // updating fee by doing small swap
       amountTokensIn = _BN(1e6)
@@ -4596,15 +4594,20 @@ contract('Cerby', (accounts) => {
         expireTimestamp,
         transferTo,
       )
-      await increaseTime(ONE_PERIOD * 2) // shifting 2 days to clear any fees stats
+      await increaseTime(ONE_PERIOD_IN_SECONDS * 2) // shifting 2 days to clear any fees stats
+
+      pool = (await cerbySwap.getPoolsByTokens([BTC_TOKEN_ADDRESS]))[0]
 
       // actualFee must be == max
       assert.deepEqual(
-        actualFee.toString(),
+        pool.lastCachedFee.toString(),
         FEE_MAXIMUM.toString(),
       )
 
-      amountTokensIn = beforeCerbyPool.balanceCerby.mul(_BN(2))
+      let cerbyPool = (
+        await cerbySwap.getPoolsBalancesByTokens([BTC_TOKEN_ADDRESS])
+      )[0]
+      amountTokensIn = cerbyPool.balanceCerby.mul(_BN(2))
       await cerbySwap.swapExactTokensForTokens(
         tokenIn,
         tokenOut,
@@ -4618,15 +4621,15 @@ contract('Cerby', (accounts) => {
 
 
       // actualFee must be in range min - max
-      actualFee = await cerbySwap.getCurrentSellFee(
-        BTC_TOKEN_ADDRESS,
-      )
-      assert.isTrue(actualFee > FEE_MINIMUM)
-      assert.isTrue(actualFee < FEE_MAXIMUM)
+      assert.isTrue(pool.lastCachedFee > FEE_MINIMUM)
+      assert.isTrue(pool.lastCachedFee < FEE_MAXIMUM)
 
-      await increaseTime(ONE_PERIOD * 1.1) // shifting to the next period to update fee
+      await increaseTime(ONE_PERIOD_IN_SECONDS * 1.1) // shifting to the next period to update fee
 
-      amountTokensIn = _BN(beforeCerbyPool.balanceCerby).mul(_BN(30))
+      cerbyPool = (
+        await cerbySwap.getPoolsBalancesByTokens([BTC_TOKEN_ADDRESS])
+      )[0]
+      amountTokensIn = _BN(cerbyPool.balanceCerby).mul(_BN(30))
       await cerbySwap.swapExactTokensForTokens(
         tokenIn,
         tokenOut,
@@ -4638,19 +4641,19 @@ contract('Cerby', (accounts) => {
 
       pool = (await cerbySwap.getPoolsByTokens([BTC_TOKEN_ADDRESS]))[0]
 
-      actualFee = await cerbySwap.getCurrentSellFee(
-        BTC_TOKEN_ADDRESS,
-      )
 
       // actualFee must be == min
       assert.deepEqual(
-        actualFee.toString(),
+        pool.lastCachedFee.toString(),
         FEE_MINIMUM.toString(),
       )
 
-      await increaseTime(ONE_PERIOD * 1.2) // shifting to the next period to update fee
+      await increaseTime(ONE_PERIOD_IN_SECONDS * 1.2) // shifting to the next period to update fee
 
-      amountTokensIn = _BN(beforeCerbyPool.balanceCerby).mul(_BN(50))
+      cerbyPool = (
+        await cerbySwap.getPoolsBalancesByTokens([BTC_TOKEN_ADDRESS])
+      )[0]
+      amountTokensIn = _BN(cerbyPool.balanceCerby).mul(_BN(30))
       await cerbySwap.swapExactTokensForTokens(
         tokenIn,
         tokenOut,
@@ -4659,7 +4662,7 @@ contract('Cerby', (accounts) => {
         expireTimestamp,
         transferTo,
       )
-      await increaseTime(ONE_PERIOD * 2)
+      await increaseTime(ONE_PERIOD_IN_SECONDS * 2)
       
       // updating fee by doing small trade
       amountTokensIn = _BN(1e6)
@@ -4672,12 +4675,17 @@ contract('Cerby', (accounts) => {
         transferTo,
       )
 
+      pool = (await cerbySwap.getPoolsByTokens([BTC_TOKEN_ADDRESS]))[0]
+
+
+      cerbyPool = (
+        await cerbySwap.getPoolsBalancesByTokens([BTC_TOKEN_ADDRESS])
+      )[0]
+      console.log(cerbyPool.balanceToken.toString(), cerbyPool.balanceCerby.toString())
+
       // fee must be max
-      actualFee = await cerbySwap.getCurrentSellFee(
-        BTC_TOKEN_ADDRESS,
-      )
       assert.deepEqual(
-        actualFee.toString(),
+        pool.lastCachedFee.toString(),
         FEE_MAXIMUM.toString(),
       )
     }
@@ -4697,7 +4705,7 @@ contract('Cerby', (accounts) => {
     {
       const tokenIn = BTC_TOKEN_ADDRESS
       const tokenOut = CERBY_TOKEN_ADDRESS
-      const amountTokensIn = _BN(1001).mul(bn1e18)
+      const amountTokensIn = _BN(10).mul(bn1e18)
       const amountTokensOut = await cerbySwap.getOutputExactTokensForTokens(
         tokenIn,
         tokenOut,
