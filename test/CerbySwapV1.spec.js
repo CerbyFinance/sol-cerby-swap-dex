@@ -2002,16 +2002,16 @@ contract('Cerby', (accounts) => {
         }
     });
     // ---------------------------------------------------------- //
-    // getCurrentFeeBasedOnTrades tests //
+    // getCurrentSellFee tests //
     // ---------------------------------------------------------- //
-    it('getCurrentFeeBasedOnTrades: time travel, do small trade, time travel, check fee', async () => {
+    it('getCurrentSellFee: time travel, do small trade, time travel, check fee', async () => {
         await delay(DELAY_BETWEEN_TESTS);
         const accounts = await web3.eth.getAccounts();
         const firstAccount = accounts[0];
         const cerbySwap = await CerbySwapV1.deployed();
         {
-            const ONE_PERIOD = 86400; // 24 hours time travel
-            let actualFee = await cerbySwap.getCurrentFeeBasedOnTrades(BTC_TOKEN_ADDRESS);
+            const ONE_PERIOD = 86400 / 2; // 12 hours one period
+            let actualFee = await cerbySwap.getCurrentSellFee(BTC_TOKEN_ADDRESS);
             const FEE_MINIMUM = _BN(1); // 0.01%
             const FEE_MAXIMUM = _BN(200); // 2%
             // actualFee must be == max
@@ -2036,36 +2036,29 @@ contract('Cerby', (accounts) => {
             await increaseTime(ONE_PERIOD * 2); // shifting 2 days to clear any fees stats
             // actualFee must be == max
             assert.deepEqual(actualFee.toString(), FEE_MAXIMUM.toString());
-            amountTokensIn = beforeCerbyPool.balanceCerby;
+            amountTokensIn = beforeCerbyPool.balanceCerby.mul(_BN(2));
             await cerbySwap.swapExactTokensForTokens(tokenIn, tokenOut, amountTokensIn, minAmountTokensOut, expireTimestamp, transferTo);
-            await increaseTime(ONE_PERIOD * 0.1);
             pool = (await cerbySwap.getPoolsByTokens([BTC_TOKEN_ADDRESS]))[0];
-            // updating fee by doing small swap
-            amountTokensIn = _BN(1e6);
-            await cerbySwap.swapExactTokensForTokens(tokenIn, tokenOut, amountTokensIn, minAmountTokensOut, expireTimestamp, transferTo);
             // actualFee must be in range min - max
-            actualFee = await cerbySwap.getCurrentFeeBasedOnTrades(BTC_TOKEN_ADDRESS);
+            actualFee = await cerbySwap.getCurrentSellFee(BTC_TOKEN_ADDRESS);
             assert.isTrue(actualFee > FEE_MINIMUM);
             assert.isTrue(actualFee < FEE_MAXIMUM);
+            await increaseTime(ONE_PERIOD * 1.1); // shifting to the next period to update fee
             amountTokensIn = _BN(beforeCerbyPool.balanceCerby).mul(_BN(30));
             await cerbySwap.swapExactTokensForTokens(tokenIn, tokenOut, amountTokensIn, minAmountTokensOut, expireTimestamp, transferTo);
-            await increaseTime(ONE_PERIOD * 0.1);
             pool = (await cerbySwap.getPoolsByTokens([BTC_TOKEN_ADDRESS]))[0];
-            // updating fee by doing small swap
-            amountTokensIn = _BN(1e6);
-            await cerbySwap.swapExactTokensForTokens(tokenIn, tokenOut, amountTokensIn, minAmountTokensOut, expireTimestamp, transferTo);
-            actualFee = await cerbySwap.getCurrentFeeBasedOnTrades(BTC_TOKEN_ADDRESS);
+            actualFee = await cerbySwap.getCurrentSellFee(BTC_TOKEN_ADDRESS);
             // actualFee must be == min
             assert.deepEqual(actualFee.toString(), FEE_MINIMUM.toString());
-            await increaseTime(ONE_PERIOD * 2);
-            amountTokensIn = _BN(beforeCerbyPool.balanceCerby).mul(_BN(30));
+            await increaseTime(ONE_PERIOD * 1.2); // shifting to the next period to update fee
+            amountTokensIn = _BN(beforeCerbyPool.balanceCerby).mul(_BN(50));
             await cerbySwap.swapExactTokensForTokens(tokenIn, tokenOut, amountTokensIn, minAmountTokensOut, expireTimestamp, transferTo);
             await increaseTime(ONE_PERIOD * 2);
-            // updating fee by doing small swap
+            // updating fee by doing small trade
             amountTokensIn = _BN(1e6);
             await cerbySwap.swapExactTokensForTokens(tokenIn, tokenOut, amountTokensIn, minAmountTokensOut, expireTimestamp, transferTo);
             // fee must be max
-            actualFee = await cerbySwap.getCurrentFeeBasedOnTrades(BTC_TOKEN_ADDRESS);
+            actualFee = await cerbySwap.getCurrentSellFee(BTC_TOKEN_ADDRESS);
             assert.deepEqual(actualFee.toString(), FEE_MAXIMUM.toString());
         }
     });

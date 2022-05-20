@@ -65,7 +65,7 @@ abstract contract CerbySwapV1_GetFunctions is
         return outputPools;
     }
 
-    function getCurrentFeeBasedOnTrades(
+    function getCurrentSellFee(
         ICerbyERC20 _token
     )
         external
@@ -75,14 +75,7 @@ abstract contract CerbySwapV1_GetFunctions is
         // getting pool storage link (saves gas compared to memory)
         Pool storage pool = pools[cachedTokenValues[_token].poolId];
 
-        PoolBalances memory poolBalances = _getPoolBalances(
-            _token
-        );
-
-        return _getCurrentFeeBasedOnTrades(
-            pool.sellVolumeThisPeriodInCerby,
-            poolBalances
-        );
+        return pool.lastCachedFee;
     }
 
     function getOutputExactTokensForTokens(

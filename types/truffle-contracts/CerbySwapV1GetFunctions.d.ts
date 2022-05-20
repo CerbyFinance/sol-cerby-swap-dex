@@ -92,7 +92,7 @@ type AllEvents = LiquidityAdded | LiquidityRemoved | PoolCreated | Swap | Sync;
 
 export interface CerbySwapV1GetFunctionsInstance
   extends Truffle.ContractInstance {
-  getCurrentFeeBasedOnTrades(
+  getCurrentSellFee(
     _token: string,
     txDetails?: Truffle.TransactionDetails
   ): Promise<BN>;
@@ -152,7 +152,7 @@ export interface CerbySwapV1GetFunctionsInstance
   ): Promise<BN>;
 
   methods: {
-    getCurrentFeeBasedOnTrades(
+    getCurrentSellFee(
       _token: string,
       txDetails?: Truffle.TransactionDetails
     ): Promise<BN>;

@@ -445,30 +445,31 @@ abstract contract CerbySwapV1_SwapFunctions is CerbySwapV1_LiquidityFunctions {
         // if swap is XXX --> CERBY, fee is zero
         // else swap is CERBY --> XXX, fee is applied
         uint256 fee;
-        if (_amountCerbyIn > 1 && _amountTokensIn <= 1) {
+        if (_amountCerbyIn > 1 && _amountTokensIn <= 1) { 
 
+            // getting correct fee
             if (block.timestamp > pool.nextUpdateWillBeAt) {
                 // need to update cache
                 // saving the fee to use it in the current period
                 fee = _getCurrentFeeBasedOnTrades(
-                    pool.sellVolumeThisPeriodInCerby, 
+                    uint256(pool.sellVolumeThisPeriodInCerby) + _amountCerbyIn, // adding current sell to volume
                     _poolBalancesBefore
                 );
                 pool.lastCachedFee = uint8(fee);
 
                 // emptying current trade volume
-                pool.sellVolumeThisPeriodInCerby = 0;
+                pool.sellVolumeThisPeriodInCerby = 1; // using 1 for gas-efficiency during runtime
 
                 // scheduling next update
                 pool.nextUpdateWillBeAt = uint32(block.timestamp) + settings.onePeriodInSeconds;
             } else {
                 // getting fee from cache
-                fee = uint256(pool.lastCachedFee);  
-            }              
-            
-            // updating trade volume only for CERBY --> XXX
-            // because only in this direction fee is applied
-            pool.sellVolumeThisPeriodInCerby += uint216(_amountCerbyIn);         
+                fee = uint256(pool.lastCachedFee); 
+
+                // updating trade volume only for CERBY --> XXX
+                // because only in this direction fee is applied
+                pool.sellVolumeThisPeriodInCerby += uint216(_amountCerbyIn);  
+            }     
         }
 
         // calculating old K value including trade fees (multiplied by FEE_DENORM^2)

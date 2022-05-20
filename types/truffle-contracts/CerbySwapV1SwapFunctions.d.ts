@@ -225,7 +225,7 @@ export interface CerbySwapV1SwapFunctionsInstance
     txDetails?: Truffle.TransactionDetails
   ): Promise<boolean>;
 
-  getCurrentFeeBasedOnTrades(
+  getCurrentSellFee(
     _token: string,
     txDetails?: Truffle.TransactionDetails
   ): Promise<BN>;
@@ -576,7 +576,7 @@ export interface CerbySwapV1SwapFunctionsInstance
       txDetails?: Truffle.TransactionDetails
     ): Promise<boolean>;
 
-    getCurrentFeeBasedOnTrades(
+    getCurrentSellFee(
       _token: string,
       txDetails?: Truffle.TransactionDetails
     ): Promise<BN>;
