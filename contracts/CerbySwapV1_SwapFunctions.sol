@@ -468,7 +468,7 @@ abstract contract CerbySwapV1_SwapFunctions is CerbySwapV1_LiquidityFunctions {
 
                 // updating trade volume only for CERBY --> XXX
                 // because only in this direction fee is applied
-                pool.sellVolumeThisPeriodInCerby += uint216(_amountCerbyIn);  
+                pool.sellVolumeThisPeriodInCerby += uint128(_amountCerbyIn);  
             }     
         }
 

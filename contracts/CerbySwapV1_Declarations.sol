@@ -52,7 +52,7 @@ abstract contract CerbySwapV1_Declarations {
     }
 
     struct Pool {
-        uint216 sellVolumeThisPeriodInCerby;
+        uint128 sellVolumeThisPeriodInCerby;
         uint8 lastCachedFee;
         uint32 nextUpdateWillBeAt;
         uint128 lastSqrtKValue;

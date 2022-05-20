@@ -64,7 +64,7 @@ contract('Cerby', (accounts) => {
         const cerbySwap = await CerbySwapV1.deployed();
         console.log('address constant CerbySwapAddress = ' + cerbySwap.address + ';');
     });
-    it('adminCreatePool: create cerby, usdc, eth pools', async () => {
+    it('adminCreatePool: create cerby, btc, usdc, eth pools', async () => {
         await delay(DELAY_BETWEEN_TESTS);
         const cerbySwap = await CerbySwapV1.deployed();
         const accounts = await web3.eth.getAccounts();
@@ -220,15 +220,15 @@ contract('Cerby', (accounts) => {
             assert.deepEqual(_BN(beforeEthPool.balanceCerby).add(amountCerUsdIn).toString(), _BN(afterEthPool.balanceCerby).toString());
         }
     });
-    it('addTokenLiquidity: add 1042 CERBY; pool must be updated correctly', async () => {
+    it('addTokenLiquidity: add 1042 BTC; pool must be updated correctly', async () => {
         await delay(DELAY_BETWEEN_TESTS);
         const accounts = await web3.eth.getAccounts();
         const firstAccount = accounts[0];
         const cerbySwap = await CerbySwapV1.deployed();
-        const CERBY_POOL_POS = await cerbySwap.getTokenToPoolId(BTC_TOKEN_ADDRESS);
+        const BTC_POOL_POS = await cerbySwap.getTokenToPoolId(BTC_TOKEN_ADDRESS);
         const res = await cerbySwap.getPoolsBalancesByTokens([BTC_TOKEN_ADDRESS]);
         const beforeCerbyPool = res[0];
-        const beforeLpTokens = await cerbySwap.balanceOf(firstAccount, CERBY_POOL_POS);
+        const beforeLpTokens = await cerbySwap.balanceOf(firstAccount, BTC_POOL_POS);
         {
             const tokenIn = BTC_TOKEN_ADDRESS;
             const amountTokensIn = _BN(1042).mul(bn1e18);
@@ -237,13 +237,13 @@ contract('Cerby', (accounts) => {
                 .div(_BN(beforeCerbyPool.balanceToken));
             const expireTimestamp = currentTimestamp() + 86400;
             const transferTo = firstAccount;
-            const totalLPSupply = await cerbySwap.methods['totalSupply(uint256)'](CERBY_POOL_POS);
+            const totalLPSupply = await cerbySwap.methods['totalSupply(uint256)'](BTC_POOL_POS);
             const lpTokens = amountTokensIn
                 .mul(totalLPSupply)
                 .div(_BN(beforeCerbyPool.balanceToken));
             await cerbySwap.addTokenLiquidity(tokenIn, amountTokensIn, expireTimestamp, transferTo);
             const afterCerbyPool = (await cerbySwap.getPoolsBalancesByTokens([BTC_TOKEN_ADDRESS]))[0];
-            const afterLpTokens = await cerbySwap.balanceOf(firstAccount, CERBY_POOL_POS);
+            const afterLpTokens = await cerbySwap.balanceOf(firstAccount, BTC_POOL_POS);
             // check lp tokens increased
             assert.deepEqual(beforeLpTokens.add(lpTokens).toString(), afterLpTokens.toString());
             // check pool increased balance
@@ -255,7 +255,7 @@ contract('Cerby', (accounts) => {
     // ---------------------------------------------------------- //
     // swapExactTokensForTokens tests //
     // ---------------------------------------------------------- //
-    it('swapExactTokensForTokens: swap 1001 CERBY --> cerUSD; received cerUSD is correct', async () => {
+    it('swapExactTokensForTokens: swap 1001 BTC --> CERBY; received CERBY is correct', async () => {
         await delay(DELAY_BETWEEN_TESTS);
         const accounts = await web3.eth.getAccounts();
         const firstAccount = accounts[0];
@@ -282,7 +282,7 @@ contract('Cerby', (accounts) => {
             .mul(_BN(beforeCerbyPool.balanceToken))
             .lte(_BN(afterCerbyPool.balanceCerby).mul(_BN(afterCerbyPool.balanceToken))));
     });
-    it('swapExactTokensForTokens: swap 1002 cerUSD --> CERBY; received CERBY is correct', async () => {
+    it('swapExactTokensForTokens: swap 1002 CERBY --> BTC; received BTC is correct', async () => {
         await delay(DELAY_BETWEEN_TESTS);
         const accounts = await web3.eth.getAccounts();
         const firstAccount = accounts[0];
@@ -309,7 +309,7 @@ contract('Cerby', (accounts) => {
                 .lte(_BN(afterCerbyPool.balanceCerby).mul(_BN(afterCerbyPool.balanceToken))));
         }
     });
-    it('swapExactTokensForTokens: swap 1003 cerUSD --> CERBY --> cerUSD; sent cerUSD >= received cerUSD', async () => {
+    it('swapExactTokensForTokens: swap 1003 CEBY --> BTC --> CERBY; sent CERBY >= received CERBY', async () => {
         await delay(DELAY_BETWEEN_TESTS);
         const accounts = await web3.eth.getAccounts();
         const firstAccount = accounts[0];
@@ -345,7 +345,7 @@ contract('Cerby', (accounts) => {
                 .lte(_BN(afterCerbyPool.balanceCerby).mul(_BN(afterCerbyPool.balanceToken))));
         }
     });
-    it('swapExactTokensForTokens: swap 1004 CERBY --> cerUSD --> CERBY; sent CERBY >= received CERBY', async () => {
+    it('swapExactTokensForTokens: swap 1004 BTC --> CERBY --> BTC; sent BTC >= received BTC', async () => {
         await delay(DELAY_BETWEEN_TESTS);
         const accounts = await web3.eth.getAccounts();
         const firstAccount = accounts[0];
@@ -385,7 +385,7 @@ contract('Cerby', (accounts) => {
                 .lte(_BN(afterCerbyPool.balanceCerby).mul(_BN(afterCerbyPool.balanceToken))));
         }
     });
-    it('swapExactTokensForTokens: swap 1005 CERBY --> cerUSD --> USDC; received USDC is correct', async () => {
+    it('swapExactTokensForTokens: swap 1005 BTC --> CERBY --> USDC; received USDC is correct', async () => {
         await delay(DELAY_BETWEEN_TESTS);
         const accounts = await web3.eth.getAccounts();
         const firstAccount = accounts[0];
@@ -435,7 +435,7 @@ contract('Cerby', (accounts) => {
                 .lte(_BN(afterUSDCPool.balanceCerby).mul(_BN(afterUSDCPool.balanceToken))));
         }
     });
-    it('swapExactTokensForTokens: swap 1006 CERBY --> USDC; received USDC is correct', async () => {
+    it('swapExactTokensForTokens: swap 1006 BTC --> USDC; received USDC is correct', async () => {
         await delay(DELAY_BETWEEN_TESTS);
         const accounts = await web3.eth.getAccounts();
         const firstAccount = accounts[0];
@@ -485,7 +485,7 @@ contract('Cerby', (accounts) => {
                 .lte(_BN(afterUSDCPool.balanceCerby).mul(_BN(afterUSDCPool.balanceToken))));
         }
     });
-    it('swapExactTokensForTokens: swap 1007 USDC --> cerUSD --> CERBY; received CERBY is correct', async () => {
+    it('swapExactTokensForTokens: swap 1007 USDC --> CERBY --> BTC; received BTC is correct', async () => {
         await delay(DELAY_BETWEEN_TESTS);
         const accounts = await web3.eth.getAccounts();
         const firstAccount = accounts[0];
@@ -535,7 +535,7 @@ contract('Cerby', (accounts) => {
                 .lte(_BN(afterUSDCPool.balanceCerby).mul(_BN(afterUSDCPool.balanceToken))));
         }
     });
-    it('swapExactTokensForTokens: swap 1008 USDC --> CERBY; received CERBY is correct', async () => {
+    it('swapExactTokensForTokens: swap 1008 USDC --> BTC; received BTC is correct', async () => {
         await delay(DELAY_BETWEEN_TESTS);
         const accounts = await web3.eth.getAccounts();
         const firstAccount = accounts[0];
@@ -685,7 +685,7 @@ contract('Cerby', (accounts) => {
     // ---------------------------------------------------------- //
     // swapTokensForExactTokens tests //
     // ---------------------------------------------------------- //
-    it('swapTokensForExactTokens: swap CERBY --> 1011 cerUSD; received cerUSD is correct', async () => {
+    it('swapTokensForExactTokens: swap BTC --> 1011 CERBY; received CERBY is correct', async () => {
         await delay(DELAY_BETWEEN_TESTS);
         const accounts = await web3.eth.getAccounts();
         const firstAccount = accounts[0];
@@ -710,7 +710,7 @@ contract('Cerby', (accounts) => {
                 .lte(_BN(afterCerbyPool.balanceCerby).mul(_BN(afterCerbyPool.balanceToken))));
         }
     });
-    it('swapTokensForExactTokens: swap cerUSD --> 1012 CERBY; received CERBY is correct', async () => {
+    it('swapTokensForExactTokens: swap CERBY --> 1012 BTC; received BTC is correct', async () => {
         await delay(DELAY_BETWEEN_TESTS);
         const accounts = await web3.eth.getAccounts();
         const firstAccount = accounts[0];
@@ -735,7 +735,7 @@ contract('Cerby', (accounts) => {
                 .lte(_BN(afterCerbyPool.balanceCerby).mul(_BN(afterCerbyPool.balanceToken))));
         }
     });
-    it('swapTokensForExactTokens: swap cerUSD --> CERBY --> 1013 cerUSD; sent cerUSD >= received cerUSD', async () => {
+    it('swapTokensForExactTokens: swap CERBY --> BTC --> 1013 CERBY; sent CERBY >= received CERBY', async () => {
         await delay(DELAY_BETWEEN_TESTS);
         const accounts = await web3.eth.getAccounts();
         const firstAccount = accounts[0];
@@ -779,7 +779,7 @@ contract('Cerby', (accounts) => {
                 .lte(_BN(afterCerbyPool.balanceCerby).mul(_BN(afterCerbyPool.balanceToken))));
         }
     });
-    it('swapTokensForExactTokens: swap CERBY --> cerUSD --> 1014 CERBY; sent CERBY >= received CERBY', async () => {
+    it('swapTokensForExactTokens: swap BTC --> CERBY --> 1014 BTC; sent BTC >= received BTC', async () => {
         await delay(DELAY_BETWEEN_TESTS);
         const accounts = await web3.eth.getAccounts();
         const firstAccount = accounts[0];
@@ -825,7 +825,7 @@ contract('Cerby', (accounts) => {
                 .lte(_BN(afterCerbyPool.balanceCerby).mul(_BN(afterCerbyPool.balanceToken))));
         }
     });
-    it('swapTokensForExactTokens: swap CERBY --> cerUSD --> 1015 USDC; received USDC is correct', async () => {
+    it('swapTokensForExactTokens: swap BTC --> CERBY --> 1015 USDC; received USDC is correct', async () => {
         await delay(DELAY_BETWEEN_TESTS);
         const accounts = await web3.eth.getAccounts();
         const firstAccount = accounts[0];
@@ -875,7 +875,7 @@ contract('Cerby', (accounts) => {
                 .lte(_BN(afterUSDCPool.balanceCerby).mul(_BN(afterUSDCPool.balanceToken))));
         }
     });
-    it('swapTokensForExactTokens: swap CERBY --> 1016 USDC; received USDC is correct', async () => {
+    it('swapTokensForExactTokens: swap BTC --> 1016 USDC; received USDC is correct', async () => {
         await delay(DELAY_BETWEEN_TESTS);
         const accounts = await web3.eth.getAccounts();
         const firstAccount = accounts[0];
@@ -923,7 +923,7 @@ contract('Cerby', (accounts) => {
                 .lte(_BN(afterUSDCPool.balanceCerby).mul(_BN(afterUSDCPool.balanceToken))));
         }
     });
-    it('swapTokensForExactTokens: swap USDC --> cerUSD --> 1017 CERBY; received CERBY is correct', async () => {
+    it('swapTokensForExactTokens: swap USDC --> CERBY --> 1017 BTC; received BTC is correct', async () => {
         await delay(DELAY_BETWEEN_TESTS);
         const accounts = await web3.eth.getAccounts();
         const firstAccount = accounts[0];
@@ -973,7 +973,7 @@ contract('Cerby', (accounts) => {
                 .lte(_BN(afterUSDCPool.balanceCerby).mul(_BN(afterUSDCPool.balanceToken))));
         }
     });
-    it('swapTokensForExactTokens: swap USDC --> 1018 CERBY; received CERBY is correct', async () => {
+    it('swapTokensForExactTokens: swap USDC --> 1018 BTC; received BTC is correct', async () => {
         await delay(DELAY_BETWEEN_TESTS);
         const accounts = await web3.eth.getAccounts();
         const firstAccount = accounts[0];
@@ -1095,7 +1095,7 @@ contract('Cerby', (accounts) => {
     // ---------------------------------------------------------- //
     // swapExactTokensForTokens ETH tests //
     // ---------------------------------------------------------- //
-    it('swapExactTokensForTokens: swap 1021e10 ETH --> cerUSD; received cerUSD is correct', async () => {
+    it('swapExactTokensForTokens: swap 1021e10 ETH --> CERBY; received CERBY is correct', async () => {
         await delay(DELAY_BETWEEN_TESTS);
         const accounts = await web3.eth.getAccounts();
         const firstAccount = accounts[0];
@@ -1120,7 +1120,7 @@ contract('Cerby', (accounts) => {
                 .lte(_BN(afterEthPool.balanceCerby).mul(_BN(afterEthPool.balanceToken))));
         }
     });
-    it('swapExactTokensForTokens: swap 1022 cerUSD --> ETH; received ETH is correct', async () => {
+    it('swapExactTokensForTokens: swap 1022 CERBY --> ETH; received ETH is correct', async () => {
         await delay(DELAY_BETWEEN_TESTS);
         const accounts = await web3.eth.getAccounts();
         const firstAccount = accounts[0];
@@ -1145,7 +1145,7 @@ contract('Cerby', (accounts) => {
                 .lte(_BN(afterEthPool.balanceCerby).mul(_BN(afterEthPool.balanceToken))));
         }
     });
-    it('swapExactTokensForTokens: swap 1023 cerUSD --> ETH --> cerUSD; sent cerUSD >= received cerUSD', async () => {
+    it('swapExactTokensForTokens: swap 1023 CERBY --> ETH --> CERBY; sent CERBY >= received CERBY', async () => {
         await delay(DELAY_BETWEEN_TESTS);
         const accounts = await web3.eth.getAccounts();
         const firstAccount = accounts[0];
@@ -1181,7 +1181,7 @@ contract('Cerby', (accounts) => {
                 .lte(_BN(afterEthPool.balanceCerby).mul(_BN(afterEthPool.balanceToken))));
         }
     });
-    it('swapExactTokensForTokens: swap 1024e10 ETH --> cerUSD --> ETH; sent ETH >= received ETH', async () => {
+    it('swapExactTokensForTokens: swap 1024e10 ETH --> CERBY --> ETH; sent ETH >= received ETH', async () => {
         await delay(DELAY_BETWEEN_TESTS);
         const accounts = await web3.eth.getAccounts();
         const firstAccount = accounts[0];
@@ -1221,7 +1221,7 @@ contract('Cerby', (accounts) => {
                 .lte(_BN(afterEthPool.balanceCerby).mul(_BN(afterEthPool.balanceToken))));
         }
     });
-    it('swapExactTokensForTokens: swap 1025e10 ETH --> cerUSD --> USDC; received USDC is correct', async () => {
+    it('swapExactTokensForTokens: swap 1025e10 ETH --> CERBY --> USDC; received USDC is correct', async () => {
         await delay(DELAY_BETWEEN_TESTS);
         const accounts = await web3.eth.getAccounts();
         const firstAccount = accounts[0];
@@ -1317,7 +1317,7 @@ contract('Cerby', (accounts) => {
                 .lte(_BN(afterUSDCPool.balanceCerby).mul(_BN(afterUSDCPool.balanceToken))));
         }
     });
-    it('swapExactTokensForTokens: swap 1027 USDC --> cerUSD --> ETH; received ETH is correct', async () => {
+    it('swapExactTokensForTokens: swap 1027 USDC --> CERBY --> ETH; received ETH is correct', async () => {
         await delay(DELAY_BETWEEN_TESTS);
         const accounts = await web3.eth.getAccounts();
         const firstAccount = accounts[0];
@@ -1415,7 +1415,7 @@ contract('Cerby', (accounts) => {
     // ---------------------------------------------------------- //
     // swapTokensForExactTokens ETH tests //
     // ---------------------------------------------------------- //
-    it('swapTokensForExactTokens: swap ETH --> 1031e10 cerUSD; received cerUSD is correct', async () => {
+    it('swapTokensForExactTokens: swap ETH --> 1031e10 CERBY; received CERBY is correct', async () => {
         await delay(DELAY_BETWEEN_TESTS);
         const accounts = await web3.eth.getAccounts();
         const firstAccount = accounts[0];
@@ -1440,7 +1440,7 @@ contract('Cerby', (accounts) => {
                 .lte(_BN(afterEthPool.balanceCerby).mul(_BN(afterEthPool.balanceToken))));
         }
     });
-    it('swapTokensForExactTokens: swap cerUSD --> 1032e10 ETH; received ETH is correct', async () => {
+    it('swapTokensForExactTokens: swap CERBY --> 1032e10 ETH; received ETH is correct', async () => {
         await delay(DELAY_BETWEEN_TESTS);
         const accounts = await web3.eth.getAccounts();
         const firstAccount = accounts[0];
@@ -1465,7 +1465,7 @@ contract('Cerby', (accounts) => {
                 .lte(_BN(afterEthPool.balanceCerby).mul(_BN(afterEthPool.balanceToken))));
         }
     });
-    it('swapTokensForExactTokens: swap cerUSD --> ETH --> 1033e10 cerUSD; sent cerUSD >= received cerUSD', async () => {
+    it('swapTokensForExactTokens: swap CERBY --> ETH --> 1033e10 cerUSD; sent CERBY >= received CERBY', async () => {
         await delay(DELAY_BETWEEN_TESTS);
         const accounts = await web3.eth.getAccounts();
         const firstAccount = accounts[0];
@@ -1507,7 +1507,7 @@ contract('Cerby', (accounts) => {
                 .lte(_BN(afterEthPool.balanceCerby).mul(_BN(afterEthPool.balanceToken))));
         }
     });
-    it('swapTokensForExactTokens: swap ETH --> cerUSD --> 1034e10 CERBY; sent ETH >= received ETH', async () => {
+    it('swapTokensForExactTokens: swap ETH --> CERBY --> 1034e10 BTC; sent ETH >= received ETH', async () => {
         await delay(DELAY_BETWEEN_TESTS);
         const accounts = await web3.eth.getAccounts();
         const firstAccount = accounts[0];
@@ -1546,7 +1546,7 @@ contract('Cerby', (accounts) => {
                 .lte(_BN(afterEthPool.balanceCerby).mul(_BN(afterEthPool.balanceToken))));
         }
     });
-    it('swapTokensForExactTokens: swap ETH --> cerUSD --> 1035e10 USDC; received USDC is correct', async () => {
+    it('swapTokensForExactTokens: swap ETH --> CERBY --> 1035e10 USDC; received USDC is correct', async () => {
         await delay(DELAY_BETWEEN_TESTS);
         const accounts = await web3.eth.getAccounts();
         const firstAccount = accounts[0];
@@ -1640,7 +1640,7 @@ contract('Cerby', (accounts) => {
                 .lte(_BN(afterUSDCPool.balanceCerby).mul(_BN(afterUSDCPool.balanceToken))));
         }
     });
-    it('swapTokensForExactTokens: swap USDC --> cerUSD --> 1037e10 ETH; received ETH is correct', async () => {
+    it('swapTokensForExactTokens: swap USDC --> CERBY --> 1037e10 ETH; received ETH is correct', async () => {
         await delay(DELAY_BETWEEN_TESTS);
         const accounts = await web3.eth.getAccounts();
         const firstAccount = accounts[0];
@@ -1737,14 +1737,14 @@ contract('Cerby', (accounts) => {
     // ---------------------------------------------------------- //
     // add and remove liquidity tests //
     // ---------------------------------------------------------- //
-    it('add & remove liquidity: add liquidity CERBY, remove liquidity CERBY; amount of tokens must be equal', async () => {
+    it('add & remove liquidity: add liquidity BTC, remove liquidity BTC; amount of tokens must be equal', async () => {
         await delay(DELAY_BETWEEN_TESTS);
         const accounts = await web3.eth.getAccounts();
         const secondAccount = accounts[1];
         const cerbyToken = await TestBtcToken.at(BTC_TOKEN_ADDRESS);
         const cerUsdToken = await TestCerbyToken.at(CERBY_TOKEN_ADDRESS);
         const cerbySwap = await CerbySwapV1.deployed();
-        const CERBY_POOL_POS = await cerbySwap.getTokenToPoolId(BTC_TOKEN_ADDRESS);
+        const BTC_POOL_POS = await cerbySwap.getTokenToPoolId(BTC_TOKEN_ADDRESS);
         {
             const oneK = _BN(1000e12);
             const minAmountTokensOut = _BN(0);
@@ -1773,7 +1773,7 @@ contract('Cerby', (accounts) => {
             let midtimeCerbyBalance = await cerbyToken.balanceOf(secondAccount);
             assert.deepEqual(_BN(midtimeCerbyBalance).toString(), _BN(0).toString());
             // removing liquidity using thirdAccount
-            await cerbySwap.removeTokenLiquidity(BTC_TOKEN_ADDRESS, await cerbySwap.balanceOf(secondAccount, CERBY_POOL_POS), expireTimestamp, transferTo, { from: secondAccount, });
+            await cerbySwap.removeTokenLiquidity(BTC_TOKEN_ADDRESS, await cerbySwap.balanceOf(secondAccount, BTC_POOL_POS), expireTimestamp, transferTo, { from: secondAccount, });
             const afterCerbyPool = (await cerbySwap.getPoolsBalancesByTokens([BTC_TOKEN_ADDRESS]))[0];
             // check account balance must be larger than 1000 CERBY
             const afterCerbyBalance = await cerbyToken.balanceOf(secondAccount);
@@ -1786,7 +1786,7 @@ contract('Cerby', (accounts) => {
     // ---------------------------------------------------------- //
     // two wallets tests //
     // ---------------------------------------------------------- //
-    it('two wallets: add liquidity CERBY (1st wallet), 1 trade CERBY --> cerUSD --> CERBY (2nd wallet), remove liquidity CERBY (1st wallet); balance of 1st wallet must be increased becayse if trade fee', async () => {
+    it('two wallets: add liquidity BTC (1st wallet), 1 trade BTC --> CERBY --> BTC (2nd wallet), remove liquidity BTC (1st wallet); balance of 1st wallet must be increased becayse if trade fee', async () => {
         await delay(DELAY_BETWEEN_TESTS);
         const accounts = await web3.eth.getAccounts();
         const secondAccount = accounts[1];
@@ -1794,7 +1794,7 @@ contract('Cerby', (accounts) => {
         const cerbyToken = await TestBtcToken.at(BTC_TOKEN_ADDRESS);
         const cerUsdToken = await TestCerbyToken.at(CERBY_TOKEN_ADDRESS);
         const cerbySwap = await CerbySwapV1.deployed();
-        const CERBY_POOL_POS = await cerbySwap.getTokenToPoolId(BTC_TOKEN_ADDRESS);
+        const BTC_POOL_POS = await cerbySwap.getTokenToPoolId(BTC_TOKEN_ADDRESS);
         {
             const oneK = _BN(1000).mul(bn1e18);
             const minAmountTokensOut = _BN(0);
@@ -1836,7 +1836,7 @@ contract('Cerby', (accounts) => {
             await cerbySwap.swapExactTokensForTokens(CERBY_TOKEN_ADDRESS, BTC_TOKEN_ADDRESS, amountOut, minAmountTokensOut, expireTimestamp, secondAccount, { from: secondAccount });
             // ====================== //
             // removing liquidity using thirdAccount
-            await cerbySwap.removeTokenLiquidity(BTC_TOKEN_ADDRESS, await cerbySwap.balanceOf(thirdAccount, CERBY_POOL_POS), expireTimestamp, transferTo, { from: thirdAccount, });
+            await cerbySwap.removeTokenLiquidity(BTC_TOKEN_ADDRESS, await cerbySwap.balanceOf(thirdAccount, BTC_POOL_POS), expireTimestamp, transferTo, { from: thirdAccount, });
             const afterCerbyPool = (await cerbySwap.getPoolsBalancesByTokens([BTC_TOKEN_ADDRESS]))[0];
             // check account balance must be larger than 1000 CERBY
             const afterCerbyBalance = await cerbyToken.balanceOf(thirdAccount);
@@ -1846,13 +1846,13 @@ contract('Cerby', (accounts) => {
     // ---------------------------------------------------------- //
     // hack tests //
     // ---------------------------------------------------------- //
-    it('hacks: buy 1000e12 CERBY, add liquidity, 3 trades CERBY --> cerUSD --> CERBY, remove liquidity; result CERBY <= 1000e12', async () => {
+    it('hacks: buy 1000e12 BTC, add liquidity, 3 trades BTC --> CERBY --> BTC, remove liquidity; result BTC <= 1000e12', async () => {
         await delay(DELAY_BETWEEN_TESTS);
         const accounts = await web3.eth.getAccounts();
         const firstAccount = accounts[0];
         const cerbyToken = await TestBtcToken.at(BTC_TOKEN_ADDRESS);
         const cerbySwap = await CerbySwapV1.deployed();
-        const CERBY_POOL_POS = await cerbySwap.getTokenToPoolId(BTC_TOKEN_ADDRESS);
+        const BTC_POOL_POS = await cerbySwap.getTokenToPoolId(BTC_TOKEN_ADDRESS);
         {
             const minAmountTokensOut = _BN(0);
             const maxAmountTokensIn = _BN(1).mul(bn1e18);
@@ -1873,7 +1873,7 @@ contract('Cerby', (accounts) => {
             assert.deepEqual(_BN(beforeCerbyBalance).toString(), _BN(amountTokensOut).toString());
             const beforeCerbyPool = (await cerbySwap.getPoolsBalancesByTokens([BTC_TOKEN_ADDRESS]))[0];
             // adding 1000 CERBY to liquidity
-            const totalLPSupply = await cerbySwap.methods['totalSupply(uint256)'](CERBY_POOL_POS);
+            const totalLPSupply = await cerbySwap.methods['totalSupply(uint256)'](BTC_POOL_POS);
             const lpTokens = amountTokensIn
                 .mul(totalLPSupply)
                 .div(_BN(beforeCerbyPool.balanceToken));
@@ -1899,13 +1899,13 @@ contract('Cerby', (accounts) => {
             assert.isTrue(_BN(beforeCerbyBalance).gte(_BN(afterCerbyBalance)));
         }
     });
-    it('hacks: buy 1000e12 CERBY, add liquidity, 2 trades CERBY --> cerUSD --> USDC --> cerUSD --> CERBY, remove liquidity; result CERBY <= 1000e12', async () => {
+    it('hacks: buy 1000e12 BTC, add liquidity, 2 trades BTC --> CERBY --> USDC --> CERBY --> BTC, remove liquidity; result BTC <= 1000e12', async () => {
         await delay(DELAY_BETWEEN_TESTS);
         const accounts = await web3.eth.getAccounts();
         const firstAccount = accounts[0];
         const cerbyToken = await TestBtcToken.at(BTC_TOKEN_ADDRESS);
         const cerbySwap = await CerbySwapV1.deployed();
-        const CERBY_POOL_POS = await cerbySwap.getTokenToPoolId(BTC_TOKEN_ADDRESS);
+        const BTC_POOL_POS = await cerbySwap.getTokenToPoolId(BTC_TOKEN_ADDRESS);
         {
             const minAmountTokensOut = _BN(0);
             const maxAmountTokensIn = _BN(1).mul(bn1e18);
@@ -1926,7 +1926,7 @@ contract('Cerby', (accounts) => {
             assert.deepEqual(_BN(beforeCerbyBalance).toString(), _BN(amountTokensOut).toString());
             const beforeCerbyPool = (await cerbySwap.getPoolsBalancesByTokens([BTC_TOKEN_ADDRESS]))[0];
             // adding 1000 CERBY to liquidity
-            const totalLPSupply = await cerbySwap.methods['totalSupply(uint256)'](CERBY_POOL_POS);
+            const totalLPSupply = await cerbySwap.methods['totalSupply(uint256)'](BTC_POOL_POS);
             const lpTokens = amountTokensIn
                 .mul(totalLPSupply)
                 .div(_BN(beforeCerbyPool.balanceToken));
@@ -1952,13 +1952,13 @@ contract('Cerby', (accounts) => {
             assert.isTrue(_BN(beforeCerbyBalance).gte(_BN(afterCerbyBalance)));
         }
     });
-    it('hacks: buy 1000e12 CERBY, add liquidity 1000e12 CERBY, swap CERBY --> cerUSD, remove liquidity, swap cerUSD --> CERBY; result CERBY <= 2000e12', async () => {
+    it('hacks: buy 1000e12 BTC, add liquidity 1000e12 BTC, swap BTC --> CERBY, remove liquidity, swap CERBY --> BTC; result BTC <= 2000e12', async () => {
         await delay(DELAY_BETWEEN_TESTS);
         const accounts = await web3.eth.getAccounts();
         const firstAccount = accounts[0];
         const cerbyToken = await TestBtcToken.at(BTC_TOKEN_ADDRESS);
         const cerbySwap = await CerbySwapV1.deployed();
-        const CERBY_POOL_POS = await cerbySwap.getTokenToPoolId(BTC_TOKEN_ADDRESS);
+        const BTC_POOL_POS = await cerbySwap.getTokenToPoolId(BTC_TOKEN_ADDRESS);
         {
             const minAmountTokensOut = _BN(0);
             const maxAmountTokensIn = _BN(1).mul(bn1e18);
@@ -1979,7 +1979,7 @@ contract('Cerby', (accounts) => {
             assert.deepEqual(beforeCerbyBalance.toString(), amountTokensOut.toString());
             const beforeCerbyPool = (await cerbySwap.getPoolsBalancesByTokens([BTC_TOKEN_ADDRESS]))[0];
             // adding 1000 CERBY to liquidity
-            const totalLPSupply = await cerbySwap.methods['totalSupply(uint256)'](CERBY_POOL_POS);
+            const totalLPSupply = await cerbySwap.methods['totalSupply(uint256)'](BTC_POOL_POS);
             const lpTokens = amountTokensIn
                 .mul(totalLPSupply)
                 .div(_BN(beforeCerbyPool.balanceToken));
@@ -2003,9 +2003,9 @@ contract('Cerby', (accounts) => {
         }
     });
     // ---------------------------------------------------------- //
-    // getCurrentSellFee tests //
+    // getCurrentTradeFee tests //
     // ---------------------------------------------------------- //
-    it('getCurrentSellFee: time travel, do small trade, time travel, check fee', async () => {
+    it('getCurrentTradeFee: time travel, do small trade, time travel, check fee', async () => {
         await delay(DELAY_BETWEEN_TESTS);
         const accounts = await web3.eth.getAccounts();
         const firstAccount = accounts[0];
@@ -2059,8 +2059,6 @@ contract('Cerby', (accounts) => {
             amountTokensIn = _BN(1e6);
             await cerbySwap.swapExactTokensForTokens(tokenIn, tokenOut, amountTokensIn, minAmountTokensOut, expireTimestamp, transferTo);
             pool = (await cerbySwap.getPoolsByTokens([BTC_TOKEN_ADDRESS]))[0];
-            cerbyPool = (await cerbySwap.getPoolsBalancesByTokens([BTC_TOKEN_ADDRESS]))[0];
-            console.log(cerbyPool.balanceToken.toString(), cerbyPool.balanceCerby.toString());
             // fee must be max
             assert.deepEqual(pool.lastCachedFee.toString(), FEE_MAXIMUM.toString());
         }
@@ -2068,7 +2066,7 @@ contract('Cerby', (accounts) => {
     // ---------------------------------------------------------- //
     // creditCerUsd tests //
     // ---------------------------------------------------------- //
-    it('reduce creditCerUsd, try swapping CERBY --> cerUSD: must revert', async () => {
+    it('reduce creditCerUsd, try swapping BTC --> CERBY: must revert', async () => {
         await delay(DELAY_BETWEEN_TESTS);
         const accounts = await web3.eth.getAccounts();
         const firstAccount = accounts[0];
@@ -2137,18 +2135,18 @@ contract('Cerby', (accounts) => {
             assert.isTrue(_BN(afterEthPool.balanceCerby).gte(_BN(beforeEthPool.balanceCerby).sub(amountCerUsdOut)));
         }
     });
-    it('removeTokenLiquidity: remove 10% CERBY; pool must be updated correctly', async () => {
+    it('removeTokenLiquidity: remove 10% BTC; pool must be updated correctly', async () => {
         await delay(DELAY_BETWEEN_TESTS);
         const accounts = await web3.eth.getAccounts();
         const firstAccount = accounts[0];
         const cerbySwap = await CerbySwapV1.deployed();
-        const CERBY_POOL_POS = await cerbySwap.getTokenToPoolId(BTC_TOKEN_ADDRESS);
+        const BTC_POOL_POS = await cerbySwap.getTokenToPoolId(BTC_TOKEN_ADDRESS);
         const beforeCerbyPool = (await cerbySwap.getPoolsBalancesByTokens([BTC_TOKEN_ADDRESS]))[0];
-        const beforeLpTokens = await cerbySwap.balanceOf(firstAccount, CERBY_POOL_POS);
+        const beforeLpTokens = await cerbySwap.balanceOf(firstAccount, BTC_POOL_POS);
         {
             const tokenOut = BTC_TOKEN_ADDRESS;
-            const amountLPTokensBurn = await (await cerbySwap.balanceOf(firstAccount, CERBY_POOL_POS)).div(_BN(10));
-            const totalLPSupply = await cerbySwap.methods['totalSupply(uint256)'](CERBY_POOL_POS);
+            const amountLPTokensBurn = await (await cerbySwap.balanceOf(firstAccount, BTC_POOL_POS)).div(_BN(10));
+            const totalLPSupply = await cerbySwap.methods['totalSupply(uint256)'](BTC_POOL_POS);
             const amountTokensOut = _BN(beforeCerbyPool.balanceToken)
                 .mul(amountLPTokensBurn)
                 .div(totalLPSupply);
@@ -2159,7 +2157,7 @@ contract('Cerby', (accounts) => {
             const transferTo = firstAccount;
             await cerbySwap.removeTokenLiquidity(tokenOut, amountLPTokensBurn, expireTimestamp, transferTo);
             const afterCerbyPool = (await cerbySwap.getPoolsBalancesByTokens([BTC_TOKEN_ADDRESS]))[0];
-            const afterLpTokens = await cerbySwap.balanceOf(firstAccount, CERBY_POOL_POS);
+            const afterLpTokens = await cerbySwap.balanceOf(firstAccount, BTC_POOL_POS);
             // check lp tokens decreased
             assert.deepEqual(_BN(beforeLpTokens).sub(amountLPTokensBurn).toString(), _BN(afterLpTokens).toString());
             // check pool decreased balance not more than it should've
@@ -2199,18 +2197,18 @@ contract('Cerby', (accounts) => {
             assert.deepEqual(_BN(beforeEthPool.balanceCerby).sub(amountCerUsdOut).toString(), _BN(afterEthPool.balanceCerby).toString());
         }
     });
-    it('removeTokenLiquidity: remove all CERBY; pool must be updated correctly', async () => {
+    it('removeTokenLiquidity: remove all BTC; pool must be updated correctly', async () => {
         await delay(DELAY_BETWEEN_TESTS);
         const accounts = await web3.eth.getAccounts();
         const firstAccount = accounts[0];
         const cerbySwap = await CerbySwapV1.deployed();
-        const CERBY_POOL_POS = await cerbySwap.getTokenToPoolId(BTC_TOKEN_ADDRESS);
+        const BTC_POOL_POS = await cerbySwap.getTokenToPoolId(BTC_TOKEN_ADDRESS);
         const beforeCerbyPool = (await cerbySwap.getPoolsBalancesByTokens([BTC_TOKEN_ADDRESS]))[0];
-        const beforeLpTokens = await cerbySwap.balanceOf(firstAccount, CERBY_POOL_POS);
+        const beforeLpTokens = await cerbySwap.balanceOf(firstAccount, BTC_POOL_POS);
         {
             const tokenOut = BTC_TOKEN_ADDRESS;
-            const amountLPTokensBurn = await cerbySwap.balanceOf(firstAccount, CERBY_POOL_POS);
-            const totalLPSupply = await cerbySwap.methods['totalSupply(uint256)'](CERBY_POOL_POS);
+            const amountLPTokensBurn = await cerbySwap.balanceOf(firstAccount, BTC_POOL_POS);
+            const totalLPSupply = await cerbySwap.methods['totalSupply(uint256)'](BTC_POOL_POS);
             const amountTokensOut = _BN(beforeCerbyPool.balanceToken)
                 .mul(amountLPTokensBurn)
                 .div(totalLPSupply);
@@ -2221,7 +2219,7 @@ contract('Cerby', (accounts) => {
             const transferTo = firstAccount;
             await cerbySwap.removeTokenLiquidity(tokenOut, amountLPTokensBurn, expireTimestamp, transferTo);
             const afterCerbyPool = (await cerbySwap.getPoolsBalancesByTokens([BTC_TOKEN_ADDRESS]))[0];
-            const afterLpTokens = await cerbySwap.balanceOf(firstAccount, CERBY_POOL_POS);
+            const afterLpTokens = await cerbySwap.balanceOf(firstAccount, BTC_POOL_POS);
             // check lp tokens decreased
             assert.deepEqual(_BN(beforeLpTokens).sub(amountLPTokensBurn).toString(), _BN(afterLpTokens).toString());
             // check pool decreased balance

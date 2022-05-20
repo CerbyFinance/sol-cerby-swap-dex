@@ -19,14 +19,14 @@ module.exports = {
             skipDryRun: true
         }*/
     },
-    /*mocha: {
+    mocha: {
         useColors: true,
         reporter: "eth-gas-reporter",
         reporterOptions: {
             currency: "USD",
             gasPrice: 5
         }
-    },*/
+    },
     compilers: {
         solc: {
             version: "^0.8.14",
