@@ -16,6 +16,9 @@ abstract contract ERC1155 {
 
     mapping(uint256 => uint256) erc1155TotalSupply;
 
+    enum IsContractValues{ NOT_INITIALIZED, IS_CONTRACT, IS_WALLET }
+    mapping(address => IsContractValues) private isContractStorage;
+
     address constant BURN_ADDRESS = address(0);
 
     event TransferSingle(
@@ -97,11 +100,12 @@ abstract contract ERC1155 {
     {
         uint256[] memory batchBalances = new uint256[](_accounts.length);
 
-        for (uint256 i; i < _ids.length; ) {
+        uint256 idsLength = _ids.length;
+        for (uint256 i; i < idsLength; ) {
             batchBalances[i] = balanceOf(_accounts[i], _ids[i]);
 
             unchecked {
-                i++;
+                ++i;
             }
         }
 
@@ -121,7 +125,8 @@ abstract contract ERC1155 {
         view
         returns (bool)
     {
-        return erc1155TotalSupply[_id] > 0;
+        // != 0 is more gas-efficient than > 0
+        return erc1155TotalSupply[_id] != 0;
     }
 
     function _safeTransferFrom(
@@ -230,8 +235,14 @@ abstract contract ERC1155 {
     )
         private
     {
-        // TODO: add caching
-        if (isContract(_to)) {
+        // updating cache if needed
+        if (isContractStorage[_to] == IsContractValues.NOT_INITIALIZED) {
+            isContractStorage[_to] = isContract(_to)? IsContractValues.IS_CONTRACT:
+                IsContractValues.IS_WALLET;
+        }
+
+        // reusing cache
+        if (isContractStorage[_to] == IsContractValues.IS_CONTRACT) {
             try
                 IERC1155Receiver(_to).onERC1155Received(
                     _operator,
@@ -263,6 +274,8 @@ abstract contract ERC1155 {
         assembly {
             size := extcodesize(_account)
         }
-        return size > 0;
+
+        // != 0 is more gas-efficient than > 0
+        return size != 0;
     }
 }

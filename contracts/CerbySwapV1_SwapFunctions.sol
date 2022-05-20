@@ -443,28 +443,32 @@ abstract contract CerbySwapV1_SwapFunctions is CerbySwapV1_LiquidityFunctions {
 
         // calculating fees
         // if swap is XXX --> CERBY, fee is zero
-        // else swap is CERBY --> XXX, fee is calculated
+        // else swap is CERBY --> XXX, fee is applied
         uint256 fee;
         if (_amountCerbyIn > 1 && _amountTokensIn <= 1) {
 
             if (block.timestamp > pool.nextUpdateWillBeAt) {
+                // need to update cache
                 // saving the fee to use it in the current period
-                pool.lastCachedFee = uint8(
-                    _getCurrentFeeBasedOnTrades(
-                        pool.tradeVolumeThisPeriodInCerby, 
-                        _poolBalancesBefore
-                    )
+                fee = _getCurrentFeeBasedOnTrades(
+                    pool.sellVolumeThisPeriodInCerby, 
+                    _poolBalancesBefore
                 );
+                pool.lastCachedFee = uint8(fee);
 
                 // emptying current trade volume
-                pool.tradeVolumeThisPeriodInCerby = 0;
+                pool.sellVolumeThisPeriodInCerby = 0;
 
                 // scheduling next update
                 pool.nextUpdateWillBeAt = uint32(block.timestamp) + settings.onePeriodInSeconds;
-            }
+            } else {
+                // getting fee from cache
+                fee = uint256(pool.lastCachedFee);  
+            }              
             
-            // getting updated fee from storage
-            fee = uint256(pool.lastCachedFee);           
+            // updating trade volume only for CERBY --> XXX
+            // because only in this direction fee is applied
+            pool.sellVolumeThisPeriodInCerby += uint216(_amountCerbyIn);         
         }
 
         // calculating old K value including trade fees (multiplied by FEE_DENORM^2)
@@ -487,15 +491,13 @@ abstract contract CerbySwapV1_SwapFunctions is CerbySwapV1_LiquidityFunctions {
         }
 
         // updating creditCerby only if pool is user-created
-        if (pool.creditCerby < MAX_CERBY_CREDIT) {
+        // (official pools if pool.creditCerby == MAX_CERBY_CREDIT
+        if (pool.creditCerby != MAX_CERBY_CREDIT) {
             pool.creditCerby = uint128(
                 uint256(pool.creditCerby) + _amountCerbyIn -
                     _amountCerbyOut
             );
-        }
-
-        // 
-        pool.tradeVolumeThisPeriodInCerby += uint216(_amountCerbyIn + _amountCerbyOut);        
+        }      
 
         // getting cached vault address to not calculate each time
         ICerbySwapV1_Vault vaultAddress = cachedTokenValues[_token].vaultAddress;

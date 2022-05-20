@@ -35,7 +35,7 @@ contract CerbySwapV1 is CerbySwapV1_AdminFunctions {
 
         pools.push(
             Pool({
-                tradeVolumeThisPeriodInCerby: 0,
+                sellVolumeThisPeriodInCerby: 0,
                 lastCachedFee: 0,
                 nextUpdateWillBeAt: 0,
                 lastSqrtKValue: 0,

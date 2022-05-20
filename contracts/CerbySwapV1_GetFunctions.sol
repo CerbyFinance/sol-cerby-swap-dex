@@ -80,7 +80,7 @@ abstract contract CerbySwapV1_GetFunctions is
         );
 
         return _getCurrentFeeBasedOnTrades(
-            pool.tradeVolumeThisPeriodInCerby,
+            pool.sellVolumeThisPeriodInCerby,
             poolBalances
         );
     }
@@ -178,7 +178,7 @@ abstract contract CerbySwapV1_GetFunctions is
     }
 
     function _getCurrentFeeBasedOnTrades(
-        uint256 _tradeVolumeThisPeriodInCerby,
+        uint256 _sellVolumeThisPeriodInCerby,
         PoolBalances memory _poolBalances
     )
         internal
@@ -192,20 +192,20 @@ abstract contract CerbySwapV1_GetFunctions is
         uint256 tvlMin = _poolBalances.balanceCerby * uint256(settings.tvlMultiplierMinimum) / 
             TVL_MULTIPLIER_DENORM;
 
-        if (_tradeVolumeThisPeriodInCerby <= tvlMin) {
+        if (_sellVolumeThisPeriodInCerby <= tvlMin) {
             return uint256(settings.feeMaximum); // fee is maximum
         }
 
         uint256 tvlMax = _poolBalances.balanceCerby * uint256(settings.tvlMultiplierMaximum) /
             TVL_MULTIPLIER_DENORM;
-        if (_tradeVolumeThisPeriodInCerby >= tvlMax) {
+        if (_sellVolumeThisPeriodInCerby >= tvlMax) {
             return uint256(settings.feeMinimum); // fee is minimum
         }
 
         // fee is between minimum and maximum
         return uint256(settings.feeMaximum) - 
             (uint256(settings.feeMaximum) - uint256(settings.feeMinimum)) * 
-            (_tradeVolumeThisPeriodInCerby - tvlMin) / (tvlMax - tvlMin); 
+            (_sellVolumeThisPeriodInCerby - tvlMin) / (tvlMax - tvlMin); 
     }
 
     function _getOutputExactTokensForCerby(

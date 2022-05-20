@@ -112,7 +112,7 @@ abstract contract CerbySwapV1_ERC1155 is ERC1155, CerbyCronJobsExecution {
         uint256 length;
 
         while (j != 0) {
-            length++;
+            ++length;
             j /= 10;
         }
 

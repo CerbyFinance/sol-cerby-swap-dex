@@ -137,7 +137,7 @@ abstract contract CerbySwapV1_LiquidityFunctions is
         );
 
         Pool memory pool = Pool({
-            tradeVolumeThisPeriodInCerby: 0,
+            sellVolumeThisPeriodInCerby: 0,
             lastCachedFee: uint8(settings.feeMaximum),
             nextUpdateWillBeAt: uint32(block.timestamp) + settings.onePeriodInSeconds,
             lastSqrtKValue: uint128(newSqrtKValue),

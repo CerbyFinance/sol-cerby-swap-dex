@@ -19,8 +19,8 @@ abstract contract CerbySwapV1_AdminFunctions is
     }
 
     function adminUpdateNameAndSymbol(
-        string memory _newContractName,
-        string memory _newContractSymbol
+        string calldata _newContractName,
+        string calldata _newContractSymbol
     )
         external
         onlyOwner
@@ -58,7 +58,7 @@ abstract contract CerbySwapV1_AdminFunctions is
 
     // only admins are allowed to create new pools with creditCerby = unlimitted
     // this is only for trusted tokens such as ETH, BNB, UNI, etc
-    function adminCreatePool( // Q3: is it used somewhere?
+    function adminCreatePool(
         ICerbyERC20 _token,
         uint256 _amountTokensIn,
         uint256 _amountCerbyToMint,
@@ -82,7 +82,7 @@ abstract contract CerbySwapV1_AdminFunctions is
     // admins will be able to fix it by increasing credit
     // and swapping extra tokens + adding back to liquidity
     // using external contract assigned with admin role
-    function adminChangeCerbyCreditInPool( // Q3: is it used somewhere?
+    function adminChangeCerbyCreditInPool(
         ICerbyERC20 _token,
         uint256 _amountCerbyCredit
     )

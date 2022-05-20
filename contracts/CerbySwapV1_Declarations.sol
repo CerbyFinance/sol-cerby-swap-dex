@@ -52,7 +52,7 @@ abstract contract CerbySwapV1_Declarations {
     }
 
     struct Pool {
-        uint216 tradeVolumeThisPeriodInCerby;
+        uint216 sellVolumeThisPeriodInCerby;
         uint8 lastCachedFee;
         uint32 nextUpdateWillBeAt;
         uint128 lastSqrtKValue;
@@ -66,25 +66,25 @@ abstract contract CerbySwapV1_Declarations {
 
 
     event PoolCreated(
-        ICerbyERC20 _token,
+        ICerbyERC20 indexed _token,
         ICerbySwapV1_Vault _vaultAddress,
         uint256 _poolId
     );
 
     event LiquidityAdded(
-        ICerbyERC20 _token,
+        ICerbyERC20 indexed _token,
         uint256 _amountTokensIn,
         uint256 _amountCerbyToMint,
         uint256 _lpAmount
     );
     event LiquidityRemoved(
-        ICerbyERC20 _token,
+        ICerbyERC20 indexed _token,
         uint256 _amountTokensOut,
         uint256 _amountCerbyToBurn,
         uint256 _amountLpTokensBalanceToBurn
     );
     event Swap(
-        ICerbyERC20 _token,
+        ICerbyERC20 indexed _token,
         address _sender,
         uint256 _amountTokensIn,
         uint256 _amountCerbyIn,
@@ -94,7 +94,7 @@ abstract contract CerbySwapV1_Declarations {
         address _transferTo
     );
     event Sync(
-        ICerbyERC20 _token,
+        ICerbyERC20 indexed _token,
         uint256 _newBalanceToken,
         uint256 _newBalanceCerby,
         uint256 _newCreditCerby
