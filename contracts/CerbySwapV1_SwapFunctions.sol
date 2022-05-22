@@ -68,10 +68,7 @@ abstract contract CerbySwapV1_SwapFunctions is CerbySwapV1_LiquidityFunctions {
             revert CerbySwapV1_SwappingTokenToSameTokenIsForbidden();
         }
 
-        ICerbySwapV1_Vault vaultAddressIn = 
-            NATIVE_TOKEN != _tokenIn?
-                cachedTokenValues[_tokenIn].vaultAddress:
-                ICerbySwapV1_Vault(address(this));
+        ICerbySwapV1_Vault vaultAddressIn = _getVaultAddress(_tokenIn);
 
         uint256[] memory amounts = new uint256[](2);
         amounts[0] = _amountTokensIn;
@@ -126,10 +123,7 @@ abstract contract CerbySwapV1_SwapFunctions is CerbySwapV1_LiquidityFunctions {
         }
 
         // swaping CERBY --> YYY
-        ICerbySwapV1_Vault vaultAddressOut = 
-            NATIVE_TOKEN != _tokenOut?
-                cachedTokenValues[_tokenOut].vaultAddress:
-                ICerbySwapV1_Vault(address(this));
+        ICerbySwapV1_Vault vaultAddressOut = _getVaultAddress(_tokenOut);
 
         PoolBalances memory poolOutBalancesBefore;
 
@@ -260,10 +254,7 @@ abstract contract CerbySwapV1_SwapFunctions is CerbySwapV1_LiquidityFunctions {
             revert CerbySwapV1_SwappingTokenToSameTokenIsForbidden();
         }
 
-        ICerbySwapV1_Vault vaultAddressIn = 
-            NATIVE_TOKEN != _tokenIn?
-                cachedTokenValues[_tokenIn].vaultAddress:
-                ICerbySwapV1_Vault(address(this));
+        ICerbySwapV1_Vault vaultAddressIn = _getVaultAddress(_tokenIn);
 
         uint256[] memory amounts = new uint256[](2);
         amounts[1] = _amountTokensOut;
@@ -318,10 +309,7 @@ abstract contract CerbySwapV1_SwapFunctions is CerbySwapV1_LiquidityFunctions {
         }
 
         // swapping CERBY --> YYY
-        ICerbySwapV1_Vault vaultAddressOut = 
-            NATIVE_TOKEN != _tokenOut?
-                cachedTokenValues[_tokenOut].vaultAddress:
-                ICerbySwapV1_Vault(address(this));
+        ICerbySwapV1_Vault vaultAddressOut = _getVaultAddress(_tokenOut);
 
         PoolBalances memory poolOutBalancesBefore;
 
@@ -538,10 +526,7 @@ abstract contract CerbySwapV1_SwapFunctions is CerbySwapV1_LiquidityFunctions {
         }      
 
         // getting cached vault address to not calculate each time
-        ICerbySwapV1_Vault vaultAddress = 
-            NATIVE_TOKEN != _token?
-                cachedTokenValues[_token].vaultAddress:
-                ICerbySwapV1_Vault(address(this));
+        ICerbySwapV1_Vault vaultAddress = _getVaultAddress(_token);
 
         // safely transfering CERBY
         _safeTransferFromHelper(

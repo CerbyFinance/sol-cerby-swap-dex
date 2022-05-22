@@ -24,7 +24,7 @@ abstract contract CerbySwapV1_GetFunctions is
     {
         return NATIVE_TOKEN;
     }
-    
+
     function getTokenToPoolId(
         ICerbyERC20 _token
     )
@@ -171,6 +171,17 @@ abstract contract CerbySwapV1_GetFunctions is
             _getPoolBalances(_tokenIn),
             amountCerbyOut
         );
+    }
+
+    function _getVaultAddress(ICerbyERC20 _token)
+        internal
+        view
+        returns(ICerbySwapV1_Vault)
+    {
+        if (NATIVE_TOKEN == _token) return ICerbySwapV1_Vault(address(this));
+
+        // non-native token vault is always cached
+        return cachedTokenValues[_token].vaultAddress;
     }
 
     function _getCurrentFeeBasedOnTrades(

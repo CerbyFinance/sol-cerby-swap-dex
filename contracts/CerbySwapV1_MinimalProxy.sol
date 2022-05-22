@@ -8,7 +8,7 @@ import "./CerbySwapV1_Declarations.sol";
 
 contract CerbySwapV1_MinimalProxy is CerbySwapV1_Declarations {
 
-    function cloneVault(
+    function _cloneVault(
         ICerbyERC20 _token
     )
         internal

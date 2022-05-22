@@ -90,15 +90,16 @@ abstract contract CerbySwapV1_LiquidityFunctions is
             revert CerbySwapV1_AmountOfTokensMustBeLargerThanOne();
         }
 
+        // for native token we use current contract as a vault
         ICerbySwapV1_Vault vaultAddress = ICerbySwapV1_Vault(address(this));
 
         if (NATIVE_TOKEN != _token) {
             // creating vault contract to safely store tokens
-            vaultAddress = cloneVault(
+            vaultAddress = _cloneVault(
                 _token
             );
 
-            ICerbySwapV1_Vault(vaultAddress).initialize(
+            vaultAddress.initialize(
                 _token
             );
         }
@@ -233,10 +234,7 @@ abstract contract CerbySwapV1_LiquidityFunctions is
         uint256 poolId = cachedTokenValues[_token].poolId;
         Pool storage pool = pools[poolId];
 
-        ICerbySwapV1_Vault vaultInAddress = 
-            NATIVE_TOKEN != _token?
-                cachedTokenValues[_token].vaultAddress:
-                ICerbySwapV1_Vault(address(this));
+        ICerbySwapV1_Vault vaultInAddress = _getVaultAddress(_token);
 
         // remembering balance before the transfer
         PoolBalances memory poolBalancesBefore = _getPoolBalances(
@@ -406,10 +404,7 @@ abstract contract CerbySwapV1_LiquidityFunctions is
         );
 
         // burning CERBY
-        ICerbySwapV1_Vault vaultOutAddress = 
-            NATIVE_TOKEN != _token?
-                cachedTokenValues[_token].vaultAddress:
-                ICerbySwapV1_Vault(address(this));
+        ICerbySwapV1_Vault vaultOutAddress = _getVaultAddress(_token);
 
         CERBY_TOKEN.burnHumanAddress(
             address(vaultOutAddress),

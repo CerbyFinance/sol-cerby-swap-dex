@@ -7,6 +7,13 @@ import "./CerbySwapV1_SwapFunctions.sol";
 
 contract CerbySwapV1 is CerbySwapV1_AdminFunctions {
 
+
+    /* TODO: tests
+        1. swap ETH --> Cerby, Token but provide less/more eth than _amount in params
+        2. provide eth while removing ETH liquidity
+        3. provide less/more eth than _amount in params while adding ETH liquidity
+    */
+
     constructor() {
 
         _transferOwnership(
