@@ -68,7 +68,10 @@ abstract contract CerbySwapV1_SwapFunctions is CerbySwapV1_LiquidityFunctions {
             revert CerbySwapV1_SwappingTokenToSameTokenIsForbidden();
         }
 
-        ICerbySwapV1_Vault vaultAddressIn = cachedTokenValues[_tokenIn].vaultAddress;
+        ICerbySwapV1_Vault vaultAddressIn = 
+            NATIVE_TOKEN != _tokenIn?
+                cachedTokenValues[_tokenIn].vaultAddress:
+                ICerbySwapV1_Vault(address(this));
 
         uint256[] memory amounts = new uint256[](2);
         amounts[0] = _amountTokensIn;
@@ -81,6 +84,12 @@ abstract contract CerbySwapV1_SwapFunctions is CerbySwapV1_LiquidityFunctions {
             poolInBalancesBefore = _getPoolBalances(
                 _tokenIn
             );
+
+            // because native token is already sent to the contract during the call
+            // we need to substract msg.value in order to know balance before the transfer
+            if (NATIVE_TOKEN == _tokenIn) {
+                poolInBalancesBefore.balanceToken -= msg.value;
+            }
 
             // getting amountTokensOut
             amounts[1] = _getOutputExactTokensForCerby(
@@ -117,7 +126,10 @@ abstract contract CerbySwapV1_SwapFunctions is CerbySwapV1_LiquidityFunctions {
         }
 
         // swaping CERBY --> YYY
-        ICerbySwapV1_Vault vaultAddressOut = cachedTokenValues[_tokenOut].vaultAddress;
+        ICerbySwapV1_Vault vaultAddressOut = 
+            NATIVE_TOKEN != _tokenOut?
+                cachedTokenValues[_tokenOut].vaultAddress:
+                ICerbySwapV1_Vault(address(this));
 
         PoolBalances memory poolOutBalancesBefore;
 
@@ -170,6 +182,12 @@ abstract contract CerbySwapV1_SwapFunctions is CerbySwapV1_LiquidityFunctions {
             _tokenIn
         );
 
+        // because native token is already sent to the contract during the call
+        // we need to substract msg.value in order to know balance before the transfer
+        if (NATIVE_TOKEN == _tokenIn) {
+            poolInBalancesBefore.balanceToken -= msg.value;
+        }
+
         // getting amountTokensOut
         uint256 amountCerbyOut = _getOutputExactTokensForCerby(
             poolInBalancesBefore,
@@ -202,7 +220,7 @@ abstract contract CerbySwapV1_SwapFunctions is CerbySwapV1_LiquidityFunctions {
         );
 
         // swapping XXX ---> CERBY
-        // keeping all output CERBY in the contract without sending
+        // transferring output CERBY from vaultIn to vaultOut
         _swap(
             _tokenIn,
             poolInBalancesBefore,
@@ -242,7 +260,10 @@ abstract contract CerbySwapV1_SwapFunctions is CerbySwapV1_LiquidityFunctions {
             revert CerbySwapV1_SwappingTokenToSameTokenIsForbidden();
         }
 
-        ICerbySwapV1_Vault vaultAddressIn = cachedTokenValues[_tokenIn].vaultAddress;
+        ICerbySwapV1_Vault vaultAddressIn = 
+            NATIVE_TOKEN != _tokenIn?
+                cachedTokenValues[_tokenIn].vaultAddress:
+                ICerbySwapV1_Vault(address(this));
 
         uint256[] memory amounts = new uint256[](2);
         amounts[1] = _amountTokensOut;
@@ -255,6 +276,12 @@ abstract contract CerbySwapV1_SwapFunctions is CerbySwapV1_LiquidityFunctions {
             poolInBalancesBefore = _getPoolBalances(
                 _tokenIn
             );
+
+            // because native token is already sent to the contract during the call
+            // we need to substract msg.value in order to know balance before the transfer
+            if (NATIVE_TOKEN == _tokenIn) {
+                poolInBalancesBefore.balanceToken -= msg.value;
+            }
 
             // getting amountTokensOut
             amounts[0] = _getInputTokensForExactCerby(
@@ -291,7 +318,10 @@ abstract contract CerbySwapV1_SwapFunctions is CerbySwapV1_LiquidityFunctions {
         }
 
         // swapping CERBY --> YYY
-        ICerbySwapV1_Vault vaultAddressOut = cachedTokenValues[_tokenOut].vaultAddress;
+        ICerbySwapV1_Vault vaultAddressOut = 
+            NATIVE_TOKEN != _tokenOut?
+                cachedTokenValues[_tokenOut].vaultAddress:
+                ICerbySwapV1_Vault(address(this));
 
         PoolBalances memory poolOutBalancesBefore;
 
@@ -362,6 +392,12 @@ abstract contract CerbySwapV1_SwapFunctions is CerbySwapV1_LiquidityFunctions {
             _tokenIn
         );
 
+        // because native token is already sent to the contract during the call
+        // we need to substract msg.value in order to know balance before the transfer
+        if (NATIVE_TOKEN == _tokenIn) {
+            poolInBalancesBefore.balanceToken -= msg.value;
+        }
+
         // amounts[0] is amountTokensIn
         amounts[0] = _getInputTokensForExactCerby(
             poolInBalancesBefore,
@@ -383,6 +419,7 @@ abstract contract CerbySwapV1_SwapFunctions is CerbySwapV1_LiquidityFunctions {
         );
 
         // swapping XXX ---> CERBY
+        // transferring output CERBY from vaultIn to vaultOut
         _swap(
             _tokenIn,
             poolInBalancesBefore,
@@ -501,7 +538,10 @@ abstract contract CerbySwapV1_SwapFunctions is CerbySwapV1_LiquidityFunctions {
         }      
 
         // getting cached vault address to not calculate each time
-        ICerbySwapV1_Vault vaultAddress = cachedTokenValues[_token].vaultAddress;
+        ICerbySwapV1_Vault vaultAddress = 
+            NATIVE_TOKEN != _token?
+                cachedTokenValues[_token].vaultAddress:
+                ICerbySwapV1_Vault(address(this));
 
         // safely transfering CERBY
         _safeTransferFromHelper(

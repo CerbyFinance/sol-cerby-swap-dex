@@ -120,4 +120,7 @@ abstract contract CerbySwapV1_Declarations {
     error CerbySwapV1_CreditCerbyMustNotBeBelowZero();
     error CerbySwapV1_CreditCerbyIsAlreadyMaximum();
     error CerbySwapV1_FeeOnTransferTokensAreForbidden();
+    error CerbySwapV1_MsgValueMustBeLargerOrEqualToAmountTokensIn();
+    error CerbySwapV1_MsgValueMustBeZeroForNonNativeTokenSwaps();
+    error CerbySwapV1_MsgValueMustBeZeroForRemovingLiquidity();
 }

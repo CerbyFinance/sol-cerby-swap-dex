@@ -10,12 +10,8 @@ contract CerbySwapV1_Vault {
     ICerbyERC20 constant CERBY_TOKEN = ICerbyERC20(0xE7126C0Fb4B1f5F79E5Bbec3948139dCF348B49C);
     address constant factory = 0xfAf360f184788b00623828165405D7F52820D789;
 
-    error CerbySwapV1_Vault_SafeTransferNativeFailed();
     error CerbySwapV1_Vault_CallerIsNotFactory();
-    error CerbySwapV1_Vault_AlreadyInitialized();
     error CerbySwapV1_Vault_SafeTransferFailed();
-
-    receive() external payable {}
 
     modifier onlyFactory {
         if (msg.sender != factory) {
@@ -28,29 +24,9 @@ contract CerbySwapV1_Vault {
         ICerbyERC20 _token
     )
         external
-    {
-        // initialize contract only once
-        if (address(token) != address(0)) {
-            revert CerbySwapV1_Vault_AlreadyInitialized();
-        }
-
-        token = _token;
-    }
-
-    function withdrawEth(
-        address _to,
-        uint256 _value
-    )
-        external
         onlyFactory
     {
-        // refer to https://github.com/Uniswap/solidity-lib/blob/c01640b0f0f1d8a85cba8de378cc48469fcfd9a6/contracts/libraries/TransferHelper.sol#L47-L50
-        (bool success, ) = _to.call{value: _value}(new bytes(0));
-
-        // we allow only successfull calls
-        if (!success) {
-            revert CerbySwapV1_Vault_SafeTransferNativeFailed();
-        }
+        token = _token;
     }
 
     function withdrawTokens(
@@ -72,17 +48,17 @@ contract CerbySwapV1_Vault {
 
     function token0()
         external
-        view
-        returns (ICerbyERC20)
-    {
-        return token;
-    }
-
-    function token1()
-        external
         pure
         returns (ICerbyERC20)
     {
         return CERBY_TOKEN;
+    }
+
+    function token1()
+        external
+        view
+        returns (ICerbyERC20)
+    {
+        return token;
     }
 }

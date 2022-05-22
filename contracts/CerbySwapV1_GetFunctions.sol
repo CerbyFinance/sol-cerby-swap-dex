@@ -9,6 +9,22 @@ abstract contract CerbySwapV1_GetFunctions is
     CerbySwapV1_Modifiers,
     CerbySwapV1_SafeFunctions
 {
+    function token0()
+        external
+        pure
+        returns(ICerbyERC20)
+    {
+        return CERBY_TOKEN;
+    }
+    
+    function token1()
+        external
+        pure
+        returns(ICerbyERC20)
+    {
+        return NATIVE_TOKEN;
+    }
+    
     function getTokenToPoolId(
         ICerbyERC20 _token
     )

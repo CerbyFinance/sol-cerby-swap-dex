@@ -48,4 +48,17 @@ interface ICerbyERC20 {
         external
         view
         returns (address);
+    
+    function transferFrom(
+        address _sender,
+        address _recipient,
+        uint256 _amount
+    ) external returns (bool);
+
+    function transfer(
+        address _recipient,
+        uint256 _amount
+    )
+        external
+        returns (bool);
 }

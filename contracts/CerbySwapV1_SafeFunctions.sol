@@ -25,6 +25,14 @@ abstract contract CerbySwapV1_SafeFunctions is CerbySwapV1_MinimalProxy
         view
         returns (PoolBalances memory)
     {
+        if (NATIVE_TOKEN == _token) {
+            return PoolBalances(
+                address(this).balance,
+                _getTokenBalance(CERBY_TOKEN, ICerbySwapV1_Vault(address(this)))
+            );
+        }
+
+        // non-native token
         ICerbySwapV1_Vault vault = 
             address(cachedTokenValues[_token].vaultAddress) == address(0) ? 
                 _generateVaultAddressByToken(_token) :
@@ -56,33 +64,91 @@ abstract contract CerbySwapV1_SafeFunctions is CerbySwapV1_MinimalProxy
     )
         internal
     {
+        // if for some reason we need to transfer nothing => just return without fail
         if (_amountTokens == 0) return;
 
-        if (_from == msg.sender) {
-            if (_token != NATIVE_TOKEN) {
-                // transferring tokens from user to vault
-                _safeCoreTransferFrom(
+        /* 
+        Only these transfer scenarios possible:
+            1) user --> vault, where vault = this contract (only for native token pool)
+                1.1) cerby tokens
+                1.2) native tokens
+            2) user --> vault, where vault != this contract (for non-native token pools)
+                2.1) cerby tokens
+                2.2) other tokens
+            3) vault --> user, where vault = this contract (only for native token pool)
+                3.1) cerby tokens
+                3.2) native tokens
+            4) vault --> user, where vault != this contract (for non-native token pools)
+                4.3) cerby tokens
+                4.4) other tokens
+            5) vaultA --> vault, where vault = this contract (only for native token pool)
+                5.1) cerby tokens
+            6) vault --> vaultA, where vault = this contract (only for native token pool)
+                6.1) cerby tokens
+        */
+
+
+        // 1) native token transfer from user to vault (or this contract)
+        if (_to == address(this)) {
+
+            // 5) 5.1) transferring cerby tokens from vaultA to vault (or this contract)
+            if (msg.sender != _from && _token == CERBY_TOKEN) {
+                ICerbySwapV1_Vault(_from).withdrawTokens(
                     _token,
+                    _to,
+                    _amountTokens
+                );
+                return;
+            }
+
+            // 1.1) transferring cerby token from user to this contract
+            if (_token == CERBY_TOKEN /* && msg.sender == _from */) {
+                // using regular transferFrom because it is known token that returns true
+                CERBY_TOKEN.transferFrom(
                     _from,
                     _to,
                     _amountTokens
                 );
-
-                return; // early exit for non-native tokens as they are having larger volume
+                return;
             }
 
-            // transferring native token from user to vault
-            uint256 nativeBalance = address(this).balance;
+            // 1.2) native token transferFrom
+            // if for some reason user sent us less eth than needed
+            // we are throwing an error
+            if (msg.value < _amountTokens) {
+                revert("x2"); // TODO: remove on production
+                revert CerbySwapV1_MsgValueMustBeLargerOrEqualToAmountTokensIn();
+            }
 
             // refunding excess of native tokens
-            // to make sure nativeBalance == amountTokensIn
-            if (nativeBalance > _amountTokens) {
+            // to make sure user sent exact _amountTokens we need
+            if (msg.value > _amountTokens) {
                 _safeCoreTransferNative(
                     msg.sender,
-                    nativeBalance - _amountTokens
+                    msg.value - _amountTokens
                 );
             }
 
+
+            // we don't transfer native token to the vault because
+            // vault is current contract for native tokens
+            return;
+        }
+
+        // 3) token transfer from vault (or this contract) to user
+        if (_from == address(this)) {
+
+            // 3.1) 6) 6.1) transferring CERBY token from this contract to user (or vault)
+            if (_token == CERBY_TOKEN) {
+                // using regular transfer because it is known token that returns true
+                CERBY_TOKEN.transfer(
+                    _to,
+                    _amountTokens
+                );
+                return;
+            }
+
+            // 3.2) native token transfer from this contract to user
             _safeCoreTransferNative(
                 _to,
                 _amountTokens
@@ -90,21 +156,37 @@ abstract contract CerbySwapV1_SafeFunctions is CerbySwapV1_MinimalProxy
             return;
         }
 
-        // transferring tokens from vault to user
-        if (_token != NATIVE_TOKEN) {
-            ICerbySwapV1_Vault(_from).withdrawTokens(
+        // 2) transferring tokens (incl. CERBY) from user to vault
+        if (_from == msg.sender) {
+            // 2.1) transferring cerby token from user to vault
+            if (_token == CERBY_TOKEN) {
+                // using regular transferFrom because it is known token that returns true
+                CERBY_TOKEN.transferFrom(
+                    _from,
+                    _to,
+                    _amountTokens
+                );
+                return;
+            }
+
+            // 2.2) transferring other token from user to vault
+            _safeCoreTransferFrom(
                 _token,
+                _from,
                 _to,
                 _amountTokens
             );
-            return; // early exit for non-native tokens as they are having larger volume
+            return; 
         }
 
-        // transferring native token from vault to user
-        ICerbySwapV1_Vault(_from).withdrawEth(
+        // 4) 4.1) 4.2) transferring tokens (incl. CERBY) from vault to user
+        // no other possible case available here
+        ICerbySwapV1_Vault(_from).withdrawTokens(
+            _token,
             _to,
             _amountTokens
         );
+        return;
     }
 
     function _safeCoreTransferFrom(

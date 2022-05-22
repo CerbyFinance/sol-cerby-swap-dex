@@ -90,14 +90,18 @@ abstract contract CerbySwapV1_LiquidityFunctions is
             revert CerbySwapV1_AmountOfTokensMustBeLargerThanOne();
         }
 
-        // creating vault contract to safely store tokens
-        ICerbySwapV1_Vault vaultAddress = cloneVault(
-            _token
-        );
+        ICerbySwapV1_Vault vaultAddress = ICerbySwapV1_Vault(address(this));
 
-        ICerbySwapV1_Vault(vaultAddress).initialize(
-            _token
-        );
+        if (NATIVE_TOKEN != _token) {
+            // creating vault contract to safely store tokens
+            vaultAddress = cloneVault(
+                _token
+            );
+
+            ICerbySwapV1_Vault(vaultAddress).initialize(
+                _token
+            );
+        }
 
         // non-official pools require forbidding basic fee-on-transfer tokens
         // however it is not a big deal if someone bypasses it
@@ -229,12 +233,21 @@ abstract contract CerbySwapV1_LiquidityFunctions is
         uint256 poolId = cachedTokenValues[_token].poolId;
         Pool storage pool = pools[poolId];
 
-        ICerbySwapV1_Vault vaultInAddress = cachedTokenValues[_token].vaultAddress;
+        ICerbySwapV1_Vault vaultInAddress = 
+            NATIVE_TOKEN != _token?
+                cachedTokenValues[_token].vaultAddress:
+                ICerbySwapV1_Vault(address(this));
 
         // remembering balance before the transfer
         PoolBalances memory poolBalancesBefore = _getPoolBalances(
             _token
         );
+
+        // because native token is already sent to the contract during the call
+        // we need to substract msg.value in order to know balance before the transfer
+        if (NATIVE_TOKEN == _token) {
+            poolBalancesBefore.balanceToken -= msg.value;
+        }
 
         // safely transferring tokens from sender to the vault
         // assuming that _amountTokensIn is exact amount transferred
@@ -393,7 +406,10 @@ abstract contract CerbySwapV1_LiquidityFunctions is
         );
 
         // burning CERBY
-        ICerbySwapV1_Vault vaultOutAddress = cachedTokenValues[_token].vaultAddress;
+        ICerbySwapV1_Vault vaultOutAddress = 
+            NATIVE_TOKEN != _token?
+                cachedTokenValues[_token].vaultAddress:
+                ICerbySwapV1_Vault(address(this));
 
         CERBY_TOKEN.burnHumanAddress(
             address(vaultOutAddress),

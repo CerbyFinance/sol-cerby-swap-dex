@@ -25,12 +25,6 @@ interface ICerbySwapV1_Vault {
         external
         returns (bool success);
 
-    function withdrawEth(
-        address _to,
-        uint256 _value
-    )
-        external;
-
     function withdrawTokens(
         ICerbyERC20 _token,
         address _to,
