@@ -99,31 +99,46 @@ abstract contract CerbySwapV1_LiquidityFunctions is
             _token
         );
 
-        // remembering balance before the transfer
-        uint256 balanceBefore = _getTokenBalance(_token, vaultAddress);
+        // non-official pools require forbidding basic fee-on-transfer tokens
+        // however it is not a big deal if someone bypasses it
+        // due to credit system they won't be allowed to withdraw more CERBY than deposited
+        if (_creditCerby != MAX_CERBY_CREDIT) {
+            // remembering balance before the transfer
+            uint256 balanceBefore = _getTokenBalance(_token, vaultAddress);
 
-        // safely transferring tokens from sender to the vault
-        _safeTransferFromHelper(
-            _token,
-            msg.sender,
-            address(vaultAddress),
-            _amountTokensIn
-        );
+            // safely transferring tokens from sender to the vault
+            _safeTransferFromHelper(
+                _token,
+                msg.sender,
+                address(vaultAddress),
+                _amountTokensIn
+            );
 
-        // remembering balance after the transfer
-        uint256 balanceAfter = _getTokenBalance(_token, vaultAddress);
+            // remembering balance after the transfer
+            uint256 balanceAfter = _getTokenBalance(_token, vaultAddress);
 
-        // making sure to forbid fee on transfer tokens on pool creation
-        // that means assuming anywhere else token is standard non fee-on-transfer
-        // _amountTokensIn is exactly how many tokens were transferred to vaultAddress
-        if (balanceAfter != balanceBefore + _amountTokensIn) {
-            revert CerbySwapV1_FeeOnTransferTokensAreForbidden();
+            // making sure to forbid fee on transfer tokens on pool creation
+            // that means assuming anywhere else token is standard non fee-on-transfer
+            // _amountTokensIn is exactly how many tokens were transferred to vaultAddress
+            if (balanceAfter != balanceBefore + _amountTokensIn) {
+                revert CerbySwapV1_FeeOnTransferTokensAreForbidden();
+            }
+
+            // usually balanceBefore must be zero
+            // if for some reason vault had tokens in the contract
+            // we consider user sent them and adding to his initial amount
+            _amountTokensIn += balanceBefore;
+        } else {
+
+            // safely transferring tokens from sender to the vault
+            // without extra checks
+            _safeTransferFromHelper(
+                _token,
+                msg.sender,
+                address(vaultAddress),
+                _amountTokensIn
+            );
         }
-
-        // usually balanceBefore must be zero
-        // if for some reason vault had tokens in the contract
-        // we consider user sent them and adding to his initial amount
-        _amountTokensIn += balanceBefore;
 
         // minting requested amount of CERBY tokens to vaultAddress
         CERBY_TOKEN.mintHumanAddress(
