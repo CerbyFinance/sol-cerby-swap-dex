@@ -40,7 +40,6 @@ contract CerbySwapV1_MinimalProxy is CerbySwapV1_Declarations {
             )
         }
 
-        cachedTokenValues[_token].vaultAddress = ICerbySwapV1_Vault(resultVaultAddress);
         return ICerbySwapV1_Vault(resultVaultAddress);
     }
 

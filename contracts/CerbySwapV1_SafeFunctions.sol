@@ -5,57 +5,10 @@ pragma solidity ^0.8.14;
 import "./interfaces/ICerbyERC20.sol";
 import "./interfaces/ICerbySwapV1_Vault.sol";
 import "./CerbySwapV1_MinimalProxy.sol";
+import "./CerbySwapV1_GetFunctions.sol";
 
-abstract contract CerbySwapV1_SafeFunctions is CerbySwapV1_MinimalProxy
+abstract contract CerbySwapV1_SafeFunctions is CerbySwapV1_MinimalProxy, CerbySwapV1_GetFunctions
 {
-    function getPoolBalancesByToken(
-        ICerbyERC20 _token
-    )
-        external
-        view
-        returns (PoolBalances memory)
-    {
-        return _getPoolBalances(_token);
-    }
-
-    function _getPoolBalances(
-        ICerbyERC20 _token
-    )
-        internal
-        view
-        returns (PoolBalances memory)
-    {
-        if (NATIVE_TOKEN == _token) {
-            return PoolBalances(
-                address(this).balance,
-                _getTokenBalance(CERBY_TOKEN, ICerbySwapV1_Vault(address(this)))
-            );
-        }
-
-        // non-native token
-        ICerbySwapV1_Vault vault = 
-            address(cachedTokenValues[_token].vaultAddress) == address(0) ? 
-                _generateVaultAddressByToken(_token) :
-                cachedTokenValues[_token].vaultAddress;
-
-        return PoolBalances(
-            _getTokenBalance(_token, vault),
-            _getTokenBalance(CERBY_TOKEN, vault)
-        );
-    }
-
-    function _getTokenBalance(
-        ICerbyERC20 _token,
-        ICerbySwapV1_Vault _vault
-    )
-        internal
-        view
-        returns (uint256)
-    {
-        return _token == NATIVE_TOKEN ? address(_vault).balance :
-            _token.balanceOf(address(_vault));
-    }
-
     function _safeTransferFromHelper(
         ICerbyERC20 _token,
         address _from,

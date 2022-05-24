@@ -2,7 +2,7 @@
 
 pragma solidity ^0.8.14;
 
-import "./CerbySwapV1_GetFunctions.sol";
+import "./CerbySwapV1_SafeFunctions.sol";
 import "./CerbySwapV1_Modifiers.sol";
 import "./CerbySwapV1_Math.sol";
 import "./CerbySwapV1_ERC1155.sol";
@@ -12,7 +12,7 @@ abstract contract CerbySwapV1_LiquidityFunctions is
     CerbySwapV1_Modifiers,
     CerbySwapV1_Math,
     CerbySwapV1_ERC1155,
-    CerbySwapV1_GetFunctions
+    CerbySwapV1_SafeFunctions
 {
     // user can increase CERBY credit in the pool
     function increaseCerbyCreditInPool(
@@ -80,7 +80,9 @@ abstract contract CerbySwapV1_LiquidityFunctions is
     )
         internal
     {
-        if (cachedTokenValues[_token].poolId > 0) {
+        // pool already exists
+        TokenCache storage tokenCache = cachedTokenValues[_token];
+        if (tokenCache.poolId > 0) {
             revert ("saddsasadsdaasd");
             revert CerbySwapV1_TokenAlreadyExists();
         }
@@ -102,6 +104,9 @@ abstract contract CerbySwapV1_LiquidityFunctions is
             vaultAddress.initialize(
                 _token
             );
+
+            // updating cached vault address
+            tokenCache.vaultAddress = vaultAddress;
         }
 
         // non-official pools require forbidding basic fee-on-transfer tokens
@@ -151,7 +156,6 @@ abstract contract CerbySwapV1_LiquidityFunctions is
             _amountCerbyToMint
         );
 
-
         uint256 newSqrtKValue = sqrt(
             _amountTokensIn * _amountCerbyToMint
         );
@@ -169,7 +173,7 @@ abstract contract CerbySwapV1_LiquidityFunctions is
         pools.push(pool);
 
         // remembering poolId in the mapping
-        cachedTokenValues[_token].poolId = uint96(poolId);
+        tokenCache.poolId = uint96(poolId);
 
         // minting 1000 lp tokens to null address as per uniswap v2 whitepaper
         // refer to 3.4 Initialization of liquidity token supply https://uniswap.org/whitepaper.pdf

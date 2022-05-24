@@ -55,7 +55,7 @@ abstract contract CerbySwapV1_Declarations {
         uint128 sellVolumeThisPeriodInCerby;
         uint8 lastCachedFee;
         uint32 nextUpdateWillBeAt;
-        uint128 lastSqrtKValue;
+        uint128 lastSqrtKValue; // almost impossible to overflow: sqrt(balanceToken * balanceCerby) <= (balanceToken + balanceCerby) / 2
         uint128 creditCerby;
     }
 
